@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GameProject</string>
+    <string name="reaction_game">Reaction Game</string>
+    <string name="puzzle_game">Puzzle Game</string>
+    <string name="obstacle_game">Obstacle Game</string>
+    <string name="title_activity_obstacle_game">obstacleGameActivity</string>
 </resources>

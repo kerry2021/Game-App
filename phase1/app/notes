@@ -1,0 +1,6 @@
+#######
+#Step 1
+Code Affected: MainActivity
+Added three new activties for each minigame, added buttons in MainActivity to start each new activity
+Added gamePanel and mainThread for handling front end
+Added/edited corresponding XML files
