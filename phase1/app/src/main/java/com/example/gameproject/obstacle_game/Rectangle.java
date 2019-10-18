@@ -1,26 +1,30 @@
 package com.example.gameproject.obstacle_game;
 
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
+import android.graphics.Canvas;
 
-import com.example.gameproject.R;
-
-import androidx.core.content.ContextCompat;
-
-public class Rectangle extends Obstacle{
+public class Rectangle extends SpaceItem{
 
     Rectangle() {
         super();
-        Drawable d = ContextCompat.getDrawable(getContext(), R.drawable.rectangle_view);
-        d.setBounds(0, 0, 225, 225);
-        setImage(d);
+        setCoordinate(300, 0);
     }
 
     Rectangle(int x, int y) {
         super(x, y);
-        Drawable d = ContextCompat.getDrawable(getContext(), R.drawable.rectangle_view);
-        setImage(d);
     }
 
+    void draw(Canvas canvas) {
+        int x = getX();
+        int y = getY();
+        canvas.drawRect(0, 0, x, y, getPaintText());
+    }
 
+    void move() {
+        setCoordinate(getX() - 1, getY());
+    }
+
+    Boolean outOfScreen() {
+        int x = getX();
+        return (x <= 0);
+    }
 }

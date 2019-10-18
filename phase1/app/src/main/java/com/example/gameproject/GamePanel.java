@@ -1,11 +1,16 @@
 package com.example.gameproject;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import com.example.gameproject.obstacle_game.AdventureManger;
 
 
 /*
@@ -14,6 +19,18 @@ import android.view.SurfaceView;
  */
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
+
+    public static float charWidth;
+
+    public static float charHeight;
+
+    public AdventureManger adventure;
+
+    private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+
+    private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+
+
     private MainThread thread;
 
     public GamePanel(Context context) {
@@ -25,11 +42,22 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height) {
-
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
+
+        Paint paintText = new Paint();
+        paintText.setTextSize(36);
+        paintText.setTypeface(Typeface.DEFAULT_BOLD);
+        charWidth = paintText.measureText("W") / 100;
+        charHeight = -paintText.ascent() + paintText.descent() / 100;
+
+        // Use the letter size and screen height to determine the size of the fish tank.
+        adventure = new AdventureManger(
+                (int) (screenHeight / charHeight), (int) (screenWidth / charWidth));
+        // AdventureManger.createTankItems();
+
         thread = new MainThread(getHolder(), this);
         thread.setRunning(true);
         thread.start();
