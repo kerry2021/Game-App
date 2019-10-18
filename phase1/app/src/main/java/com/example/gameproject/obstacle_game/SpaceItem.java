@@ -8,7 +8,7 @@ import android.graphics.Typeface;
 class SpaceItem{
     private int x;
     private int y;
-    private Paint painText;
+    private Paint paintText = new Paint();
 
     SpaceItem() {
         setPainText();
@@ -21,11 +21,9 @@ class SpaceItem{
     }
 
     private void setPainText() {
-        this.painText = new Paint();
-        Paint paintText = new Paint();
         paintText.setTextSize(36);
         paintText.setTypeface(Typeface.DEFAULT_BOLD);
-        paintText.setColor(Color.WHITE);
+        paintText.setColor(Color.CYAN);
     }
 
     void setCoordinate(int x, int y) {
@@ -42,7 +40,7 @@ class SpaceItem{
     }
 
     Paint getPaintText() {
-        return painText;
+        return paintText;
     }
 
     void move(){}

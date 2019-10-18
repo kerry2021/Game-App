@@ -1,4 +1,4 @@
-package com.example.gameproject;
+package com.example.gameproject.obstacle_game;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -10,31 +10,29 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.example.gameproject.MainThread;
-import com.example.gameproject.obstacle_game.AdventureManger;
-
-
 /*
  * a game panel
  * a sightly tweaked version of code found on https://www.youtube.com/watch?v=OojQitoAEXs&t=1234s
  */
 
-public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
+public class obstacleGamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     public static float charWidth;
 
     public static float charHeight;
 
+    public AdventureManger adventureManger;
+
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
 
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 
-    private MainThread thread;
+    private obstacleThread thread;
 
-    public GamePanel(Context context) {
+    public obstacleGamePanel(Context context) {
         super(context);
         getHolder().addCallback(this);
-        thread = new MainThread(getHolder(), this);
+        thread = new obstacleThread(getHolder(), this);
         setFocusable(true);
     }
 
@@ -44,7 +42,18 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        thread = new MainThread(getHolder(), this);
+        Paint paintText = new Paint();
+        paintText.setTextSize(36);
+        paintText.setTypeface(Typeface.DEFAULT_BOLD);
+        charWidth = paintText.measureText("W");
+        charHeight = -paintText.ascent() + paintText.descent();
+
+        // Use the letter size and screen height to determine the size of the fish tank.
+        adventureManger = new AdventureManger(
+                (int) (screenHeight / charHeight), (int) (screenWidth / charWidth));
+        adventureManger.createSpaceItems();
+
+        thread = new obstacleThread(getHolder(), this);
         thread.setRunning(true);
         thread.start();
     }
@@ -70,12 +79,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update() {
-
+        adventureManger.update();
     }
 
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
+        if (canvas != null) {
+            adventureManger.draw(canvas);
+        }
     }
 
     //canvas.drawText("ae", 1, 100, new Paint());
