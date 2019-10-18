@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <string name="app_name">GameProject</string>
     <string name="reaction_game">Reaction Game</string>
     <string name="puzzle_game">Puzzle Game</string>

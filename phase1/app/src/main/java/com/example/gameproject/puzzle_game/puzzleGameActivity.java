@@ -11,6 +11,6 @@ public class puzzleGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_puzzle_game);
+        setContentView(R.layout.acitivity_puzzle_game);
     }
 }

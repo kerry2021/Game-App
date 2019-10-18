@@ -16,9 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".puzzle_game.puzzleGameActivity"/>
-        <activity android:name=".reaction_game.reactionGameActivity"/>
-        <activity android:name=".obstacle_game.obstacleGameActivity"/>
+        <activity android:name=".puzzle_game.puzzleGameActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".reaction_game.reactionGameActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".obstacle_game.obstacleGameActivity"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>
