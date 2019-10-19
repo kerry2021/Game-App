@@ -10,7 +10,10 @@ import com.example.gameproject.GamePanel;
  * a sightly tweaked version of code found on https://www.youtube.com/watch?v=OojQitoAEXs&t=1234s
  */
 
-
+/**
+ * This is the Thread copy from FishTank's MainThread.
+ * The Thread you did before is below.
+ */
 public class obstacleThread extends Thread {
 
     public static Canvas canvas;
@@ -62,6 +65,9 @@ public class obstacleThread extends Thread {
     }
 }
 
+/**
+ * This is the Thread you copy from the internet. I don't know why it couldn't run now, try to figure it out.
+ */
 
 /*
 public class obstacleThread extends Thread {

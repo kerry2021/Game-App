@@ -6,20 +6,38 @@ import static com.example.gameproject.obstacle_game.AdventureManger.getGridHeigh
 import static com.example.gameproject.obstacle_game.AdventureManger.getGridWidth;
 
 class SpaceShip extends SpaceItem{
+    /**
+     * The JumpHeight of this spaceship.
+     * (Still have to test after finish the coordinate system, not a certain value)
+     */
     private static int JumpHeight = getGridWidth() / 6;
 
+    /**
+     * Constructs a new Spaceship.
+     * (The default location should be somewhere in the middle width and low bottom of the screen.)
+     */
     SpaceShip() {
         super(getGridWidth() / 2, getGridHeight() / 2);
     }
 
+    /**
+     * Moves the spaceship upward for one unit.
+     */
     private void moveUp() {
         setCoordinate(getX() - 1, getY());
     }
 
+    /**
+     * Moves the spaceship downward for one unit.
+     */
     private void moveDown() {
         setCoordinate(getX() + 1, getY());
     }
 
+    /**
+     * Moves the spaceship until it reach the JumpHeight or go back to the default position
+     * (Still have to test and change about the function, it's only the beginning version.)
+     */
     void move() {
         int x = getX();
         int originalX = getGridWidth() / 2;
@@ -30,6 +48,9 @@ class SpaceShip extends SpaceItem{
         }
     }
 
+    /**
+     * Draws this spaceship item.
+     */
     void draw(Canvas canvas) {
         canvas.drawText(".", getX() * AdventureManger.getGridWidth(),
                 getY() * AdventureManger.getGridHeight(), getPaintText());

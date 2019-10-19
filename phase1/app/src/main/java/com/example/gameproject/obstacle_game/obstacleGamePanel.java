@@ -16,17 +16,34 @@ import android.view.SurfaceView;
  */
 
 public class obstacleGamePanel extends SurfaceView implements SurfaceHolder.Callback {
-
+    /**
+     * The width of a space item.
+     */
     public static float charWidth;
 
+    /**
+     * The height of a space item.
+     */
     public static float charHeight;
 
+    /**
+     * The adventure(obstacle game) content.
+     */
     public AdventureManger adventureManger;
 
+    /**
+     * The width of the screen.
+     */
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
 
+    /**
+     * The height of the screen.
+     */
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 
+    /**
+     * The part of the program that manages time.
+     */
     private obstacleThread thread;
 
     public obstacleGamePanel(Context context) {
@@ -48,7 +65,7 @@ public class obstacleGamePanel extends SurfaceView implements SurfaceHolder.Call
         charWidth = paintText.measureText("W");
         charHeight = -paintText.ascent() + paintText.descent();
 
-        // Use the letter size and screen height to determine the size of the fish tank.
+        // Use the letter size and screen height to determine the size of the Space.
         adventureManger = new AdventureManger(
                 (int) (screenHeight / charHeight), (int) (screenWidth / charWidth));
         adventureManger.createSpaceItems();
@@ -78,6 +95,9 @@ public class obstacleGamePanel extends SurfaceView implements SurfaceHolder.Call
         return super.onTouchEvent(event);
     }
 
+    /**
+     * Updates the adventure information.
+     */
     public void update() {
         adventureManger.update();
     }
