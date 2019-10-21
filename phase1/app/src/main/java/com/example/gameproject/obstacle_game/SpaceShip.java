@@ -1,6 +1,7 @@
 package com.example.gameproject.obstacle_game;
 
 import android.graphics.Canvas;
+import android.util.Log;
 
 import static com.example.gameproject.obstacle_game.AdventureManger.getGridHeight;
 import static com.example.gameproject.obstacle_game.AdventureManger.getGridWidth;
@@ -52,7 +53,9 @@ class SpaceShip extends SpaceItem{
      * Draws this spaceship item.
      */
     void draw(Canvas canvas) {
-        canvas.drawText(".", getX() * AdventureManger.getGridWidth(),
-                getY() * AdventureManger.getGridHeight(), getPaintText());
+        Log.i("Test", "drawn spaceship");
+        /*canvas.drawText("(--)Ship", getX() * AdventureManger.getGridWidth(),
+                getY() * AdventureManger.getGridHeight(), getPaintText());*/
+        canvas.drawText("ship(--)", 100, 100, getPaintText());
     }
 }

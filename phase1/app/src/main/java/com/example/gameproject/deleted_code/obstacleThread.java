@@ -1,4 +1,4 @@
-package com.example.gameproject.obstacle_game;
+package com.example.gameproject.deleted_code;
 
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
@@ -14,6 +14,8 @@ import com.example.gameproject.GamePanel;
  * This is the Thread copy from FishTank's MainThread.
  * The Thread you did before is below.
  */
+
+/*
 public class obstacleThread extends Thread {
 
     public static Canvas canvas;
@@ -64,7 +66,7 @@ public class obstacleThread extends Thread {
         this.isRunning = isRunning;
     }
 }
-
+*/
 /**
  * This is the Thread you copy from the internet. I don't know why it couldn't run now, try to figure it out.
  */
@@ -137,5 +139,5 @@ public class obstacleThread extends Thread {
         }
     }
 }
-*/
 
+*/

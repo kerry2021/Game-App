@@ -41,6 +41,7 @@ public class MainThread extends Thread {
                 canvas = this.surfaceHolder.lockCanvas();
                 synchronized (surfaceHolder) {
                     this.gamePanel.update();
+                    this.gamePanel.draw(canvas);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -71,7 +72,7 @@ public class MainThread extends Thread {
                 frameCount = 0;
                 totalTime = 0;
             }
-            System.out.println(averageFPS);
+            //System.out.println(averageFPS);
         }
     }
 }

@@ -63,6 +63,7 @@ public class AdventureManger {
      * first, and focus on the obstacle after that.)
      */
     void draw(Canvas canvas) {
+        Log.i("Test", "drawn");
         for (SpaceShip item: spaceShips) {
             item.draw(canvas);
         }
