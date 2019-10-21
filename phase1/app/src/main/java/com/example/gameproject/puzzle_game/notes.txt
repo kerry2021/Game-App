@@ -4,3 +4,8 @@ Code Affected: GestureDetectGridView, PuzzleAdapter, puzzleGameActivity, activit
 Added PuzzleAdapter and GestureDetectGridView as the custom adapter and view for this game.
 Added basic methods for sliding functions in puzzleGameActivity.
 Changed activity_puzzle_game to display GestureDetectGridView.
+
+#######
+#Step 2
+Code Affected: puzzleGameActivity, R.drawable
+Fixed errors in puzzleGameActivity by replacing puzzle picture with pictures in res.drawable.

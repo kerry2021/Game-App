@@ -109,23 +109,23 @@ public class puzzleGameActivity extends AppCompatActivity {
 
             //TODO: We need to have a few different Pictures, use variable instead?
             if (tileList[i].equals("0"))
-                button.setBackgroundResource(R.drawable.pigeon_piece1);
+                button.setBackgroundResource(R.drawable.p0);
             else if (tileList[i].equals("1"))
-                button.setBackgroundResource(R.drawable.pigeon_piece2);
+                button.setBackgroundResource(R.drawable.p1);
             else if (tileList[i].equals("2"))
-                button.setBackgroundResource(R.drawable.pigeon_piece3);
+                button.setBackgroundResource(R.drawable.p2);
             else if (tileList[i].equals("3"))
-                button.setBackgroundResource(R.drawable.pigeon_piece4);
+                button.setBackgroundResource(R.drawable.p3);
             else if (tileList[i].equals("4"))
-                button.setBackgroundResource(R.drawable.pigeon_piece5);
+                button.setBackgroundResource(R.drawable.p4);
             else if (tileList[i].equals("5"))
-                button.setBackgroundResource(R.drawable.pigeon_piece6);
+                button.setBackgroundResource(R.drawable.p5);
             else if (tileList[i].equals("6"))
-                button.setBackgroundResource(R.drawable.pigeon_piece7);
+                button.setBackgroundResource(R.drawable.p6);
             else if (tileList[i].equals("7"))
-                button.setBackgroundResource(R.drawable.pigeon_piece8);
+                button.setBackgroundResource(R.drawable.p7);
             else if (tileList[i].equals("8"))
-                button.setBackgroundResource(R.drawable.pigeon_piece9);
+                button.setBackgroundResource(R.drawable.p8);
 
             buttons.add(button);
         }
