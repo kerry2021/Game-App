@@ -3,6 +3,9 @@ package com.example.gameproject.puzzle_game;
 import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Toast;
@@ -13,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class puzzleGameActivity extends AppCompatActivity {
+
+    private static final String TAG = "Puzzle Game Activity";
 
     //Slightly tweaked version of gridview for displaying changes after swiping
     private static GestureDetectGridView mGridView;
@@ -42,9 +47,11 @@ public class puzzleGameActivity extends AppCompatActivity {
         randomize();
 
         setDimensions();
+        Log.i(TAG, "Game has Created.");
     }
 
     private void init() {
+        setContentView(R.layout.acitivity_puzzle_game);
         mGridView = (GestureDetectGridView) findViewById(R.id.grid);
         mGridView.setNumColumns(COLUMNS);
 
@@ -68,6 +75,7 @@ public class puzzleGameActivity extends AppCompatActivity {
         }
     }
 
+    /**Set dimensions for the  puzzles depending on the screen*/
     private void setDimensions() {
         ViewTreeObserver vto = mGridView.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -100,6 +108,7 @@ public class puzzleGameActivity extends AppCompatActivity {
         return result;
     }
 
+    /** display the code after each movement */
     private static void display(Context context) {
         ArrayList<Button> buttons = new ArrayList<>();
         Button button;
@@ -133,6 +142,7 @@ public class puzzleGameActivity extends AppCompatActivity {
         mGridView.setAdapter(new PuzzleAdapter(buttons, mColumnWidth, mColumnHeight));
     }
 
+    /**Swap the position of a current tile with another file*/
     private static void swap(Context context, int currentPosition, int swap) {
         String newPosition = tileList[currentPosition + swap];
         tileList[currentPosition + swap] = tileList[currentPosition];
@@ -142,6 +152,7 @@ public class puzzleGameActivity extends AppCompatActivity {
         if (isSolved()) Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
     }
 
+    /**Either Swap or not swap depending on the position and direction user want to swap*/
     public static void moveTiles(Context context, String direction, int position) {
 
         // Upper-left-corner tile
@@ -207,6 +218,7 @@ public class puzzleGameActivity extends AppCompatActivity {
         }
     }
 
+    /**Check whether the puzzle is solved*/
     private static boolean isSolved() {
         boolean solved = false;
 

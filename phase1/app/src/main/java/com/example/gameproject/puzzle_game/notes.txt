@@ -9,3 +9,10 @@ Changed activity_puzzle_game to display GestureDetectGridView.
 #Step 2
 Code Affected: puzzleGameActivity, R.drawable
 Fixed errors in puzzleGameActivity by replacing puzzle picture with pictures in res.drawable.
+
+#######
+#Step 3
+Code Affected: GestureDetectGridView, puzzleGameActivity, activity_puzzle_game
+Changed api in GestureDEtectGridView to 29.
+Added setContentView() in puzzleGameActivity.
+Changed activity_puzzle_game to the proper directory.
