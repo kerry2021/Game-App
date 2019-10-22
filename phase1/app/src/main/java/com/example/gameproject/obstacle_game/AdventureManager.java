@@ -6,7 +6,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdventureManger {
+public class AdventureManager {
     /**
      * List containing all SpaceShips in this adventure.
      */
@@ -33,7 +33,7 @@ public class AdventureManger {
      * @param height height of obstacleGamePanel in unit.
      * @param width width of obstacleGamePanel in unit.
      */
-    AdventureManger(int height, int width) {
+    AdventureManager(int width, int height) {
         gridHeight = height;
         gridWidth = width;
         spaceShips = new ArrayList<>();
@@ -63,7 +63,6 @@ public class AdventureManger {
      * first, and focus on the obstacle after that.)
      */
     void draw(Canvas canvas) {
-        Log.i("Test", "drawn");
         for (SpaceShip item: spaceShips) {
             item.draw(canvas);
         }

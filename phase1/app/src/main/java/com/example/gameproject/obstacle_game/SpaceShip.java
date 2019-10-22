@@ -3,10 +3,10 @@ package com.example.gameproject.obstacle_game;
 import android.graphics.Canvas;
 import android.util.Log;
 
-import static com.example.gameproject.obstacle_game.AdventureManger.getGridHeight;
-import static com.example.gameproject.obstacle_game.AdventureManger.getGridWidth;
+import static com.example.gameproject.obstacle_game.AdventureManager.getGridHeight;
+import static com.example.gameproject.obstacle_game.AdventureManager.getGridWidth;
 
-class SpaceShip extends SpaceItem{
+class SpaceShip extends SpaceItem {
     /**
      * The JumpHeight of this spaceship.
      * (Still have to test after finish the coordinate system, not a certain value)
@@ -54,8 +54,8 @@ class SpaceShip extends SpaceItem{
      */
     void draw(Canvas canvas) {
         Log.i("Test", "drawn spaceship");
-        /*canvas.drawText("(--)Ship", getX() * AdventureManger.getGridWidth(),
-                getY() * AdventureManger.getGridHeight(), getPaintText());*/
-        canvas.drawText("ship(--)", 100, 100, getPaintText());
+        canvas.drawText("(--)Ship", getX() * AdventureManager.getGridWidth(),
+                getY() * AdventureManager.getGridHeight(), getPaintText());
+        //canvas.drawText("ship(--)", 100, 100, getPaintText());
     }
 }

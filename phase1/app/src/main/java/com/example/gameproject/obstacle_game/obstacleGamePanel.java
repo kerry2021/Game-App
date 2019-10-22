@@ -27,9 +27,9 @@ public class obstacleGamePanel extends GamePanel {
      * The height of the screen.
      */
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-    AdventureManger adventureManger;
+    AdventureManager adventureManger;
 
-    obstacleGamePanel(Context context){
+    obstacleGamePanel(Context context) {
         super(context);
     }
 
@@ -41,7 +41,7 @@ public class obstacleGamePanel extends GamePanel {
         float charWidth = paintText.measureText("W");
         float charHeight = -paintText.ascent() + paintText.descent();
 
-        adventureManger = new AdventureManger((int)(screenWidth/charWidth), (int)(screenHeight/charHeight));
+        adventureManger = new AdventureManager((int) (screenWidth / charWidth), (int) (screenHeight / charHeight));
         adventureManger.createSpaceItems();
         super.surfaceCreated(surfaceHolder);
     }
@@ -54,7 +54,7 @@ public class obstacleGamePanel extends GamePanel {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-            if (canvas != null) {
+        if (canvas != null) {
             adventureManger.draw(canvas);
         }
     }
