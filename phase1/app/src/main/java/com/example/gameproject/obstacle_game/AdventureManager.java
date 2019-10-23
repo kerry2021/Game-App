@@ -1,11 +1,5 @@
 package com.example.gameproject.obstacle_game;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +74,20 @@ public class AdventureManager {
      * (Things we have to do first:
      * Know how to pass the obstacleGamePanel.onTouchEvent() into this function and then do Spaceship.update())
      */
-    void update() {}
+    void update() {
+        for (SpaceShip spaceShip: spaceShips) {
+            spaceShip.move();
+        }
+    }
+
+    /**
+     * Responds to events of player input, when the player touches, make the spaceship jump
+     */
+    void respondTouch(){
+        for (SpaceShip spaceShip: spaceShips) {
+            spaceShip.jump();
+        }
+    }
 
     /**
      * Create the items of this adventure.

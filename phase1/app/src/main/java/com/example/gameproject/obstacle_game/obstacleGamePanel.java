@@ -52,4 +52,12 @@ public class obstacleGamePanel extends GamePanel {
         drawer.update(adventureManger.getShips(), adventureManger.getObstacles());
         drawer.draw(canvas);
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            adventureManger.respondTouch();
+        }
+        return true;
+    }
 }

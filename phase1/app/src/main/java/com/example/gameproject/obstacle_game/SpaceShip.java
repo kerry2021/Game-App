@@ -8,31 +8,53 @@ import static com.example.gameproject.obstacle_game.AdventureManager.getGridWidt
 
 class SpaceShip extends SpaceItem {
     /**
-     * The JumpHeight of this spaceship.
+     * The JumpHeight of this spaceship per frame of jumping.
      * (Still have to test after finish the coordinate system, not a certain value)
      */
-    private static int JumpHeight = getGridWidth() / 6;
+    private static int jumpHeight = getGridWidth() / 30;
+    /**
+     * The units this ship would drop by default each frame
+     */
+    private static int dropHeight = getGridWidth() / 100;
+    /**
+     * the max number of frames this ship would keep jumping for
+     */
+    private int maxJumpDuration = 8;
+    /**
+     * the current number of frames this ship still have left to jump
+     */
+    private int jumpDurationLeft = 0;
 
     /**
-     * Constructs a new Spaceship.
+     * Constructs a new Spaceship with default jumpHeight, dropHeight, maxJumpDuration.
      * (The default location should be somewhere in the middle width and low bottom of the screen.)
      */
     SpaceShip() {
         super(getGridWidth() / 2, getGridHeight() / 2);
     }
 
+
+
     /**
      * Moves the spaceship upward for one unit.
      */
     private void moveUp() {
-        setCoordinate(getX() - 1, getY());
+        setCoordinate(getX(), getY() - jumpHeight);
     }
 
     /**
      * Moves the spaceship downward for one unit.
      */
     private void moveDown() {
-        setCoordinate(getX() + 1, getY());
+        setCoordinate(getX(), getY() + dropHeight);
+    }
+
+    /**
+     * responds to the event where the ship jumps
+     */
+    void jump() {
+        Log.i("test", "jump");
+        jumpDurationLeft = maxJumpDuration;
     }
 
     /**
@@ -40,22 +62,19 @@ class SpaceShip extends SpaceItem {
      * (Still have to test and change about the function, it's only the beginning version.)
      */
     void move() {
-        int x = getX();
+        /*int x = getX();
         int originalX = getGridWidth() / 2;
-        if (x > originalX - JumpHeight & x < originalX) {
+        if (x > originalX - jumpHeight & x < originalX) {
             moveUp();
         } else {
             moveDown();
-        }
-    }
+        }*/
 
-    /**
-     * Draws this spaceship item.
-     */
-    void draw(Canvas canvas) {
-        Log.i("Test", "drawn spaceship");
-        canvas.drawText("(--)Ship", getX() * AdventureManager.getGridWidth(),
-                getY() * AdventureManager.getGridHeight(), getPaintText());
-        //canvas.drawText("ship(--)", 100, 100, getPaintText());
+        if (jumpDurationLeft > 0) {
+            moveUp();
+            jumpDurationLeft--;
+        } else {
+            moveDown();
+        }
     }
 }
