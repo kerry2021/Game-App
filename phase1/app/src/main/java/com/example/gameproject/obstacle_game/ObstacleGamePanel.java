@@ -3,12 +3,9 @@ package com.example.gameproject.obstacle_game;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
-import android.view.SurfaceView;
+
 
 import com.example.gameproject.GamePanel;
 
@@ -17,7 +14,7 @@ import com.example.gameproject.GamePanel;
  * a sightly tweaked version of code found on https://www.youtube.com/watch?v=OojQitoAEXs&t=1234s
  */
 
-public class obstacleGamePanel extends GamePanel {
+public class ObstacleGamePanel extends GamePanel {
     /**
      * The width of the screen.
      */
@@ -30,7 +27,7 @@ public class obstacleGamePanel extends GamePanel {
     AdventureManager adventureManger;
     Drawer drawer = new Drawer();
 
-    obstacleGamePanel(Context context) {
+    ObstacleGamePanel(Context context) {
         super(context);
     }
 
@@ -49,7 +46,7 @@ public class obstacleGamePanel extends GamePanel {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        drawer.update(adventureManger.getShips(), adventureManger.getObstacles());
+        drawer.update(adventureManger.getShip(), adventureManger.getObstacles());
         drawer.draw(canvas);
     }
 

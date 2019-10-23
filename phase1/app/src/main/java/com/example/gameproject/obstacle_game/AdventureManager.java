@@ -7,7 +7,7 @@ public class AdventureManager {
     /**
      * List containing all SpaceShips in this adventure.
      */
-    private List<SpaceShip> spaceShips;
+    private SpaceShip spaceShip;
 
     /**
      * List containing all obstacles in this adventure.
@@ -33,7 +33,6 @@ public class AdventureManager {
     AdventureManager(int width, int height) {
         gridHeight = height;
         gridWidth = width;
-        spaceShips = new ArrayList<>();
     }
 
     /**
@@ -57,8 +56,8 @@ public class AdventureManager {
     /**
      * @return the list of SpaceShip
      */
-    List<SpaceShip> getShips(){
-        return spaceShips;
+    SpaceShip getShip(){
+        return spaceShip;
     }
 
     /**
@@ -75,18 +74,14 @@ public class AdventureManager {
      * Know how to pass the obstacleGamePanel.onTouchEvent() into this function and then do Spaceship.update())
      */
     void update() {
-        for (SpaceShip spaceShip: spaceShips) {
-            spaceShip.move();
-        }
+        spaceShip.move();
     }
 
     /**
      * Responds to events of player input, when the player touches, make the spaceship jump
      */
     void respondTouch(){
-        for (SpaceShip spaceShip: spaceShips) {
-            spaceShip.jump();
-        }
+        spaceShip.jump();
     }
 
     /**
@@ -94,7 +89,7 @@ public class AdventureManager {
      * (Still have to create the obstacle in the beginning.)
      */
     void createSpaceItems() {
-        spaceShips.add(new SpaceShip());
+        spaceShip = new SpaceShip();
     }
 
 }

@@ -15,7 +15,7 @@ class Drawer {
     /**
      * List containing all SpaceShips in this adventure.
      */
-    private List<SpaceShip> spaceShips;
+    private SpaceShip spaceShip;
 
     /**
      * List containing all obstacles in this adventure.
@@ -39,11 +39,11 @@ class Drawer {
 
     /**
      * set up the drawer with 2 lists of SpaceShip and SpaceObstacles
-     * @param spaceShips the list of SpaceShip
+     * @param spaceShip the player ship
      * @param spaceObstacles the list of SpaceObstacle
      */
-    Drawer(List<SpaceShip> spaceShips, List<SpaceItem> spaceObstacles){
-        this.spaceShips = spaceShips;
+    Drawer(SpaceShip spaceShip, List<SpaceItem> spaceObstacles){
+        this.spaceShip = spaceShip;
         this.spaceObstacles = spaceObstacles;
         setShipPaint();
     }
@@ -60,11 +60,11 @@ class Drawer {
 
     /**
      * update the lists of space items
-     * @param spaceShips the list of SpaceShip
+     * @param spaceShip the player's ship
      * @param spaceObstacles the list of SpaceObstacle
      */
-    public void update(List<SpaceShip> spaceShips, List<SpaceItem> spaceObstacles){
-        this.spaceShips = spaceShips;
+    public void update(SpaceShip spaceShip, List<SpaceItem> spaceObstacles){
+        this.spaceShip = spaceShip;
         this.spaceObstacles = spaceObstacles;
     }
 
@@ -73,8 +73,7 @@ class Drawer {
      * @param canvas the place to draw
      */
     public void draw(Canvas canvas){
-        for (SpaceShip spaceShip: spaceShips) {
-            canvas.drawText("(--)ship(--)", spaceShip.getX(), spaceShip.getY(), shipPaint);
-        }
+        canvas.drawText("(--)ship(--)", spaceShip.getX(), spaceShip.getY(), shipPaint);
+
     }
 }

@@ -9,12 +9,12 @@ import android.view.WindowManager;
  * The activity that starts the Obstacle Game
  * a sightly tweaked version of code found on https://www.youtube.com/watch?v=OojQitoAEXs&t=1234s
  */
-public class obstacleGameActivity extends Activity {
+public class ObstacleGameActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(new obstacleGamePanel(this));
+        setContentView(new ObstacleGamePanel(this));
     }
 }
