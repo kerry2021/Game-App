@@ -1,6 +1,9 @@
 package com.example.gameproject.obstacle_game;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -26,9 +29,9 @@ public class AdventureManager {
      * Height of obstacleGamePanel in unit.
      */
     private static int gridWidth;
-
+    
     /**
-     * Constructs this AdventureManger.
+     * Constructs this AdventureManger by default.
      *
      * @param height height of obstacleGamePanel in unit.
      * @param width width of obstacleGamePanel in unit.
@@ -58,15 +61,19 @@ public class AdventureManager {
     }
 
     /**
-     * Draws this adventure.
-     * (Still have to complete, I only put the spaceship first, because I want to test Spaceship.move()
-     * first, and focus on the obstacle after that.)
+     * @return the list of SpaceShip
      */
-    void draw(Canvas canvas) {
-        for (SpaceShip item: spaceShips) {
-            item.draw(canvas);
-        }
+    List<SpaceShip> getShips(){
+        return spaceShips;
     }
+
+    /**
+     * @return the list of SpaceObstacles
+     */
+    List<SpaceItem> getObstacles(){
+        return spaceObstacles;
+    }
+
 
     /**
      * Updates the information of all items in this adventure.

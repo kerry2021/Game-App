@@ -6,7 +6,7 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 
 
-class SpaceItem{
+class SpaceItem {
     /**
      * The first coordinate of this space item.
      */
@@ -26,7 +26,6 @@ class SpaceItem{
      * Constructs a new space item.
      */
     SpaceItem() {
-        setPainText();
     }
 
     /**
@@ -38,16 +37,7 @@ class SpaceItem{
     SpaceItem(int x, int y) {
         this.x = x;
         this.y = y;
-        setPainText();
-    }
 
-    /**
-     * set the Paint of this space item.
-     */
-    private void setPainText() {
-        paintText.setTextSize(36);
-        paintText.setTypeface(Typeface.DEFAULT_BOLD);
-        paintText.setColor(Color.CYAN);
     }
 
     /**
@@ -91,10 +81,7 @@ class SpaceItem{
     /**
      * Moves this space item.
      */
-    void move(){}
+    void move() {
+    }
 
-    /**
-     * Draws this space item.
-     */
-    void draw(Canvas canvas){}
 }
