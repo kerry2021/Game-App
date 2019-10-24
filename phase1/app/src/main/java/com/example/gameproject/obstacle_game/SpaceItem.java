@@ -1,47 +1,42 @@
 package com.example.gameproject.obstacle_game;
 
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.util.Log;
 
 class SpaceItem {
     /**
-     * The first coordinate of this space item.
+     * The hitbox of this item
      */
-    private int x;
-
-    /**
-     * The second coordinate of this space item.
-     */
-    private int y;
+    private Rect hitBox;
 
     /**
      * Constructs a new space item.
      *
-     * @param x the first coordinate of this space item.
-     * @param y the second coordinate of this space item.
+     * @param hitBox the hitBox of this item
+     *
      */
-    SpaceItem(int x, int y) {
-        this.x = x;
-        this.y = y;
+    SpaceItem(Rect hitBox) {
+        this.hitBox = hitBox;
     }
 
     /**
-     * set the coordinate of this space item.
+     * set the hitBox to be centered at (x, y)
      *
      * @param x the first coordinate of this space item.
      * @param y the second coordinate of this space item.
      */
-    void setCoordinate(int x, int y) {
-        this.x = x;
-        this.y = y;
+    void setHitBoxTo(int x, int y) {
+        hitBox.offsetTo(x - hitBox.width()/2, y - hitBox.height()/2);
     }
 
     /**
-     * Gets this space item's first coordinate.
+     * Gets the first coordinate of this space item's hit box's central point
      *
-     * @return the first coordinate of this space item.
+     * @return the first coordinate of this space item's hit box's central point
      */
     int getX() {
-        return x;
+        return hitBox.centerX();
     }
 
     /**
@@ -50,7 +45,7 @@ class SpaceItem {
      * @return the second coordinate of this space item.
      */
     int getY() {
-        return y;
+        return hitBox.centerY();
     }
 
     /**

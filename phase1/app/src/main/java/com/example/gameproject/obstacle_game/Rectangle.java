@@ -1,8 +1,14 @@
 package com.example.gameproject.obstacle_game;
 
 import android.graphics.Canvas;
+import android.graphics.Rect;
 
 public class Rectangle extends SpaceItem{
+
+    /**
+     * a default hitbox, this only really defines the size of the hitbox, the position will be moved
+     * later
+     */
 
     /**
      * Constructs a space obstacle at a specific coordinate.
@@ -13,14 +19,15 @@ public class Rectangle extends SpaceItem{
      * @param y the second coordinate of this obstacle.
      */
     Rectangle(int x, int y) {
-        super(x, y);
+        super(new Rect(0, 0, 100, -100));
+        super.setHitBoxTo(x, y);
     }
 
     /**
      * Updates the coordinate of this space obstacle to move it down 1 unit each time.
      */
     void move() {
-        setCoordinate(getX(), getY() + 1);
+        setHitBoxTo(getX(), getY() + 1);
     }
 
     /**

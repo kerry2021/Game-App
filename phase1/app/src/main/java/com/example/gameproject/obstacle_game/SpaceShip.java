@@ -1,6 +1,6 @@
 package com.example.gameproject.obstacle_game;
 
-import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.util.Log;
 
 import static com.example.gameproject.obstacle_game.AdventureManager.getGridHeight;
@@ -15,7 +15,7 @@ class SpaceShip extends SpaceItem {
     /**
      * The units this ship would drop by default each frame
      */
-    private static int dropHeight = getGridWidth() / 100;
+    private static int dropHeight = 10;
     /**
      * the max number of frames this ship would keep jumping for
      */
@@ -30,30 +30,28 @@ class SpaceShip extends SpaceItem {
      * (The default location should be somewhere in the middle width and low bottom of the screen.)
      */
     SpaceShip() {
-        super(getGridWidth() / 2, getGridHeight() / 2);
+        super(new Rect(0, 0, 100, 100));
     }
-
-
 
     /**
      * Moves the spaceship upward for one unit.
      */
     private void moveUp() {
-        setCoordinate(getX(), getY() - jumpHeight);
+        setHitBoxTo(getX(), getY() - jumpHeight);
     }
 
     /**
      * Moves the spaceship downward for one unit.
      */
+
     private void moveDown() {
-        setCoordinate(getX(), getY() + dropHeight);
+        setHitBoxTo(getX(), getY() + dropHeight);
     }
 
     /**
      * responds to the event where the ship jumps
      */
     void jump() {
-        Log.i("test", "jump");
         jumpDurationLeft = maxJumpDuration;
     }
 
