@@ -1,10 +1,6 @@
 package com.example.gameproject.obstacle_game;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Typeface;
-
 
 class SpaceItem {
     /**
@@ -18,17 +14,6 @@ class SpaceItem {
     private int y;
 
     /**
-     * The Paint of this space item.
-     */
-    private Paint paintText = new Paint();
-
-    /**
-     * Constructs a new space item.
-     */
-    SpaceItem() {
-    }
-
-    /**
      * Constructs a new space item.
      *
      * @param x the first coordinate of this space item.
@@ -37,7 +22,6 @@ class SpaceItem {
     SpaceItem(int x, int y) {
         this.x = x;
         this.y = y;
-
     }
 
     /**
@@ -67,15 +51,6 @@ class SpaceItem {
      */
     int getY() {
         return y;
-    }
-
-    /**
-     * Gets this space item's Paint.
-     *
-     * @return the Paint of this space item.
-     */
-    Paint getPaintText() {
-        return paintText;
     }
 
     /**

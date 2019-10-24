@@ -5,14 +5,6 @@ import android.graphics.Canvas;
 public class Rectangle extends SpaceItem{
 
     /**
-     * Constructs a space obstacle.
-     */
-    Rectangle() {
-        super();
-        setCoordinate(300, 0);
-    }
-
-    /**
      * Constructs a space obstacle at a specific coordinate.
      * (Still have to change, I thought we have to write a algorithm fot this.
      * For example, take a probability to draw an obstacle after 2s. Randomly decide its width and height.)
@@ -22,15 +14,6 @@ public class Rectangle extends SpaceItem{
      */
     Rectangle(int x, int y) {
         super(x, y);
-    }
-
-    /**
-     * Draws a space obstacle.
-     */
-    void draw(Canvas canvas) {
-        int x = getX();
-        int y = getY();
-        canvas.drawRect(0, 0, x, y, getPaintText());
     }
 
     /**
