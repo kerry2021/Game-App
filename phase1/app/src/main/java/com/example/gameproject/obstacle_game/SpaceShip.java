@@ -33,6 +33,7 @@ class SpaceShip extends SpaceItem {
         super(new Rect(0, 0, 100, 100));
     }
 
+
     /**
      * Moves the spaceship upward for one unit.
      */

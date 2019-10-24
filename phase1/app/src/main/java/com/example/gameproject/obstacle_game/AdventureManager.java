@@ -23,12 +23,12 @@ public class AdventureManager {
      * Height of obstacleGamePanel in unit.
      */
     private static int gridWidth;
-    
+
     /**
      * Constructs this AdventureManger by default.
      *
      * @param height height of obstacleGamePanel in unit.
-     * @param width width of obstacleGamePanel in unit.
+     * @param width  width of obstacleGamePanel in unit.
      */
     AdventureManager(int width, int height) {
         gridHeight = height;
@@ -54,24 +54,22 @@ public class AdventureManager {
     }
 
     /**
-     * @return the list of SpaceShip
+     * @return the player's ship
      */
-    SpaceShip getShip(){
+    SpaceShip getShip() {
         return spaceShip;
     }
 
     /**
      * @return the list of SpaceObstacles
      */
-    List<SpaceItem> getObstacles(){
+    List<SpaceItem> getObstacles() {
         return spaceObstacles;
     }
 
 
     /**
      * Updates the information of all items in this adventure.
-     * (Things we have to do first:
-     * Know how to pass the obstacleGamePanel.onTouchEvent() into this function and then do Spaceship.update())
      */
     void update() {
         spaceShip.move();
@@ -80,7 +78,7 @@ public class AdventureManager {
     /**
      * Responds to events of player input, when the player touches, make the spaceship jump
      */
-    void respondTouch(){
+    void respondTouch() {
         spaceShip.jump();
     }
 
