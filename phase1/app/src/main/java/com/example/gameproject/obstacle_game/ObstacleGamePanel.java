@@ -24,11 +24,18 @@ public class ObstacleGamePanel extends GamePanel {
      * The height of the screen.
      */
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+    /**
+     * The manager that deals with all backend data
+     */
     AdventureManager adventureManger;
-    Drawer drawer = new Drawer();
+    /**
+     * the drawer that would transfer all backend data to visual representations
+     */
+    Drawer drawer;
 
     ObstacleGamePanel(Context context) {
         super(context);
+        drawer = new AndroidDrawer();
     }
 
     @Override
