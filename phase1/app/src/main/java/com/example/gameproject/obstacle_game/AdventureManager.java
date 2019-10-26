@@ -119,7 +119,6 @@ public class AdventureManager {
      */
     void createSpaceItems() {
         spaceShip = new SpaceShip();
-        spaceObstacles.add(new Obstacle(2000, 0, 2100, 100));
     }
 
 }
