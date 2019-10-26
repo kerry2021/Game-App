@@ -11,11 +11,11 @@ class SpaceShip extends SpaceItem {
      * The JumpHeight of this spaceship per frame of jumping.
      * (Still have to test after finish the coordinate system, not a certain value)
      */
-    private static int jumpHeight = getGridWidth() / 30;
+    private static int jumpHeight = getGridHeight() / 30;
     /**
      * The units this ship would drop by default each frame
      */
-    private static int dropHeight = 10;
+    private static int dropHeight = getGridHeight() / 60;
     /**
      * the max number of frames this ship would keep jumping for
      */
@@ -30,7 +30,7 @@ class SpaceShip extends SpaceItem {
      * (The default location should be somewhere in the middle width and low bottom of the screen.)
      */
     SpaceShip() {
-        super(new Rect(0, 0, 100, 100));
+        super(new Rect(0, 0, getGridWidth() / 30, getGridHeight() / 50));
     }
 
 

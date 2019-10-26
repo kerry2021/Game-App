@@ -16,7 +16,7 @@ import com.example.gameproject.GamePanel;
 
 public class ObstacleGamePanel extends GamePanel {
     /**
-     * The width of the screen.
+     * The width of the screen. we are doing it reversely because we are using landscape mode
      */
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
 
@@ -31,7 +31,7 @@ public class ObstacleGamePanel extends GamePanel {
     /**
      * the drawer that would transfer all backend data to visual representations
      */
-    Drawer drawer;
+    private Drawer drawer;
 
     ObstacleGamePanel(Context context) {
         super(context);

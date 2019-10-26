@@ -1,18 +1,30 @@
 package com.example.gameproject.obstacle_game;
 
+import android.util.Log;
+import android.view.ViewDebug;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdventureManager {
     /**
-     * List containing all SpaceShips in this adventure.
+     * The player controlled spaceShip
      */
     private SpaceShip spaceShip;
 
     /**
      * List containing all obstacles in this adventure.
      */
-    private List<SpaceItem> spaceObstacles;
+    private List<Obstacle> spaceObstacles = new ArrayList<Obstacle>();
+
+    /**
+     * List containing all items to be deleted at the end of this update
+     */
+    private List<Obstacle> garbageCart = new ArrayList<Obstacle>();
+    /**
+     * the generator for obstacles
+     */
+    private ItemGenerator<Obstacle> obstacleGenerator;
 
     /**
      * Width of obstacleGamePanel in unit.
@@ -33,6 +45,7 @@ public class AdventureManager {
     AdventureManager(int width, int height) {
         gridHeight = height;
         gridWidth = width;
+        obstacleGenerator = new ObstacleGenerator(width, height);
     }
 
     /**
@@ -63,7 +76,7 @@ public class AdventureManager {
     /**
      * @return the list of SpaceObstacles
      */
-    List<SpaceItem> getObstacles() {
+    List<Obstacle> getObstacles() {
         return spaceObstacles;
     }
 
@@ -72,7 +85,25 @@ public class AdventureManager {
      * Updates the information of all items in this adventure.
      */
     void update() {
+        //move everything
         spaceShip.move();
+        for (Obstacle obstacle : spaceObstacles) {
+            obstacle.move();
+
+            if (obstacle.outOfScreen()) {
+                garbageCart.add(obstacle);
+            }
+        }
+        //check to see whether to generate new obstacles
+        Obstacle newObstacle = obstacleGenerator.checkGeneration();
+        if (newObstacle != null) {
+            spaceObstacles.add(newObstacle);
+        }
+        //clear garbage
+        for (Obstacle obstacle : garbageCart) {
+            spaceObstacles.remove(obstacle);
+        }
+        garbageCart = new ArrayList<Obstacle>();
     }
 
     /**
@@ -88,6 +119,7 @@ public class AdventureManager {
      */
     void createSpaceItems() {
         spaceShip = new SpaceShip();
+        spaceObstacles.add(new Obstacle(2000, 0, 2100, 100));
     }
 
 }

@@ -6,14 +6,14 @@ import android.graphics.Rect;
 import static com.example.gameproject.obstacle_game.AdventureManager.getGridHeight;
 import static com.example.gameproject.obstacle_game.AdventureManager.getGridWidth;
 
-public class Obstacle extends SpaceItem{
+public class Obstacle extends SpaceItem {
 
     /**
      * Constructs a space obstacle at a x position as left corner and a y position as the top corner.
      *
-     * @param left the x position of the left of this obstacle
-     * @param top the y position of the top of this obstacle
-     * @param right the x position of the right of this obstacle
+     * @param left   the x position of the left of this obstacle
+     * @param top    the y position of the top of this obstacle
+     * @param right  the x position of the right of this obstacle
      * @param bottom the y position of the bottom of this obstacle
      */
     Obstacle(int left, int top, int right, int bottom) {
@@ -24,7 +24,7 @@ public class Obstacle extends SpaceItem{
      * Updates the coordinate of this space obstacle to move it to the left each time.
      */
     void move() {
-        setHitBoxTo(getX() - getGridWidth()/15, getY());
+        setHitBoxTo(getX() - getGridWidth() / 60, getY());
     }
 
     /**

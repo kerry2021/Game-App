@@ -8,5 +8,5 @@ import java.util.List;
  */
 public interface Drawer<T> {
     public void draw(T surface);
-    public void update(SpaceShip spaceShip, List<SpaceItem> spaceObstacles);
+    public void update(SpaceShip spaceShip, List<Obstacle> spaceObstacles);
 }

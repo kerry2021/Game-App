@@ -49,6 +49,14 @@ class SpaceItem {
     }
 
     /**
+     * get the hitBox of this item
+     * @return the hitBox
+     */
+    Rect getHitBox(){
+        return hitBox;
+    }
+
+    /**
      * Moves this space item.
      */
     void move() {

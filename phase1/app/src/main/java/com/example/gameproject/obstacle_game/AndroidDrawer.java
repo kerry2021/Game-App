@@ -26,7 +26,7 @@ class AndroidDrawer implements Drawer<Canvas> {
     /**
      * List containing all obstacles in this adventure.
      */
-    private List<SpaceItem> spaceObstacles;
+    private List<Obstacle> spaceObstacles;
 
     /**
      * the paint for ships
@@ -43,6 +43,7 @@ class AndroidDrawer implements Drawer<Canvas> {
      */
     AndroidDrawer() {
         setShipPaint();
+        setObstaclePaint();
     }
 
     /**
@@ -51,10 +52,11 @@ class AndroidDrawer implements Drawer<Canvas> {
      * @param spaceShip      the player ship
      * @param spaceObstacles the list of SpaceObstacle
      */
-    AndroidDrawer(SpaceShip spaceShip, List<SpaceItem> spaceObstacles) {
+    AndroidDrawer(SpaceShip spaceShip, List<Obstacle> spaceObstacles) {
         this.spaceShip = spaceShip;
         this.spaceObstacles = spaceObstacles;
         setShipPaint();
+        setObstaclePaint();
     }
 
     /**
@@ -68,12 +70,21 @@ class AndroidDrawer implements Drawer<Canvas> {
     }
 
     /**
+     * initialize the obstaclePaint
+     */
+    private void setObstaclePaint() {
+        obstaclePaint = new Paint();
+        obstaclePaint.setColor(Color.rgb(255, 0, 0));
+        obstaclePaint.setStrokeWidth(10);
+    }
+
+    /**
      * update the lists of space items
      *
      * @param spaceShip      the player's ship
      * @param spaceObstacles the list of SpaceObstacle
      */
-    public void update(SpaceShip spaceShip, List<SpaceItem> spaceObstacles) {
+    public void update(SpaceShip spaceShip, List<Obstacle> spaceObstacles) {
         this.spaceShip = spaceShip;
         this.spaceObstacles = spaceObstacles;
     }
@@ -83,9 +94,10 @@ class AndroidDrawer implements Drawer<Canvas> {
      */
     public void draw(Canvas canvas) {
         canvas.drawText("(--)ship(--)", spaceShip.getX(), spaceShip.getY(), shipPaint);
-        /*Paint p=new Paint();
-        Bitmap b=BitmapFactory.decodeResource(getResources(), R.drawable.icon);
-        p.setColor(Color.RED);
-        canvas.drawBitmap(b, 0, 0, p);*/
+        for (Obstacle obstacle : spaceObstacles) {
+            if(obstacle != null) {
+                canvas.drawRect(obstacle.getHitBox(), obstaclePaint);
+            }
+        }
     }
 }
