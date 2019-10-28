@@ -94,7 +94,19 @@ public class AdventureManager {
                 garbageCart.add(obstacle);
             }
         }
-        //check to see whether to generate new obstacles
+
+        // Automatically check whether the spaceship hits a obstacle or not.
+        if (spaceShip.getInvincibleTime() == 0) {
+            for (Obstacle obstacle : spaceObstacles) {
+                spaceShip.checkHit(obstacle);
+            }
+        }
+
+        // Check whether the spaceship is out of Screen.
+        spaceShip.outOfScreen();
+        // we still need something to track whether the game is over or not, I'm not sure to put it in Obstacle game panel or here.
+
+        //check to see whether to generate new obstacles.
         Obstacle newObstacle = obstacleGenerator.checkGeneration();
         if (newObstacle != null) {
             spaceObstacles.add(newObstacle);

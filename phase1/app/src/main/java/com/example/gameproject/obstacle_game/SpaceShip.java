@@ -17,13 +17,28 @@ class SpaceShip extends SpaceItem {
      */
     private static int dropHeight = getGridHeight() / 60;
     /**
-     * the max number of frames this ship would keep jumping for
+     * The max number of frames this ship would keep jumping for
      */
     private int maxJumpDuration = 8;
     /**
-     * the current number of frames this ship still have left to jump
+     * The current number of frames this ship still have left to jump
      */
     private int jumpDurationLeft = 0;
+
+    /**
+     * The number of lives in a single game.
+     */
+    private int lives;
+
+    /**
+     * The boolean for checking whether the spaceship enter the invincible time.
+     */
+    private int invincibleTime = 0;
+
+    /**
+     * The time a spaceship can be out of screen.
+     */
+    private int outTime = 0;
 
     /**
      * Constructs a new Spaceship with default jumpHeight, dropHeight, maxJumpDuration.
@@ -31,8 +46,65 @@ class SpaceShip extends SpaceItem {
      */
     SpaceShip() {
         super(new Rect(0, 0, getGridWidth() / 30, getGridHeight() / 50));
+        this.lives = 3;
     }
 
+    /**
+     * Gets the remaining invincible time.
+     * @return the remaining invincible time.
+     */
+    int getInvincibleTime() {
+        return invincibleTime;
+    }
+
+    /**
+     * Sets the length of invincible time.
+     * @param i the length of time we want to set.
+     */
+    void setInvincibleTime(int i) {
+        invincibleTime = i;
+    }
+
+    /**
+     * Gets the number of remaining lives.
+     * @return the number of remaining lives.
+     */
+    int getLives() {
+        return lives;
+    }
+
+    /**
+     * Checks whether the spaceship hits an obstacle.
+     * If yes, then deduct the lives and enter invincible time
+     * @param obstacle the obstacle to be checked.
+     */
+    void checkHit(Obstacle obstacle) {
+        Rect r1 = this.getHitBox();
+        Rect r2 = obstacle.getHitBox();
+        if (r1.intersect(r2)) {
+            lives--;
+            setInvincibleTime(90);
+        }
+    }
+
+    /**
+     * Automatically the time which spaceship is out of screen.
+     */
+    void outOfScreen() {
+        if (false) {
+            setOutTime(150);
+        } else {
+            setOutTime(0);
+        }
+    }
+
+    void setOutTime(int time) {
+        this.outTime = time;
+    }
+
+    int getOutTime() {
+        return this.outTime;
+    }
 
     /**
      * Moves the spaceship upward for one unit.

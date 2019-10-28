@@ -3,6 +3,8 @@ package com.example.gameproject.obstacle_game;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
@@ -33,6 +35,11 @@ public class ObstacleGamePanel extends GamePanel {
      */
     private Drawer drawer;
 
+    /**
+     * the boolean checks whether game is over or not.
+     */
+    private boolean gameOver = false;
+
     ObstacleGamePanel(Context context) {
         super(context);
         drawer = new AndroidDrawer();
@@ -48,6 +55,15 @@ public class ObstacleGamePanel extends GamePanel {
     @Override
     public void update() {
         adventureManger.update();
+
+        // check whether the life is 0. Uncertain that whether to put it here or AdventureManger
+        if (adventureManger.getShip().getLives() == 0) {
+            gameOver = true;
+        }
+    }
+
+    public void surfaceDestoryed(SurfaceHolder surfaceHolder) {
+        super.surfaceDestroyed(surfaceHolder);
     }
 
     @Override
@@ -55,6 +71,13 @@ public class ObstacleGamePanel extends GamePanel {
         super.draw(canvas);
         drawer.update(adventureManger.getShip(), adventureManger.getObstacles());
         drawer.draw(canvas);
+
+        if (gameOver) {
+            Paint paint = new Paint();
+            paint.setTextSize(100);
+            paint.setColor(Color.MAGENTA);
+            canvas.drawText("Game Over", screenHeight / 3, screenWidth / 4, paint);
+        }
     }
 
     @Override
