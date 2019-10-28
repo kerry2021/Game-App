@@ -14,6 +14,10 @@ public class ObstacleGenerator implements ItemGenerator<Obstacle> {
      */
     private int generationLine;
     /**
+     * the width of the screen
+     */
+    private int screenWidth;
+    /**
      * the height of the screen
      */
     private int screenHeight;
@@ -50,11 +54,12 @@ public class ObstacleGenerator implements ItemGenerator<Obstacle> {
      * @param screenHeight The screen height
      */
     ObstacleGenerator(int screenWidth, int screenHeight) {
-        minDistance = screenWidth / 5;
+        minDistance = screenWidth / 2;
         Log.i("info", String.valueOf(screenWidth) + String.valueOf(screenHeight));
         obstacleWidth = screenWidth / 15;
         obstacleHeight = screenHeight / 15;
-        generationLine = screenWidth;
+        generationLine = screenWidth*2;
+        this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         randGenerator = new Random();
     }
@@ -62,7 +67,7 @@ public class ObstacleGenerator implements ItemGenerator<Obstacle> {
     public Obstacle checkGeneration() {
         //generate the upper height of the rectangle, then use it to construct a new obstacle
         int randHeight = randGenerator.nextInt(screenHeight - obstacleHeight);
-        Obstacle testObstacle = new Obstacle(generationLine, randHeight, generationLine + obstacleWidth, randHeight + obstacleHeight);
+        Obstacle testObstacle = new Obstacle(generationLine, randHeight, generationLine + obstacleWidth, randHeight + obstacleHeight, screenWidth/100);
         if (isFirstItem) {
             lastObstacle = testObstacle;
             isFirstItem = false;

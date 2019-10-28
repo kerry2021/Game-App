@@ -15,11 +15,11 @@ class SpaceShip extends SpaceItem {
     /**
      * The units this ship would drop by default each frame
      */
-    private static int dropHeight = getGridHeight() / 60;
+    private static int dropHeight = getGridHeight() / 100;
     /**
      * The max number of frames this ship would keep jumping for
      */
-    private int maxJumpDuration = 8;
+    private int maxJumpDuration = 4;
     /**
      * The current number of frames this ship still have left to jump
      */
