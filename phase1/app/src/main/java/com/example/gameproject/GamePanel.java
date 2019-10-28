@@ -11,7 +11,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.example.gameproject.MainThread;
-import com.example.gameproject.obstacle_game.AdventureManger;
+
 
 
 /*
@@ -65,7 +65,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        Log.i("test", "touched");
         return super.onTouchEvent(event);
     }
 
