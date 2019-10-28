@@ -46,7 +46,8 @@ class SpaceShip extends SpaceItem {
      */
     SpaceShip() {
         super(new Rect(0, 0, getGridWidth() / 30, getGridHeight() / 50));
-        this.lives = 3;
+        setHitBoxTo(getGridWidth() / 10, getGridHeight() / 2);
+        setLives(3);
     }
 
     /**
@@ -73,17 +74,24 @@ class SpaceShip extends SpaceItem {
         return lives;
     }
 
+    void setLives(int life) {
+        this.lives = life;
+    }
+
     /**
      * Checks whether the spaceship hits an obstacle.
-     * If yes, then deduct the lives and enter invincible time
+     * If yes, then deduct the lives, enter invincible time and return true
      * @param obstacle the obstacle to be checked.
      */
-    void checkHit(Obstacle obstacle) {
+    boolean checkHit(Obstacle obstacle) {
         Rect r1 = this.getHitBox();
         Rect r2 = obstacle.getHitBox();
         if (r1.intersect(r2)) {
             lives--;
             setInvincibleTime(90);
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -91,17 +99,32 @@ class SpaceShip extends SpaceItem {
      * Automatically the time which spaceship is out of screen.
      */
     void outOfScreen() {
-        if (false) {
-            setOutTime(150);
+        int y = getY();
+        if (y < 0 | y > getGridHeight()) {
+            if (outTime == 0) {
+                setOutTime(150);
+            } else {
+                setOutTime(outTime - 1);
+            }
         } else {
             setOutTime(0);
         }
     }
 
+    /**
+     * Updates the out time.
+     *
+     * @param time the new out time.
+     */
     void setOutTime(int time) {
         this.outTime = time;
     }
 
+    /**
+     * Gets the out time.
+     *
+     * @return the out time of this screen.
+     */
     int getOutTime() {
         return this.outTime;
     }
@@ -133,14 +156,6 @@ class SpaceShip extends SpaceItem {
      * (Still have to test and change about the function, it's only the beginning version.)
      */
     void move() {
-        /*int x = getX();
-        int originalX = getGridWidth() / 2;
-        if (x > originalX - jumpHeight & x < originalX) {
-            moveUp();
-        } else {
-            moveDown();
-        }*/
-
         if (jumpDurationLeft > 0) {
             moveUp();
             jumpDurationLeft--;

@@ -1,8 +1,5 @@
 package com.example.gameproject.obstacle_game;
 
-import android.util.Log;
-import android.view.ViewDebug;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +34,11 @@ public class AdventureManager {
     private static int gridWidth;
 
     /**
+     * the boolean checks whether game is over or not.
+     */
+    private boolean gameOver = false;
+
+    /**
      * Constructs this AdventureManger by default.
      *
      * @param height height of obstacleGamePanel in unit.
@@ -67,6 +69,8 @@ public class AdventureManager {
     }
 
     /**
+     * Gets the ship in this game.
+     *
      * @return the player's ship
      */
     SpaceShip getShip() {
@@ -74,12 +78,22 @@ public class AdventureManager {
     }
 
     /**
+     * Gets the obstacles in this game.
+     *
      * @return the list of SpaceObstacles
      */
     List<Obstacle> getObstacles() {
         return spaceObstacles;
     }
 
+    /**
+     * Checks whether the game is over
+     *
+     * @return the checker of game over.
+     */
+    boolean getGameOver() {
+        return gameOver;
+    }
 
     /**
      * Updates the information of all items in this adventure.
@@ -98,13 +112,11 @@ public class AdventureManager {
         // Automatically check whether the spaceship hits a obstacle or not.
         if (spaceShip.getInvincibleTime() == 0) {
             for (Obstacle obstacle : spaceObstacles) {
-                spaceShip.checkHit(obstacle);
+                if (spaceShip.checkHit(obstacle)) {
+                    garbageCart.add(obstacle);
+                }
             }
         }
-
-        // Check whether the spaceship is out of Screen.
-        spaceShip.outOfScreen();
-        // we still need something to track whether the game is over or not, I'm not sure to put it in Obstacle game panel or here.
 
         //check to see whether to generate new obstacles.
         Obstacle newObstacle = obstacleGenerator.checkGeneration();
@@ -115,7 +127,15 @@ public class AdventureManager {
         for (Obstacle obstacle : garbageCart) {
             spaceObstacles.remove(obstacle);
         }
-        garbageCart = new ArrayList<Obstacle>();
+        garbageCart = new ArrayList<>();
+
+        // Check whether the spaceship is out of Screen.
+        spaceShip.outOfScreen();
+
+        // Check whether the game is over.
+        if (spaceShip.getLives() == 0 | spaceShip.getOutTime() == 1) {
+            gameOver = true;
+        }
     }
 
     /**
@@ -130,6 +150,7 @@ public class AdventureManager {
      * (Still have to create the obstacle in the beginning.)
      */
     void createSpaceItems() {
+        spaceShip = new SpaceShip();
         spaceShip = new SpaceShip();
     }
 
