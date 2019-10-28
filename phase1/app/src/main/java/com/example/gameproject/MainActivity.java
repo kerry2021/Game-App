@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.gameproject.obstacle_game.ObstacleGameActivity;
+import com.example.gameproject.obstacle_game.obstacleGameActivity;
 import com.example.gameproject.puzzle_game.puzzleGameActivity;
 import com.example.gameproject.reaction_game.reactionGameActivity;
 
@@ -24,19 +24,19 @@ public class MainActivity extends AppCompatActivity {
         puzzleGameButton = (Button) findViewById(R.id.puzzle_game_button);
         obstacleGameButton = (Button) findViewById(R.id.obstacle_game_button);
 
-        reactionGameButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        reactionGameButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
                 startActivity(new Intent(v.getContext(), reactionGameActivity.class));
             }
         });
-        puzzleGameButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        puzzleGameButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
                 startActivity(new Intent(v.getContext(), puzzleGameActivity.class));
             }
         });
-        obstacleGameButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), ObstacleGameActivity.class));
+        obstacleGameButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                startActivity(new Intent(v.getContext(), obstacleGameActivity.class));
             }
         });
     }

@@ -13,6 +13,17 @@ Fixed errors in puzzleGameActivity by replacing puzzle picture with pictures in 
 #######
 #Step 3
 Code Affected: GestureDetectGridView, puzzleGameActivity, activity_puzzle_game
-Changed api in GestureDEtectGridView to 29.
+Changed api in GestureDetectGridView to 29.
 Added setContentView() in puzzleGameActivity.
 Changed activity_puzzle_game to the proper directory.
+
+#######
+#Step 4
+Code Affected: AndroidManifest.xml, PuzzleGameIntroActivity.java, activity_puzzle_game_intro.xml,
+values.strings.xml
+Added an intro page for puzzle game that includes a brief intro to the game and a start game button.
+
+#######
+#Step 5
+Code Affected: activity_puzzle_game.xml
+Changed layout to fit display of time, puzzle completed, and the score.
