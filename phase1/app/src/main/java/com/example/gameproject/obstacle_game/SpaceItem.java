@@ -1,8 +1,6 @@
 package com.example.gameproject.obstacle_game;
 
-import android.graphics.Paint;
 import android.graphics.Rect;
-import android.util.Log;
 
 class SpaceItem {
     /**

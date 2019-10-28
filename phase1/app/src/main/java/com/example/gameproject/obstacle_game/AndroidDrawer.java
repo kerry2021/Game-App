@@ -34,6 +34,11 @@ class AndroidDrawer implements Drawer<Canvas> {
     private Paint obstaclePaint;
 
     /**
+     * the boolean checks whether game is over or not.
+     */
+    private boolean gameOver = false;
+
+    /**
      * a default drawer
      */
     AndroidDrawer() {
@@ -94,7 +99,6 @@ class AndroidDrawer implements Drawer<Canvas> {
         drawSpaceship(canvas);
 
         // draw the obstacles.
-        drawSpaceship(canvas);
         for (Obstacle obstacle : spaceObstacles) {
             if(obstacle != null) {
                 canvas.drawRect(obstacle.getHitBox(), obstaclePaint);
@@ -122,6 +126,22 @@ class AndroidDrawer implements Drawer<Canvas> {
         if (outTime != 0) {
             drawTime(canvas, outTime, getGridWidth() / 30 + distance + 100);
         }
+
+        if (spaceShip.getLives() == 0 | outTime == 1) {
+            drawGameOver(canvas);
+        }
+    }
+
+    /**
+     * Draws "Game Over" on the screen.
+     *
+     * @param canvas the canvas on which to draw "Game Over".
+     */
+    private void drawGameOver(Canvas canvas) {
+        Paint paint = new Paint();
+        paint.setTextSize(100);
+        paint.setColor(Color.MAGENTA);
+        canvas.drawText("Game Over", getGridWidth() / 3, getGridHeight() / 2, paint);
     }
 
     /** Draws the spaceship on canvas.
