@@ -9,17 +9,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.gameproject.R;
 
 public class reactionGameActivity extends AppCompatActivity {
-    private ImageButton one;
-    private ImageButton two;
-    private ImageButton three;
-    private ImageButton four;
-    private ImageButton five;
-    private ImageButton six;
-    private ImageButton seven;
-    private ImageButton eight;
-    private ImageButton nine;
+    private ImageButton image_1;
+    private ImageButton image_2;
+    private ImageButton image_3;
+    private ImageButton image_4;
+    private ImageButton image_5;
+    private ImageButton image_6;
+    private ImageButton image_7;
+    private ImageButton image_8;
+    private ImageButton image_9;
 
-    MyClick click;
+    ClickImage click;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,40 +29,40 @@ public class reactionGameActivity extends AppCompatActivity {
         reInitButton();
     }
     private void initButton(){
-        one = (ImageButton) findViewById(R.id.first);
-        two = (ImageButton) findViewById(R.id.second);
-        three = (ImageButton) findViewById(R.id.third);
-        four = (ImageButton) findViewById(R.id.fourth);
-        five = (ImageButton) findViewById(R.id.fifth);
-        six = (ImageButton) findViewById(R.id.sixth);
-        seven = (ImageButton) findViewById(R.id.seventh);
-        eight = (ImageButton) findViewById(R.id.eighth);
-        nine = (ImageButton) findViewById(R.id.ninth);
+        image_1 = (ImageButton) findViewById(R.id.first);
+        image_2 = (ImageButton) findViewById(R.id.second);
+        image_3 = (ImageButton) findViewById(R.id.third);
+        image_4 = (ImageButton) findViewById(R.id.fourth);
+        image_5 = (ImageButton) findViewById(R.id.fifth);
+        image_6 = (ImageButton) findViewById(R.id.sixth);
+        image_7 = (ImageButton) findViewById(R.id.seventh);
+        image_8 = (ImageButton) findViewById(R.id.eighth);
+        image_9 = (ImageButton) findViewById(R.id.ninth);
 
-        click = new MyClick();
-        one.setOnClickListener(click);
-        two.setOnClickListener(click);
-        three.setOnClickListener(click);
-        four.setOnClickListener(click);
-        five.setOnClickListener(click);
-        six.setOnClickListener(click);
-        seven.setOnClickListener(click);
-        eight.setOnClickListener(click);
-        nine.setOnClickListener(click);
+        click = new ClickImage();
+        image_1.setOnClickListener(click);
+        image_2.setOnClickListener(click);
+        image_3.setOnClickListener(click);
+        image_4.setOnClickListener(click);
+        image_5.setOnClickListener(click);
+        image_6.setOnClickListener(click);
+        image_7.setOnClickListener(click);
+        image_8.setOnClickListener(click);
+        image_9.setOnClickListener(click);
     }
     private void reInitButton(){
-        one.setBackgroundResource(R.drawable.hole);
-        two.setBackgroundResource(R.drawable.hole);
-        three.setBackgroundResource(R.drawable.hole);
-        four.setBackgroundResource(R.drawable.hole);
-        five.setBackgroundResource(R.drawable.hole);
-        six.setBackgroundResource(R.drawable.hole);
-        seven.setBackgroundResource(R.drawable.hole);
-        eight.setBackgroundResource(R.drawable.hole);
-        nine.setBackgroundResource(R.drawable.hole);
+        image_1.setBackgroundResource(R.drawable.hole);
+        image_2.setBackgroundResource(R.drawable.hole);
+        image_3.setBackgroundResource(R.drawable.hole);
+        image_4.setBackgroundResource(R.drawable.hole);
+        image_5.setBackgroundResource(R.drawable.hole);
+        image_6.setBackgroundResource(R.drawable.hole);
+        image_7.setBackgroundResource(R.drawable.hole);
+        image_8.setBackgroundResource(R.drawable.hole);
+        image_9.setBackgroundResource(R.drawable.hole);
 
     }
-    class MyClick implements View.OnClickListener {
+    class ClickImage implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
