@@ -6,11 +6,72 @@
     android:layout_height="match_parent"
     tools:context=".reaction_game.reactionGameActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/reaction_game"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"/>
+    <ImageButton
+        android:id="@+id/first"
+        android:layout_width="137dp"
+        android:layout_height="201dp" />
+
+    <ImageButton
+        android:id="@+id/third"
+        android:layout_width="137dp"
+        android:layout_height="201dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageButton
+        android:id="@+id/fourth"
+        android:layout_width="137dp"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="200dp" />
+
+    <ImageButton
+        android:id="@+id/fifth"
+        android:layout_width="137dp"
+        android:layout_height="200dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="137dp"
+        android:layout_marginBottom="200dp" />
+
+    <ImageButton
+        android:id="@+id/sixth"
+        android:layout_width="137dp"
+        android:layout_height="200dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="200dp" />
+
+    <ImageButton
+        android:id="@+id/seventh"
+        android:layout_width="137dp"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp" />
+
+    <ImageButton
+        android:id="@+id/eighth"
+        android:layout_width="137dp"
+        android:layout_height="200dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="137dp"
+        android:layout_marginBottom="0dp" />
+
+    <ImageButton
+        android:id="@+id/ninth"
+        android:layout_width="137dp"
+        android:layout_height="200dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp" />
+
+    <ImageButton
+        android:id="@+id/second"
+        android:layout_width="137dp"
+        android:layout_height="201dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
