@@ -45,8 +45,9 @@ public class ObstacleGamePanel extends GamePanel {
 
     @Override
     public void update() {
-        adventureManger.update();
-        if (adventureManger.getGameOver()) {}
+        if (! adventureManger.getGameOver()) {
+            adventureManger.update();
+        }
     }
 
     public void surfaceDestoryed(SurfaceHolder surfaceHolder) {
