@@ -1,17 +1,12 @@
 package com.example.gameproject.obstacle_game;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.util.Log;
-import android.view.ViewDebug;
-
-import com.example.gameproject.R;
-
 import java.util.List;
+import static com.example.gameproject.obstacle_game.AdventureManager.getGridHeight;
+import static com.example.gameproject.obstacle_game.AdventureManager.getGridWidth;
 
 /**
  * draws the items in the game to the given canvas
@@ -37,6 +32,11 @@ class AndroidDrawer implements Drawer<Canvas> {
      * the paint for obstacles
      */
     private Paint obstaclePaint;
+
+    /**
+     * the boolean checks whether game is over or not.
+     */
+    private boolean gameOver = false;
 
     /**
      * a default drawer
@@ -90,14 +90,86 @@ class AndroidDrawer implements Drawer<Canvas> {
     }
 
     /**
-     * draw all items in the lists to the canvas
+     * draw all space items in the lists to the canvas
+     *
+     * @param canvas the canvas on which to draw the space items.
      */
     public void draw(Canvas canvas) {
-        canvas.drawText("(--)ship(--)", spaceShip.getX(), spaceShip.getY(), shipPaint);
+        // draw the spaceship
+        drawSpaceship(canvas);
+
+        // draw the obstacles.
         for (Obstacle obstacle : spaceObstacles) {
             if(obstacle != null) {
                 canvas.drawRect(obstacle.getHitBox(), obstaclePaint);
             }
         }
+
+        // draw the lives
+        int remainingLives = spaceShip.getLives();
+        int distance = 0;
+        while (remainingLives > 0) {
+            drawLives(canvas, getGridWidth() / 30 + distance, getGridWidth() / 50);
+            remainingLives--;
+            distance += 75;
+        }
+
+        // draw the remaining invincible time
+        int remainingTime = spaceShip.getInvincibleTime();
+        if (remainingTime != 0) {
+            drawTime(canvas, remainingTime, getGridWidth() / 30 + distance + 50);
+            spaceShip.setInvincibleTime(remainingTime - 1);
+        }
+
+        // draw the out of screen time
+        int outTime = spaceShip.getOutTime();
+        if (outTime != 0) {
+            drawTime(canvas, outTime, getGridWidth() / 30 + distance + 100);
+        }
+
+        if (spaceShip.getLives() == 0 | outTime == 1) {
+            drawGameOver(canvas);
+        }
+    }
+
+    /**
+     * Draws "Game Over" on the screen.
+     *
+     * @param canvas the canvas on which to draw "Game Over".
+     */
+    private void drawGameOver(Canvas canvas) {
+        Paint paint = new Paint();
+        paint.setTextSize(100);
+        paint.setColor(Color.MAGENTA);
+        canvas.drawText("Game Over", getGridWidth() / 3, getGridHeight() / 2, paint);
+    }
+
+    /** Draws the spaceship on canvas.
+     *
+     * @param canvas the canvas on which to draw the spaceship.
+     */
+    private void drawSpaceship(Canvas canvas) {
+        canvas.drawText("(--)ship(--)", spaceShip.getX(), spaceShip.getY(), shipPaint);
+    }
+
+    /** Draws the lives on canvas.
+     *
+     * @param canvas the canvas on which to draw the lives.
+     * @param x the first coordinate to draw the life.
+     * @param y the second coordinate to draw the life.
+     */
+    private void drawLives(Canvas canvas, int x, int y) {
+        canvas.drawText(".", x, y, shipPaint);
+    }
+
+    /** Draws the invincible time on canvas.
+     *
+     * @param canvas the canvas on which to draw invincible time.
+     * @param remainingTime the remaining invincible time.
+     * @param x the first coordinate to draw the invincible time.
+     */
+    private void drawTime(Canvas canvas, int remainingTime, int x) {
+        String text = String.valueOf(remainingTime / 30 + 1);
+        canvas.drawText(text, x, getGridHeight() / 20, shipPaint);
     }
 }

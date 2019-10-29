@@ -3,16 +3,9 @@ package com.example.gameproject;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
-import com.example.gameproject.MainThread;
-
-
 
 /*
  * a game panel
@@ -78,4 +71,5 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     //canvas.drawText("ae", 1, 100, new Paint());
+
 }

@@ -4,8 +4,6 @@ import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Toast;
@@ -40,7 +38,7 @@ public class puzzleGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_puzzle_game);
 
         init();
 
@@ -51,7 +49,6 @@ public class puzzleGameActivity extends AppCompatActivity {
     }
 
     private void init() {
-        setContentView(R.layout.acitivity_puzzle_game);
         mGridView = (GestureDetectGridView) findViewById(R.id.grid);
         mGridView.setNumColumns(COLUMNS);
 

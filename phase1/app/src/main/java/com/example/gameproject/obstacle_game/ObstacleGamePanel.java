@@ -5,8 +5,6 @@ import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
-
-
 import com.example.gameproject.GamePanel;
 
 /*
@@ -48,6 +46,11 @@ public class ObstacleGamePanel extends GamePanel {
     @Override
     public void update() {
         adventureManger.update();
+        if (adventureManger.getGameOver()) {}
+    }
+
+    public void surfaceDestoryed(SurfaceHolder surfaceHolder) {
+        super.surfaceDestroyed(surfaceHolder);
     }
 
     @Override
