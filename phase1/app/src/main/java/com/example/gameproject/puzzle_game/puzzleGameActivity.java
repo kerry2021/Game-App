@@ -2,20 +2,11 @@ package com.example.gameproject.puzzle_game;
 
 import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Toast;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-
-import android.view.Gravity;
-import android.view.MotionEvent;
 
 import com.example.gameproject.R;
 
@@ -44,11 +35,12 @@ public class puzzleGameActivity extends AppCompatActivity {
     //a list of number each represent a tile, used for radomizing and checking win condition
     private static String[] tileList;
 
+    private static ArrayList<Integer> puzzles = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle_game);
-        createOptionsButton();
 
         init();
 
@@ -67,56 +59,6 @@ public class puzzleGameActivity extends AppCompatActivity {
             tileList[i] = String.valueOf(i);
         }
     }
-
-    /**
-     * To create the options button.
-     */
-    private void createOptionsButton() {
-        Button optionsButton;
-
-        optionsButton = (Button) findViewById(R.id.puzzle_game_options_button);
-
-        optionsButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
-                //TODO: Stop actions in background. Pause game.
-
-                // inflate the layout of the popup window
-                LayoutInflater inflater = (LayoutInflater)
-                        getSystemService(LAYOUT_INFLATER_SERVICE);
-                View popupView = inflater.inflate(R.layout.puzzle_game_options_window, null);
-
-                // create the popup window
-                int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                boolean focusable = false; // Taps outside the popup does not dismiss it
-                final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-
-                // show the popup window
-                // which view you pass in doesn't matter, it is only used for the window tolken
-                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-
-                Button returnToGameButton, exitGameButton;
-
-                returnToGameButton = (Button) popupView.findViewById(R.id.return_to_game_button);
-                exitGameButton = (Button) popupView.findViewById(R.id.exit_game_button);
-
-                returnToGameButton.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View view) {
-                        popupWindow.dismiss();
-                        //TODO: resume timer.
-                    }
-                });
-
-                exitGameButton.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        popupWindow.dismiss();
-                        startActivity(new Intent(v.getContext(), PuzzleGameIntroActivity.class));
-                    }
-                });
-            }
-        });
-    }
-
 
     /** To randomize the tiles in the puzzle*/
     private void randomize() {
@@ -148,6 +90,8 @@ public class puzzleGameActivity extends AppCompatActivity {
                 mColumnWidth = displayWidth / COLUMNS;
                 mColumnHeight = requiredHeight / COLUMNS;
 
+                createpuzzlelist();
+
                 display(getApplicationContext());
             }
         });
@@ -165,6 +109,11 @@ public class puzzleGameActivity extends AppCompatActivity {
         return result;
     }
 
+    private void createpuzzlelist() {
+        for (int i = 0; i < 9; i++){
+            puzzles.add(getResources().getIdentifier("p"+i, "drawable", getPackageName()));
+        }
+    }
     /** display the code after each movement */
     private static void display(Context context) {
         ArrayList<Button> buttons = new ArrayList<>();
@@ -175,23 +124,23 @@ public class puzzleGameActivity extends AppCompatActivity {
 
             //TODO: We need to have a few different Pictures, use variable instead?
             if (tileList[i].equals("0"))
-                button.setBackgroundResource(R.drawable.p0);
+                button.setBackgroundResource(puzzles.get(0));
             else if (tileList[i].equals("1"))
-                button.setBackgroundResource(R.drawable.p1);
+                button.setBackgroundResource(puzzles.get(1));
             else if (tileList[i].equals("2"))
-                button.setBackgroundResource(R.drawable.p2);
+                button.setBackgroundResource(puzzles.get(2));
             else if (tileList[i].equals("3"))
-                button.setBackgroundResource(R.drawable.p3);
+                button.setBackgroundResource(puzzles.get(3));
             else if (tileList[i].equals("4"))
-                button.setBackgroundResource(R.drawable.p4);
+                button.setBackgroundResource(puzzles.get(4));
             else if (tileList[i].equals("5"))
-                button.setBackgroundResource(R.drawable.p5);
+                button.setBackgroundResource(puzzles.get(5));
             else if (tileList[i].equals("6"))
-                button.setBackgroundResource(R.drawable.p6);
+                button.setBackgroundResource(puzzles.get(6));
             else if (tileList[i].equals("7"))
-                button.setBackgroundResource(R.drawable.p7);
+                button.setBackgroundResource(puzzles.get(7));
             else if (tileList[i].equals("8"))
-                button.setBackgroundResource(R.drawable.p8);
+                button.setBackgroundResource(puzzles.get(8));
 
             buttons.add(button);
         }
