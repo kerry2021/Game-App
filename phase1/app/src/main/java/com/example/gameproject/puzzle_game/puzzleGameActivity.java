@@ -35,6 +35,8 @@ public class puzzleGameActivity extends AppCompatActivity {
     //a list of number each represent a tile, used for radomizing and checking win condition
     private static String[] tileList;
 
+    private static ArrayList<Integer> puzzles = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +90,8 @@ public class puzzleGameActivity extends AppCompatActivity {
                 mColumnWidth = displayWidth / COLUMNS;
                 mColumnHeight = requiredHeight / COLUMNS;
 
+                createpuzzlelist();
+
                 display(getApplicationContext());
             }
         });
@@ -105,6 +109,11 @@ public class puzzleGameActivity extends AppCompatActivity {
         return result;
     }
 
+    private void createpuzzlelist() {
+        for (int i = 0; i < 9; i++){
+            puzzles.add(getResources().getIdentifier("p"+i, "drawable", getPackageName()));
+        }
+    }
     /** display the code after each movement */
     private static void display(Context context) {
         ArrayList<Button> buttons = new ArrayList<>();
@@ -115,23 +124,23 @@ public class puzzleGameActivity extends AppCompatActivity {
 
             //TODO: We need to have a few different Pictures, use variable instead?
             if (tileList[i].equals("0"))
-                button.setBackgroundResource(R.drawable.p0);
+                button.setBackgroundResource(puzzles.get(0));
             else if (tileList[i].equals("1"))
-                button.setBackgroundResource(R.drawable.p1);
+                button.setBackgroundResource(puzzles.get(1));
             else if (tileList[i].equals("2"))
-                button.setBackgroundResource(R.drawable.p2);
+                button.setBackgroundResource(puzzles.get(2));
             else if (tileList[i].equals("3"))
-                button.setBackgroundResource(R.drawable.p3);
+                button.setBackgroundResource(puzzles.get(3));
             else if (tileList[i].equals("4"))
-                button.setBackgroundResource(R.drawable.p4);
+                button.setBackgroundResource(puzzles.get(4));
             else if (tileList[i].equals("5"))
-                button.setBackgroundResource(R.drawable.p5);
+                button.setBackgroundResource(puzzles.get(5));
             else if (tileList[i].equals("6"))
-                button.setBackgroundResource(R.drawable.p6);
+                button.setBackgroundResource(puzzles.get(6));
             else if (tileList[i].equals("7"))
-                button.setBackgroundResource(R.drawable.p7);
+                button.setBackgroundResource(puzzles.get(7));
             else if (tileList[i].equals("8"))
-                button.setBackgroundResource(R.drawable.p8);
+                button.setBackgroundResource(puzzles.get(8));
 
             buttons.add(button);
         }
