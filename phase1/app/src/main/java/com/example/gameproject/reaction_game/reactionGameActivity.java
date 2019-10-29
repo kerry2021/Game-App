@@ -54,15 +54,15 @@ public class reactionGameActivity extends AppCompatActivity {
         t.start();
     }
     private void initButton(){
-        image_1 = (ImageButton) findViewById(R.id.first);
-        image_2 = (ImageButton) findViewById(R.id.second);
-        image_3 = (ImageButton) findViewById(R.id.third);
-        image_4 = (ImageButton) findViewById(R.id.fourth);
-        image_5 = (ImageButton) findViewById(R.id.fifth);
-        image_6 = (ImageButton) findViewById(R.id.sixth);
-        image_7 = (ImageButton) findViewById(R.id.seventh);
-        image_8 = (ImageButton) findViewById(R.id.eighth);
-        image_9 = (ImageButton) findViewById(R.id.ninth);
+        image_1 = findViewById(R.id.first);
+        image_2 = findViewById(R.id.second);
+        image_3 = findViewById(R.id.third);
+        image_4 = findViewById(R.id.fourth);
+        image_5 = findViewById(R.id.fifth);
+        image_6 = findViewById(R.id.sixth);
+        image_7 = findViewById(R.id.seventh);
+        image_8 = findViewById(R.id.eighth);
+        image_9 = findViewById(R.id.ninth);
 
         click = new ClickImage();
         image_1.setOnClickListener(click);
