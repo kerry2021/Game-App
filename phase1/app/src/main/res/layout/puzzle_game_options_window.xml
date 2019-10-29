@@ -3,14 +3,33 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#62def8">
+    android:padding="30dp"
+    android:background="#FFFFFF">
 
     <TextView
+        android:id="@+id/options_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_margin="30dp"
-        android:textSize="22sp"
-        android:text="This is a popup window."/>
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:text="Options"/>
+
+    <Button
+        android:id="@+id/return_to_game_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/options_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/return_to_game" />
+
+    <Button
+        android:id="@+id/exit_game_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/return_to_game_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/exit_game" />
 
 </RelativeLayout>

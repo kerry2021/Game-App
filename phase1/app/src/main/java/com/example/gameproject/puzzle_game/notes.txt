@@ -27,3 +27,9 @@ Added an intro page for puzzle game that includes a brief intro to the game and 
 #Step 5
 Code Affected: activity_puzzle_game.xml
 Changed layout to fit display of time, puzzle completed, and the score.
+
+#######
+#Step 6
+Code Affected: puzzleGameActivity.java, activity_puzzle_game.xml, puzzle_game_options_window.xml,
+string.xml
+Changed layout of options popup window and created options (buttons).
