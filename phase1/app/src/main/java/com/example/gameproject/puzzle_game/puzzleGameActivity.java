@@ -2,20 +2,11 @@ package com.example.gameproject.puzzle_game;
 
 import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Toast;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-
-import android.view.Gravity;
-import android.view.MotionEvent;
 
 import com.example.gameproject.R;
 
@@ -48,7 +39,6 @@ public class puzzleGameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle_game);
-        createOptionsButton();
 
         init();
 
@@ -67,56 +57,6 @@ public class puzzleGameActivity extends AppCompatActivity {
             tileList[i] = String.valueOf(i);
         }
     }
-
-    /**
-     * To create the options button.
-     */
-    private void createOptionsButton() {
-        Button optionsButton;
-
-        optionsButton = (Button) findViewById(R.id.puzzle_game_options_button);
-
-        optionsButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
-                //TODO: Stop actions in background. Pause game.
-
-                // inflate the layout of the popup window
-                LayoutInflater inflater = (LayoutInflater)
-                        getSystemService(LAYOUT_INFLATER_SERVICE);
-                View popupView = inflater.inflate(R.layout.puzzle_game_options_window, null);
-
-                // create the popup window
-                int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                boolean focusable = false; // Taps outside the popup does not dismiss it
-                final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-
-                // show the popup window
-                // which view you pass in doesn't matter, it is only used for the window tolken
-                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-
-                Button returnToGameButton, exitGameButton;
-
-                returnToGameButton = (Button) popupView.findViewById(R.id.return_to_game_button);
-                exitGameButton = (Button) popupView.findViewById(R.id.exit_game_button);
-
-                returnToGameButton.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View view) {
-                        popupWindow.dismiss();
-                        //TODO: resume timer.
-                    }
-                });
-
-                exitGameButton.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        popupWindow.dismiss();
-                        startActivity(new Intent(v.getContext(), PuzzleGameIntroActivity.class));
-                    }
-                });
-            }
-        });
-    }
-
 
     /** To randomize the tiles in the puzzle*/
     private void randomize() {

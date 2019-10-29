@@ -44,3 +44,8 @@ Added popup window for customization for puzzle game.
 #Step 8
 Code Affected: puzzleGameIntroActivity.java
 Added spinner for puzzle dimensions customization for puzzle game.
+
+#######
+#Step 9
+Code Affected: puzzleGameActivity.java
+Added an integer ArrayList to store identifiers of the drawable puzzle images.
