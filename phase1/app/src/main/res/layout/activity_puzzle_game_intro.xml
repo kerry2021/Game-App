@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
+        android:textSize="15sp"
         android:text="@string/puzzle_game_intro" />
 
     <Button
@@ -22,5 +23,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
         android:text="@string/start_puzzle_game" />
+
+    <Button
+        android:id="@+id/customize_puzzle_game_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/start_puzzle_game_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:text="@string/customize" />
+
 
 </RelativeLayout>
