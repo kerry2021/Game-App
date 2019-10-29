@@ -3,19 +3,33 @@ package com.example.gameproject.puzzle_game;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.gameproject.R;
 
 public class PuzzleGameIntroActivity extends AppCompatActivity{
+
+    /** The spinner menu items. */
+    public final static String TWO_BY_TWO = "2 by 2 puzzle";
+    public final static String THREE_BY_THREE = "3 by 3 puzzle";
+    public final static String FOUR_BY_FOUR = "4 by 4 puzzle";
+
+    /**
+     * The list of choices for the spinner that allows the user to choose which
+     * Java feature to demonstrate.
+     */
+    private final String[] puzzleDimensions = {TWO_BY_TWO, THREE_BY_THREE, FOUR_BY_FOUR};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +96,20 @@ public class PuzzleGameIntroActivity extends AppCompatActivity{
                         //does not save changes
                     }
                 });
+
+                setUpSpinner(popupWindow.getContentView());
             }
         });
     }
+
+    private void setUpSpinner(View view) {
+        // Set up the puzzleDimensions spinner.
+        Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
+        ArrayAdapter adapter = new ArrayAdapter(
+                this, android.R.layout.simple_spinner_item, puzzleDimensions);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+    }
+
+
 }

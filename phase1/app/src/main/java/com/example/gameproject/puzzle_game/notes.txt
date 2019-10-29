@@ -39,3 +39,8 @@ Changed layout of options popup window and created options (buttons).
 Code Affected: puzzleGameActivity.java, puzzleGameIntroActivity.java,
 activity_puzzle_game_intro.xml, customize_puzzle_game_window.xml, string.xml
 Added popup window for customization for puzzle game.
+
+#######
+#Step 8
+Code Affected: puzzleGameIntroActivity.java
+Added spinner for puzzle dimensions customization for puzzle game.
