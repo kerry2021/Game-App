@@ -28,7 +28,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Time: 120s"
+        android:text="02:00"
         android:id="@+id/time"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Puzzles Completed: 0"
-        android:id="@+id/num"
+        android:id="@+id/puzzle"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:textSize="20sp"

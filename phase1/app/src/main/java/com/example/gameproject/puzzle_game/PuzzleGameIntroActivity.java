@@ -21,15 +21,18 @@ import com.example.gameproject.R;
 public class PuzzleGameIntroActivity extends AppCompatActivity{
 
     /** The spinner menu items. */
-    public final static String TWO_BY_TWO = "2 by 2 puzzle";
     public final static String THREE_BY_THREE = "3 by 3 puzzle";
     public final static String FOUR_BY_FOUR = "4 by 4 puzzle";
+    public final static String FIVE_BY_FIVE = "5 by 5 puzzle";
+
+    public static int customizedColumns = 3;//default value: 3 by 3 puzzle
+    private static Spinner spinner;
 
     /**
      * The list of choices for the spinner that allows the user to choose which
      * Java feature to demonstrate.
      */
-    private final String[] puzzleDimensions = {TWO_BY_TWO, THREE_BY_THREE, FOUR_BY_FOUR};
+    private final String[] puzzleDimensions = {THREE_BY_THREE, FOUR_BY_FOUR, FIVE_BY_FIVE};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +88,19 @@ public class PuzzleGameIntroActivity extends AppCompatActivity{
 
                 confirmButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
+                        switch (spinner.getSelectedItem().toString()) {
+                            case THREE_BY_THREE:
+                                customizedColumns = 3;
+                                break;
+                            case FOUR_BY_FOUR:
+                                customizedColumns = 4;
+                                break;
+                            case FIVE_BY_FIVE:
+                                customizedColumns = 5;
+                                break;
+                        }
                         popupWindow.dismiss();
-                        //TODO: save changes, execute.
+                        //TODO: save picture (if uploaded), execute.
                     }
                 });
 
@@ -104,7 +118,7 @@ public class PuzzleGameIntroActivity extends AppCompatActivity{
 
     private void setUpSpinner(View view) {
         // Set up the puzzleDimensions spinner.
-        Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
+        spinner = (Spinner) view.findViewById(R.id.spinner);
         ArrayAdapter adapter = new ArrayAdapter(
                 this, android.R.layout.simple_spinner_item, puzzleDimensions);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

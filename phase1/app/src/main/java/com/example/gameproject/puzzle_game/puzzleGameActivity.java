@@ -5,33 +5,38 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import android.view.Gravity;
-import android.view.MotionEvent;
 
 import com.example.gameproject.R;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
 
 public class puzzleGameActivity extends AppCompatActivity {
 
     private static final String TAG = "Puzzle Game Activity";
 
+    private TextView textViewTime;
+    private TextView textViewpuzzleComp;
+    private TextView textViewScore;
     //Slightly tweaked version of gridview for displaying changes after swiping
     private static GestureDetectGridView mGridView;
 
     //making only 3x3 puzzle for now, will expand to harder puzzle
-    private static final int COLUMNS = 3;
-    private static final int DIMENSIONS = COLUMNS * COLUMNS;
+    private static int columns = 3;
+    private static int dimensions = columns * columns;
 
     private static int mColumnWidth, mColumnHeight;
 
@@ -59,22 +64,29 @@ public class puzzleGameActivity extends AppCompatActivity {
     //current score
     private static int score = 0;
 
-    private static final double TIME_LIMIT = 1.2e+11;
+    //Time given to complete the puzzles
+    private static final long COUNTDOWN_IN_MILLIS = 120000;
+
+    //Timer
+    private static CountDownTimer countDownTimer;
+    //Time left during game
+    private long timeLeftInMillis;
+    //Time left during pause
+    private long pauseTimeLeft;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle_game);
+        textViewTime = findViewById(R.id.time);
+        textViewpuzzleComp = findViewById(R.id.puzzle);
+        textViewScore = findViewById(R.id.score);
         createOptionsButton();
-
+        columns = PuzzleGameIntroActivity.customizedColumns;
         init();
         randomize();
         setDimensions();
-        long startTime;
-        long endTime;
-        long totalTime = 0;
-        startTime = System.nanoTime();
         Log.i(TAG, "Game has Created.");
     }
 
@@ -83,13 +95,52 @@ public class puzzleGameActivity extends AppCompatActivity {
         numMoves = 0;
         score = 0;
         mGridView = (GestureDetectGridView) findViewById(R.id.grid);
-        mGridView.setNumColumns(COLUMNS);
-        tileList = new String[DIMENSIONS];
-        for (int i = 0; i < DIMENSIONS; i++) {
+        mGridView.setNumColumns(columns);
+        tileList = new String[dimensions];
+        for (int i = 0; i < dimensions; i++) {
             tileList[i] = String.valueOf(i);
         }
+
+        timeLeftInMillis = COUNTDOWN_IN_MILLIS;
+        startCountDown();
     }
 
+    private void startCountDown(){
+        countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeLeftInMillis = millisUntilFinished;
+                updateCountDownText();
+            }
+
+            @Override
+            public void onFinish() {
+                timeLeftInMillis = 0;
+                updateCountDownText();
+                //TODO: Jump to EndGameScreen
+
+            }
+        }.start();
+    }
+
+    private void updateCountDownText() {
+        int minutes = (int) (timeLeftInMillis / 1000) / 60;
+        int seconds = (int) (timeLeftInMillis / 1000) % 60;
+
+        String timeFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes,
+                seconds);
+        textViewTime.setText(timeFormatted);
+    }
+
+    private void pause(){
+        pauseTimeLeft = timeLeftInMillis;
+        countDownTimer.cancel();
+    }
+
+    private void resume(){
+        timeLeftInMillis = pauseTimeLeft;
+        startCountDown();
+    }
     /**
      * To create the options button.
      */
@@ -100,8 +151,7 @@ public class puzzleGameActivity extends AppCompatActivity {
 
         optionsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                //TODO: Stop actions in background. Pause game.
-
+                pause();
                 // inflate the layout of the popup window
                 LayoutInflater inflater = (LayoutInflater)
                         getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -125,7 +175,7 @@ public class puzzleGameActivity extends AppCompatActivity {
                 returnToGameButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
                         popupWindow.dismiss();
-                        //TODO: resume timer.
+                        resume();
                     }
                 });
 
@@ -167,11 +217,10 @@ public class puzzleGameActivity extends AppCompatActivity {
                 int statusbarHeight = getStatusBarHeight(getApplicationContext());
                 int requiredHeight = displayHeight - statusbarHeight;
 
-                mColumnWidth = displayWidth / COLUMNS;
-                mColumnHeight = requiredHeight / COLUMNS;
+                mColumnWidth = displayWidth / columns;
+                mColumnHeight = requiredHeight / columns;
 
                 createPuzzleList();
-
                 display(getApplicationContext(), puzzleComplete);
             }
         });
@@ -191,7 +240,7 @@ public class puzzleGameActivity extends AppCompatActivity {
 
     /** Create a list of images stored in drawable to create puzzle */
     private void createPuzzleList() {
-        for (int i = 0; i < 18; i++){
+        for (int i = 0; i < 9 * puzzleNum; i++){
             puzzles.add(getResources().getIdentifier("p"+i, "drawable", getPackageName()));
         }
 
@@ -201,10 +250,8 @@ public class puzzleGameActivity extends AppCompatActivity {
     private static void display(Context context, int puzzleNum) {
         ArrayList<Button> buttons = new ArrayList<>();
         Button button;
-
         for (int i = 0; i < tileList.length; i++) {
             button = new Button(context);
-
             if (tileList[i].equals("0"))
                 button.setBackgroundResource(puzzles.get(puzzleNum*9));
             else if (tileList[i].equals("1"))
@@ -223,10 +270,8 @@ public class puzzleGameActivity extends AppCompatActivity {
                 button.setBackgroundResource(puzzles.get(puzzleNum*9+7));
             else if (tileList[i].equals("8"))
                 button.setBackgroundResource(puzzles.get(puzzleNum*9+8));
-
             buttons.add(button);
         }
-
         mGridView.setAdapter(new PuzzleAdapter(buttons, mColumnWidth, mColumnHeight));
     }
 
@@ -238,7 +283,7 @@ public class puzzleGameActivity extends AppCompatActivity {
         display(context, puzzleComplete);
 
         if (isSolved()) {
-            Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "NEXT PUZZLE!", Toast.LENGTH_SHORT).show();
             puzzleComplete++;
             if(puzzleComplete < puzzleNum){
 
@@ -249,6 +294,7 @@ public class puzzleGameActivity extends AppCompatActivity {
 
             else{
                 Toast.makeText(context, "END OF GAME!", Toast.LENGTH_SHORT).show();
+                countDownTimer.cancel();
                 //TODO: Direct to a endgame score screen and lead back to mainscreen
             }
         }
@@ -261,62 +307,62 @@ public class puzzleGameActivity extends AppCompatActivity {
         if (position == 0) {
 
             if (direction.equals(right)) swap(context, position, 1);
-            else if (direction.equals(down)) swap(context, position, COLUMNS);
+            else if (direction.equals(down)) swap(context, position, columns);
             else Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
 
             // Upper-center tiles
-        } else if (position > 0 && position < COLUMNS - 1) {
+        } else if (position > 0 && position < columns - 1) {
             if (direction.equals(left)) swap(context, position, -1);
-            else if (direction.equals(down)) swap(context, position, COLUMNS);
+            else if (direction.equals(down)) swap(context, position, columns);
             else if (direction.equals(right)) swap(context, position, 1);
             else Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
 
             // Upper-right-corner tile
-        } else if (position == COLUMNS - 1) {
+        } else if (position == columns - 1) {
             if (direction.equals(left)) swap(context, position, -1);
-            else if (direction.equals(down)) swap(context, position, COLUMNS);
+            else if (direction.equals(down)) swap(context, position, columns);
             else Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
 
             // Left-side tiles
-        } else if (position > COLUMNS - 1 && position < DIMENSIONS - COLUMNS &&
-                position % COLUMNS == 0) {
-            if (direction.equals(up)) swap(context, position, -COLUMNS);
+        } else if (position > columns - 1 && position < dimensions - columns &&
+                position % columns == 0) {
+            if (direction.equals(up)) swap(context, position, -columns);
             else if (direction.equals(right)) swap(context, position, 1);
-            else if (direction.equals(down)) swap(context, position, COLUMNS);
+            else if (direction.equals(down)) swap(context, position, columns);
             else Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
 
             // Right-side AND bottom-right-corner tiles
-        } else if (position == COLUMNS * 2 - 1 || position == COLUMNS * 3 - 1) {
-            if (direction.equals(up)) swap(context, position, -COLUMNS);
+        } else if (position == columns * 2 - 1 || position == columns * 3 - 1) {
+            if (direction.equals(up)) swap(context, position, -columns);
             else if (direction.equals(left)) swap(context, position, -1);
             else if (direction.equals(down)) {
 
                 // Tolerates only the right-side tiles to swap downwards as opposed to the bottom-
                 // right-corner tile.
-                if (position <= DIMENSIONS - COLUMNS - 1) swap(context, position,
-                        COLUMNS);
+                if (position <= dimensions - columns - 1) swap(context, position,
+                        columns);
                 else Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
             } else Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
 
             // Bottom-left corner tile
-        } else if (position == DIMENSIONS - COLUMNS) {
-            if (direction.equals(up)) swap(context, position, -COLUMNS);
+        } else if (position == dimensions - columns) {
+            if (direction.equals(up)) swap(context, position, -columns);
             else if (direction.equals(right)) swap(context, position, 1);
             else Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
 
             // Bottom-center tiles
-        } else if (position < DIMENSIONS - 1 && position > DIMENSIONS - COLUMNS) {
-            if (direction.equals(up)) swap(context, position, -COLUMNS);
+        } else if (position < dimensions - 1 && position > dimensions - columns) {
+            if (direction.equals(up)) swap(context, position, -columns);
             else if (direction.equals(left)) swap(context, position, -1);
             else if (direction.equals(right)) swap(context, position, 1);
             else Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
 
             // Center tiles
         } else {
-            if (direction.equals(up)) swap(context, position, -COLUMNS);
+            if (direction.equals(up)) swap(context, position, -columns);
             else if (direction.equals(left)) swap(context, position, -1);
             else if (direction.equals(right)) swap(context, position, 1);
-            else swap(context, position, COLUMNS);
+            else swap(context, position, columns);
         }
     }
 
@@ -337,6 +383,14 @@ public class puzzleGameActivity extends AppCompatActivity {
     }
 
     private static void endGame() {
-        //TODO: implement
+        //TODO: implement jump to endgame screen
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
     }
 }
