@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -19,12 +21,16 @@ import android.view.Gravity;
 import com.example.gameproject.R;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
 
 public class puzzleGameActivity extends AppCompatActivity {
 
     private static final String TAG = "Puzzle Game Activity";
 
+    private TextView textViewTime;
+    private TextView textViewpuzzleComp;
+    private TextView textViewScore;
     //Slightly tweaked version of gridview for displaying changes after swiping
     private static GestureDetectGridView mGridView;
 
@@ -58,14 +64,24 @@ public class puzzleGameActivity extends AppCompatActivity {
     //current score
     private static int score = 0;
 
-    //time limit in nanoseconds
-    private static final double TIME_LIMIT = 1.2e+11;
+    //Time given to complete the puzzles
+    private static final long COUNTDOWN_IN_MILLIS = 120000;
+
+    //Timer
+    private static CountDownTimer countDownTimer;
+    //Time left during game
+    private long timeLeftInMillis;
+    //Time left during pause
+    private long pauseTimeLeft;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle_game);
+        textViewTime = findViewById(R.id.time);
+        textViewpuzzleComp = findViewById(R.id.puzzle);
+        textViewScore = findViewById(R.id.score);
         createOptionsButton();
         columns = PuzzleGameIntroActivity.customizedColumns;
         init();
@@ -84,8 +100,47 @@ public class puzzleGameActivity extends AppCompatActivity {
         for (int i = 0; i < dimensions; i++) {
             tileList[i] = String.valueOf(i);
         }
+
+        timeLeftInMillis = COUNTDOWN_IN_MILLIS;
+        startCountDown();
     }
 
+    private void startCountDown(){
+        countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeLeftInMillis = millisUntilFinished;
+                updateCountDownText();
+            }
+
+            @Override
+            public void onFinish() {
+                timeLeftInMillis = 0;
+                updateCountDownText();
+                //TODO: Jump to EndGameScreen
+
+            }
+        }.start();
+    }
+
+    private void updateCountDownText() {
+        int minutes = (int) (timeLeftInMillis / 1000) / 60;
+        int seconds = (int) (timeLeftInMillis / 1000) % 60;
+
+        String timeFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes,
+                seconds);
+        textViewTime.setText(timeFormatted);
+    }
+
+    private void pause(){
+        pauseTimeLeft = timeLeftInMillis;
+        countDownTimer.cancel();
+    }
+
+    private void resume(){
+        timeLeftInMillis = pauseTimeLeft;
+        startCountDown();
+    }
     /**
      * To create the options button.
      */
@@ -96,8 +151,7 @@ public class puzzleGameActivity extends AppCompatActivity {
 
         optionsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                //TODO: Stop actions in background. Pause game.
-
+                pause();
                 // inflate the layout of the popup window
                 LayoutInflater inflater = (LayoutInflater)
                         getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -121,7 +175,7 @@ public class puzzleGameActivity extends AppCompatActivity {
                 returnToGameButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
                         popupWindow.dismiss();
-                        //TODO: resume timer.
+                        resume();
                     }
                 });
 
@@ -229,7 +283,7 @@ public class puzzleGameActivity extends AppCompatActivity {
         display(context, puzzleComplete);
 
         if (isSolved()) {
-            Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "NEXT PUZZLE!", Toast.LENGTH_SHORT).show();
             puzzleComplete++;
             if(puzzleComplete < puzzleNum){
 
@@ -240,6 +294,7 @@ public class puzzleGameActivity extends AppCompatActivity {
 
             else{
                 Toast.makeText(context, "END OF GAME!", Toast.LENGTH_SHORT).show();
+                countDownTimer.cancel();
                 //TODO: Direct to a endgame score screen and lead back to mainscreen
             }
         }
@@ -328,6 +383,14 @@ public class puzzleGameActivity extends AppCompatActivity {
     }
 
     private static void endGame() {
-        //TODO: implement
+        //TODO: implement jump to endgame screen
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
     }
 }
