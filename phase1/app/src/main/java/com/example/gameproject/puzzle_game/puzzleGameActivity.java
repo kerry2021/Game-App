@@ -2,6 +2,8 @@ package com.example.gameproject.puzzle_game;
 
 import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,17 +44,64 @@ public class puzzleGameActivity extends AppCompatActivity {
     //a list of number each represent a tile, used for radomizing and checking win condition
     private static String[] tileList;
 
+    //a list of identifiers referencing each image for the puzzle in drawable
+    private static ArrayList<Integer> puzzles = new ArrayList<>();
+
+    //total number of puzzles in the game
+    private static int puzzleNum = 2;
+
+    //number of puzzle completed
+    private static int puzzleComplete = 0;
+
+    //number of moves
+    private static int numMoves = 0;
+
+    //current score
+    private static int score = 0;
+
+    private static final double TIME_LIMIT = 1.2e+11;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle_game);
+        createOptionsButton();
 
+        init();
+        randomize();
+        setDimensions();
+        long startTime;
+        long endTime;
+        long totalTime = 0;
+        startTime = System.nanoTime();
+        Log.i(TAG, "Game has Created.");
+    }
+
+    private void init() {
+        puzzleComplete = 0;
+        numMoves = 0;
+        score = 0;
+        mGridView = (GestureDetectGridView) findViewById(R.id.grid);
+        mGridView.setNumColumns(COLUMNS);
+        tileList = new String[DIMENSIONS];
+        for (int i = 0; i < DIMENSIONS; i++) {
+            tileList[i] = String.valueOf(i);
+        }
+    }
+
+    /**
+     * To create the options button.
+     */
+    private void createOptionsButton() {
         Button optionsButton;
 
         optionsButton = (Button) findViewById(R.id.puzzle_game_options_button);
 
         optionsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
+                //TODO: Stop actions in background. Pause game.
+
                 // inflate the layout of the popup window
                 LayoutInflater inflater = (LayoutInflater)
                         getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -61,44 +110,38 @@ public class puzzleGameActivity extends AppCompatActivity {
                 // create the popup window
                 int width = LinearLayout.LayoutParams.WRAP_CONTENT;
                 int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                boolean focusable = true; // lets taps outside the popup also dismiss it
+                boolean focusable = false; // Taps outside the popup does not dismiss it
                 final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
                 // show the popup window
                 // which view you pass in doesn't matter, it is only used for the window tolken
                 popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
-                // dismiss the popup window when touched
-                popupView.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
+                Button returnToGameButton, exitGameButton;
+
+                returnToGameButton = (Button) popupView.findViewById(R.id.return_to_game_button);
+                exitGameButton = (Button) popupView.findViewById(R.id.exit_game_button);
+
+                returnToGameButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View view) {
                         popupWindow.dismiss();
-                        return true;
+                        //TODO: resume timer.
+                    }
+                });
+
+                exitGameButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        popupWindow.dismiss();
+                        startActivity(new Intent(v.getContext(), PuzzleGameIntroActivity.class));
                     }
                 });
             }
         });
-
-        init();
-
-        randomize();
-
-        setDimensions();
-        Log.i(TAG, "Game has Created.");
     }
 
-    private void init() {
-        mGridView = (GestureDetectGridView) findViewById(R.id.grid);
-        mGridView.setNumColumns(COLUMNS);
-
-        tileList = new String[DIMENSIONS];
-        for (int i = 0; i < DIMENSIONS; i++) {
-            tileList[i] = String.valueOf(i);
-        }
-    }
 
     /** To randomize the tiles in the puzzle*/
-    private void randomize() {
+    private static void randomize() {
         int index;
         String temp;
         Random random = new Random();
@@ -127,7 +170,9 @@ public class puzzleGameActivity extends AppCompatActivity {
                 mColumnWidth = displayWidth / COLUMNS;
                 mColumnHeight = requiredHeight / COLUMNS;
 
-                display(getApplicationContext());
+                createPuzzleList();
+
+                display(getApplicationContext(), puzzleComplete);
             }
         });
     }
@@ -144,33 +189,40 @@ public class puzzleGameActivity extends AppCompatActivity {
         return result;
     }
 
+    /** Create a list of images stored in drawable to create puzzle */
+    private void createPuzzleList() {
+        for (int i = 0; i < 18; i++){
+            puzzles.add(getResources().getIdentifier("p"+i, "drawable", getPackageName()));
+        }
+
+    }
+
     /** display the code after each movement */
-    private static void display(Context context) {
+    private static void display(Context context, int puzzleNum) {
         ArrayList<Button> buttons = new ArrayList<>();
         Button button;
 
         for (int i = 0; i < tileList.length; i++) {
             button = new Button(context);
 
-            //TODO: We need to have a few different Pictures, use variable instead?
             if (tileList[i].equals("0"))
-                button.setBackgroundResource(R.drawable.p0);
+                button.setBackgroundResource(puzzles.get(puzzleNum*9));
             else if (tileList[i].equals("1"))
-                button.setBackgroundResource(R.drawable.p1);
+                button.setBackgroundResource(puzzles.get(puzzleNum*9+1));
             else if (tileList[i].equals("2"))
-                button.setBackgroundResource(R.drawable.p2);
+                button.setBackgroundResource(puzzles.get(puzzleNum*9+2));
             else if (tileList[i].equals("3"))
-                button.setBackgroundResource(R.drawable.p3);
+                button.setBackgroundResource(puzzles.get(puzzleNum*9+3));
             else if (tileList[i].equals("4"))
-                button.setBackgroundResource(R.drawable.p4);
+                button.setBackgroundResource(puzzles.get(puzzleNum*9+4));
             else if (tileList[i].equals("5"))
-                button.setBackgroundResource(R.drawable.p5);
+                button.setBackgroundResource(puzzles.get(puzzleNum*9+5));
             else if (tileList[i].equals("6"))
-                button.setBackgroundResource(R.drawable.p6);
+                button.setBackgroundResource(puzzles.get(puzzleNum*9+6));
             else if (tileList[i].equals("7"))
-                button.setBackgroundResource(R.drawable.p7);
+                button.setBackgroundResource(puzzles.get(puzzleNum*9+7));
             else if (tileList[i].equals("8"))
-                button.setBackgroundResource(R.drawable.p8);
+                button.setBackgroundResource(puzzles.get(puzzleNum*9+8));
 
             buttons.add(button);
         }
@@ -183,9 +235,23 @@ public class puzzleGameActivity extends AppCompatActivity {
         String newPosition = tileList[currentPosition + swap];
         tileList[currentPosition + swap] = tileList[currentPosition];
         tileList[currentPosition] = newPosition;
-        display(context);
+        display(context, puzzleComplete);
 
-        if (isSolved()) Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
+        if (isSolved()) {
+            Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
+            puzzleComplete++;
+            if(puzzleComplete < puzzleNum){
+
+                randomize();
+
+                display(context, puzzleComplete);
+            }
+
+            else{
+                Toast.makeText(context, "END OF GAME!", Toast.LENGTH_SHORT).show();
+                //TODO: Direct to a endgame score screen and lead back to mainscreen
+            }
+        }
     }
 
     /**Either Swap or not swap depending on the position and direction user want to swap*/
@@ -268,5 +334,9 @@ public class puzzleGameActivity extends AppCompatActivity {
         }
 
         return solved;
+    }
+
+    private static void endGame() {
+        //TODO: implement
     }
 }

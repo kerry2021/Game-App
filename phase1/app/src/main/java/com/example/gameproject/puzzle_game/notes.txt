@@ -33,3 +33,25 @@ Changed layout to fit display of time, puzzle completed, and the score.
 Code Affected: puzzleGameActivity.java, activity_puzzle_game.xml, puzzle_game_options_window.xml,
 string.xml
 Changed layout of options popup window and created options (buttons).
+
+#######
+#Step 7
+Code Affected: puzzleGameActivity.java, puzzleGameIntroActivity.java,
+activity_puzzle_game_intro.xml, customize_puzzle_game_window.xml, string.xml
+Added popup window for customization for puzzle game.
+
+#######
+#Step 8
+Code Affected: puzzleGameIntroActivity.java
+Added spinner for puzzle dimensions customization for puzzle game.
+
+#######
+#Step 9
+Code Affected: puzzleGameActivity.java
+Added an integer ArrayList to store identifiers of the drawable puzzle images.
+
+#######
+#Step 10
+Code Affected: puzzleGameActivity.java
+Added a second puzzle, and changed swap function to direct to the second puzzle after completing
+the first.
