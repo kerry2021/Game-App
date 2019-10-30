@@ -49,3 +49,21 @@ Added spinner for puzzle dimensions customization for puzzle game.
 #Step 9
 Code Affected: puzzleGameActivity.java
 Added an integer ArrayList to store identifiers of the drawable puzzle images.
+
+#######
+#Step 10
+Code Affected: puzzleGameActivity.java
+Added a second puzzle, and changed swap function to direct to the second puzzle after completing
+the first.
+
+#######
+#Step 11
+Code Affected: puzzleGameActivity.java, puzzleGameIntroActivity.java
+Added variables for recording customization of puzzle dimensions. Passed variable onto
+puzzleGameActivity from puzzleGameIntroActivity.
+
+#######
+#Step 12
+Code Affected: puzzleGameActivity.java
+Implemented Timer that counts down, it can be paused by going into options and resumed when returned
+to the game.

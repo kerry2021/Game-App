@@ -13,5 +13,7 @@
     <string name="customize_image">Customize Puzzle Image</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
+    <string name="points">Points</string>
+    <string name="time">Time</string>
 
 </resources>

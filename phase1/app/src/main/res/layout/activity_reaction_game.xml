@@ -6,72 +6,131 @@
     android:layout_height="match_parent"
     tools:context=".reaction_game.reactionGameActivity">
 
-    <ImageButton
-        android:id="@+id/first"
-        android:layout_width="137dp"
-        android:layout_height="201dp" />
-
-    <ImageButton
-        android:id="@+id/third"
-        android:layout_width="137dp"
-        android:layout_height="201dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
-
-    <ImageButton
-        android:id="@+id/fourth"
-        android:layout_width="137dp"
-        android:layout_height="200dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="200dp" />
+        android:layout_marginBottom="230dp"
+        android:orientation="horizontal">
 
-    <ImageButton
-        android:id="@+id/fifth"
-        android:layout_width="137dp"
-        android:layout_height="200dp"
-        android:layout_alignParentEnd="true"
+        <ImageButton
+            android:id="@+id/first"
+            android:layout_width="130dp"
+            android:layout_height="98dp" />
+
+        <ImageButton
+            android:id="@+id/second"
+            android:layout_width="130dp"
+            android:layout_height="98dp"/>
+
+        <ImageButton
+            android:id="@+id/third"
+            android:layout_width="130dp"
+            android:layout_height="98dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="137dp"
-        android:layout_marginBottom="200dp" />
+        android:layout_marginBottom="130dp"
+        android:orientation="horizontal">
 
-    <ImageButton
-        android:id="@+id/sixth"
-        android:layout_width="137dp"
-        android:layout_height="200dp"
-        android:layout_alignParentEnd="true"
+        <ImageButton
+            android:id="@+id/fourth"
+            android:layout_width="130dp"
+            android:layout_height="98dp" />
+
+        <ImageButton
+            android:id="@+id/fifth"
+            android:layout_width="130dp"
+            android:layout_height="98dp"/>
+
+        <ImageButton
+            android:id="@+id/sixth"
+            android:layout_width="130dp"
+            android:layout_height="98dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="200dp" />
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal">
 
-    <ImageButton
-        android:id="@+id/seventh"
-        android:layout_width="137dp"
-        android:layout_height="200dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp" />
+        <ImageButton
+            android:id="@+id/seventh"
+            android:layout_width="130dp"
+            android:layout_height="98dp" />
 
-    <ImageButton
-        android:id="@+id/eighth"
-        android:layout_width="137dp"
-        android:layout_height="200dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="137dp"
-        android:layout_marginBottom="0dp" />
+        <ImageButton
+            android:id="@+id/eighth"
+            android:layout_width="130dp"
+            android:layout_height="98dp"/>
 
-    <ImageButton
-        android:id="@+id/ninth"
-        android:layout_width="137dp"
-        android:layout_height="200dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp" />
+        <ImageButton
+            android:id="@+id/ninth"
+            android:layout_width="130dp"
+            android:layout_height="98dp"/>
+    </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/second"
-        android:layout_width="137dp"
-        android:layout_height="201dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="30dp">
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:text="@string/time"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/timer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="50dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:text="@string/points"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/score"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 </RelativeLayout>
