@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.gameproject.obstacle_game.ObstacleGameActivity;
+import com.example.gameproject.obstacle_game.ObstacleGameIntroActivity;
 import com.example.gameproject.puzzle_game.PuzzleGameIntroActivity;
 import com.example.gameproject.reaction_game.reactionGameMain;
 
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         });
         obstacleGameButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                startActivity(new Intent(v.getContext(), ObstacleGameActivity.class));
+                startActivity(new Intent(v.getContext(), ObstacleGameIntroActivity.class));
             }
         });
     }
