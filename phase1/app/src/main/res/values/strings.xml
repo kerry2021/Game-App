@@ -15,5 +15,11 @@
     <string name="cancel">Cancel</string>
     <string name="points">Points</string>
     <string name="time">Time</string>
+    <string name="obstacle_game_rule">Obstacle Game Rule</string>
+    <string name="start_obstacle_game">Start Obstacle Game</string>
+    <string name="customization">Customization</string>
+    <string name="welcome_obstacle_game">Welcome to Obstacle Game.</string>
+    <string name="before_start">Reminder: Start the game after reading the game rule.</string>
+    <string name="about_customization">We are still working on the customization part, \n please come back at phase2.</string>
 
 </resources>
