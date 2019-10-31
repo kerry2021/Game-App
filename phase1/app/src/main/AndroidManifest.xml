@@ -16,17 +16,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".puzzle_game.puzzleGameActivity"
+        <activity
+            android:name=".puzzle_game.puzzleGameActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".puzzle_game.PuzzleGameIntroActivity"
+        <activity
+            android:name=".puzzle_game.PuzzleGameIntroActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".reaction_game.reactionGameMain"
+        <activity
+            android:name=".reaction_game.reactionGameMain"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".reaction_game.reactionGameActivity"
+        <activity
+            android:name=".reaction_game.reactionGameActivity"
             android:parentActivityName=".obstacle_game.ObstacleGameIntroActivity" />
-        <activity android:name=".obstacle_game.ObstacleGameIntroActivity"
+        <activity
+            android:name=".obstacle_game.ObstacleGameIntroActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".obstacle_game.ObstacleGameActivity"
+        <activity
+            android:name=".obstacle_game.ObstacleGameActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".LoginActivity"
             android:parentActivityName=".MainActivity" />
     </application>
 

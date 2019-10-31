@@ -21,11 +21,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button reactionGameButton, puzzleGameButton, obstacleGameButton;
+        Button reactionGameButton, puzzleGameButton, obstacleGameButton, logInButton;
 
         reactionGameButton = (Button) findViewById(R.id.reaction_game_button);
         puzzleGameButton = (Button) findViewById(R.id.puzzle_game_button);
         obstacleGameButton = (Button) findViewById(R.id.obstacle_game_button);
+        logInButton = (Button)findViewById(R.id.login_button);
 
         User.setFile(new File(this.getFilesDir(), "UserInfo.txt"));
 
@@ -42,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
         obstacleGameButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 startActivity(new Intent(v.getContext(), ObstacleGameIntroActivity.class));
+            }
+        });
+        logInButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                startActivity(new Intent(v.getContext(), LoginActivity.class));
             }
         });
     }
