@@ -150,6 +150,8 @@ public class reactionGameActivity extends AppCompatActivity {
                 case R.id.ninth:
                     if (next == 9)
                         score += 1;
+                    String ts = "" + score;
+                    t_score.setText(ts);
             }
         }
     }
