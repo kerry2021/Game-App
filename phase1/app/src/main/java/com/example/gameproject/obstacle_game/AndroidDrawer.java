@@ -24,22 +24,28 @@ class AndroidDrawer implements Drawer<Canvas> {
     private List<Obstacle> spaceObstacles;
 
     /**
-     * the paint for ships
+     * The paint for ships
      */
     private Paint shipPaint;
 
     /**
-     * the paint for obstacles
+     * The paint for obstacles
      */
     private Paint obstaclePaint;
 
     /**
-     * the boolean checks whether game is over or not.
+     * The paint for reminder in the center of the screen
+     */
+    private Paint reminderPaint;
+
+
+    /**
+     * The boolean checks whether game is over or not.
      */
     private boolean gameOver = false;
 
     /**
-     * a default drawer
+     * A default drawer.
      */
     AndroidDrawer() {
         setShipPaint();
@@ -47,20 +53,21 @@ class AndroidDrawer implements Drawer<Canvas> {
     }
 
     /**
-     * set up the drawer with 2 lists of SpaceShip and SpaceObstacles
+     * Sets up the drawer with 2 lists of SpaceShip and SpaceObstacles.
      *
-     * @param spaceShip      the player ship
-     * @param spaceObstacles the list of SpaceObstacle
+     * @param spaceShip      the player ship.
+     * @param spaceObstacles the list of SpaceObstacle.
      */
     AndroidDrawer(SpaceShip spaceShip, List<Obstacle> spaceObstacles) {
         this.spaceShip = spaceShip;
         this.spaceObstacles = spaceObstacles;
         setShipPaint();
         setObstaclePaint();
+        setReminderPaint();
     }
 
     /**
-     * initialize the shipPaint
+     * Initializes the shipPaint.
      */
     private void setShipPaint() {
         shipPaint = new Paint();
@@ -70,7 +77,7 @@ class AndroidDrawer implements Drawer<Canvas> {
     }
 
     /**
-     * initialize the obstaclePaint
+     * Initializes the obstaclePaint.
      */
     private void setObstaclePaint() {
         obstaclePaint = new Paint();
@@ -79,10 +86,19 @@ class AndroidDrawer implements Drawer<Canvas> {
     }
 
     /**
-     * update the lists of space items
+     * Initializes the reminderPaint.
+     */
+    private void setReminderPaint() {
+        reminderPaint = new Paint();
+        reminderPaint.setTextSize(100);
+        reminderPaint.setColor(Color.MAGENTA);
+    }
+
+    /**
+     * Updates the lists of space items.
      *
-     * @param spaceShip      the player's ship
-     * @param spaceObstacles the list of SpaceObstacle
+     * @param spaceShip      the player's ship.
+     * @param spaceObstacles the list of SpaceObstacle.
      */
     public void update(SpaceShip spaceShip, List<Obstacle> spaceObstacles) {
         this.spaceShip = spaceShip;
@@ -90,7 +106,7 @@ class AndroidDrawer implements Drawer<Canvas> {
     }
 
     /**
-     * draw all space items in the lists to the canvas
+     * Draws all space items in the lists to the canvas
      *
      * @param canvas the canvas on which to draw the space items.
      */
@@ -106,27 +122,16 @@ class AndroidDrawer implements Drawer<Canvas> {
         }
 
         // draw the lives
-        int remainingLives = spaceShip.getLives();
-        int distance = 0;
-        while (remainingLives > 0) {
-            drawLives(canvas, getGridWidth() / 30 + distance, getGridWidth() / 50);
-            remainingLives--;
-            distance += 75;
-        }
+        drawLives(canvas);
 
         // draw the remaining invincible time
-        int remainingTime = spaceShip.getInvincibleTime();
-        if (remainingTime != 0) {
-            drawTime(canvas, remainingTime, getGridWidth() / 30 + distance + 50);
-            spaceShip.setInvincibleTime(remainingTime - 1);
-        }
+        drawInvincibleTime(canvas);
 
         // draw the out of screen time
-        int outTime = spaceShip.getOutTime();
-        if (outTime != 0) {
-            drawTime(canvas, outTime, getGridWidth() / 30 + distance + 100);
-        }
+        drawOutOfScreenTime(canvas);
 
+        // If the game is over, draw game over on the screen
+        int outTime = spaceShip.getOutTime();
         if (spaceShip.getLives() == 0 | outTime == 1) {
             drawGameOver(canvas);
         }
@@ -138,10 +143,7 @@ class AndroidDrawer implements Drawer<Canvas> {
      * @param canvas the canvas on which to draw "Game Over".
      */
     private void drawGameOver(Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setTextSize(100);
-        paint.setColor(Color.MAGENTA);
-        canvas.drawText("Game Over", getGridWidth() / 3, getGridHeight() / 2, paint);
+        canvas.drawText("Game Over", getGridWidth() / 2, getGridHeight() / 2, reminderPaint);
     }
 
     /** Draws the spaceship on canvas.
@@ -152,24 +154,64 @@ class AndroidDrawer implements Drawer<Canvas> {
         canvas.drawText("(--)ship(--)", spaceShip.getX(), spaceShip.getY(), shipPaint);
     }
 
-    /** Draws the lives on canvas.
+    /** Draws a single life on canvas.
      *
-     * @param canvas the canvas on which to draw the lives.
+     * @param canvas the canvas on which to draw a life.
      * @param x the first coordinate to draw the life.
      * @param y the second coordinate to draw the life.
      */
-    private void drawLives(Canvas canvas, int x, int y) {
+    private void drawLife(Canvas canvas, int x, int y) {
         canvas.drawText(".", x, y, shipPaint);
     }
 
-    /** Draws the invincible time on canvas.
-     *
-     * @param canvas the canvas on which to draw invincible time.
-     * @param remainingTime the remaining invincible time.
-     * @param x the first coordinate to draw the invincible time.
+    /**
+     * Draws the lives on canvas.
+     * @param canvas the canvas on which to draw the lives.
      */
-    private void drawTime(Canvas canvas, int remainingTime, int x) {
-        String text = String.valueOf(remainingTime / 30 + 1);
-        canvas.drawText(text, x, getGridHeight() / 20, shipPaint);
+
+    private void drawLives(Canvas canvas) {
+        int remainingLives = spaceShip.getLives();
+        int distance = 125;
+        canvas.drawText("Lives:", getGridWidth() / 30, getGridHeight() / 18, shipPaint);
+        while (remainingLives > 0) {
+            drawLife(canvas, getGridWidth() / 30 + distance, getGridWidth() / 40);
+            remainingLives--;
+            distance += 75;
+        }
+    }
+
+    /** Draws the time on canvas.
+     *
+     * @param canvas the canvas on which to draw the time
+     * @param time the time.
+     * @param x the first coordinate to draw the time.
+     */
+    private void drawTime(Canvas canvas, int time, int x, int y, Paint paint) {
+        String text = String.valueOf(time / 30 + 1);
+        canvas.drawText(text, x, y, paint);
+    }
+
+    /**
+     * Draws the invincible time on canvas.
+     * @param canvas the canvas on which to draw invincible time.
+     */
+    private void drawInvincibleTime(Canvas canvas) {
+        int invincibleTime = spaceShip.getInvincibleTime();
+        if (invincibleTime != 0) {
+            canvas.drawText("Remaining Invincible Time : ", getGridWidth() / 4, getGridHeight() / 10, shipPaint);
+            drawTime(canvas, invincibleTime, getGridWidth() / 2 - 25, getGridHeight() / 10 + 2, shipPaint);
+        }
+    }
+
+    /**
+     * Draws the out of screen time on canvas.
+     * @param canvas the canvas on which to draw out of screen time.
+     */
+    private void drawOutOfScreenTime(Canvas canvas) {
+        int outTime = spaceShip.getOutTime();
+        if (outTime != 0) {
+            canvas.drawText("You can still be out of screen for : ", getGridWidth() / 4, getGridHeight() / 18, shipPaint);
+            drawTime(canvas, outTime, getGridWidth() / 2 + getGridHeight() / 18, getGridHeight() / 18 + 2, shipPaint);
+        }
     }
 }

@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,13 +24,20 @@ public class reactionGameActivity extends AppCompatActivity {
     private ImageButton image_7;
     private ImageButton image_8;
     private ImageButton image_9;
+    private ImageButton [] buttons=new ImageButton[9];
     private int next;
-    private int score;
+    int score, timer;
+    TextView t_score, t_timer;
     private myThread t;
 
     ClickImage click;
 
-    public Handler handler = new Handler() {
+    public Handler handler1 = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            reInitButton();
+        };
+    };
+    public Handler handler2 = new Handler() {
         public void handleMessage(android.os.Message msg) {
             update();
         };
@@ -40,12 +49,14 @@ public class reactionGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reaction_game);
 
         initButton();
-        reInitButton();
         score = 0;
-
+        timer = 60;
+        t_score = findViewById(R.id.score);
+        t_timer = findViewById(R.id.timer);
         t = new myThread();
         t.setRunning(true);
-
+        t_score.setText("0");
+        timer();
     }
 
     @Override
@@ -54,61 +65,27 @@ public class reactionGameActivity extends AppCompatActivity {
         t.start();
     }
     private void initButton(){
-        image_1 = findViewById(R.id.first);
-        image_2 = findViewById(R.id.second);
-        image_3 = findViewById(R.id.third);
-        image_4 = findViewById(R.id.fourth);
-        image_5 = findViewById(R.id.fifth);
-        image_6 = findViewById(R.id.sixth);
-        image_7 = findViewById(R.id.seventh);
-        image_8 = findViewById(R.id.eighth);
-        image_9 = findViewById(R.id.ninth);
+        buttons[0] = findViewById(R.id.first);
+        buttons[1] = findViewById(R.id.second);
+        buttons[2] = findViewById(R.id.third);
+        buttons[3] = findViewById(R.id.fourth);
+        buttons[4] = findViewById(R.id.fifth);
+        buttons[5] = findViewById(R.id.sixth);
+        buttons[6] = findViewById(R.id.seventh);
+        buttons[7] = findViewById(R.id.eighth);
+        buttons[8] = findViewById(R.id.ninth);
 
         click = new ClickImage();
-        image_1.setOnClickListener(click);
-        image_2.setOnClickListener(click);
-        image_3.setOnClickListener(click);
-        image_4.setOnClickListener(click);
-        image_5.setOnClickListener(click);
-        image_6.setOnClickListener(click);
-        image_7.setOnClickListener(click);
-        image_8.setOnClickListener(click);
-        image_9.setOnClickListener(click);
+        for (int i =0;i < 9;i++)
+            buttons[i].setOnClickListener(click);
     }
     private void reInitButton(){
-        image_1.setBackgroundResource(R.drawable.hole);
-        image_2.setBackgroundResource(R.drawable.hole);
-        image_3.setBackgroundResource(R.drawable.hole);
-        image_4.setBackgroundResource(R.drawable.hole);
-        image_5.setBackgroundResource(R.drawable.hole);
-        image_6.setBackgroundResource(R.drawable.hole);
-        image_7.setBackgroundResource(R.drawable.hole);
-        image_8.setBackgroundResource(R.drawable.hole);
-        image_9.setBackgroundResource(R.drawable.hole);
-
+        for(int i =0;i < 9;i++)
+            buttons[i].setBackgroundResource(R.drawable.hole);
     }
 
     public void update(){
-        reInitButton();
-        if (next == 1)
-            image_1.setBackgroundResource(R.drawable.mole);
-        else if (next == 2)
-            image_2.setBackgroundResource(R.drawable.mole);
-        else if (next == 3)
-            image_3.setBackgroundResource(R.drawable.mole);
-        else if (next == 4)
-            image_4.setBackgroundResource(R.drawable.mole);
-        else if (next == 5)
-            image_5.setBackgroundResource(R.drawable.mole);
-        else if (next == 6)
-            image_6.setBackgroundResource(R.drawable.mole);
-        else if (next == 7)
-            image_7.setBackgroundResource(R.drawable.mole);
-        else if (next == 8)
-            image_8.setBackgroundResource(R.drawable.mole);
-        else if (next == 9)
-            image_9.setBackgroundResource(R.drawable.mole);
-
+        buttons[next-1].setBackgroundResource(R.drawable.mole);
     }
 
     class ClickImage implements OnClickListener {
@@ -116,35 +93,63 @@ public class reactionGameActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             int id = v.getId();
-            switch (id) {
-                case R.id.first:
-                    if (next == 1)
-                        score += 1;
-                case R.id.second:
-                    if (next == 2)
-                        score += 1;
-                case R.id.third:
-                    if (next == 3)
-                        score += 1;
-                case R.id.fourth:
-                    if (next == 4)
-                        score += 1;
-                case R.id.fifth:
-                    if (next == 5)
-                        score += 1;
-                case R.id.sixth:
-                    if (next == 6)
-                        score += 1;
-                case R.id.seventh:
-                    if (next == 7)
-                        score += 1;
-                case R.id.eighth:
-                    if (next == 8)
-                        score += 1;
-                case R.id.ninth:
-                    if (next == 9)
-                        score += 1;
+            if (id == R.id.first) {
+                if (next == 1) {
+                    score += 1;
+                    next = 0;
+                }
             }
+            else if (id == R.id.second) {
+                if (next == 2) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            else if (id == R.id.third) {
+                if (next == 3) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            else if (id == R.id.fourth) {
+                if (next == 4) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            else if (id == R.id.fifth) {
+                if (next == 5) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            else if (id == R.id.sixth) {
+                if (next == 6) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            else if (id == R.id.seventh) {
+                if (next == 7) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            else if (id == R.id.eighth) {
+                if (next == 8) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            else if (id == R.id.ninth) {
+                if (next == 9) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            String ts = "" + score;
+            t_score.setText(ts);
+            
         }
     }
 
@@ -154,9 +159,12 @@ public class reactionGameActivity extends AppCompatActivity {
         public void run(){
             try{
                 while (Running) {
-                    Thread.sleep(1000);
+                    handler1.sendEmptyMessage(1);
+                    Thread.sleep(750);//time pause for 0.75s, allow the screen to stay in no mole for 0.75s
                     next = (int) (Math.random() * 9) + 1;
-                    handler.sendEmptyMessage(1);
+                    handler2.sendEmptyMessage(1);
+                    Thread.sleep(750);//time pause for 0.75s, allow the screen to stay in mole for 0.75s
+                    next = 0;
                 }
             }
             catch(Exception e){
@@ -167,5 +175,38 @@ public class reactionGameActivity extends AppCompatActivity {
         public void setRunning(boolean setRunning){
             this.Running = setRunning;
         }
+    }
+
+
+    public void timer() {
+        new Thread() {
+            @Override
+            public void run() {
+                while (timer >= 1) {
+                    try {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String t = "" + timer;
+                                t_timer.setText(t);
+                                timer--;
+                                if (timer == 0) {
+                                    Toast.makeText(reactionGameActivity.this, "Time Up", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            }
+                        });
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+
+                    }
+                }
+            }
+        }.start();
+    }
+
+    public void onStop(){
+        super.onStop();
+        t.interrupt();
     }
 }

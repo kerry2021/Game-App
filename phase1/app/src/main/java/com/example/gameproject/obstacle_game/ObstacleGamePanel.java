@@ -3,6 +3,8 @@ package com.example.gameproject.obstacle_game;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import com.example.gameproject.GamePanel;
@@ -45,8 +47,12 @@ public class ObstacleGamePanel extends GamePanel {
 
     @Override
     public void update() {
-        if (! adventureManger.getGameOver()) {
+        if (AdventureManager.checkGameCountDown()) {
+            AdventureManager.countDown();
+            return;
+        } else {
             adventureManger.update();
+            if (adventureManger.getGameOver()) {}
         }
     }
 
@@ -58,6 +64,7 @@ public class ObstacleGamePanel extends GamePanel {
     public void draw(Canvas canvas) {
         super.draw(canvas);
         drawer.update(adventureManger.getShip(), adventureManger.getObstacles());
+        drawGameCountDown(canvas);
         drawer.draw(canvas);
     }
 
@@ -67,5 +74,15 @@ public class ObstacleGamePanel extends GamePanel {
             adventureManger.respondTouch();
         }
         return true;
+    }
+
+    private void drawGameCountDown(Canvas canvas) {
+        if (AdventureManager.checkGameCountDown()) {
+            Paint paint = new Paint();
+            paint.setTextSize(100);
+            paint.setColor(Color.MAGENTA);
+            String text = String.valueOf(AdventureManager.getGameCountDown() / 30 + 1);
+            canvas.drawText(text, AdventureManager.getGridWidth() / 2 , AdventureManager.getGridHeight() / 2, paint);
+        }
     }
 }

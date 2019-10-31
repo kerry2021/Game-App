@@ -4,15 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.gameproject.obstacle_game.ObstacleGameActivity;
+import com.example.gameproject.obstacle_game.ObstacleGameIntroActivity;
 import com.example.gameproject.puzzle_game.PuzzleGameIntroActivity;
-import com.example.gameproject.reaction_game.reactionGameActivity;
-
-import java.io.File;
+import com.example.gameproject.reaction_game.reactionGameMain;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,22 +25,19 @@ public class MainActivity extends AppCompatActivity {
         puzzleGameButton = (Button) findViewById(R.id.puzzle_game_button);
         obstacleGameButton = (Button) findViewById(R.id.obstacle_game_button);
 
-        File customizationFile = new File(this.getFilesDir(), "User_Info.txt");
-        User.setFile(customizationFile);
-
-        reactionGameButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), reactionGameActivity.class));
+        reactionGameButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                startActivity(new Intent(v.getContext(), reactionGameMain.class));
             }
         });
-        puzzleGameButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        puzzleGameButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
                 startActivity(new Intent(v.getContext(), PuzzleGameIntroActivity.class));
             }
         });
-        obstacleGameButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), ObstacleGameActivity.class));
+        obstacleGameButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                startActivity(new Intent(v.getContext(), ObstacleGameIntroActivity.class));
             }
         });
     }

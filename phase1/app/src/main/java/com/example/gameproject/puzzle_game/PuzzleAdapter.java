@@ -26,7 +26,9 @@ public class PuzzleAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {return (Object) mButtons.get(position);}
+    public Object getItem(int position) {
+        return (Object) mButtons.get(position);
+    }
 
     @Override
     public long getItemId(int position) {

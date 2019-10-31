@@ -67,3 +67,31 @@ puzzleGameActivity from puzzleGameIntroActivity.
 Code Affected: puzzleGameActivity.java
 Implemented Timer that counts down, it can be paused by going into options and resumed when returned
 to the game.
+
+#######
+#Step 13
+Code Affected: puzzleGameActivity.java
+Add method setBackgroundClickable(boolean) to prevent users from moving tiles or clicking buttons
+in the background when game is paused and to allow actions when game is resumed.
+
+#######
+#Step 14
+Code Affected: puzzleGameActivity.java, GestureDetectGridView
+Added puzzleGameActivity variable in GestureDetectGridView so that methods and variables in
+puzzleGameActivity can be set as non-static and private.
+
+#######
+#Step 15
+Code Affected: puzzleGameActivity.java, activity_puzzle_game.xml
+Added textView for number of moves into the game-screen layout, and implemented number of completed
+puzzles, number of moves, and the score to the game.
+
+#######
+#Step 16
+Code Affected: puzzleGameActivity.java, puzzle_game_final_score_window.xml, strings.xml
+Added showFinalScore method and final score popup window.
+
+#######
+#Step 17
+Code Affected: All class and layout
+Reformatted the codes and deleted unnecessary codes.

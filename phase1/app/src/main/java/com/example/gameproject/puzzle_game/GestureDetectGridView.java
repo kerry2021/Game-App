@@ -13,6 +13,7 @@ public class GestureDetectGridView extends GridView {
     private boolean mFlingConfirmed = false;
     private float mTouchX;
     private float mTouchY;
+    private puzzleGameActivity pgActivity;
 
     //TODO: Need to change the min and max distance since the phone is bigger now
     private static final int SWIPE_MIN_DISTANCE = 100;
@@ -60,18 +61,18 @@ public class GestureDetectGridView extends GridView {
                         return false;
                     }
                     if (e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE) {
-                        puzzleGameActivity.moveTiles(context, puzzleGameActivity.up, position);
+                        pgActivity.moveTiles(context, puzzleGameActivity.up, position);
                     } else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE) {
-                        puzzleGameActivity.moveTiles(context, puzzleGameActivity.down, position);
+                        pgActivity.moveTiles(context, puzzleGameActivity.down, position);
                     }
                 } else {
                     if (Math.abs(velocityX) < SWIPE_THRESHOLD_VELOCITY) {
                         return false;
                     }
                     if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE) {
-                        puzzleGameActivity.moveTiles(context, puzzleGameActivity.left, position);
+                        pgActivity.moveTiles(context, puzzleGameActivity.left, position);
                     } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE) {
-                        puzzleGameActivity.moveTiles(context, puzzleGameActivity.right, position);
+                        pgActivity.moveTiles(context, puzzleGameActivity.right, position);
                     }
                 }
 
@@ -110,5 +111,9 @@ public class GestureDetectGridView extends GridView {
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return gDetector.onTouchEvent(ev);
+    }
+
+    public void setPgActivity(puzzleGameActivity pgActivity) {
+        this.pgActivity = pgActivity;
     }
 }
