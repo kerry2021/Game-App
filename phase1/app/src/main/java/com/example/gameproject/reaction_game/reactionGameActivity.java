@@ -24,6 +24,7 @@ public class reactionGameActivity extends AppCompatActivity {
     private ImageButton image_7;
     private ImageButton image_8;
     private ImageButton image_9;
+    private ImageButton [] buttons=new ImageButton[9];
     private int next;
     int score, timer;
     TextView t_score, t_timer;
@@ -64,60 +65,27 @@ public class reactionGameActivity extends AppCompatActivity {
         t.start();
     }
     private void initButton(){
-        image_1 = findViewById(R.id.first);
-        image_2 = findViewById(R.id.second);
-        image_3 = findViewById(R.id.third);
-        image_4 = findViewById(R.id.fourth);
-        image_5 = findViewById(R.id.fifth);
-        image_6 = findViewById(R.id.sixth);
-        image_7 = findViewById(R.id.seventh);
-        image_8 = findViewById(R.id.eighth);
-        image_9 = findViewById(R.id.ninth);
+        buttons[0] = findViewById(R.id.first);
+        buttons[1] = findViewById(R.id.second);
+        buttons[2] = findViewById(R.id.third);
+        buttons[3] = findViewById(R.id.fourth);
+        buttons[4] = findViewById(R.id.fifth);
+        buttons[5] = findViewById(R.id.sixth);
+        buttons[6] = findViewById(R.id.seventh);
+        buttons[7] = findViewById(R.id.eighth);
+        buttons[8] = findViewById(R.id.ninth);
 
         click = new ClickImage();
-        image_1.setOnClickListener(click);
-        image_2.setOnClickListener(click);
-        image_3.setOnClickListener(click);
-        image_4.setOnClickListener(click);
-        image_5.setOnClickListener(click);
-        image_6.setOnClickListener(click);
-        image_7.setOnClickListener(click);
-        image_8.setOnClickListener(click);
-        image_9.setOnClickListener(click);
+        for (int i =0;i < 9;i++)
+            buttons[i].setOnClickListener(click);
     }
     private void reInitButton(){
-        image_1.setBackgroundResource(R.drawable.hole);
-        image_2.setBackgroundResource(R.drawable.hole);
-        image_3.setBackgroundResource(R.drawable.hole);
-        image_4.setBackgroundResource(R.drawable.hole);
-        image_5.setBackgroundResource(R.drawable.hole);
-        image_6.setBackgroundResource(R.drawable.hole);
-        image_7.setBackgroundResource(R.drawable.hole);
-        image_8.setBackgroundResource(R.drawable.hole);
-        image_9.setBackgroundResource(R.drawable.hole);
-
+        for(int i =0;i < 9;i++)
+            buttons[i].setBackgroundResource(R.drawable.hole);
     }
 
     public void update(){
-        if (next == 1)
-            image_1.setBackgroundResource(R.drawable.mole);
-        else if (next == 2)
-            image_2.setBackgroundResource(R.drawable.mole);
-        else if (next == 3)
-            image_3.setBackgroundResource(R.drawable.mole);
-        else if (next == 4)
-            image_4.setBackgroundResource(R.drawable.mole);
-        else if (next == 5)
-            image_5.setBackgroundResource(R.drawable.mole);
-        else if (next == 6)
-            image_6.setBackgroundResource(R.drawable.mole);
-        else if (next == 7)
-            image_7.setBackgroundResource(R.drawable.mole);
-        else if (next == 8)
-            image_8.setBackgroundResource(R.drawable.mole);
-        else if (next == 9)
-            image_9.setBackgroundResource(R.drawable.mole);
-
+        buttons[next-1].setBackgroundResource(R.drawable.mole);
     }
 
     class ClickImage implements OnClickListener {
