@@ -67,3 +67,9 @@ puzzleGameActivity from puzzleGameIntroActivity.
 Code Affected: puzzleGameActivity.java
 Implemented Timer that counts down, it can be paused by going into options and resumed when returned
 to the game.
+
+#######
+#Step 13
+Code Affected: puzzleGameActivity.java
+Add method setBackgroundClickable(boolean) to prevent users from moving tiles or clicking buttons
+in the background when game is paused and to allow actions when game is resumed. 

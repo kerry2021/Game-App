@@ -33,6 +33,7 @@ public class puzzleGameActivity extends AppCompatActivity {
     private TextView textViewScore;
     //Slightly tweaked version of gridview for displaying changes after swiping
     private static GestureDetectGridView mGridView;
+    private static boolean movable = true;
 
     //making only 3x3 puzzle for now, will expand to harder puzzle
     private static int columns = 3;
@@ -117,6 +118,7 @@ public class puzzleGameActivity extends AppCompatActivity {
             public void onFinish() {
                 timeLeftInMillis = 0;
                 updateCountDownText();
+                showEndScore();
                 //TODO: Jump to EndGameScreen
 
             }
@@ -135,11 +137,18 @@ public class puzzleGameActivity extends AppCompatActivity {
     private void pause(){
         pauseTimeLeft = timeLeftInMillis;
         countDownTimer.cancel();
+        setBackgroundClickable(false);
+    }
+
+    private void setBackgroundClickable(boolean backgroundClickable) {
+        findViewById(R.id.puzzle_game_options_button).setClickable(backgroundClickable);
+        movable = backgroundClickable;
     }
 
     private void resume(){
         timeLeftInMillis = pauseTimeLeft;
         startCountDown();
+        setBackgroundClickable(true);
     }
     /**
      * To create the options button.
@@ -182,6 +191,7 @@ public class puzzleGameActivity extends AppCompatActivity {
                 exitGameButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         popupWindow.dismiss();
+
                         startActivity(new Intent(v.getContext(), PuzzleGameIntroActivity.class));
                     }
                 });
@@ -295,6 +305,7 @@ public class puzzleGameActivity extends AppCompatActivity {
             else{
                 Toast.makeText(context, "END OF GAME!", Toast.LENGTH_SHORT).show();
                 countDownTimer.cancel();
+                showEndScore();
                 //TODO: Direct to a endgame score screen and lead back to mainscreen
             }
         }
@@ -302,7 +313,9 @@ public class puzzleGameActivity extends AppCompatActivity {
 
     /**Either Swap or not swap depending on the position and direction user want to swap*/
     public static void moveTiles(Context context, String direction, int position) {
-
+        if (!movable) {
+            return;
+        }
         // Upper-left-corner tile
         if (position == 0) {
 
@@ -382,7 +395,7 @@ public class puzzleGameActivity extends AppCompatActivity {
         return solved;
     }
 
-    private static void endGame() {
+    private static void showEndScore() {
         //TODO: implement jump to endgame screen
     }
 
