@@ -15,5 +15,6 @@
     <string name="cancel">Cancel</string>
     <string name="points">Points</string>
     <string name="time">Time</string>
+    <string name="play_game">play</string>
 
 </resources>

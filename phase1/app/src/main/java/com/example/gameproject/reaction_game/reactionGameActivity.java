@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,7 +25,8 @@ public class reactionGameActivity extends AppCompatActivity {
     private ImageButton image_8;
     private ImageButton image_9;
     private int next;
-    private int score;
+    int score, timer;
+    TextView t_score, t_timer;
     private myThread t;
 
     ClickImage click;
@@ -42,10 +45,13 @@ public class reactionGameActivity extends AppCompatActivity {
         initButton();
         reInitButton();
         score = 0;
-
+        timer = 60;
+        t_score = findViewById(R.id.score);
+        t_timer = findViewById(R.id.timer);
         t = new myThread();
         t.setRunning(true);
-
+        t_score.setText("0");
+        timer();
     }
 
     @Override
@@ -167,5 +173,32 @@ public class reactionGameActivity extends AppCompatActivity {
         public void setRunning(boolean setRunning){
             this.Running = setRunning;
         }
+    }
+
+
+    public void timer() {
+        new Thread() {
+            @Override
+            public void run() {
+                while (timer >= 1) {
+                    try {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                timer--;
+                                String t = "" + timer;
+                                t_timer.setText(t);
+                                if (timer == 0) {
+                                    Toast.makeText(reactionGameActivity.this, "Time Up", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+
+                    }
+                }
+            }
+        }.start();
     }
 }
