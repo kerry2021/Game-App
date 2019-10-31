@@ -41,7 +41,7 @@ public class User {
     }
 
 
-    public static void setFile(File file2){
+    public static void setFile(File file2) {
         file = file2;
     }
 
@@ -98,16 +98,15 @@ public class User {
             String line;
 
             while ((line = reader.readLine()) != null) {
-                if(decode(line).get("userName").equals(gameStats.get("userName"))){
+                if (decode(line).get("userName").equals(gameStats.get("userName"))) {
                     overRode = true;
                     lines += encode(); //replace the line if it is already about this user
-                }
-                else{
+                } else {
                     lines += line;
                 }
             }
 
-            if(! overRode){
+            if (!overRode) {
                 lines += encode(); //append info about this user otherWise
             }
 
