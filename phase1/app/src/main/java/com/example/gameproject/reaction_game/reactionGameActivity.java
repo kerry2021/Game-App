@@ -220,9 +220,9 @@ public class reactionGameActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                timer--;
                                 String t = "" + timer;
                                 t_timer.setText(t);
+                                timer--;
                                 if (timer == 0) {
                                     Toast.makeText(reactionGameActivity.this, "Time Up", Toast.LENGTH_SHORT).show();
                                 }
