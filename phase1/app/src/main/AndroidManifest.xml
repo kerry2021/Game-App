@@ -20,6 +20,8 @@
             android:parentActivityName=".MainActivity" />
         <activity android:name=".puzzle_game.PuzzleGameIntroActivity"
             android:parentActivityName=".MainActivity" />
+        <activity android:name=".reaction_game.reactionGameMain"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".reaction_game.reactionGameActivity"
             android:parentActivityName=".obstacle_game.ObstacleGameIntroActivity" />
         <activity android:name=".obstacle_game.ObstacleGameIntroActivity"
