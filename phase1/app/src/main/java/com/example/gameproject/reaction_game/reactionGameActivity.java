@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,14 +15,28 @@ import com.example.gameproject.R;
 import java.util.Random;
 
 public class reactionGameActivity extends AppCompatActivity {
+    private ImageButton image_1;
+    private ImageButton image_2;
+    private ImageButton image_3;
+    private ImageButton image_4;
+    private ImageButton image_5;
+    private ImageButton image_6;
+    private ImageButton image_7;
+    private ImageButton image_8;
+    private ImageButton image_9;
     private int next;
     int score, timer;
     TextView t_score, t_timer;
     private myThread t;
-    Button[] buttons = new Button[10];
+
     ClickImage click;
 
-    public Handler handler = new Handler() {
+    public Handler handler1 = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            reInitButton();
+        };
+    };
+    public Handler handler2 = new Handler() {
         public void handleMessage(android.os.Message msg) {
             update();
         };
@@ -52,22 +65,60 @@ public class reactionGameActivity extends AppCompatActivity {
         t.start();
     }
     private void initButton(){
+        image_1 = findViewById(R.id.first);
+        image_2 = findViewById(R.id.second);
+        image_3 = findViewById(R.id.third);
+        image_4 = findViewById(R.id.fourth);
+        image_5 = findViewById(R.id.fifth);
+        image_6 = findViewById(R.id.sixth);
+        image_7 = findViewById(R.id.seventh);
+        image_8 = findViewById(R.id.eighth);
+        image_9 = findViewById(R.id.ninth);
+
         click = new ClickImage();
-        for(int i = 1; i < 10; i++){
-            int id = getResources().getIdentifier("btn_" + i, "id", getPackageName());
-            buttons[i] = findViewById(id);
-            buttons[i].setOnClickListener(click);
-        }
+        image_1.setOnClickListener(click);
+        image_2.setOnClickListener(click);
+        image_3.setOnClickListener(click);
+        image_4.setOnClickListener(click);
+        image_5.setOnClickListener(click);
+        image_6.setOnClickListener(click);
+        image_7.setOnClickListener(click);
+        image_8.setOnClickListener(click);
+        image_9.setOnClickListener(click);
+    }
+    private void reInitButton(){
+        image_1.setBackgroundResource(R.drawable.hole);
+        image_2.setBackgroundResource(R.drawable.hole);
+        image_3.setBackgroundResource(R.drawable.hole);
+        image_4.setBackgroundResource(R.drawable.hole);
+        image_5.setBackgroundResource(R.drawable.hole);
+        image_6.setBackgroundResource(R.drawable.hole);
+        image_7.setBackgroundResource(R.drawable.hole);
+        image_8.setBackgroundResource(R.drawable.hole);
+        image_9.setBackgroundResource(R.drawable.hole);
+
     }
 
-    private void reInitButton(){
-        for(int i = 1; i < 10; i++){
-            buttons[i].setBackgroundResource(R.drawable.hole);
-    }}
-
     public void update(){
-        reInitButton();
-        buttons[next].setBackgroundResource(R.drawable.mole);
+        if (next == 1)
+            image_1.setBackgroundResource(R.drawable.mole);
+        else if (next == 2)
+            image_2.setBackgroundResource(R.drawable.mole);
+        else if (next == 3)
+            image_3.setBackgroundResource(R.drawable.mole);
+        else if (next == 4)
+            image_4.setBackgroundResource(R.drawable.mole);
+        else if (next == 5)
+            image_5.setBackgroundResource(R.drawable.mole);
+        else if (next == 6)
+            image_6.setBackgroundResource(R.drawable.mole);
+        else if (next == 7)
+            image_7.setBackgroundResource(R.drawable.mole);
+        else if (next == 8)
+            image_8.setBackgroundResource(R.drawable.mole);
+        else if (next == 9)
+            image_9.setBackgroundResource(R.drawable.mole);
+
     }
 
     class ClickImage implements OnClickListener {
@@ -75,37 +126,63 @@ public class reactionGameActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             int id = v.getId();
-            switch (id) {
-                case R.id.btn_1:
-                    if (next == 1)
-                        score += 1;
-                case R.id.btn_2:
-                    if (next == 2)
-                        score += 1;
-                case R.id.btn_3:
-                    if (next == 3)
-                        score += 1;
-                case R.id.btn_4:
-                    if (next == 4)
-                        score += 1;
-                case R.id.btn_5:
-                    if (next == 5)
-                        score += 1;
-                case R.id.btn_6:
-                    if (next == 6)
-                        score += 1;
-                case R.id.btn_7:
-                    if (next == 7)
-                        score += 1;
-                case R.id.btn_8:
-                    if (next == 8)
-                        score += 1;
-                case R.id.btn_9:
-                    if (next == 9)
-                        score += 1;
-                    String ts = "" + score;
-                    t_score.setText(ts);
+            if (id == R.id.first) {
+                if (next == 1) {
+                    score += 1;
+                    next = 0;
+                }
             }
+            else if (id == R.id.second) {
+                if (next == 2) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            else if (id == R.id.third) {
+                if (next == 3) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            else if (id == R.id.fourth) {
+                if (next == 4) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            else if (id == R.id.fifth) {
+                if (next == 5) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            else if (id == R.id.sixth) {
+                if (next == 6) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            else if (id == R.id.seventh) {
+                if (next == 7) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            else if (id == R.id.eighth) {
+                if (next == 8) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            else if (id == R.id.ninth) {
+                if (next == 9) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            String ts = "" + score;
+            t_score.setText(ts);
+            
         }
     }
 
@@ -115,9 +192,12 @@ public class reactionGameActivity extends AppCompatActivity {
         public void run(){
             try{
                 while (Running) {
-                    Thread.sleep(1000);
+                    Thread.sleep(750);
+                    handler1.sendEmptyMessage(1);
+                    Thread.sleep(750);
                     next = (int) (Math.random() * 9) + 1;
-                    handler.sendEmptyMessage(1);
+                    handler2.sendEmptyMessage(1);
+
                 }
             }
             catch(Exception e){
