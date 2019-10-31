@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdventureManager {
-
     /**
      * The time need to be counted down before the game start.
      */
-    private static int gameCountDown = 30 * 5;
+    private int startGameCountDown = 30 * 5;
+
+    /**
+     * The time need to be counted down before the game end.
+     */
+    private int endGameCountDown = 30 * 3;
 
     /**
      * The player controlled spaceShip
@@ -43,6 +47,8 @@ public class AdventureManager {
      * the boolean checks whether game is over or not.
      */
     private boolean gameOver = false;
+
+    private int score = 0;
 
     /**
      * Constructs this AdventureManger by default.
@@ -102,28 +108,61 @@ public class AdventureManager {
     }
 
     /**
-     * Checks the gameCountDown ends or not.
+     * Checks the startGameCountDown ends or not.
      *
      * @return whether we can start the game.
      */
-    static boolean checkGameCountDown() {
-        return (gameCountDown > 0);
+    boolean checkStartGameCountDown() {
+        return (startGameCountDown > 0);
     }
 
     /**
-     * Gets the gameCountDown time.
+     * Gets the startGameCountDown time.
      *
-     * @return the gameCountDown time.
+     * @return the startGameCountDown time.
      */
-    static int getGameCountDown() {
-        return gameCountDown;
+    int getStartGameCountDown() {
+        return startGameCountDown;
     }
 
     /**
-     * Counts down the number of gameCountdown.
+     * Counts down the number of startGameCountdown.
      */
-    static void countDown() {
-        gameCountDown--;
+    void startCountDown() {
+        startGameCountDown--;
+    }
+
+    /**
+     * Checks whether the endGameCountDown time is over.
+     *
+     * @return whether we can end the game and pop to the end game activity.
+     */
+    boolean checkEndGameCountDown() {
+        return (endGameCountDown > 0);
+    }
+
+
+    /**
+     * Counts down the number of endGameCountDown.
+     */
+    void endCountDown() {
+        endGameCountDown--;
+    }
+
+    /**
+     * Gets the score of the game.
+     *
+     * @return the score of the game
+     */
+    int getScore() {
+        return score;
+    }
+
+    /**
+     * Updates the score of the game.
+     */
+    private void updateScore() {
+        score++;
     }
 
     /**
@@ -131,6 +170,11 @@ public class AdventureManager {
      */
     void update() {
         //move everything
+        if (checkStartGameCountDown()) {
+            startCountDown();
+            return;
+        }
+
         spaceShip.move();
 
         // Count the time before the game start
@@ -169,6 +213,9 @@ public class AdventureManager {
 
         // Check whether the spaceship is out of Screen.
         spaceShip.outOfScreen();
+
+        // Updates the score of the game.
+        updateScore();
 
         // Check whether the game is over.
         if (spaceShip.getLives() == 0 | spaceShip.getOutTime() == 1) {
