@@ -72,4 +72,10 @@ to the game.
 #Step 13
 Code Affected: puzzleGameActivity.java
 Add method setBackgroundClickable(boolean) to prevent users from moving tiles or clicking buttons
-in the background when game is paused and to allow actions when game is resumed. 
+in the background when game is paused and to allow actions when game is resumed.
+
+#######
+#Step 14
+Code Affected: puzzleGameActivity.java, GestureDetectGridView
+Added puzzleGameActivity variable in GestureDetectGridView so that methods and variables in
+puzzleGameActivity can be set as non-static and private. 

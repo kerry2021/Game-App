@@ -32,14 +32,14 @@ public class puzzleGameActivity extends AppCompatActivity {
     private TextView textViewpuzzleComp;
     private TextView textViewScore;
     //Slightly tweaked version of gridview for displaying changes after swiping
-    private static GestureDetectGridView mGridView;
-    private static boolean movable = true;
+    private GestureDetectGridView mGridView;
+    private boolean movable = true;
 
     //making only 3x3 puzzle for now, will expand to harder puzzle
-    private static int columns = 3;
-    private static int dimensions = columns * columns;
+    private int columns = 3;
+    private int dimensions = columns * columns;
 
-    private static int mColumnWidth, mColumnHeight;
+    private int mColumnWidth, mColumnHeight;
 
     //for inputting swipe functions
     public static final String up = "up";
@@ -48,28 +48,28 @@ public class puzzleGameActivity extends AppCompatActivity {
     public static final String right = "right";
 
     //a list of number each represent a tile, used for radomizing and checking win condition
-    private static String[] tileList;
+    private String[] tileList;
 
     //a list of identifiers referencing each image for the puzzle in drawable
-    private static ArrayList<Integer> puzzles = new ArrayList<>();
+    private ArrayList<Integer> puzzles = new ArrayList<>();
 
     //total number of puzzles in the game
-    private static int puzzleNum = 2;
+    private int puzzleNum = 2;
 
     //number of puzzle completed
-    private static int puzzleComplete = 0;
+    private int puzzleComplete = 0;
 
     //number of moves
-    private static int numMoves = 0;
+    private int numMoves = 0;
 
     //current score
-    private static int score = 0;
+    private int score = 0;
 
     //Time given to complete the puzzles
-    private static final long COUNTDOWN_IN_MILLIS = 120000;
+    private final long COUNTDOWN_IN_MILLIS = 120000;
 
     //Timer
-    private static CountDownTimer countDownTimer;
+    private CountDownTimer countDownTimer;
     //Time left during game
     private long timeLeftInMillis;
     //Time left during pause
@@ -97,11 +97,12 @@ public class puzzleGameActivity extends AppCompatActivity {
         score = 0;
         mGridView = (GestureDetectGridView) findViewById(R.id.grid);
         mGridView.setNumColumns(columns);
+        mGridView.setPgActivity(this);
         tileList = new String[dimensions];
         for (int i = 0; i < dimensions; i++) {
             tileList[i] = String.valueOf(i);
         }
-
+        createPuzzleList();
         timeLeftInMillis = COUNTDOWN_IN_MILLIS;
         startCountDown();
     }
@@ -201,7 +202,7 @@ public class puzzleGameActivity extends AppCompatActivity {
 
 
     /** To randomize the tiles in the puzzle*/
-    private static void randomize() {
+    private void randomize() {
         int index;
         String temp;
         Random random = new Random();
@@ -229,7 +230,6 @@ public class puzzleGameActivity extends AppCompatActivity {
 
                 mColumnWidth = displayWidth / columns;
                 mColumnHeight = requiredHeight / columns;
-
                 createPuzzleList();
                 display(getApplicationContext(), puzzleComplete);
             }
@@ -257,7 +257,7 @@ public class puzzleGameActivity extends AppCompatActivity {
     }
 
     /** display the code after each movement */
-    private static void display(Context context, int puzzleNum) {
+    private void display(Context context, int puzzleNum) {
         ArrayList<Button> buttons = new ArrayList<>();
         Button button;
         for (int i = 0; i < tileList.length; i++) {
@@ -286,7 +286,7 @@ public class puzzleGameActivity extends AppCompatActivity {
     }
 
     /**Swap the position of a current tile with another file*/
-    private static void swap(Context context, int currentPosition, int swap) {
+    private void swap(Context context, int currentPosition, int swap) {
         String newPosition = tileList[currentPosition + swap];
         tileList[currentPosition + swap] = tileList[currentPosition];
         tileList[currentPosition] = newPosition;
@@ -312,7 +312,7 @@ public class puzzleGameActivity extends AppCompatActivity {
     }
 
     /**Either Swap or not swap depending on the position and direction user want to swap*/
-    public static void moveTiles(Context context, String direction, int position) {
+    public void moveTiles(Context context, String direction, int position) {
         if (!movable) {
             return;
         }
@@ -380,7 +380,7 @@ public class puzzleGameActivity extends AppCompatActivity {
     }
 
     /**Check whether the puzzle is solved*/
-    private static boolean isSolved() {
+    private boolean isSolved() {
         boolean solved = false;
 
         for (int i = 0; i < tileList.length; i++) {
