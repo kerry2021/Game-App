@@ -67,13 +67,17 @@ class SpaceShip extends SpaceItem {
     }
 
     /**
-     * Gets the number of remaining lives.
-     * @return the number of remaining lives.
+     * Gets the number of lives.
+     * @return the number of lives.
      */
     int getLives() {
         return lives;
     }
 
+    /**
+     *  Sets the number of lives.
+     * @param life the number of lives.
+     */
     void setLives(int life) {
         this.lives = life;
     }
@@ -102,7 +106,7 @@ class SpaceShip extends SpaceItem {
         int y = getY();
         if (y < 0 | y > getGridHeight()) {
             if (outTime == 0) {
-                setOutTime(150);
+                setOutTime(90);
             } else {
                 setOutTime(outTime - 1);
             }
