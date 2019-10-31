@@ -50,6 +50,7 @@ class AndroidDrawer implements Drawer<Canvas> {
     AndroidDrawer() {
         setShipPaint();
         setObstaclePaint();
+        setReminderPaint();
     }
 
     /**
@@ -130,11 +131,7 @@ class AndroidDrawer implements Drawer<Canvas> {
         // draw the out of screen time
         drawOutOfScreenTime(canvas);
 
-        // If the game is over, draw game over on the screen
-        int outTime = spaceShip.getOutTime();
-        if (spaceShip.getLives() == 0 | outTime == 1) {
-            drawGameOver(canvas);
-        }
+        // draw the start game count down time.
     }
 
     /**
@@ -199,7 +196,7 @@ class AndroidDrawer implements Drawer<Canvas> {
         int invincibleTime = spaceShip.getInvincibleTime();
         if (invincibleTime != 0) {
             canvas.drawText("Remaining Invincible Time : ", getGridWidth() / 4, getGridHeight() / 10, shipPaint);
-            drawTime(canvas, invincibleTime, getGridWidth() / 2 - 25, getGridHeight() / 10 + 2, shipPaint);
+            drawTime(canvas, invincibleTime, getGridWidth() / 2 - getGridWidth() / 50, getGridHeight() / 10 + 2, shipPaint);
         }
     }
 

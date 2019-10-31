@@ -37,6 +37,8 @@
         <activity
             android:name=".LoginActivity"
             android:parentActivityName=".MainActivity" />
+        <activity android:name=".obstacle_game.ObstacleGameEndActivity"
+            android:parentActivityName=".obstacle_game.ObstacleGameIntroActivity"/>
     </application>
 
 </manifest>
