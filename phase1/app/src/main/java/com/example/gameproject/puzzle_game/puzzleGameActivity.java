@@ -26,11 +26,13 @@ import java.util.Random;
 
 public class puzzleGameActivity extends AppCompatActivity {
 
+    private puzzleGameActivity puzzleGameActivity;
     private static final String TAG = "Puzzle Game Activity";
 
     private TextView textViewTime;
     private TextView textViewpuzzleComp;
     private TextView textViewScore;
+    private TextView textViewMoves;
     //Slightly tweaked version of gridview for displaying changes after swiping
     private GestureDetectGridView mGridView;
     private boolean movable = true;
@@ -83,6 +85,7 @@ public class puzzleGameActivity extends AppCompatActivity {
         textViewTime = findViewById(R.id.time);
         textViewpuzzleComp = findViewById(R.id.puzzle);
         textViewScore = findViewById(R.id.score);
+        textViewMoves = findViewById(R.id.move);
         createOptionsButton();
         columns = PuzzleGameIntroActivity.customizedColumns;
         init();
@@ -141,16 +144,46 @@ public class puzzleGameActivity extends AppCompatActivity {
         setBackgroundClickable(false);
     }
 
-    private void setBackgroundClickable(boolean backgroundClickable) {
-        findViewById(R.id.puzzle_game_options_button).setClickable(backgroundClickable);
-        movable = backgroundClickable;
-    }
-
     private void resume(){
         timeLeftInMillis = pauseTimeLeft;
         startCountDown();
         setBackgroundClickable(true);
     }
+
+    private void updateNumMoves(){
+        numMoves++;
+        String numMovesFormatted = String.format(Locale.getDefault(),
+                "# of Moves: %d", numMoves);
+        textViewMoves.setText(numMovesFormatted);
+    }
+
+    private void clearNumMoves(){
+        numMoves = 0;
+        String clearNumMovesFormatted = String.format(Locale.getDefault(),
+                "# of Moves: %d", numMoves);
+        textViewMoves.setText(clearNumMovesFormatted);
+    }
+
+    private void updatePuzzleComplete(){
+        puzzleComplete++;
+        String puzzleFormatted = String.format(Locale.getDefault(),
+                "Puzzles Completed: %d", puzzleComplete);
+        textViewpuzzleComp.setText(puzzleFormatted);
+    }
+
+    private void upDateScore(){
+        Integer scoreInteger = (int) ((100 * ((1 - (double) numMoves / 100))));
+        score += scoreInteger;
+        String scoreFormatted = String.format(Locale.getDefault(),
+                "Score: %d", score);
+        textViewScore.setText(scoreFormatted);
+    }
+
+    private void setBackgroundClickable(boolean backgroundClickable) {
+        findViewById(R.id.puzzle_game_options_button).setClickable(backgroundClickable);
+        movable = backgroundClickable;
+    }
+
     /**
      * To create the options button.
      */
@@ -285,6 +318,7 @@ public class puzzleGameActivity extends AppCompatActivity {
         mGridView.setAdapter(new PuzzleAdapter(buttons, mColumnWidth, mColumnHeight));
     }
 
+    //TODO: Swap cannot be Static, how can we solve this??
     /**Swap the position of a current tile with another file*/
     private void swap(Context context, int currentPosition, int swap) {
         String newPosition = tileList[currentPosition + swap];
@@ -292,9 +326,19 @@ public class puzzleGameActivity extends AppCompatActivity {
         tileList[currentPosition] = newPosition;
         display(context, puzzleComplete);
 
+        // Update number of moves
+        updateNumMoves();
+
         if (isSolved()) {
             Toast.makeText(context, "NEXT PUZZLE!", Toast.LENGTH_SHORT).show();
-            puzzleComplete++;
+
+            // Update puzzleComplete
+            updatePuzzleComplete();
+            // Update score
+            upDateScore();
+            // Reset number of moves
+            clearNumMoves();
+
             if(puzzleComplete < puzzleNum){
 
                 randomize();
