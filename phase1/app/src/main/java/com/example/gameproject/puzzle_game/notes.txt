@@ -89,4 +89,9 @@ puzzles, number of moves, and the score to the game.
 #######
 #Step 16
 Code Affected: puzzleGameActivity.java, puzzle_game_final_score_window.xml, strings.xml
-Added showFinalScore method and final score popup window. 
+Added showFinalScore method and final score popup window.
+
+#######
+#Step 17
+Code Affected: All class and layout
+Reformatted the codes and deleted unnecessary codes.

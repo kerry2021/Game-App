@@ -24,4 +24,10 @@
     <string name="about_customization">We are still working on the customization part, \n please come back at phase2.</string>
     <string name="puzzle_game_final_score">Your final score is: </string>
     <string name="exit">Exit</string>
+    <string name="_0">0</string>
+    <string name="_02_00">02:00</string>
+    <string name="puzzles_completed_0">Puzzles Completed: 0</string>
+    <string name="score_0">Score: 0</string>
+    <string name="of_moves_0"># of Moves: 0</string>
+    <string name="customize">Customize</string>
 </resources>

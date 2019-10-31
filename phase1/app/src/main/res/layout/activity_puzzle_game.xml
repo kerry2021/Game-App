@@ -28,7 +28,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="02:00"
+        android:text="@string/_02_00"
         android:id="@+id/time"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
@@ -39,7 +39,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Puzzles Completed: 0"
+        android:text="@string/puzzles_completed_0"
         android:id="@+id/puzzle"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
@@ -51,7 +51,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Score: 0"
+        android:text="@string/score_0"
         android:id="@+id/score"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -64,7 +64,7 @@
         android:id="@+id/move"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="# of Moves: 0"
+        android:text="@string/of_moves_0"
         android:textSize="18sp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
