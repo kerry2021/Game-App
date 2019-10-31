@@ -14,17 +14,17 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/btn_1"
+            android:id="@+id/first"
             android:layout_width="130dp"
             android:layout_height="98dp" />
 
         <ImageButton
-            android:id="@+id/btn_2"
+            android:id="@+id/second"
             android:layout_width="130dp"
             android:layout_height="98dp"/>
 
         <ImageButton
-            android:id="@+id/btn_3"
+            android:id="@+id/third"
             android:layout_width="130dp"
             android:layout_height="98dp"/>
     </LinearLayout>
@@ -37,17 +37,17 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/btn_4"
+            android:id="@+id/fourth"
             android:layout_width="130dp"
             android:layout_height="98dp" />
 
         <ImageButton
-            android:id="@+id/btn_5"
+            android:id="@+id/fifth"
             android:layout_width="130dp"
             android:layout_height="98dp"/>
 
         <ImageButton
-            android:id="@+id/btn_6"
+            android:id="@+id/sixth"
             android:layout_width="130dp"
             android:layout_height="98dp"/>
     </LinearLayout>
@@ -60,17 +60,17 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/btn_7"
+            android:id="@+id/seventh"
             android:layout_width="130dp"
             android:layout_height="98dp" />
 
         <ImageButton
-            android:id="@+id/btn_8"
+            android:id="@+id/eighth"
             android:layout_width="130dp"
             android:layout_height="98dp"/>
 
         <ImageButton
-            android:id="@+id/btn_9"
+            android:id="@+id/ninth"
             android:layout_width="130dp"
             android:layout_height="98dp"/>
     </LinearLayout>
