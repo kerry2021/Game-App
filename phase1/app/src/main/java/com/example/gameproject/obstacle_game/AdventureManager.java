@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdventureManager {
+
+    /**
+     * The time need to be counted down before the game start.
+     */
+    private static int gameCountDown = 30 * 5;
+
     /**
      * The player controlled spaceShip
      */
@@ -96,11 +102,39 @@ public class AdventureManager {
     }
 
     /**
+     * Checks the gameCountDown ends or not.
+     *
+     * @return whether we can start the game.
+     */
+    static boolean checkGameCountDown() {
+        return (gameCountDown > 0);
+    }
+
+    /**
+     * Gets the gameCountDown time.
+     *
+     * @return the gameCountDown time.
+     */
+    static int getGameCountDown() {
+        return gameCountDown;
+    }
+
+    /**
+     * Counts down the number of gameCountdown.
+     */
+    static void countDown() {
+        gameCountDown--;
+    }
+
+    /**
      * Updates the information of all items in this adventure.
      */
     void update() {
         //move everything
         spaceShip.move();
+
+        // Count the time before the game start
+
         for (Obstacle obstacle : spaceObstacles) {
             obstacle.move();
 
@@ -110,12 +144,16 @@ public class AdventureManager {
         }
 
         // Automatically check whether the spaceship hits a obstacle or not.
-        if (spaceShip.getInvincibleTime() == 0) {
+        // If it's in 3 seconds invincible time(after it hits an obstacle), then the spaceship doesn't hit any obstacle.
+        int invincibleTime = spaceShip.getInvincibleTime();
+        if (invincibleTime == 0) {
             for (Obstacle obstacle : spaceObstacles) {
                 if (spaceShip.checkHit(obstacle)) {
                     garbageCart.add(obstacle);
                 }
             }
+        } else {
+            spaceShip.setInvincibleTime(invincibleTime - 1);
         }
 
         //check to see whether to generate new obstacles.
@@ -147,11 +185,8 @@ public class AdventureManager {
 
     /**
      * Create the items of this adventure.
-     * (Still have to create the obstacle in the beginning.)
      */
     void createSpaceItems() {
         spaceShip = new SpaceShip();
-        spaceShip = new SpaceShip();
     }
-
 }
