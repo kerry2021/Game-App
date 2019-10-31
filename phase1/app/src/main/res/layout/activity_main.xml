@@ -40,5 +40,5 @@
         android:layout_below="@id/obstacle_game_button"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="75dp"
-        android:text="@string/sign_in" />
+        android:text="@string/log_in" />
 </RelativeLayout>
