@@ -225,6 +225,7 @@ public class reactionGameActivity extends AppCompatActivity {
                                 timer--;
                                 if (timer == 0) {
                                     Toast.makeText(reactionGameActivity.this, "Time Up", Toast.LENGTH_SHORT).show();
+                                    finish();
                                 }
                             }
                         });
@@ -235,5 +236,10 @@ public class reactionGameActivity extends AppCompatActivity {
                 }
             }
         }.start();
+    }
+
+    public void onStop(){
+        super.onStop();
+        t.interrupt();
     }
 }
