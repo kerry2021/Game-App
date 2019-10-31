@@ -48,7 +48,6 @@ public class reactionGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reaction_game);
 
         initButton();
-        reInitButton();
         score = 0;
         timer = 60;
         t_score = findViewById(R.id.score);
@@ -192,12 +191,12 @@ public class reactionGameActivity extends AppCompatActivity {
         public void run(){
             try{
                 while (Running) {
-                    Thread.sleep(750);
                     handler1.sendEmptyMessage(1);
-                    Thread.sleep(750);
+                    Thread.sleep(750);//time pause for 0.75s, allow the screen to stay in no mole for 0.75s
                     next = (int) (Math.random() * 9) + 1;
                     handler2.sendEmptyMessage(1);
-
+                    Thread.sleep(750);//time pause for 0.75s, allow the screen to stay in mole for 0.75s
+                    next = 0;
                 }
             }
             catch(Exception e){
