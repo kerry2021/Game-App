@@ -31,7 +31,12 @@ public class reactionGameActivity extends AppCompatActivity {
 
     ClickImage click;
 
-    public Handler handler = new Handler() {
+    public Handler handler1 = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            reInitButton();
+        };
+    };
+    public Handler handler2 = new Handler() {
         public void handleMessage(android.os.Message msg) {
             update();
         };
@@ -95,7 +100,6 @@ public class reactionGameActivity extends AppCompatActivity {
     }
 
     public void update(){
-        reInitButton();
         if (next == 1)
             image_1.setBackgroundResource(R.drawable.mole);
         else if (next == 2)
@@ -122,37 +126,63 @@ public class reactionGameActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             int id = v.getId();
-            switch (id) {
-                case R.id.first:
-                    if (next == 1)
-                        score += 1;
-                case R.id.second:
-                    if (next == 2)
-                        score += 1;
-                case R.id.third:
-                    if (next == 3)
-                        score += 1;
-                case R.id.fourth:
-                    if (next == 4)
-                        score += 1;
-                case R.id.fifth:
-                    if (next == 5)
-                        score += 1;
-                case R.id.sixth:
-                    if (next == 6)
-                        score += 1;
-                case R.id.seventh:
-                    if (next == 7)
-                        score += 1;
-                case R.id.eighth:
-                    if (next == 8)
-                        score += 1;
-                case R.id.ninth:
-                    if (next == 9)
-                        score += 1;
-                    String ts = "" + score;
-                    t_score.setText(ts);
+            if (id == R.id.first) {
+                if (next == 1) {
+                    score += 1;
+                    next = 0;
+                }
             }
+            else if (id == R.id.second) {
+                if (next == 2) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            else if (id == R.id.third) {
+                if (next == 3) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            else if (id == R.id.fourth) {
+                if (next == 4) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            else if (id == R.id.fifth) {
+                if (next == 5) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            else if (id == R.id.sixth) {
+                if (next == 6) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            else if (id == R.id.seventh) {
+                if (next == 7) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            else if (id == R.id.eighth) {
+                if (next == 8) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            else if (id == R.id.ninth) {
+                if (next == 9) {
+                    score += 1;
+                    next = 0;
+                }
+            }
+            String ts = "" + score;
+            t_score.setText(ts);
+            
         }
     }
 
@@ -162,9 +192,12 @@ public class reactionGameActivity extends AppCompatActivity {
         public void run(){
             try{
                 while (Running) {
-                    Thread.sleep(1000);
+                    Thread.sleep(750);
+                    handler1.sendEmptyMessage(1);
+                    Thread.sleep(750);
                     next = (int) (Math.random() * 9) + 1;
-                    handler.sendEmptyMessage(1);
+                    handler2.sendEmptyMessage(1);
+
                 }
             }
             catch(Exception e){
