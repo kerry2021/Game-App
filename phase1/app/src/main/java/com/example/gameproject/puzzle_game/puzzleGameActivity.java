@@ -19,6 +19,7 @@ import android.widget.PopupWindow;
 import android.view.Gravity;
 
 import com.example.gameproject.R;
+import com.example.gameproject.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -26,7 +27,6 @@ import java.util.Random;
 
 public class puzzleGameActivity extends AppCompatActivity {
 
-    private puzzleGameActivity puzzleGameActivity;
     private static final String TAG = "Puzzle Game Activity";
 
     private TextView textViewTime;
@@ -122,8 +122,7 @@ public class puzzleGameActivity extends AppCompatActivity {
             public void onFinish() {
                 timeLeftInMillis = 0;
                 updateCountDownText();
-                showEndScore();
-                //TODO: Jump to EndGameScreen
+                showFinalScore();
 
             }
         }.start();
@@ -318,16 +317,14 @@ public class puzzleGameActivity extends AppCompatActivity {
         mGridView.setAdapter(new PuzzleAdapter(buttons, mColumnWidth, mColumnHeight));
     }
 
-    //TODO: Swap cannot be Static, how can we solve this??
     /**Swap the position of a current tile with another file*/
     private void swap(Context context, int currentPosition, int swap) {
         String newPosition = tileList[currentPosition + swap];
         tileList[currentPosition + swap] = tileList[currentPosition];
         tileList[currentPosition] = newPosition;
-        display(context, puzzleComplete);
-
         // Update number of moves
         updateNumMoves();
+        display(context, puzzleComplete);
 
         if (isSolved()) {
             Toast.makeText(context, "NEXT PUZZLE!", Toast.LENGTH_SHORT).show();
@@ -349,8 +346,7 @@ public class puzzleGameActivity extends AppCompatActivity {
             else{
                 Toast.makeText(context, "END OF GAME!", Toast.LENGTH_SHORT).show();
                 countDownTimer.cancel();
-                showEndScore();
-                //TODO: Direct to a endgame score screen and lead back to mainscreen
+                showFinalScore();
             }
         }
     }
@@ -439,8 +435,35 @@ public class puzzleGameActivity extends AppCompatActivity {
         return solved;
     }
 
-    private static void showEndScore() {
-        //TODO: implement jump to endgame screen
+    private void showFinalScore() {
+        pause();
+        // inflate the layout of the popup window
+        LayoutInflater inflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.puzzle_game_final_score_window, null);
+        TextView textViewFinalScore = popupView.findViewById(R.id.score);
+        textViewFinalScore.setText(String.valueOf(score));
+
+        // create the popup window
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = false; // Taps outside the popup does not dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        popupWindow.showAtLocation(mGridView, Gravity.CENTER, 0, 0);
+        Button exitButton;
+
+        exitButton = (Button) popupView.findViewById(R.id.exit_button);
+
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                popupWindow.dismiss();
+                startActivity(new Intent(view.getContext(), MainActivity.class));
+            }
+        });
+
     }
 
     @Override
