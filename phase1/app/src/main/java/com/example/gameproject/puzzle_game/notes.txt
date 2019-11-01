@@ -111,4 +111,12 @@ Added the customize image feature so that users can upload images from local gal
 #Step 20
 Code Affected: ImageActivity, puzzleGameActivity, activity_puzzle_game_select_image.xml,
 strings.xml.
-Added puzzle game dimensions customization feature. 
+Added puzzle game dimensions customization feature.
+
+#######
+#Step 20
+Code Affected: BackgroundChangeActivity, puzzleGameActivity, PuzzleGameIntroActivity,
+activity_puzzle_game_background.xml, activity_puzzle_game_intro.xml, customize_puzzle_game.xml,
+arrays.xml, colors.xml, strings.xml
+Added background colour customization option, added BackgroundChangeActivity and
+activity_puzzle_game_background.xml to implement it.

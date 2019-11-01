@@ -49,4 +49,7 @@
     the game by having your lives reduce to 0 or staying out of the screen for too long. The obstacles are infinite so survive
     for as long as you can.</string>
     <string name="continue_game">Continue</string>
+    <string name="change_background_colour">Change Background Colour</string>
+    <string name="colour_choose">Choose a colour you like!</string>
+
 </resources>

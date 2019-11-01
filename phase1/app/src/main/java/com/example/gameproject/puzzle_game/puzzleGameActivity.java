@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.LinearLayout;
@@ -53,6 +55,9 @@ public class puzzleGameActivity extends AppCompatActivity {
     public static final String left = "left";
     public static final String right = "right";
 
+    //background colour for the game screen, default is white
+    private String backgroundColour = "#FFFFFF";
+
     //a list of number each represent a tile, used for radomizing and checking win condition
     private String[] tileList;
 
@@ -86,6 +91,15 @@ public class puzzleGameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle_game);
+
+        Intent intent = getIntent();
+        if(intent.getStringExtra("background") != null){
+            backgroundColour = intent.getStringExtra("background");
+        }
+
+        RelativeLayout currentLayout = findViewById(R.id.puzzle_game);
+        currentLayout.setBackgroundColor(Color.parseColor(backgroundColour));
+
         textViewTime = findViewById(R.id.time);
         textViewpuzzleComp = findViewById(R.id.puzzle);
         textViewScore = findViewById(R.id.score);
@@ -204,7 +218,9 @@ public class puzzleGameActivity extends AppCompatActivity {
         optionsButton = findViewById(R.id.puzzle_game_options_button);
 
         optionsButton.setOnClickListener(view -> {
+            //pause the game
             pause();
+
             // inflate the layout of the popup window
             LayoutInflater inflater = (LayoutInflater)
                     getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -234,7 +250,9 @@ public class puzzleGameActivity extends AppCompatActivity {
             exitGameButton.setOnClickListener(v -> {
                 popupWindow.dismiss();
 
-                startActivity(new Intent(v.getContext(), PuzzleGameIntroActivity.class));
+                Intent intent = new Intent(v.getContext(), PuzzleGameIntroActivity.class);
+                intent.putExtra("background", backgroundColour);
+                startActivity(intent);
             });
         });
     }

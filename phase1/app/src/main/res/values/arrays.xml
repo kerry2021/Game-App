@@ -5,4 +5,16 @@
         <item>0.5 s/mole</item>
         <item>1 s/mole</item>
         <item>random</item></string-array>
+
+    <string-array name="colourOptions">
+        <item>#78909C</item>
+        <item>#757575</item>
+        <item>#8D6E63</item>
+        <item>#EF5350</item>
+        <item>#43A047</item>
+        <item>#9FA8DA</item>
+        <item>#9575CD</item>
+        <item>#1565C0</item>
+        <item>#0097A7</item>
+    </string-array>
 </resources>
