@@ -3,10 +3,12 @@ package com.example.gameproject.obstacle_game;
 import android.app.AppComponentFactory;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.example.gameproject.R;
+import com.example.gameproject.User;
 
 import org.w3c.dom.Text;
 
@@ -53,5 +55,8 @@ public class ObstacleGameIntroActivity extends AppCompatActivity {
         introTextView.setText(R.string.welcome_obstacle_game);
         reminderTextView.setText(R.string.before_start);
         customizationTextView.setText(R.string.about_customization);
+
+        User currentUser = (User) getIntent().getSerializableExtra("user");
+        Log.i("info", currentUser.get("userName"));
     }
 }

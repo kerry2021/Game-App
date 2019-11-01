@@ -117,7 +117,6 @@ public class User implements Serializable {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer.write(linesOut);
             if(! overRode){
-                Log.i("info", encode());
                 writer.write(encode());
             }
             writer.close();

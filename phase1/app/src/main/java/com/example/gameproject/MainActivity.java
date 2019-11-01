@@ -18,6 +18,7 @@ import java.io.File;
 public class MainActivity extends AppCompatActivity {
 
     private User currentUser;
+    private Intent reactionGameIntent, puzzleGameIntent, obstacleGameIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +34,16 @@ public class MainActivity extends AppCompatActivity {
 
         User.setFile(new File(this.getFilesDir(), "User_info.txt"));
         //create a default user
+        Log.i("info", "restart");
         currentUser = new User("player", "default");
         currentUser.write();
         setTitle("Welcome Back: " + currentUser.get("userName"));
 
-        Intent reactionGameIntent = new Intent(this, reactionGameMain.class);
+        reactionGameIntent = new Intent(this, reactionGameMain.class);
         reactionGameIntent.putExtra("user", currentUser);
-        Intent puzzleGameIntent = new Intent(this, PuzzleGameIntroActivity.class);
+        puzzleGameIntent = new Intent(this, PuzzleGameIntroActivity.class);
         puzzleGameIntent.putExtra("user", currentUser);
-        Intent obstacleGameIntent = new Intent(this, ObstacleGameIntroActivity.class);
+        obstacleGameIntent = new Intent(this, ObstacleGameIntroActivity.class);
         obstacleGameIntent.putExtra("user", currentUser);
 
         reactionGameButton.setOnClickListener(new View.OnClickListener(){
@@ -87,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
                 setTitle("Welcome Back:" + currentUser.get("userName"));
                 Log.i("info", currentUser.get("userName"));
                 currentUser.write();
+                reactionGameIntent.putExtra("user", currentUser);
+                puzzleGameIntent.putExtra("user", currentUser);
+                obstacleGameIntent.putExtra("user", currentUser);
             }
         }
     }
