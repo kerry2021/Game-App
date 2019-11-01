@@ -7,13 +7,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashMap;
 
 
 /**
  * a user, contains all information on his progress and customizations
  */
-public class User {
+public class User implements Serializable {
     /**
      * A map containing information that may be needed for each mini game
      */

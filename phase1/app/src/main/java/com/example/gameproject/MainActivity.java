@@ -16,18 +16,27 @@ import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
+    private User currentUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button reactionGameButton, puzzleGameButton, obstacleGameButton;
-
+        Button reactionGameButton, puzzleGameButton, obstacleGameButton, logInButton;
         reactionGameButton = (Button) findViewById(R.id.reaction_game_button);
         puzzleGameButton = (Button) findViewById(R.id.puzzle_game_button);
         obstacleGameButton = (Button) findViewById(R.id.obstacle_game_button);
+        logInButton = (Button)findViewById(R.id.login_button);
 
         User.setFile(new File(this.getFilesDir(), "UserInfo.txt"));
+        //create a default user
+        currentUser = User.getUser("player", "");
+        if(currentUser == null){
+           currentUser = new User("player", "");
+        }
+
+        setTitle("Welcome Back:" + currentUser.get("userName"));
 
         reactionGameButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -44,6 +53,28 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(v.getContext(), ObstacleGameIntroActivity.class));
             }
         });
+        logInButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                startActivityForResult(new Intent(v.getContext(), LoginActivity.class), 1);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                currentUser = (User) data.getSerializableExtra("user");
+                setTitle("Welcome Back:" + currentUser.get("userName"));
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        currentUser.write();
     }
 }
 
