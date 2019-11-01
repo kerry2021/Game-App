@@ -165,9 +165,9 @@ public class reactionGameActivity extends AppCompatActivity {
                     pause = true;
                     onStop();
                 }
-                String ts = "" + score;
-                t_score.setText(ts);
             }
+            String ts = "" + score;
+            t_score.setText(ts);
             
         }
     }
