@@ -24,13 +24,16 @@ public class reactionGameActivity extends AppCompatActivity {
     private ImageButton image_7;
     private ImageButton image_8;
     private ImageButton image_9;
+    private ImageButton pause_or_resume;;
     private ImageButton [] buttons=new ImageButton[9];
     private int speed = reactionCustomize.speed;
     private boolean random = reactionCustomize.random;
     private int next;
-    int score, timer;
+    private int score, timer;
     TextView t_score, t_timer;
     private myThread t;
+    private timeThread time;
+    private boolean pause = false;
 
     ClickImage click;
 
@@ -56,15 +59,18 @@ public class reactionGameActivity extends AppCompatActivity {
         t_score = findViewById(R.id.score);
         t_timer = findViewById(R.id.timer);
         t = new myThread();
+        time = new timeThread();
         t.setRunning(true);
+        time.setRunning(true);
         t_score.setText("0");
-        timer();
     }
 
     @Override
     protected void onResume(){
         super.onResume();
+        pause_or_resume.setBackgroundResource(R.drawable.pause);
         t.start();
+        time.start();
     }
     private void initButton(){
         buttons[0] = findViewById(R.id.first);
@@ -76,10 +82,12 @@ public class reactionGameActivity extends AppCompatActivity {
         buttons[6] = findViewById(R.id.seventh);
         buttons[7] = findViewById(R.id.eighth);
         buttons[8] = findViewById(R.id.ninth);
+        pause_or_resume = findViewById(R.id.pause_or_resume);
 
         click = new ClickImage();
         for (int i =0;i < 9;i++)
             buttons[i].setOnClickListener(click);
+        pause_or_resume.setOnClickListener(click);
     }
     private void reInitButton(){
         for(int i =0;i < 9;i++)
@@ -149,12 +157,20 @@ public class reactionGameActivity extends AppCompatActivity {
                     next = 0;
                 }
             }
+            else if (id == R.id.pause_or_resume) {
+                if (pause) {
+                    pause = false;
+                    onResume();
+                } else {
+                    pause = true;
+                    onStop();
+                }
+            }
             String ts = "" + score;
             t_score.setText(ts);
             
         }
     }
-
 
     class myThread extends Thread{
         boolean Running;
@@ -167,7 +183,7 @@ public class reactionGameActivity extends AppCompatActivity {
                     handler2.sendEmptyMessage(1);
                     if (random)
                         speed = (int) (Math.random() * 751) + 250;
-                    Thread.sleep(speed);//time pause for 0.75s, allow the screen to stay in mole for 0.75s
+                    Thread.sleep(speed);//time pause for 0.75s, by default, allow the screen to stay in mole for 0.75s
                     next = 0;
                 }
             }
@@ -181,11 +197,10 @@ public class reactionGameActivity extends AppCompatActivity {
         }
     }
 
-
-    public void timer() {
-        new Thread() {
-            @Override
-            public void run() {
+    class timeThread extends Thread{
+        boolean running;
+        public void run() {
+            while (running){
                 while (timer >= 1) {
                     try {
                         runOnUiThread(new Runnable() {
@@ -201,16 +216,22 @@ public class reactionGameActivity extends AppCompatActivity {
                             }
                         });
                         Thread.sleep(1000);
-                    } catch (InterruptedException e) {
+                    } catch (InterruptedException e) {}
+                    catch (Exception e){}
 
-                    }
                 }
             }
-        }.start();
+        }
+        public void setRunning(boolean setRunning){
+            this.running = setRunning;
+        }
     }
 
+    @Override
     public void onStop(){
         super.onStop();
+        pause_or_resume.setBackgroundResource(R.drawable.resume);
         t.interrupt();
+        time.interrupt();
     }
 }
