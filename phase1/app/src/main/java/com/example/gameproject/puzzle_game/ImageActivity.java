@@ -69,7 +69,6 @@ public class ImageActivity extends AppCompatActivity {
         });
 
         saveSelectionButton.setOnClickListener(view12 -> {
-            //TODO: save selection
 
             startActivity(new Intent(view12.getContext(), PuzzleGameIntroActivity.class));
         });
@@ -78,8 +77,8 @@ public class ImageActivity extends AppCompatActivity {
             ArrayList<ImageDividable> defaultImagesSelected = new ArrayList<>();
             for (int i = 0; i < NUM_DEFAULT_IMAGES; i++) {
                 defaultImagesSelected.add(selectedImages.get(i));
-                selectedImages = defaultImagesSelected;
             }
+            selectedImages = defaultImagesSelected;
             startActivity(new Intent(view1.getContext(), PuzzleGameIntroActivity.class));
         });
     }
@@ -119,8 +118,6 @@ public class ImageActivity extends AppCompatActivity {
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                 String picturePath = cursor.getString(columnIndex);
                 cursor.close();
-
-                //  ImageView imageView = (ImageView) findViewById(R.id.imgView);
                 ImageView imageView = new ImageView(ImageActivity.this);
                 LinearLayout linearImages = (LinearLayout)
                         findViewById(R.id.linear_images);
@@ -130,7 +127,6 @@ public class ImageActivity extends AppCompatActivity {
                 imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
                 ImageDividable imageDividable = new ImageDividable(imageView);
                 selectedImages.add(imageDividable);
-                // Function of split the image(divide the image into pieces)
             }
         }
 

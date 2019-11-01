@@ -105,4 +105,10 @@ Changed target API level to 28, as required by Google Play Store.
 #Step 19
 Code Affected: ImageActivity, ImageDividable, puzzleGameActivity, PuzzleGameIntroActivity,
 activity_puzzle_game_select_image.xml, strings.xml.
-Added the customize image feature so that users can upload images from local gallery. 
+Added the customize image feature so that users can upload images from local gallery.
+
+#######
+#Step 20
+Code Affected: ImageActivity, puzzleGameActivity, activity_puzzle_game_select_image.xml,
+strings.xml.
+Added puzzle game dimensions customization feature. 
