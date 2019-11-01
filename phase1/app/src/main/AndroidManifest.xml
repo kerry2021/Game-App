@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".reaction_game.reactionCustomize"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,20 +17,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".puzzle_game.puzzleGameActivity"
+        <activity
+            android:name=".puzzle_game.puzzleGameActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".puzzle_game.PuzzleGameIntroActivity"
+        <activity
+            android:name=".puzzle_game.PuzzleGameIntroActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".reaction_game.reactionGameMain"
+        <activity
+            android:name=".reaction_game.reactionGameMain"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".reaction_game.reactionGameActivity"
+        <activity
+            android:name=".reaction_game.reactionGameActivity"
             android:parentActivityName=".obstacle_game.ObstacleGameIntroActivity" />
-        <activity android:name=".obstacle_game.ObstacleGameIntroActivity"
+        <activity
+            android:name=".obstacle_game.ObstacleGameIntroActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".obstacle_game.ObstacleGameActivity"
+        <activity
+            android:name=".obstacle_game.ObstacleGameActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".obstacle_game.ObstacleGameEndActivity"
-            android:parentActivityName=".obstacle_game.ObstacleGameIntroActivity"/>
+        <activity
+            android:name=".obstacle_game.ObstacleGameEndActivity"
+            android:parentActivityName=".obstacle_game.ObstacleGameIntroActivity" />
     </application>
 
 </manifest>

@@ -25,6 +25,8 @@ public class reactionGameActivity extends AppCompatActivity {
     private ImageButton image_8;
     private ImageButton image_9;
     private ImageButton [] buttons=new ImageButton[9];
+    private int speed = reactionCustomize.speed;
+    private boolean random = reactionCustomize.random;
     private int next;
     int score, timer;
     TextView t_score, t_timer;
@@ -163,7 +165,9 @@ public class reactionGameActivity extends AppCompatActivity {
                     Thread.sleep(750);//time pause for 0.75s, allow the screen to stay in no mole for 0.75s
                     next = (int) (Math.random() * 9) + 1;
                     handler2.sendEmptyMessage(1);
-                    Thread.sleep(750);//time pause for 0.75s, allow the screen to stay in mole for 0.75s
+                    if (random)
+                        speed = (int) (Math.random() * 751) + 250;
+                    Thread.sleep(speed);//time pause for 0.75s, allow the screen to stay in mole for 0.75s
                     next = 0;
                 }
             }

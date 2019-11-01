@@ -16,13 +16,19 @@ public class reactionGameMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reaction_game_main);
 
-        Button startReactionGameButton;
+        Button startReactionGameButton,customizeButton;
 
         startReactionGameButton = (Button) findViewById(R.id.play);
+        customizeButton = (Button) findViewById(R.id.customize_mole_speed);
 
         startReactionGameButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 startActivity(new Intent(v.getContext(), reactionGameActivity.class));
+            }
+        });
+        customizeButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                startActivity(new Intent(v.getContext(), reactionCustomize.class));
             }
         });
 
