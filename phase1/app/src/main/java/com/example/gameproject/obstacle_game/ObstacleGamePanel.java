@@ -29,6 +29,8 @@ public class ObstacleGamePanel extends GamePanel {
      * The height of the screen.
      */
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+
+    private int difficulty;
     /**
      * The manager that deals with all backend data
      */
@@ -40,15 +42,16 @@ public class ObstacleGamePanel extends GamePanel {
 
     private Paint reminderPaint;
 
-    ObstacleGamePanel(Context context) {
+    ObstacleGamePanel(Context context, int difficulty) {
         super(context);
         drawer = new AndroidDrawer();
         setReminderPaint();
+        this.difficulty = difficulty;
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        adventureManger = new AdventureManager(screenWidth, screenHeight);
+        adventureManger = new AdventureManager(screenWidth, screenHeight, difficulty);
         adventureManger.createSpaceItems();
         super.surfaceCreated(surfaceHolder);
     }

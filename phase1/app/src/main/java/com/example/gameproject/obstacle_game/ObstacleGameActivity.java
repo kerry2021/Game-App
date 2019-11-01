@@ -17,6 +17,6 @@ public class ObstacleGameActivity extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(new ObstacleGamePanel(this));
+        setContentView(new ObstacleGamePanel(this, 5));
     }
 }

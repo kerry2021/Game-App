@@ -45,6 +45,12 @@ public class ObstacleGenerator implements ItemGenerator<Obstacle> {
      * the random Generator used
      */
     private Random randGenerator;
+    /**
+     * 1 - easy
+     * 2 - medium
+     * 3 - hard
+     */
+    private int difficulty;
 
     /**
      * set up the generator by screen width and screen height, the distance and obstacle parameters
@@ -53,8 +59,8 @@ public class ObstacleGenerator implements ItemGenerator<Obstacle> {
      * @param screenWidth  The screen width
      * @param screenHeight The screen height
      */
-    ObstacleGenerator(int screenWidth, int screenHeight) {
-        minDistance = screenWidth / 2;
+    ObstacleGenerator(int screenWidth, int screenHeight, int difficulty) {
+        minDistance = screenWidth / difficulty;
         Log.i("info", String.valueOf(screenWidth) + String.valueOf(screenHeight));
         obstacleWidth = screenWidth / 15;
         obstacleHeight = screenHeight / 15;

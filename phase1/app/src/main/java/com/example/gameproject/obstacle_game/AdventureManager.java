@@ -56,10 +56,10 @@ public class AdventureManager {
      * @param height height of obstacleGamePanel in unit.
      * @param width  width of obstacleGamePanel in unit.
      */
-    AdventureManager(int width, int height) {
+    AdventureManager(int width, int height, int difficulty) {
         gridHeight = height;
         gridWidth = width;
-        obstacleGenerator = new ObstacleGenerator(width, height);
+        obstacleGenerator = new ObstacleGenerator(width, height, difficulty);
     }
 
     /**
