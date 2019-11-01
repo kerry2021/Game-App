@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="moleSpeed">
+        <item>0.25 s/mole</item>
+        <item>0.5 s/mole</item>
+        <item>1 s/mole</item>
+        <item>random</item></string-array>
+</resources>
