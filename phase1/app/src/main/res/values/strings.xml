@@ -35,4 +35,5 @@
     <string name="thanks_obstacle_game">Thanks for playing obstacle game! \n Your Score is </string>
     <string name="log_in_warning">The account does not exist or password does not match</string>
     <string name="sign_up">Sign Up</string>
+    <string name="speed">Choose one speed of each mole stay on screen:</string>
 </resources>
