@@ -24,11 +24,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button reactionGameButton, puzzleGameButton, obstacleGameButton, logInButton;
+        Button reactionGameButton, puzzleGameButton, obstacleGameButton, logInButton, continueButton;
         reactionGameButton = (Button) findViewById(R.id.reaction_game_button);
         puzzleGameButton = (Button) findViewById(R.id.puzzle_game_button);
         obstacleGameButton = (Button) findViewById(R.id.obstacle_game_button);
         logInButton = (Button)findViewById(R.id.login_button);
+        continueButton = (Button)findViewById(R.id.continue_game);
 
         User.setFile(new File(this.getFilesDir(), "User_info.txt"));
         //create a default user
@@ -55,6 +56,18 @@ public class MainActivity extends AppCompatActivity {
         logInButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 startActivityForResult(new Intent(v.getContext(), LoginActivity.class), 1);
+            }
+        });
+        continueButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                if(currentUser.get("progress").equals("1"))
+                    startActivity(new Intent(v.getContext(), reactionGameMain.class));
+                else if(currentUser.get("progress").equals("2")){
+                    startActivity(new Intent(v.getContext(), PuzzleGameIntroActivity.class));
+                }
+                else{
+                    startActivity(new Intent(v.getContext(), ObstacleGameIntroActivity.class));
+                }
             }
         });
     }
