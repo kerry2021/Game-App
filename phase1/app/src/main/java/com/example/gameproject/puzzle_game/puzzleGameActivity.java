@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.LinearLayout;
@@ -91,7 +92,11 @@ public class puzzleGameActivity extends AppCompatActivity {
         textViewMoves = findViewById(R.id.move);
         createOptionsButton();
         columns = PuzzleGameIntroActivity.customizedColumns;
+        dimensions = columns * columns;
         puzzles = ImageActivity.selectedImages;
+        if (puzzles.size() == 0) {
+            addDefaultImagesToList();
+        }
         for (int i = 0; i < puzzles.size(); i++) {
             puzzles.get(i).setNumColumns(columns);
         }
@@ -303,36 +308,6 @@ public class puzzleGameActivity extends AppCompatActivity {
             button = new Button(context);
             int tile = Integer.parseInt(s);
             button.setBackground(dividedDrawableImages[tile]);
-
-            /*switch (s) {
-                case "0":
-                    button.setBackground(dividedDrawableImages[0]);
-                    break;
-                case "1":
-                    button.setBackgroundResource(puzzles.get(puzzleNum * 9 + 1));
-                    break;
-                case "2":
-                    button.setBackgroundResource(puzzles.get(puzzleNum * 9 + 2));
-                    break;
-                case "3":
-                    button.setBackgroundResource(puzzles.get(puzzleNum * 9 + 3));
-                    break;
-                case "4":
-                    button.setBackgroundResource(puzzles.get(puzzleNum * 9 + 4));
-                    break;
-                case "5":
-                    button.setBackgroundResource(puzzles.get(puzzleNum * 9 + 5));
-                    break;
-                case "6":
-                    button.setBackgroundResource(puzzles.get(puzzleNum * 9 + 6));
-                    break;
-                case "7":
-                    button.setBackgroundResource(puzzles.get(puzzleNum * 9 + 7));
-                    break;
-                case "8":
-                    button.setBackgroundResource(puzzles.get(puzzleNum * 9 + 8));
-                    break;
-            }*/
             buttons.add(button);
         }
         mGridView.setAdapter(new PuzzleAdapter(buttons, mColumnWidth, mColumnHeight));
@@ -395,8 +370,56 @@ public class puzzleGameActivity extends AppCompatActivity {
                     break;
             }
 
-            // Upper-center tiles
-        } else if (position > 0 && position < columns - 1) {
+
+        }
+        // Upper-right-corner tile
+        else if (position == columns - 1) {
+            switch (direction) {
+                case left:
+                    swap(context, position, -1);
+                    break;
+                case down:
+                    swap(context, position, columns);
+                    break;
+                default:
+                    Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
+                    break;
+
+            }
+
+        }
+        // Bottom-left corner tile
+        else if (position == dimensions - columns) {
+            switch (direction) {
+                case up:
+                    swap(context, position, -columns);
+                    break;
+                case right:
+                    swap(context, position, 1);
+                    break;
+                default:
+                    Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
+                    break;
+
+            }
+        }
+        // Bottom-right corner tile
+        else if (position == dimensions - 1) {
+            switch (direction) {
+                case up:
+                    swap(context, position, -columns);
+                    break;
+                case left:
+                    swap(context, position, -1);
+                    break;
+                default:
+                    Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
+                    break;
+
+            }
+        }
+        // Upper-center tiles
+        else if (position > 0 && position < columns - 1) {
             switch (direction) {
                 case left:
                     swap(context, position, -1);
@@ -412,23 +435,10 @@ public class puzzleGameActivity extends AppCompatActivity {
                     break;
             }
 
-            // Upper-right-corner tile
-        } else if (position == columns - 1) {
-            switch (direction) {
-                case left:
-                    swap(context, position, -1);
-                    break;
-                case down:
-                    swap(context, position, columns);
-                    break;
-                default:
-                    Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
-                    break;
 
-            }
-
-            // Left-side tiles
-        } else if (position > columns - 1 && position < dimensions - columns &&
+        }
+        // Left-side tiles
+        else if (position > columns - 1 && position < dimensions - columns &&
                 position % columns == 0) {
             switch (direction) {
                 case up:
@@ -444,9 +454,9 @@ public class puzzleGameActivity extends AppCompatActivity {
                     Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
                     break;
             }
-
-            // Right-side AND bottom-right-corner tiles
-        } else if (position == columns * 2 - 1 || position == columns * 3 - 1) {
+        }
+        // Right-side tiles
+        else if ((position + 1) % columns == 0) {
             switch (direction) {
                 case up:
                     swap(context, position, -columns);
@@ -455,31 +465,12 @@ public class puzzleGameActivity extends AppCompatActivity {
                     swap(context, position, -1);
                     break;
                 case down:
-                    // Tolerates only the right-side tiles to swap downwards as opposed to the bottom-
-                    // right-corner tile.
-                    if (position <= dimensions - columns - 1) swap(context, position,
-                            columns);
-                    else Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
-                    break;
+                     swap(context, position, columns);
                 default:
                     Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
                     break;
             }
 
-            // Bottom-left corner tile
-        } else if (position == dimensions - columns) {
-            switch (direction) {
-                case up:
-                    swap(context, position, -columns);
-                    break;
-                case right:
-                    swap(context, position, 1);
-                    break;
-                default:
-                    Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
-                    break;
-
-            }
 
             // Bottom-center tiles
         } else if (position < dimensions - 1 && position > dimensions - columns) {
@@ -573,4 +564,27 @@ public class puzzleGameActivity extends AppCompatActivity {
         }
     }
 
+    private void addDefaultImagesToList() {
+        /*
+        LayoutInflater inflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
+        View view = inflater.inflate(R.layout.activity_puzzle_game_select_image, null);
+        ImageView default1View = (ImageView) view.findViewById(R.id.default1);
+        ImageDividable default1Dividable = new ImageDividable(default1View);
+        puzzles.add(default1Dividable);
+        ImageView default2View = (ImageView) view.findViewById(R.id.default2);
+        ImageDividable default2Dividable = new ImageDividable(default2View);
+        puzzles.add(default2Dividable);
+        */
+
+        ImageView imageView1 = new ImageView(puzzleGameActivity.this);
+        imageView1.setImageResource(R.drawable.default1);
+        ImageDividable default1Dividable = new ImageDividable(imageView1);
+        puzzles.add(default1Dividable);
+        ImageView imageView2 = new ImageView(puzzleGameActivity.this);
+        imageView2.setImageResource(R.drawable.default2);
+        ImageDividable default2Dividable = new ImageDividable(imageView2);
+        puzzles.add(default2Dividable);
+    }
 }
