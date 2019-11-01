@@ -18,6 +18,7 @@ public class ObstacleGameIntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_obstacle_game_intro);
+        setTitle("Obstacle Game");
 
         Button startPuzzleGameButton;
 
@@ -34,6 +35,14 @@ public class ObstacleGameIntroActivity extends AppCompatActivity {
         obstacleGameRuleButton = (Button) findViewById(R.id.obstacle_game_rule_button);
 
         Button customizationButton;
+
+        customizationButton = (Button) findViewById(R.id.customization_button);
+
+        customizationButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                startActivity(new Intent(v.getContext(), CustomizationActivity.class));
+            }
+        });
 
         customizationButton = (Button) findViewById(R.id.customization_button);
 
