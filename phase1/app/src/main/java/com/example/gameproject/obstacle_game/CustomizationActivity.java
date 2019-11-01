@@ -39,6 +39,7 @@ public class CustomizationActivity extends AppCompatActivity {
                 } else if (difficulty == "Hard") {
                     gameDifficulty = 3;
                 }
+                finish();
             }
         });
     }
