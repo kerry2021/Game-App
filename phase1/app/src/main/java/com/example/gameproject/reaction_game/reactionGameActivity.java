@@ -158,11 +158,13 @@ public class reactionGameActivity extends AppCompatActivity {
                 }
             }
             else if (id == R.id.pause_or_resume) {
-                if (pause) {
+                if (pause) {//to resume
+                    pause_or_resume.setBackgroundResource(R.drawable.pause);
                     pause = false;
                     t.setRunning(true);
                     time.setRunning(true);
-                } else {
+                } else {//to pause
+                    pause_or_resume.setBackgroundResource(R.drawable.resume);
                     pause = true;
                     t.setRunning(false);
                     time.setRunning(false);
