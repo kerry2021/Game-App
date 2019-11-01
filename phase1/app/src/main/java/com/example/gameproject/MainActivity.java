@@ -35,22 +35,28 @@ public class MainActivity extends AppCompatActivity {
         //create a default user
         currentUser = new User("player", "default");
         currentUser.write();
-
         setTitle("Welcome Back: " + currentUser.get("userName"));
+
+        Intent reactionGameIntent = new Intent(this, reactionGameMain.class);
+        reactionGameIntent.putExtra("user", currentUser);
+        Intent puzzleGameIntent = new Intent(this, PuzzleGameIntroActivity.class);
+        puzzleGameIntent.putExtra("user", currentUser);
+        Intent obstacleGameIntent = new Intent(this, ObstacleGameIntroActivity.class);
+        obstacleGameIntent.putExtra("user", currentUser);
 
         reactionGameButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                startActivity(new Intent(v.getContext(), reactionGameMain.class));
+                startActivity(reactionGameIntent);
             }
         });
         puzzleGameButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                startActivity(new Intent(v.getContext(), PuzzleGameIntroActivity.class));
+                startActivity(puzzleGameIntent);
             }
         });
         obstacleGameButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                startActivity(new Intent(v.getContext(), ObstacleGameIntroActivity.class));
+                startActivity(obstacleGameIntent);
             }
         });
         logInButton.setOnClickListener(new View.OnClickListener(){
@@ -61,12 +67,12 @@ public class MainActivity extends AppCompatActivity {
         continueButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 if(currentUser.get("progress").equals("1"))
-                    startActivity(new Intent(v.getContext(), reactionGameMain.class));
+                    startActivity(reactionGameIntent);
                 else if(currentUser.get("progress").equals("2")){
-                    startActivity(new Intent(v.getContext(), PuzzleGameIntroActivity.class));
+                    startActivity(puzzleGameIntent);
                 }
                 else{
-                    startActivity(new Intent(v.getContext(), ObstacleGameIntroActivity.class));
+                    startActivity(obstacleGameIntent);
                 }
             }
         });
