@@ -46,6 +46,8 @@
             android:parentActivityName=".LoginActivity" />
         <activity android:name=".puzzle_game.ImageActivity"
             android:parentActivityName=".puzzle_game.PuzzleGameIntroActivity" />
+        <activity android:name=".obstacle_game.CustomizationActivity"
+            android:parentActivityName=".obstacle_game.ObstacleGameIntroActivity"/>
     </application>
 
 </manifest>
