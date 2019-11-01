@@ -28,6 +28,9 @@
             android:name=".reaction_game.reactionGameMain"
             android:parentActivityName=".MainActivity" />
         <activity
+            android:name=".reaction_game.reactionCustomize"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".reaction_game.reactionGameActivity"
             android:parentActivityName=".obstacle_game.ObstacleGameIntroActivity" />
         <activity
