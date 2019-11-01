@@ -35,7 +35,7 @@ public class GestureDetectGridView extends GridView {
         init(context);
     }
 
-    @TargetApi(Build.VERSION_CODES.Q) // API 29
+    @TargetApi(Build.VERSION_CODES.P) // API 28
     public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr,
                                  int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);

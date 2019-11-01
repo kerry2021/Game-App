@@ -79,7 +79,7 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
             cancelButton = popupView.findViewById(R.id.cancel_button);
 
             addImageButton.setOnClickListener(view1 -> {
-                //TODO: add image.
+                startActivity(new Intent(view.getContext(), ImageActivity.class));
             });
 
             confirmButton.setOnClickListener(view12 -> {
