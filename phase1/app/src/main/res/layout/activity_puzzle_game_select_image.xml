@@ -1,0 +1,63 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:id="@+id/activity_puzzle_game_select_image"
+tools:context="com.example.gameproject.puzzle_game.puzzleGameActivity">
+
+    <TextView
+        android:id="@+id/images_selected"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:textSize="15sp"
+        android:text="@string/images_selected" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/images_selected"
+        android:id="@+id/linear_images"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/default1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/default1"
+            android:contentDescription="default image 1"/>
+
+        <ImageView
+            android:id="@+id/default2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/default2"
+            android:contentDescription="default image 2"/>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/add_image_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear_images"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/add_image" />
+
+    <Button
+        android:id="@+id/save_image_selection_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/add_image_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/save_image_selection" />
+
+
+</RelativeLayout>

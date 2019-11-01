@@ -36,4 +36,7 @@
     <string name="log_in_warning">The account does not exist or password does not match</string>
     <string name="sign_up">Sign Up</string>
     <string name="speed">Choose one speed of each mole stay on screen:</string>
+    <string name="images_selected">Selected images: </string>
+    <string name="save_image_selection">Save selected images </string>
+    <string name="add_image">Add image</string>
 </resources>

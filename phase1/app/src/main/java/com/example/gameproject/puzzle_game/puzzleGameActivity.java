@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.graphics.Bitmap;
 
 import android.view.Gravity;
 
@@ -54,7 +56,7 @@ public class puzzleGameActivity extends AppCompatActivity {
     private String[] tileList;
 
     //a list of identifiers referencing each image for the puzzle in drawable
-    private ArrayList<Integer> puzzles = new ArrayList<>();
+    private ArrayList<ImageDividable> puzzles = new ArrayList<>();
 
     //total number of puzzles in the game
     private int puzzleNum = 2;
@@ -89,6 +91,11 @@ public class puzzleGameActivity extends AppCompatActivity {
         textViewMoves = findViewById(R.id.move);
         createOptionsButton();
         columns = PuzzleGameIntroActivity.customizedColumns;
+        puzzles = ImageActivity.selectedImages;
+        for (int i = 0; i < puzzles.size(); i++) {
+            puzzles.get(i).setNumColumns(columns);
+        }
+        puzzleNum = puzzles.size();
         init();
         randomize();
         setDimensions();
@@ -106,7 +113,6 @@ public class puzzleGameActivity extends AppCompatActivity {
         for (int i = 0; i < dimensions; i++) {
             tileList[i] = String.valueOf(i);
         }
-        createPuzzleList();
         timeLeftInMillis = COUNTDOWN_IN_MILLIS;
         startCountDown();
     }
@@ -262,7 +268,6 @@ public class puzzleGameActivity extends AppCompatActivity {
 
                 mColumnWidth = displayWidth / columns;
                 mColumnHeight = requiredHeight / columns;
-                createPuzzleList();
                 display(getApplicationContext(), puzzleComplete);
             }
         });
@@ -281,26 +286,27 @@ public class puzzleGameActivity extends AppCompatActivity {
     }
 
     /**
-     * Create a list of images stored in drawable to create puzzle
-     */
-    private void createPuzzleList() {
-        for (int i = 0; i < 9 * puzzleNum; i++) {
-            puzzles.add(getResources().getIdentifier("p" + i, "drawable", getPackageName()));
-        }
-
-    }
-
-    /**
      * display the code after each movement
      */
     private void display(Context context, int puzzleNum) {
         ArrayList<Button> buttons = new ArrayList<>();
         Button button;
+
+        ArrayList<Bitmap> dividedImages = puzzles.get(puzzleNum).getDividedImages();
+        BitmapDrawable[] dividedDrawableImages = new BitmapDrawable[dividedImages.size()];
+        for (int i = 0; i < dividedImages.size(); i++) {
+            BitmapDrawable bDrawable = new BitmapDrawable(getResources(),dividedImages.get(i));
+            dividedDrawableImages[i] = bDrawable;
+        }
+
         for (String s : tileList) {
             button = new Button(context);
-            switch (s) {
+            int tile = Integer.parseInt(s);
+            button.setBackground(dividedDrawableImages[tile]);
+
+            /*switch (s) {
                 case "0":
-                    button.setBackgroundResource(puzzles.get(puzzleNum * 9));
+                    button.setBackground(dividedDrawableImages[0]);
                     break;
                 case "1":
                     button.setBackgroundResource(puzzles.get(puzzleNum * 9 + 1));
@@ -326,7 +332,7 @@ public class puzzleGameActivity extends AppCompatActivity {
                 case "8":
                     button.setBackgroundResource(puzzles.get(puzzleNum * 9 + 8));
                     break;
-            }
+            }*/
             buttons.add(button);
         }
         mGridView.setAdapter(new PuzzleAdapter(buttons, mColumnWidth, mColumnHeight));
@@ -566,4 +572,5 @@ public class puzzleGameActivity extends AppCompatActivity {
             countDownTimer.cancel();
         }
     }
+
 }

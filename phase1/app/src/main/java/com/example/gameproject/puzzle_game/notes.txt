@@ -95,3 +95,14 @@ Added showFinalScore method and final score popup window.
 #Step 17
 Code Affected: All class and layout
 Reformatted the codes and deleted unnecessary codes.
+
+#######
+#Step 18
+Code Affected: GestureDetectGridView.java
+Changed target API level to 28, as required by Google Play Store.
+
+#######
+#Step 19
+Code Affected: ImageActivity, ImageDividable, puzzleGameActivity, PuzzleGameIntroActivity,
+activity_puzzle_game_select_image.xml, strings.xml.
+Added the customize image feature so that users can upload images from local gallery. 
