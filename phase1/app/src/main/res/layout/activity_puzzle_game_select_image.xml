@@ -59,5 +59,14 @@ tools:context="com.example.gameproject.puzzle_game.puzzleGameActivity">
         android:layout_marginTop="10dp"
         android:text="@string/save_image_selection" />
 
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/add_image_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/cancel" />
+
 
 </RelativeLayout>

@@ -7,9 +7,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -27,16 +25,13 @@ import androidx.core.app.ActivityCompat;
 
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.RelativeLayout;
 
-//public class ImageActivity extends Activity implements OnClickListener {
 public class ImageActivity extends AppCompatActivity {
 
     Uri selectedImage;
     private final int RESULT_LOAD_IMAGE = 1;
     public static ArrayList<ImageDividable> selectedImages = new ArrayList<>();
-
+    private static final int NUM_DEFAULT_IMAGES = 2;
     private static final int STORAGE_PERMISSION_CODE = 1;
 
 
@@ -67,6 +62,7 @@ public class ImageActivity extends AppCompatActivity {
         Button addImageButton, saveSelectionButton, cancelButton;
         addImageButton = findViewById(R.id.add_image_button);
         saveSelectionButton = findViewById(R.id.save_image_selection_button);
+        cancelButton = findViewById(R.id.cancel_button);
 
         addImageButton.setOnClickListener(view1 -> {
             alertDialogForCameraImage();
@@ -78,6 +74,14 @@ public class ImageActivity extends AppCompatActivity {
             startActivity(new Intent(view12.getContext(), PuzzleGameIntroActivity.class));
         });
 
+        cancelButton.setOnClickListener(view1 -> {
+            ArrayList<ImageDividable> defaultImagesSelected = new ArrayList<>();
+            for (int i = 0; i < NUM_DEFAULT_IMAGES; i++) {
+                defaultImagesSelected.add(selectedImages.get(i));
+                selectedImages = defaultImagesSelected;
+            }
+            startActivity(new Intent(view1.getContext(), PuzzleGameIntroActivity.class));
+        });
     }
 
     private void addDefaultImagesToList() {
