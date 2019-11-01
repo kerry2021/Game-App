@@ -160,10 +160,12 @@ public class reactionGameActivity extends AppCompatActivity {
             else if (id == R.id.pause_or_resume) {
                 if (pause) {
                     pause = false;
-                    onResume();
+                    t.setRunning(true);
+                    time.setRunning(true);
                 } else {
                     pause = true;
-                    onStop();
+                    t.setRunning(false);
+                    time.setRunning(false);
                 }
             }
             String ts = "" + score;
@@ -176,15 +178,19 @@ public class reactionGameActivity extends AppCompatActivity {
         boolean Running;
         public void run(){
             try{
-                while (Running) {
-                    handler1.sendEmptyMessage(1);
-                    Thread.sleep(750);//time pause for 0.75s, allow the screen to stay in no mole for 0.75s
-                    next = (int) (Math.random() * 9) + 1;
-                    handler2.sendEmptyMessage(1);
-                    if (random)
-                        speed = (int) (Math.random() * 751) + 250;
-                    Thread.sleep(speed);//time pause for 0.75s, by default, allow the screen to stay in mole for 0.75s
-                    next = 0;
+                while (true) {
+                    if (Running) {
+                        handler1.sendEmptyMessage(1);
+                        Thread.sleep(750);//time pause for 0.75s, allow the screen to stay in no mole for 0.75s
+                    }
+                    if (Running) {
+                        next = (int) (Math.random() * 9) + 1;
+                        handler2.sendEmptyMessage(1);
+                        if (random)
+                            speed = (int) (Math.random() * 751) + 250;
+                        Thread.sleep(speed);//time pause for 0.75s, by default, allow the screen to stay in mole for 0.75s
+                        next = 0;
+                    }
                 }
             }
             catch(Exception e){
@@ -200,25 +206,25 @@ public class reactionGameActivity extends AppCompatActivity {
     class timeThread extends Thread{
         boolean running;
         public void run() {
-            while (running){
-                while (timer >= 1) {
-                    try {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
+            while (timer >= 1) {
+                try {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (running) {
                                 String t = "" + timer;
                                 t_timer.setText(t);
                                 timer--;
-                                if (timer == 0) {
-                                    Toast.makeText(reactionGameActivity.this, "Time Up", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                }
                             }
-                        });
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {}
-                    catch (Exception e){}
-
+                            if (timer == 0) {
+                                Toast.makeText(reactionGameActivity.this, "Time Up", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        }
+                    });
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                } catch (Exception e){
                 }
             }
         }
