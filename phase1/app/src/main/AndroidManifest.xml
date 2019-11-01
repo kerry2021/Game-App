@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.gameproject">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".obstacle_game.obstacleGameRulesActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,12 +46,15 @@
         <activity
             android:name=".obstacle_game.ObstacleGameEndActivity"
             android:parentActivityName=".obstacle_game.ObstacleGameIntroActivity" />
-        <activity android:name=".SignUpActivity"
-            android:parentActivityName=".LoginActivity" />
-        <activity android:name=".puzzle_game.ImageActivity"
+        <activity
+            android:name=".SignUpActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".puzzle_game.ImageActivity"
             android:parentActivityName=".puzzle_game.PuzzleGameIntroActivity" />
-        <activity android:name=".obstacle_game.CustomizationActivity"
-            android:parentActivityName=".obstacle_game.ObstacleGameIntroActivity"/>
+        <activity
+            android:name=".obstacle_game.CustomizationActivity"
+            android:parentActivityName=".obstacle_game.ObstacleGameIntroActivity" />
     </application>
 
 </manifest>
