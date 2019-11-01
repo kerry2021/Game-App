@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +30,7 @@ public class SignUpActivity extends AppCompatActivity {
                 } else {
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("user", new User(userName, passWord));
-                    setResult(RESULT_OK);
+                    setResult(RESULT_OK, resultIntent);
                     finish();
                 }
             }

@@ -3,7 +3,9 @@ package com.example.gameproject;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -66,7 +68,7 @@ public class User implements Serializable {
         for (String key : gameStats.keySet()) {
             outStr += key + ":" + gameStats.get(key) + ";";
         }
-        return outStr + "\n";
+        return (outStr + "-");
     }
 
     static private HashMap<String, String> decode(String line) {
@@ -92,28 +94,41 @@ public class User implements Serializable {
      * write the current information in gameStats to the file
      */
     public void write() {
+
         try {
-            String lines = "";
+            String linesOut = "";
             boolean overRode = false;
             BufferedReader reader = new BufferedReader(new FileReader(file));
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                if (decode(line).get("userName").equals(gameStats.get("userName"))) {
-                    overRode = true;
-                    lines += encode(); //replace the line if it is already about this user
-                } else {
-                    lines += line;
+            String content = reader.readLine();
+            if(content != null) {
+                String[] lines = content.split("-");
+               for(String line: lines) {
+                    HashMap<String, String> newMap = decode(line);
+                    if (newMap.get("userName").equals(gameStats.get("userName"))) {
+                        overRode = true;
+                        linesOut += encode(); //replace the line if it is already about this user
+                    } else {
+                        linesOut += line + "-";
+                    }
                 }
+
             }
 
-            if (!overRode) {
-                lines += encode(); //append info about this user otherWise
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            writer.write(linesOut);
+            if(! overRode){
+                Log.i("info", encode());
+                writer.write(encode());
             }
-
-            FileWriter writer = new FileWriter(file);
-            writer.write(lines);
             writer.close();
+
+        } catch (FileNotFoundException e2) {
+            try {
+                file.createNewFile();
+                write();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -122,18 +137,21 @@ public class User implements Serializable {
     static User getUser(String userName, String passWord) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = br.readLine()) != null) {
-                HashMap<String, String> newMap = decode(line);
-                if (newMap.get("userName").equals(userName) && newMap.get("passWord").equals(passWord)) {
-                    return new User(newMap);
+            String content = br.readLine();
+            if(content != null) {
+                String[] lines = content.split("-");
+                for (String line: lines) {
+                    HashMap<String, String> newMap = decode(line);
+                    if (newMap.get("userName").equals(userName) && newMap.get("passWord").equals(passWord)) {
+                        return new User(newMap);
+                    }
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 }
+
 
