@@ -28,6 +28,7 @@ public class reactionGameActivity extends AppCompatActivity {
     private ImageButton [] buttons=new ImageButton[9];
     private int speed = reactionCustomize.speed;
     private boolean random = reactionCustomize.random;
+    private boolean pause_before;
     private int next;
     private int score, timer;
     TextView t_score, t_timer;
@@ -62,6 +63,8 @@ public class reactionGameActivity extends AppCompatActivity {
         time = new timeThread();
         t.setRunning(true);
         time.setRunning(true);
+        t.setStep(1);
+        pause_before = false;
         t_score.setText("0");
     }
 
@@ -160,6 +163,7 @@ public class reactionGameActivity extends AppCompatActivity {
             else if (id == R.id.pause_or_resume) {
                 if (pause) {//to resume
                     pause_or_resume.setBackgroundResource(R.drawable.pause);
+                    pause_before = true;
                     pause = false;
                     t.setRunning(true);
                     time.setRunning(true);
@@ -178,18 +182,30 @@ public class reactionGameActivity extends AppCompatActivity {
 
     class myThread extends Thread{
         boolean Running;
+        int step;// in order to let this thread remain in next status after clicking pause
         public void run(){
             try{
                 while (true) {
-                    if (Running) {
+                    if (Running && step==1) {
+                        if (pause_before) {
+                            Thread.sleep(speed);
+                            pause_before = false;
+                        }
                         handler1.sendEmptyMessage(1);
+                        setStep(2);
                         Thread.sleep(750);//time pause for 0.75s, allow the screen to stay in no mole for 0.75s
+
                     }
-                    if (Running) {
+                    if (Running && step==2) {
+                        if (pause_before) {
+                            Thread.sleep(750);
+                            pause_before = false;
+                        }
                         next = (int) (Math.random() * 9) + 1;
                         handler2.sendEmptyMessage(1);
                         if (random)
                             speed = (int) (Math.random() * 751) + 250;
+                        setStep(1);
                         Thread.sleep(speed);//time pause for 0.75s, by default, allow the screen to stay in mole for 0.75s
                         next = 0;
                     }
@@ -202,6 +218,9 @@ public class reactionGameActivity extends AppCompatActivity {
         }
         public void setRunning(boolean setRunning){
             this.Running = setRunning;
+        }
+        public void setStep(int step){
+            this.step=step;
         }
     }
 
