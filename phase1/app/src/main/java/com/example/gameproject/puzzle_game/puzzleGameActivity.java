@@ -77,7 +77,7 @@ public class puzzleGameActivity extends AppCompatActivity {
     private int score = 0;
 
     //Time given to complete the puzzles
-    private final long COUNTDOWN_IN_MILLIS = 120000;
+    private long countDownInMillis = 12000;
 
     //Timer
     private CountDownTimer countDownTimer;
@@ -96,6 +96,8 @@ public class puzzleGameActivity extends AppCompatActivity {
         if(intent.getStringExtra("background") != null){
             backgroundColour = intent.getStringExtra("background");
         }
+
+        countDownInMillis = intent.getIntExtra("countDownTime", 120000 );
 
         RelativeLayout currentLayout = findViewById(R.id.puzzle_game);
         currentLayout.setBackgroundColor(Color.parseColor(backgroundColour));
@@ -132,7 +134,7 @@ public class puzzleGameActivity extends AppCompatActivity {
         for (int i = 0; i < dimensions; i++) {
             tileList[i] = String.valueOf(i);
         }
-        timeLeftInMillis = COUNTDOWN_IN_MILLIS;
+        timeLeftInMillis = countDownInMillis;
         startCountDown();
     }
 

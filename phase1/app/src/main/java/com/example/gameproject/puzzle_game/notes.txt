@@ -120,3 +120,8 @@ activity_puzzle_game_background.xml, activity_puzzle_game_intro.xml, customize_p
 arrays.xml, colors.xml, strings.xml
 Added background colour customization option, added BackgroundChangeActivity and
 activity_puzzle_game_background.xml to implement it.
+
+#######
+#Step 21
+Code Affected: puzzleGameActivity, PuzzleGameIntroActivity, customize_puzzle_game.xml
+Added countdown time customization option.
