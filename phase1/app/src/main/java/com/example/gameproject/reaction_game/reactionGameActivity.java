@@ -197,6 +197,7 @@ public class reactionGameActivity extends AppCompatActivity {
                     pause = true;
                     t.setRunning(false);
                     time.setRunning(false);
+                    pauseGame();
                 }
             }
             String ts = "" + score;
@@ -280,6 +281,39 @@ public class reactionGameActivity extends AppCompatActivity {
         }
     }
 
+    private void pauseGame(){
+        LayoutInflater inflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
+        View popupView = inflater.inflate(R.layout.pause_and_resume, null);
+
+        // create the popup window
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        // Taps outside the popup does not dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, false);
+
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window token
+        popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+        Button exitButton,resumeButton;
+
+        exitButton = popupView.findViewById(R.id.save);
+        resumeButton = popupView.findViewById(R.id.resume_reaction);
+
+        exitButton.setOnClickListener(view -> {
+            popupWindow.dismiss();
+            //TODO:
+        });
+        resumeButton.setOnClickListener(view -> {
+            popupWindow.dismiss();
+            pause_or_resume.setBackgroundResource(R.drawable.pause);
+            pause_before = true;
+            pause = false;
+            t.setRunning(true);
+            time.setRunning(true);
+        });
+    }
     private void endGame(){
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
