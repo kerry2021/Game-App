@@ -3,12 +3,11 @@ package com.example.gameproject.puzzle_game;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,6 +18,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.gameproject.R;
+import com.example.gameproject.User;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 public class PuzzleGameIntroActivity extends AppCompatActivity {
 
@@ -45,10 +47,41 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
 
     private String backgroundColour = "#FFFFFF";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle_game_intro);
+
+        User currentUser = (User) getIntent().getSerializableExtra("user");
+
+        assert currentUser != null;
+        String userCountDownTime = currentUser.get("puzzle_game_countDownTime");
+        String userBackground = currentUser.get("puzzle_game_background");
+
+        if(userCountDownTime == null){
+            currentUser.set("puzzle_game_countDownTime", "Normal");
+            currentUser.write();
+            userCountDownTime = "Normal";
+        }
+
+        switch (userCountDownTime){
+            case "Normal":
+                countDownTime = 120000;
+                break;
+            case "Easy":
+                countDownTime = 60000;
+                break;
+            case "Hard":
+                countDownTime = 240000;
+        }
+
+        if(userBackground== null){
+            currentUser.set("puzzle_game_background", "#FFFFFF");
+            currentUser.write();
+            userBackground = "#FFFFFF";
+        }
+        backgroundColour = userBackground;
 
         Intent intent = getIntent();
         if(intent.getStringExtra("background") != null){
@@ -66,17 +99,19 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
             Intent toGame = new Intent(v.getContext(), puzzleGameActivity.class);
             toGame.putExtra("background", backgroundColour);
             toGame.putExtra("countDownTime", countDownTime);
+            toGame.putExtra("user", currentUser);
             startActivity(toGame);
         });
 
-        createCustomizePuzzleGameButton();
+        createCustomizePuzzleGameButton(currentUser);
 
         final TextView introTextView = findViewById(R.id.puzzle_game_intro);
         introTextView.setText(R.string.puzzle_game_intro);
 
     }
 
-    private void createCustomizePuzzleGameButton() {
+    private void createCustomizePuzzleGameButton(User currentUser) {
+        AtomicReference<String> userCountDownTime = new AtomicReference<>(currentUser.get("puzzle_game_countDownTime"));
         Button customizePuzzleGameButton;
         customizePuzzleGameButton = findViewById(R.id.customize_puzzle_game_button);
         customizePuzzleGameButton.setOnClickListener(view -> {
@@ -102,11 +137,17 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
             confirmButton = popupView.findViewById(R.id.confirm_button);
             cancelButton = popupView.findViewById(R.id.cancel_button);
 
-            addImageButton.setOnClickListener(view1 ->
-                    startActivity(new Intent(view.getContext(), ImageActivity.class)));
+            addImageButton.setOnClickListener(view1 -> {
+                    Intent toImage = new Intent(view.getContext(), ImageActivity.class);
+                    toImage.putExtra("user", currentUser);
+                    startActivity(toImage);
+                    });
 
-            changeBackgroundButton.setOnClickListener(v ->
-                    startActivity(new Intent(v.getContext(), BackgroundChangeActivity.class)));
+            changeBackgroundButton.setOnClickListener(v -> {
+                    Intent toBackground = new Intent(v.getContext(), BackgroundChangeActivity.class);
+                    toBackground.putExtra("user", currentUser);
+                    startActivity(toBackground);
+                });
 
             confirmButton.setOnClickListener(view12 -> {
                 switch (dimSpinner.getSelectedItem().toString()) {
@@ -124,12 +165,21 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
                 switch (timeSpinner.getSelectedItem().toString()) {
                     case TWO_MIN:
                         countDownTime = 120000;
+                        currentUser.set("puzzle_game_countDownTime", "Normal");
+                        currentUser.write();
+                        userCountDownTime.set("Normal");
                         break;
                     case FOUR_MIN:
                         countDownTime = 240000;
+                        currentUser.set("puzzle_game_countDownTime", "Easy");
+                        currentUser.write();
+                        userCountDownTime.set("Easy");
                         break;
                     case ONE_MIN:
                         countDownTime = 60000;
+                        currentUser.set("puzzle_game_countDownTime", "Hard");
+                        currentUser.write();
+                        userCountDownTime.set("Hard");
                         break;
                 }
                 popupWindow.dismiss();
@@ -147,7 +197,7 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
 
     private void setUpSpinner(View view) {
         // Set up the puzzleDimensions spinner.
-        dimSpinner = (Spinner) view.findViewById(R.id.spinner1);
+        dimSpinner = view.findViewById(R.id.spinner1);
         ArrayAdapter adapter1 = new ArrayAdapter(
                 this, android.R.layout.simple_spinner_item, puzzleDimensions);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

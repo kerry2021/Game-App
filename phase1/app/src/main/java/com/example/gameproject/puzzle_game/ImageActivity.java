@@ -15,6 +15,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import com.example.gameproject.R;
+import com.example.gameproject.User;
+
 import android.Manifest;
 
 import androidx.annotation.NonNull;
@@ -44,6 +46,7 @@ public class ImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_puzzle_game_select_image);
+        User currentUser = (User) getIntent().getSerializableExtra("user");
         addDefaultImagesToList();
         if(ContextCompat.checkSelfPermission(ImageActivity.this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -69,9 +72,10 @@ public class ImageActivity extends AppCompatActivity {
         });
 
         saveSelectionButton.setOnClickListener(view12 -> {
-
-            startActivity(new Intent(view12.getContext(), PuzzleGameIntroActivity.class));
-        });
+                Intent backIntro = new Intent(view12.getContext(), PuzzleGameIntroActivity.class);
+                backIntro.putExtra("user", currentUser);
+                startActivity(backIntro);
+                });
 
         cancelButton.setOnClickListener(view1 -> {
             ArrayList<ImageDividable> defaultImagesSelected = new ArrayList<>();
@@ -79,7 +83,9 @@ public class ImageActivity extends AppCompatActivity {
                 defaultImagesSelected.add(selectedImages.get(i));
             }
             selectedImages = defaultImagesSelected;
-            startActivity(new Intent(view1.getContext(), PuzzleGameIntroActivity.class));
+            Intent backIntroCancel = new Intent(view1.getContext(), PuzzleGameIntroActivity.class);
+            backIntroCancel.putExtra("user", currentUser);
+            startActivity(backIntroCancel);
         });
     }
 

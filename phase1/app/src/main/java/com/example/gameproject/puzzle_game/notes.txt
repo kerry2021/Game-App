@@ -125,3 +125,8 @@ activity_puzzle_game_background.xml to implement it.
 #Step 21
 Code Affected: puzzleGameActivity, PuzzleGameIntroActivity, customize_puzzle_game.xml
 Added countdown time customization option.
+
+#######
+#Step 21
+Code Affected: BackgroundChangeActivity, puzzleGameActivity, PuzzleGameIntroActivity, ImageActivity
+Implemented customization memory to each user.
