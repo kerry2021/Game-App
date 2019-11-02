@@ -16,37 +16,39 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ObstacleGameIntroActivity extends AppCompatActivity {
 
+    private User currentUser;
+    private Intent startGameIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_obstacle_game_intro);
         setTitle("Obstacle Game");
 
-        Button startPuzzleGameButton;
+        Button startObstacleGameButton = (Button) findViewById(R.id.start_obstacle_game_button);
+        Button obstacleGameRuleButton = (Button) findViewById(R.id.obstacle_game_rule_button);
+        Button customizationButton = (Button) findViewById(R.id.customization_button);
 
-        startPuzzleGameButton = (Button) findViewById(R.id.start_obstacle_game_button);
+        currentUser = (User) getIntent().getSerializableExtra("user");
+        currentUser.set("progress", "3");
 
-        startPuzzleGameButton.setOnClickListener(new View.OnClickListener(){
+        startGameIntent = new Intent(this, ObstacleGameActivity.class);
+        startGameIntent.putExtra("user", currentUser);
+        Intent customizationIntent = new Intent(this, CustomizationActivity.class);
+        //customizationIntent.putExtra("user", currentUser);
+
+        startObstacleGameButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                startActivity(new Intent(v.getContext(), ObstacleGameActivity.class));
+                startActivity(startGameIntent);
             }
         });
-
-        Button obstacleGameRuleButton;
-
-        obstacleGameRuleButton = (Button) findViewById(R.id.obstacle_game_rule_button);
-
-        Button customizationButton;
-
-        customizationButton = (Button) findViewById(R.id.customization_button);
 
         customizationButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                startActivity(new Intent(v.getContext(), CustomizationActivity.class));
+                startActivityForResult(customizationIntent, 1);
             }
         });
 
-        customizationButton = (Button) findViewById(R.id.customization_button);
 
         final TextView introTextView = (TextView) findViewById(R.id.welcome);
         final TextView reminderTextView = (TextView) findViewById(R.id.before_start);
@@ -56,7 +58,23 @@ public class ObstacleGameIntroActivity extends AppCompatActivity {
         reminderTextView.setText(R.string.before_start);
         customizationTextView.setText(R.string.about_customization);
 
-        User currentUser = (User) getIntent().getSerializableExtra("user");
-        Log.i("info", currentUser.get("userName"));
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                currentUser.set("obstacle_game_difficulty", data.getStringExtra("difficulty"));
+                startGameIntent.putExtra("user", currentUser);
+            }
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        currentUser.write();
     }
 }

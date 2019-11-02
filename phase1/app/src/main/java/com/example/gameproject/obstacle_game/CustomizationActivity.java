@@ -1,5 +1,6 @@
 package com.example.gameproject.obstacle_game;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,7 +13,7 @@ import com.example.gameproject.R;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class CustomizationActivity extends AppCompatActivity {
-    static int gameDifficulty = 2;
+    private int gameDifficulty = 2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,9 @@ public class CustomizationActivity extends AppCompatActivity {
                 } else if (difficulty == "Hard") {
                     gameDifficulty = 3;
                 }
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("difficulty", String.valueOf(gameDifficulty));
+                setResult(RESULT_OK, resultIntent);
                 finish();
             }
         });

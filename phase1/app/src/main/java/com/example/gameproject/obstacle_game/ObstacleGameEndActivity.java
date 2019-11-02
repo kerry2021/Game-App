@@ -29,4 +29,9 @@ public class ObstacleGameEndActivity extends AppCompatActivity {
         score_text.setText(score);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
 }
