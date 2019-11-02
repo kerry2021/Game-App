@@ -41,7 +41,7 @@
     <string name="add_image">Add image</string>
     <string name="next_page">Next Page</string>
     <string name="obstacle_game_rule_des1">To start the game, make sure you switch your phone to landsacpe mode. Then
-    you can set the customization option in the menu, or simply get started right away using default customizations/n.
+    you can set the customization option in the menu, or simply get started right away using default customizations.
         Before the game starts, there would be a 5 seconds count down, after which you can start controlling the spaceship
     to doge obstacles by tapping on the screen.</string>
     <string name="obstacle_game_rule_des2">In each game you have 3 lives, and your lives will decrease by 1 whenever you
