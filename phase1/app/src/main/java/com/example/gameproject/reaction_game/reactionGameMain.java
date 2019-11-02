@@ -33,6 +33,18 @@ public class reactionGameMain extends AppCompatActivity {
         });
 
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (reactionGameManager.getGameactivity() == null){
+            findViewById(R.id.resume).setVisibility(View.GONE);
+            findViewById(R.id.save).setVisibility(View.GONE);
+        }
+        else{
+            findViewById(R.id.resume).setVisibility(View.VISIBLE);
+            findViewById(R.id.save).setVisibility(View.VISIBLE);
 
+        }
+    }
 
 }

@@ -17,9 +17,13 @@ public class reactionGameManager {
     private Context context;
     private static final String SUFFIX = "reaction_data";
 
+
     public reactionGameManager(User user, Context context) {
         this.user = user;
         this.context = context;
+    }
+    static reactionGameActivity getGameactivity(){
+        return gameactivity;
     }
     void newGame(){
         gameactivity = new reactionGameActivity();
@@ -59,4 +63,5 @@ public class reactionGameManager {
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }
+
 }
