@@ -40,24 +40,31 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Welcome Back: " + currentUser.get("userName"));
 
         reactionGameIntent = new Intent(this, reactionGameMain.class);
-        reactionGameIntent.putExtra("user", currentUser);
         puzzleGameIntent = new Intent(this, PuzzleGameIntroActivity.class);
-        puzzleGameIntent.putExtra("user", currentUser);
         obstacleGameIntent = new Intent(this, ObstacleGameIntroActivity.class);
-        obstacleGameIntent.putExtra("user", currentUser);
+
 
         reactionGameButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                currentUser.set("progress", "1");
+                reactionGameIntent.putExtra("user", currentUser);
+                currentUser.write();
                 startActivity(reactionGameIntent);
             }
         });
         puzzleGameButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                currentUser.set("progress", "2");
+                puzzleGameIntent.putExtra("user", currentUser);
+                currentUser.write();
                 startActivity(puzzleGameIntent);
             }
         });
         obstacleGameButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                currentUser.set("progress", "3");
+                obstacleGameIntent.putExtra("user", currentUser);
+                currentUser.write();
                 startActivity(obstacleGameIntent);
             }
         });
@@ -87,11 +94,7 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 currentUser = (User) data.getSerializableExtra("user");
                 setTitle("Welcome Back:" + currentUser.get("userName"));
-                Log.i("info", currentUser.get("userName"));
                 currentUser.write();
-                reactionGameIntent.putExtra("user", currentUser);
-                puzzleGameIntent.putExtra("user", currentUser);
-                obstacleGameIntent.putExtra("user", currentUser);
             }
         }
     }
