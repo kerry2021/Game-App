@@ -1,5 +1,6 @@
 package com.example.gameproject.obstacle_game;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,4 +30,12 @@ public class ObstacleGameEndActivity extends AppCompatActivity {
         score_text.setText(score);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this,
+                ObstacleGameIntroActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+    }
 }
