@@ -9,14 +9,19 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gameproject.R;
+import com.example.gameproject.User;
 
 public class reactionGameMain extends AppCompatActivity {
     private reactionGameManager gameManager;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reaction_game_main);
+        Intent i = getIntent();
+        user = (User) i.getSerializableExtra("USER");
+        gameManager = new reactionGameManager(user, this);
 
         Button customizeButton;
 
@@ -28,23 +33,9 @@ public class reactionGameMain extends AppCompatActivity {
             }
         });
         setplay();
-        setresume();
-        setsave();
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (reactionGameManager.getGameactivity() == null) {
-            findViewById(R.id.resume).setVisibility(View.GONE);
-            findViewById(R.id.save).setVisibility(View.GONE);
-        } else {
-            findViewById(R.id.resume).setVisibility(View.VISIBLE);
-            findViewById(R.id.save).setVisibility(View.VISIBLE);
-
-        }
-    }
 
     private void setplay() {
         findViewById(R.id.play).setOnClickListener(v -> {
@@ -55,29 +46,5 @@ public class reactionGameMain extends AppCompatActivity {
 
         });
 
-    }
+    }}
 
-    private void setresume() {
-        findViewById(R.id.resume).setOnClickListener(v -> {
-            gameManager.loadGame();
-
-            Intent i = new Intent(this, reactionGameActivity.class);
-            startActivity(i);
-
-        });
-
-    }
-
-    private void setsave() {
-        try {
-            findViewById(R.id.save).setOnClickListener(v -> {
-
-                gameManager.saveGame();
-                setContentView(R.layout.activity_reaction_game_main);
-
-            });
-        }catch (NullPointerException e){
-
-        }
-    }
-}
