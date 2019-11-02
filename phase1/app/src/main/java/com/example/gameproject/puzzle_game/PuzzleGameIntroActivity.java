@@ -46,6 +46,7 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
     private final String[] countDownTimeChoice = {TWO_MIN, FOUR_MIN, ONE_MIN};
 
     private String backgroundColour = "#FFFFFF";
+    private User currentUser;
 
 
     @Override
@@ -53,9 +54,8 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle_game_intro);
 
-        User currentUser = (User) getIntent().getSerializableExtra("user");
+        currentUser = (User) getIntent().getSerializableExtra("user");
 
-        assert currentUser != null;
         String userCountDownTime = currentUser.get("puzzle_game_countDownTime");
         String userBackground = currentUser.get("puzzle_game_background");
 

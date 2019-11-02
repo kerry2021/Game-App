@@ -576,7 +576,7 @@ public class puzzleGameActivity extends AppCompatActivity {
 
         exitButton.setOnClickListener(view -> {
             popupWindow.dismiss();
-            startActivity(new Intent(view.getContext(), MainActivity.class));
+            finish();
         });
 
     }

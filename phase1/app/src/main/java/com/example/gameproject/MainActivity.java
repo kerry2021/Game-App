@@ -75,12 +75,16 @@ public class MainActivity extends AppCompatActivity {
         });
         continueButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                if(currentUser.get("progress").equals("1"))
+                if(currentUser.get("progress").equals("1")){
+                    reactionGameIntent.putExtra("user", currentUser);
                     startActivity(reactionGameIntent);
+                }
                 else if(currentUser.get("progress").equals("2")){
+                    puzzleGameIntent.putExtra("user", currentUser);
                     startActivity(puzzleGameIntent);
                 }
                 else{
+                    obstacleGameIntent.putExtra("user", currentUser);
                     startActivity(obstacleGameIntent);
                 }
             }
