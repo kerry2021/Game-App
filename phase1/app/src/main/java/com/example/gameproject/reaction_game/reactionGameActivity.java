@@ -15,15 +15,6 @@ import com.example.gameproject.R;
 import java.util.Random;
 
 public class reactionGameActivity extends AppCompatActivity {
-    private ImageButton image_1;
-    private ImageButton image_2;
-    private ImageButton image_3;
-    private ImageButton image_4;
-    private ImageButton image_5;
-    private ImageButton image_6;
-    private ImageButton image_7;
-    private ImageButton image_8;
-    private ImageButton image_9;
     private ImageButton pause_or_resume;;
     private ImageButton [] buttons=new ImageButton[9];
     private int speed = reactionCustomize.speed;
