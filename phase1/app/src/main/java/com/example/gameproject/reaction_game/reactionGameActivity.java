@@ -265,6 +265,7 @@ public class reactionGameActivity extends AppCompatActivity {
                             if (timer == 0) {
                                 Toast.makeText(reactionGameActivity.this, "Time Up", Toast.LENGTH_SHORT).show();
                                 endGame();
+                                onStop();
                             }
                         }
                     });
@@ -308,7 +309,6 @@ public class reactionGameActivity extends AppCompatActivity {
     @Override
     public void onStop(){
         super.onStop();
-        pause_or_resume.setBackgroundResource(R.drawable.resume);
         t.interrupt();
         time.interrupt();
     }
