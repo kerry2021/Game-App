@@ -49,6 +49,12 @@ public class ObstacleGameIntroActivity extends AppCompatActivity {
             }
         });
 
+        obstacleGameRuleButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                startActivity(new Intent(v.getContext(), obstacleGameRulesActivity.class));
+            }
+        });
+
 
         final TextView introTextView = (TextView) findViewById(R.id.welcome);
         final TextView reminderTextView = (TextView) findViewById(R.id.before_start);
