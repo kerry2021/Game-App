@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gameproject.R;
+import com.example.gameproject.User;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,7 @@ public class BackgroundChangeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle_game_background_change);
+        User currentUser = (User) getIntent().getSerializableExtra("user");
         colours = this.getResources().getStringArray(R.array.colourOptions);
 
         createOptionButtons();
@@ -30,7 +32,10 @@ public class BackgroundChangeActivity extends AppCompatActivity {
         Button buttonConfirm, buttonCancel;
         buttonConfirm = findViewById(R.id.confirm_background);
         buttonCancel = findViewById(R.id.cancel_background);
-        buttonConfirm.setOnClickListener(v -> saveBackground());
+        buttonConfirm.setOnClickListener(v -> {
+            assert currentUser != null;
+            saveBackground(currentUser);
+        });
         buttonCancel.setOnClickListener(v -> cancelBackground());
 
         final TextView introTextView = findViewById(R.id.background_option);
@@ -48,9 +53,13 @@ public class BackgroundChangeActivity extends AppCompatActivity {
         }
     }
 
-    private void saveBackground(){
+    private void saveBackground(User currentUser){
+        currentUser.set("puzzle_game_background", backgroundColour);
+        currentUser.write();
+
         Intent intent = new Intent(this, PuzzleGameIntroActivity.class);
         intent.putExtra("background", backgroundColour);
+        intent.putExtra("user", currentUser);
         startActivity(intent);
     }
 

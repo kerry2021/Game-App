@@ -26,6 +26,7 @@ import android.view.Gravity;
 
 import com.example.gameproject.R;
 import com.example.gameproject.MainActivity;
+import com.example.gameproject.User;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -87,6 +88,7 @@ public class puzzleGameActivity extends AppCompatActivity {
     private long pauseTimeLeft;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +101,8 @@ public class puzzleGameActivity extends AppCompatActivity {
 
         countDownInMillis = intent.getIntExtra("countDownTime", 120000 );
 
+        User currentUser = (User) getIntent().getSerializableExtra("user");
+
         RelativeLayout currentLayout = findViewById(R.id.puzzle_game);
         currentLayout.setBackgroundColor(Color.parseColor(backgroundColour));
 
@@ -106,7 +110,7 @@ public class puzzleGameActivity extends AppCompatActivity {
         textViewpuzzleComp = findViewById(R.id.puzzle);
         textViewScore = findViewById(R.id.score);
         textViewMoves = findViewById(R.id.move);
-        createOptionsButton();
+        createOptionsButton(currentUser);
         columns = PuzzleGameIntroActivity.customizedColumns;
         dimensions = columns * columns;
         puzzles = ImageActivity.selectedImages;
@@ -214,7 +218,7 @@ public class puzzleGameActivity extends AppCompatActivity {
     /**
      * To create the options button.
      */
-    private void createOptionsButton() {
+    private void createOptionsButton(User currentUser) {
         Button optionsButton;
 
         optionsButton = findViewById(R.id.puzzle_game_options_button);
@@ -254,6 +258,7 @@ public class puzzleGameActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(v.getContext(), PuzzleGameIntroActivity.class);
                 intent.putExtra("background", backgroundColour);
+                intent.putExtra("user", currentUser);
                 startActivity(intent);
             });
         });
@@ -571,7 +576,7 @@ public class puzzleGameActivity extends AppCompatActivity {
 
         exitButton.setOnClickListener(view -> {
             popupWindow.dismiss();
-            startActivity(new Intent(view.getContext(), MainActivity.class));
+            finish();
         });
 
     }
