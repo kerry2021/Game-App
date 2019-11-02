@@ -109,56 +109,83 @@ public class reactionGameActivity extends AppCompatActivity {
             if (id == R.id.first) {
                 if (next == 1) {
                     score += 1;
-                    next = 0;
+                    buttons[0].setBackgroundResource(R.drawable.hit);
                 }
+                else
+                    buttons[0].setBackgroundResource(R.drawable.miss);
+                next = 0;
             }
             else if (id == R.id.second) {
                 if (next == 2) {
+                    buttons[1].setBackgroundResource(R.drawable.hit);
                     score += 1;
-                    next = 0;
                 }
+                else
+                    buttons[1].setBackgroundResource(R.drawable.miss);
+                next = 0;
             }
             else if (id == R.id.third) {
                 if (next == 3) {
+                    buttons[2].setBackgroundResource(R.drawable.hit);
                     score += 1;
-                    next = 0;
                 }
+                else
+                    buttons[2].setBackgroundResource(R.drawable.miss);
+                next = 0;
             }
             else if (id == R.id.fourth) {
                 if (next == 4) {
+                    buttons[3].setBackgroundResource(R.drawable.hit);
                     score += 1;
-                    next = 0;
                 }
+                else
+                    buttons[3].setBackgroundResource(R.drawable.miss);
+                next = 0;
             }
             else if (id == R.id.fifth) {
                 if (next == 5) {
+                    buttons[4].setBackgroundResource(R.drawable.hit);
                     score += 1;
-                    next = 0;
                 }
+                else
+                    buttons[4].setBackgroundResource(R.drawable.miss);
+                next = 0;
             }
             else if (id == R.id.sixth) {
                 if (next == 6) {
+                    buttons[5].setBackgroundResource(R.drawable.hit);
                     score += 1;
-                    next = 0;
                 }
+                else
+                    buttons[5].setBackgroundResource(R.drawable.miss);
+                next = 0;
             }
             else if (id == R.id.seventh) {
                 if (next == 7) {
+                    buttons[6].setBackgroundResource(R.drawable.hit);
                     score += 1;
-                    next = 0;
                 }
+                else
+                    buttons[6].setBackgroundResource(R.drawable.miss);
+                next = 0;
             }
             else if (id == R.id.eighth) {
                 if (next == 8) {
+                    buttons[7].setBackgroundResource(R.drawable.hit);
                     score += 1;
-                    next = 0;
                 }
+                else
+                    buttons[7].setBackgroundResource(R.drawable.miss);
+                next = 0;
             }
             else if (id == R.id.ninth) {
                 if (next == 9) {
+                    buttons[8].setBackgroundResource(R.drawable.hit);
                     score += 1;
-                    next = 0;
                 }
+                else
+                    buttons[8].setBackgroundResource(R.drawable.miss);
+                next = 0;
             }
             else if (id == R.id.pause_or_resume) {
                 if (pause) {//to resume
