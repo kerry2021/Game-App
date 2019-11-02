@@ -1,29 +1,27 @@
 package com.example.gameproject.reaction_game;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.gameproject.MainActivity;
 import com.example.gameproject.R;
 
 import java.util.Random;
 
 public class reactionGameActivity extends AppCompatActivity {
-    private ImageButton image_1;
-    private ImageButton image_2;
-    private ImageButton image_3;
-    private ImageButton image_4;
-    private ImageButton image_5;
-    private ImageButton image_6;
-    private ImageButton image_7;
-    private ImageButton image_8;
-    private ImageButton image_9;
     private ImageButton pause_or_resume;;
     private ImageButton [] buttons=new ImageButton[9];
     private int speed = reactionCustomize.speed;
@@ -266,7 +264,7 @@ public class reactionGameActivity extends AppCompatActivity {
                             }
                             if (timer == 0) {
                                 Toast.makeText(reactionGameActivity.this, "Time Up", Toast.LENGTH_SHORT).show();
-                                finish();
+                                endGame();
                             }
                         }
                     });
@@ -281,6 +279,32 @@ public class reactionGameActivity extends AppCompatActivity {
         }
     }
 
+    private void endGame(){
+        LayoutInflater inflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
+        View popupView = inflater.inflate(R.layout.reaction_end, null);
+        TextView textViewFinalScore = popupView.findViewById(R.id.score_reaction);
+        textViewFinalScore.setText(String.valueOf(score));
+
+        // create the popup window
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        // Taps outside the popup does not dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, false);
+
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window token
+        popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+        Button exitButton;
+
+        exitButton = popupView.findViewById(R.id.exit_reaction);
+
+        exitButton.setOnClickListener(view -> {
+            popupWindow.dismiss();
+            startActivity(new Intent(view.getContext(), reactionGameMain.class));
+        });
+    }
     @Override
     public void onStop(){
         super.onStop();
