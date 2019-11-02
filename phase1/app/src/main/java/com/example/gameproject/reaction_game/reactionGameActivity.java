@@ -303,7 +303,7 @@ public class reactionGameActivity extends AppCompatActivity {
 
         exitButton.setOnClickListener(view -> {
             popupWindow.dismiss();
-            //TODO:
+            setContentView(R.layout.activity_reaction_game_main);
         });
         resumeButton.setOnClickListener(view -> {
             popupWindow.dismiss();
