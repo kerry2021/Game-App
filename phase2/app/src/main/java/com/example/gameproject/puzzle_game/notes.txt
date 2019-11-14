@@ -1,0 +1,132 @@
+#######
+#Step 1
+Code Affected: GestureDetectGridView, PuzzleAdapter, puzzleGameActivity, activity_puzzle_game
+Added PuzzleAdapter and GestureDetectGridView as the custom adapter and view for this game.
+Added basic methods for sliding functions in puzzleGameActivity.
+Changed activity_puzzle_game to display GestureDetectGridView.
+
+#######
+#Step 2
+Code Affected: puzzleGameActivity, R.drawable
+Fixed errors in puzzleGameActivity by replacing puzzle picture with pictures in res.drawable.
+
+#######
+#Step 3
+Code Affected: GestureDetectGridView, puzzleGameActivity, activity_puzzle_game
+Changed api in GestureDetectGridView to 29.
+Added setContentView() in puzzleGameActivity.
+Changed activity_puzzle_game to the proper directory.
+
+#######
+#Step 4
+Code Affected: AndroidManifest.xml, PuzzleGameIntroActivity.java, activity_puzzle_game_intro.xml,
+values.strings.xml
+Added an intro page for puzzle game that includes a brief intro to the game and a start game button.
+
+#######
+#Step 5
+Code Affected: activity_puzzle_game.xml
+Changed layout to fit display of time, puzzle completed, and the score.
+
+#######
+#Step 6
+Code Affected: puzzleGameActivity.java, activity_puzzle_game.xml, puzzle_game_options_window.xml,
+string.xml
+Changed layout of options popup window and created options (buttons).
+
+#######
+#Step 7
+Code Affected: puzzleGameActivity.java, puzzleGameIntroActivity.java,
+activity_puzzle_game_intro.xml, customize_puzzle_game_window.xml, string.xml
+Added popup window for customization for puzzle game.
+
+#######
+#Step 8
+Code Affected: puzzleGameIntroActivity.java
+Added spinner for puzzle dimensions customization for puzzle game.
+
+#######
+#Step 9
+Code Affected: puzzleGameActivity.java
+Added an integer ArrayList to store identifiers of the drawable puzzle images.
+
+#######
+#Step 10
+Code Affected: puzzleGameActivity.java
+Added a second puzzle, and changed swap function to direct to the second puzzle after completing
+the first.
+
+#######
+#Step 11
+Code Affected: puzzleGameActivity.java, puzzleGameIntroActivity.java
+Added variables for recording customization of puzzle dimensions. Passed variable onto
+puzzleGameActivity from puzzleGameIntroActivity.
+
+#######
+#Step 12
+Code Affected: puzzleGameActivity.java
+Implemented Timer that counts down, it can be paused by going into options and resumed when returned
+to the game.
+
+#######
+#Step 13
+Code Affected: puzzleGameActivity.java
+Add method setBackgroundClickable(boolean) to prevent users from moving tiles or clicking buttons
+in the background when game is paused and to allow actions when game is resumed.
+
+#######
+#Step 14
+Code Affected: puzzleGameActivity.java, GestureDetectGridView
+Added puzzleGameActivity variable in GestureDetectGridView so that methods and variables in
+puzzleGameActivity can be set as non-static and private.
+
+#######
+#Step 15
+Code Affected: puzzleGameActivity.java, activity_puzzle_game.xml
+Added textView for number of moves into the game-screen layout, and implemented number of completed
+puzzles, number of moves, and the score to the game.
+
+#######
+#Step 16
+Code Affected: puzzleGameActivity.java, puzzle_game_final_score_window.xml, strings.xml
+Added showFinalScore method and final score popup window.
+
+#######
+#Step 17
+Code Affected: All class and layout
+Reformatted the codes and deleted unnecessary codes.
+
+#######
+#Step 18
+Code Affected: GestureDetectGridView.java
+Changed target API level to 28, as required by Google Play Store.
+
+#######
+#Step 19
+Code Affected: ImageActivity, ImageDividable, puzzleGameActivity, PuzzleGameIntroActivity,
+activity_puzzle_game_select_image.xml, strings.xml.
+Added the customize image feature so that users can upload images from local gallery.
+
+#######
+#Step 20
+Code Affected: ImageActivity, puzzleGameActivity, activity_puzzle_game_select_image.xml,
+strings.xml.
+Added puzzle game dimensions customization feature.
+
+#######
+#Step 20
+Code Affected: BackgroundChangeActivity, puzzleGameActivity, PuzzleGameIntroActivity,
+activity_puzzle_game_background.xml, activity_puzzle_game_intro.xml, customize_puzzle_game.xml,
+arrays.xml, colors.xml, strings.xml
+Added background colour customization option, added BackgroundChangeActivity and
+activity_puzzle_game_background.xml to implement it.
+
+#######
+#Step 21
+Code Affected: puzzleGameActivity, PuzzleGameIntroActivity, customize_puzzle_game.xml
+Added countdown time customization option.
+
+#######
+#Step 21
+Code Affected: BackgroundChangeActivity, puzzleGameActivity, PuzzleGameIntroActivity, ImageActivity
+Implemented customization memory to each user.
