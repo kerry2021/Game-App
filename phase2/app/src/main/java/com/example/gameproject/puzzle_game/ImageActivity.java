@@ -75,7 +75,7 @@ public class ImageActivity extends AppCompatActivity {
                 Intent backIntro = new Intent(view12.getContext(), PuzzleGameIntroActivity.class);
                 backIntro.putExtra("user", currentUser);
                 startActivity(backIntro);
-                });
+        });
 
         cancelButton.setOnClickListener(view1 -> {
             ArrayList<ImageDividable> defaultImagesSelected = new ArrayList<>();

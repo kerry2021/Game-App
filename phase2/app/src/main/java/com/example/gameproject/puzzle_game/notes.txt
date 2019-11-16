@@ -130,3 +130,17 @@ Added countdown time customization option.
 #Step 21
 Code Affected: BackgroundChangeActivity, puzzleGameActivity, PuzzleGameIntroActivity, ImageActivity
 Implemented customization memory to each user.
+
+#######
+#Step 22
+Code Affected: CountDownGenerator, CountDownRequester, GestureDetectGridView, ImageActivity,
+puzzleGameActivity, PuzzleGameData, PuzzleGameDataGateway, PuzzleGamePresenter, PuzzleGameView,
+PuzzleGenerator, PuzzleRequester.
+Implemented the MVP pattern for puzzle game. CountDownGenerator is responsible for generating the
+countdown timer and implementing the related functions. CountDownRequester is an interface that
+CountDownGenerator interacts with to send updates . PuzzleGenerator is responsible for generating
+and performing actions (moves) on puzzles. PuzzleRequester is an interface that PuzzleGenerator
+interacts with to update puzzle when a valid move is performed. PuzzleGamePresenter uses the
+generators (models) to perform actions on the PuzzleGameView object and receives input from
+puzzleGameActivity. PuzzleGameData stores game data. PuzzleGameDataGateway is an interface that
+prevents the PuzzleGamePresenter from knowing about the PuzzleGameData.
