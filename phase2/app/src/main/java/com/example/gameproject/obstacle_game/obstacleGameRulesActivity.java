@@ -1,8 +1,5 @@
 package com.example.gameproject.obstacle_game;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.gameproject.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class obstacleGameRulesActivity extends AppCompatActivity {
     private TextView textView;

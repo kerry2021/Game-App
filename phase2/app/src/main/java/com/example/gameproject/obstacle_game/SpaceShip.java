@@ -1,7 +1,6 @@
 package com.example.gameproject.obstacle_game;
 
 import android.graphics.Rect;
-import android.util.Log;
 
 import static com.example.gameproject.obstacle_game.AdventureManager.getGridHeight;
 import static com.example.gameproject.obstacle_game.AdventureManager.getGridWidth;
@@ -41,6 +40,11 @@ class SpaceShip extends SpaceItem {
     private int outTime = 0;
 
     /**
+     * The boolean checks whether the spaceship is Game Over or not.
+     */
+    private boolean gameOver;
+
+    /**
      * Constructs a new Spaceship with default jumpHeight, dropHeight, maxJumpDuration.
      * (The default location should be somewhere in the middle width and low bottom of the screen.)
      */
@@ -48,6 +52,7 @@ class SpaceShip extends SpaceItem {
         super(new Rect(0, 0, getGridWidth() / 30, getGridHeight() / 50));
         setHitBoxTo(getGridWidth() / 10, getGridHeight() / 2);
         setLives(3);
+        gameOver = false;
     }
 
     /**
@@ -78,7 +83,7 @@ class SpaceShip extends SpaceItem {
      *  Sets the number of lives.
      * @param life the number of lives.
      */
-    void setLives(int life) {
+    private void setLives(int life) {
         this.lives = life;
     }
 
@@ -97,6 +102,24 @@ class SpaceShip extends SpaceItem {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Checks whether the game is over.
+     */
+     void checkGameOver() {
+        if (lives == 0 | outTime == 1) {
+            gameOver = true;
+        }
+    }
+
+    /**
+     * Checks whether the game is over
+     *
+     * @return the checker of game over.
+     */
+    boolean getGameOver() {
+        return gameOver;
     }
 
     /**
@@ -120,7 +143,7 @@ class SpaceShip extends SpaceItem {
      *
      * @param time the new out time.
      */
-    void setOutTime(int time) {
+   private void setOutTime(int time) {
         this.outTime = time;
     }
 
