@@ -28,6 +28,10 @@ public class Obstacle extends SpaceItem {
         setHitBoxTo(getX() - speed, getY());
     }
 
+    public int getSpeed(){
+        return speed;
+    }
+
     /**
      * Determines whether the obstacle is out of screen or not. Use it as a sign of remove it from
      * the space obstacle list in AdventureManger.

@@ -1,6 +1,7 @@
 package com.example.gameproject.obstacle_game;
 
 import android.graphics.Rect;
+import android.util.Log;
 
 import static com.example.gameproject.obstacle_game.AdventureManager.getGridHeight;
 import static com.example.gameproject.obstacle_game.AdventureManager.getGridWidth;
