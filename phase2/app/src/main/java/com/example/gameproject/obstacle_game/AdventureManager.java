@@ -2,8 +2,9 @@ package com.example.gameproject.obstacle_game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
-public class AdventureManager {
+class AdventureManager extends Observable {
     /**
      * The time need to be counted down before the game start.
      */
@@ -17,7 +18,7 @@ public class AdventureManager {
     /**
      * The player controlled spaceShip
      */
-    private SpaceShip spaceShip;
+    private List<SpaceShip> spaceShipList = new ArrayList<>();
 
     /**
      * List containing all obstacles in this adventure.
@@ -25,13 +26,24 @@ public class AdventureManager {
     private List<Obstacle> spaceObstacles = new ArrayList<Obstacle>();
 
     /**
-     * List containing all items to be deleted at the end of this update
+     * List containing all obstacles to be deleted at the end of this update
      */
-    private List<Obstacle> garbageCart = new ArrayList<Obstacle>();
+    private List<Obstacle> obstacleGarbageCart = new ArrayList<Obstacle>();
+
+    /**
+     * List containing all spaceships to be deleted at the end of this update.
+     */
+    private List<SpaceShip> spaceshipGarbageCart = new ArrayList<>();
+
     /**
      * the generator for obstacles
      */
     private ItemGenerator<Obstacle> obstacleGenerator;
+
+    /**
+     * The score of the game.
+     */
+    private int score = 0;
 
     /**
      * Width of obstacleGamePanel in unit.
@@ -44,23 +56,9 @@ public class AdventureManager {
     private static int gridWidth;
 
     /**
-     * the boolean checks whether game is over or not.
+     * Check whether the game is over
      */
     private boolean gameOver = false;
-
-    private int score = 0;
-
-    /**
-     * Constructs this AdventureManger by default.
-     *
-     * @param height height of obstacleGamePanel in unit.
-     * @param width  width of obstacleGamePanel in unit.
-     */
-    AdventureManager(int width, int height, int difficulty) {
-        gridHeight = height;
-        gridWidth = width;
-        obstacleGenerator = new ObstacleGenerator(width, height, difficulty);
-    }
 
     /**
      * Gets the height of obstacleGamePanel in unit.
@@ -81,39 +79,49 @@ public class AdventureManager {
     }
 
     /**
+     * Constructs this AdventureManger by default.
+     *
+     * @param height height of obstacleGamePanel in unit.
+     * @param width  width of obstacleGamePanel in unit.
+     */
+    AdventureManager(int width, int height, int difficulty) {
+        gridHeight = height;
+        gridWidth = width;
+        obstacleGenerator = new ObstacleGenerator(width, height, difficulty);
+    }
+
+    /**
+     * Adds a spaceship to the game.
+     * @param s the spaceship to be added.
+     */
+    void addSpaceShip(SpaceShip s) {
+        spaceShipList.add(s);
+    }
+
+    /**
      * Gets the ship in this game.
      *
-     * @return the player's ship
+     * @return the player's ship.
      */
-    SpaceShip getShip() {
-        return spaceShip;
+    List<SpaceShip> getSpaceShipList() {
+        return spaceShipList;
     }
 
     /**
      * Gets the obstacles in this game.
      *
-     * @return the list of SpaceObstacles
+     * @return the list of SpaceObstacles.
      */
     List<Obstacle> getObstacles() {
         return spaceObstacles;
     }
 
     /**
-     * Checks whether the game is over
-     *
-     * @return the checker of game over.
+     * Returns the game over boolean.
+     * @return game over boolean.
      */
     boolean getGameOver() {
         return gameOver;
-    }
-
-    /**
-     * Checks the startGameCountDown ends or not.
-     *
-     * @return whether we can start the game.
-     */
-    boolean checkStartGameCountDown() {
-        return (startGameCountDown > 0);
     }
 
     /**
@@ -126,27 +134,11 @@ public class AdventureManager {
     }
 
     /**
-     * Counts down the number of startGameCountdown.
+     * Gets the endGameCountDown time.
+     * @return the endGameCountDown time.
      */
-    void startCountDown() {
-        startGameCountDown--;
-    }
-
-    /**
-     * Checks whether the endGameCountDown time is over.
-     *
-     * @return whether we can end the game and pop to the end game activity.
-     */
-    boolean checkEndGameCountDown() {
-        return (endGameCountDown > 0);
-    }
-
-
-    /**
-     * Counts down the number of endGameCountDown.
-     */
-    void endCountDown() {
-        endGameCountDown--;
+    int getEndGameCountDown() {
+        return endGameCountDown;
     }
 
     /**
@@ -159,81 +151,177 @@ public class AdventureManager {
     }
 
     /**
-     * Updates the score of the game.
+     * Responds to events of player input, when the player touches, make the spaceship jump
      */
-    private void updateScore() {
-        score++;
+    void respondTouch() {
+        spaceShipList.get(0).jump();
     }
+
 
     /**
      * Updates the information of all items in this adventure.
      */
     void update() {
-        //move everything
-        if (checkStartGameCountDown()) {
-            startCountDown();
+        // Check whether the game is start.
+        if (!checkStartGameCountDown()) {
+            setChanged();
+            notifyObservers();
             return;
         }
 
-        spaceShip.move();
-
-        // Count the time before the game start
-
-        for (Obstacle obstacle : spaceObstacles) {
-            obstacle.move();
-
-            if (obstacle.outOfScreen()) {
-                garbageCart.add(obstacle);
-            }
+        // check whether the game is over.
+        if (spaceShipList.size() == 0) {
+            // Sets the game to be end.
+            gameOver = true;
+            setChanged();
+            notifyObservers();
+            // Count Down the endGameCountDown time.
+            checkEndGameCountDown();
+            return;
         }
 
-        // Automatically check whether the spaceship hits a obstacle or not.
-        // If it's in 3 seconds invincible time(after it hits an obstacle), then the spaceship doesn't hit any obstacle.
-        int invincibleTime = spaceShip.getInvincibleTime();
-        if (invincibleTime == 0) {
-            for (Obstacle obstacle : spaceObstacles) {
-                if (spaceShip.checkHit(obstacle)) {
-                    garbageCart.add(obstacle);
-                }
-            }
-        } else {
-            spaceShip.setInvincibleTime(invincibleTime - 1);
-        }
+        // update conditions of every spaceship.
+        updateSpaceShipList();
 
-        //check to see whether to generate new obstacles.
-        Obstacle newObstacle = obstacleGenerator.checkGeneration();
-        if (newObstacle != null) {
-            spaceObstacles.add(newObstacle);
-        }
-        //clear garbage
-        for (Obstacle obstacle : garbageCart) {
-            spaceObstacles.remove(obstacle);
-        }
-        garbageCart = new ArrayList<>();
+        // update conditions of every space obstacles.
+        updateSpaceObstacles();
 
-        // Check whether the spaceship is out of Screen.
-        spaceShip.outOfScreen();
+        // check to see whether to generate new obstacles.
+        generateNewObstacle();
 
         // Updates the score of the game.
         updateScore();
 
-        // Check whether the game is over.
-        if (spaceShip.getLives() == 0 | spaceShip.getOutTime() == 1) {
-            gameOver = true;
+        setChanged();
+        notifyObservers();
+    }
+
+
+    /**
+     * Checks the startGameCountDown ends or not.
+     *
+     * @return whether we can start the game.
+     */
+    private boolean checkStartGameCountDown() {
+        if (startGameCountDown > 0) {
+            startGameCountDown = startGameCountDown - 1;
+            return false;
+        } else {
+            return true;
         }
     }
 
     /**
-     * Responds to events of player input, when the player touches, make the spaceship jump
+     * Checks whether the endGameCountDown time is over. If no then -1
      */
-    void respondTouch() {
-        spaceShip.jump();
+    private void checkEndGameCountDown() {
+        if (endGameCountDown > 0) {
+            endGameCountDown = endGameCountDown - 1;
+        }
     }
 
     /**
-     * Create the items of this adventure.
+     * Removes a spaceship from the game.
+     * @param s the spaceship to be removed.
      */
-    void createSpaceItems() {
-        spaceShip = new SpaceShip();
+    private void removeSpaceShip(SpaceShip s) {
+        spaceShipList.remove(s);
+    }
+
+    /**
+     * Updates the condition of all spaceships.
+     */
+    private void updateSpaceShipList() {
+        for (SpaceShip s : spaceShipList) {
+            // update the position of spaceship.
+            s.move();
+            // check whether the spaceship hits a obstacle or not.
+            checkHit(s);
+
+            // Check whether the spaceship is out of Screen.
+            s.outOfScreen();
+
+            // Check whether the adventure of this spaceship is over.
+            s.checkGameOver();
+            if (s.getGameOver()) {
+                spaceshipGarbageCart.add(s);
+            }
+        }
+
+        // clear dead spaceship.
+        for (SpaceShip s : spaceshipGarbageCart) {
+            removeSpaceShip(s);
+        }
+        spaceshipGarbageCart = new ArrayList<>();
+    }
+
+    /**
+     * Checks whether the spaceship hits an obstacle.
+     * @param s the spaceship to be checked.
+     */
+    private void checkHit(SpaceShip s) {
+        int invincibleTime = s.getInvincibleTime();
+        // If it's in 3 seconds invincible time(after it hits an obstacle), then the spaceship doesn't hit any obstacle.
+        if (invincibleTime == 0) {
+            for (Obstacle obstacle : spaceObstacles) {
+                if (s.checkHit(obstacle)) {
+                    obstacleGarbageCart.add(obstacle);
+                }
+            }
+        } else {
+            s.setInvincibleTime(invincibleTime - 1);
+        }
+    }
+
+    /**
+     * Removes the obstacle from the game.
+     * @param o the obstacle to be removed.
+     */
+    private void removeObstacle(Obstacle o) {
+        spaceObstacles.remove(o);
+    }
+
+    /**
+     * Updates the condition of all space obstacles.
+     */
+    private void updateSpaceObstacles() {
+        for (Obstacle obstacle : spaceObstacles) {
+            obstacle.move();
+
+            if (obstacle.outOfScreen()) {
+                obstacleGarbageCart.add(obstacle);
+            }
+        }
+
+        // clear obstacle garbage.
+        for (Obstacle obstacle : obstacleGarbageCart) {
+            removeObstacle(obstacle);
+        }
+        obstacleGarbageCart = new ArrayList<>();
+    }
+
+    /**
+     * Adds the obstacle to obstacle list.
+     * @param o the obstacle to be added.
+     */
+    private void addObstacle(Obstacle o) {
+        spaceObstacles.add(o);
+    }
+
+    /**
+     * Randomly generates a new obstacle.
+     */
+    private void generateNewObstacle() {
+        Obstacle newObstacle = obstacleGenerator.checkGeneration();
+        if (newObstacle != null) {
+            addObstacle(newObstacle);
+        }
+    }
+
+    /**
+     * Updates the score of the game.
+     */
+    private void updateScore() {
+        score++;
     }
 }

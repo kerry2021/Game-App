@@ -2,7 +2,6 @@ package com.example.gameproject.obstacle_game;
 
 import android.util.Log;
 
-import java.lang.Math;
 import java.util.Random;
 
 /**

@@ -1,10 +1,6 @@
 package com.example.gameproject.obstacle_game;
 
-import android.graphics.Canvas;
 import android.graphics.Rect;
-
-import static com.example.gameproject.obstacle_game.AdventureManager.getGridHeight;
-import static com.example.gameproject.obstacle_game.AdventureManager.getGridWidth;
 
 public class Obstacle extends SpaceItem {
 

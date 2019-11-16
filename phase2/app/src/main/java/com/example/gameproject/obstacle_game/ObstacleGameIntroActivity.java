@@ -1,16 +1,13 @@
 package com.example.gameproject.obstacle_game;
 
-import android.app.AppComponentFactory;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.example.gameproject.R;
 import com.example.gameproject.User;
-
-import org.w3c.dom.Text;
 
 import androidx.appcompat.app.AppCompatActivity;
 

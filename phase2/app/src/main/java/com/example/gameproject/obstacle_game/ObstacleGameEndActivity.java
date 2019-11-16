@@ -2,13 +2,11 @@ package com.example.gameproject.obstacle_game;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
+
+import com.example.gameproject.R;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
-import android.widget.TextView;
-import com.example.gameproject.R;
 
 
 public class ObstacleGameEndActivity extends AppCompatActivity {

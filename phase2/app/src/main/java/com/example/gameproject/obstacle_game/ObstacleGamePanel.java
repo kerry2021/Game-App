@@ -4,22 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+
 import com.example.gameproject.GamePanel;
 
-import static com.example.gameproject.obstacle_game.AdventureManager.getGridHeight;
-import static com.example.gameproject.obstacle_game.AdventureManager.getGridWidth;
+import java.util.Observer;
 
 /*
  * a game panel
  * a sightly tweaked version of code found on https://www.youtube.com/watch?v=OojQitoAEXs&t=1234s
  */
 
-public class ObstacleGamePanel extends GamePanel {
+class ObstacleGamePanel extends GamePanel {
     /**
      * The width of the screen. we are doing it reversely because we are using landscape mode
      */
@@ -30,39 +28,34 @@ public class ObstacleGamePanel extends GamePanel {
      */
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 
-    private int difficulty;
     /**
      * The manager that deals with all backend data
      */
-    AdventureManager adventureManger;
+    private AdventureManager adventureManger;
+
     /**
      * the drawer that would transfer all backend data to visual representations
      */
     private Drawer drawer;
 
-    private Paint reminderPaint;
-
     ObstacleGamePanel(Context context, int difficulty) {
         super(context);
+        adventureManger = new AdventureManager(screenWidth, screenHeight, difficulty);
+        adventureManger.addSpaceShip(createSpaceShip());
+
         drawer = new AndroidDrawer();
-        setReminderPaint();
-        this.difficulty = difficulty;
+        adventureManger.addObserver((Observer) drawer);
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        adventureManger = new AdventureManager(screenWidth, screenHeight, difficulty);
-        adventureManger.createSpaceItems();
         super.surfaceCreated(surfaceHolder);
     }
 
     @Override
     public void update() {
-        if (!adventureManger.getGameOver()) {
-            adventureManger.update();
-        } else if (adventureManger.checkEndGameCountDown()) {
-            adventureManger.endCountDown();
-        } else {
+        adventureManger.update();
+        if (adventureManger.getGameOver() && adventureManger.getEndGameCountDown() == 0) {
             Context myContext = getContext();
             Intent intent = new Intent(myContext, ObstacleGameEndActivity.class);
             Bundle bundle = new Bundle();
@@ -72,13 +65,9 @@ public class ObstacleGamePanel extends GamePanel {
         }
     }
 
-
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        drawGameCountDown(canvas);
-        drawGameOver(canvas);
-        drawer.update(adventureManger.getShip(), adventureManger.getObstacles());
         drawer.draw(canvas);
     }
 
@@ -90,22 +79,7 @@ public class ObstacleGamePanel extends GamePanel {
         return true;
     }
 
-    private void setReminderPaint() {
-        reminderPaint = new Paint();
-        reminderPaint.setTextSize(100);
-        reminderPaint.setColor(Color.MAGENTA);
-    }
-
-    private void drawGameCountDown(Canvas canvas) {
-        if (adventureManger.checkStartGameCountDown()) {
-            String text = String.valueOf(adventureManger.getStartGameCountDown() / 30 + 1);
-            canvas.drawText(text, screenWidth / 2 , screenHeight / 2, reminderPaint);
-        }
-    }
-
-    private void drawGameOver(Canvas canvas) {
-        if (adventureManger.getGameOver()) {
-            canvas.drawText("Game Over", screenWidth / 2, screenHeight / 2, reminderPaint);
-        }
+    private SpaceShip createSpaceShip() {
+        return new SpaceShip();
     }
 }
