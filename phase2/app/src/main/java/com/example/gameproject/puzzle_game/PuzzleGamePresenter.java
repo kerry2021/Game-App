@@ -25,16 +25,16 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
     private int mColumnWidth, mColumnHeight;
     private int numColumns = 3;
 
-    public static final String up = "up";
-    public static final String down = "down";
-    public static final String left = "left";
-    public static final String right = "right";
+    static final String up = PuzzleGenerator.up;
+    static final String down = PuzzleGenerator.down;
+    static final String left = PuzzleGenerator.left;
+    static final String right = PuzzleGenerator.right;
 
     private boolean movable = true;
 
     //a list of identifiers referencing each image for the puzzle in drawable
     private ArrayList<ImageDividable> puzzles = new ArrayList<>();
-    BitmapDrawable[] dividedDrawableImages;
+    private BitmapDrawable[] dividedDrawableImages;
 
     /**
      * PuzzleGamePresenter constructor.
@@ -42,7 +42,7 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
      */
     PuzzleGamePresenter(PuzzleGameView puzzleGameView) {
         this.puzzleGameView = puzzleGameView;
-        this.puzzleGenerator.setPuzzleRequester((PuzzleRequester) this);
+        this.puzzleGenerator.setPuzzleRequester(this);
     }
 
     /**
@@ -125,8 +125,8 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
                 int displayWidth = gestureDetectGridView.getMeasuredWidth();
                 int displayHeight = gestureDetectGridView.getMeasuredHeight();
 
-                int statusbarHeight = puzzleGameView.getStatusBarHeight();
-                int requiredHeight = displayHeight - statusbarHeight;
+                int statusBarHeight = puzzleGameView.getStatusBarHeight();
+                int requiredHeight = displayHeight - statusBarHeight;
 
                 mColumnWidth = displayWidth / numColumns;
                 mColumnHeight = requiredHeight / numColumns;

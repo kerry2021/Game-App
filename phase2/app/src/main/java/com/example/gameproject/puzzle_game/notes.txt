@@ -144,3 +144,9 @@ interacts with to update puzzle when a valid move is performed. PuzzleGamePresen
 generators (models) to perform actions on the PuzzleGameView object and receives input from
 puzzleGameActivity. PuzzleGameData stores game data. PuzzleGameDataGateway is an interface that
 prevents the PuzzleGamePresenter from knowing about the PuzzleGameData.
+
+#######
+#Step 23
+Code Affected: GestureDetectGridView, PuzzleGameData, PuzzleGameDataGateway,
+PuzzleGameIntroActivity, PuzzleGamePresenter, PuzzleGameView, PuzzleGameGenerator.
+Deleted unnecessary import statements, changed accessibility modifiers, and fixed typos. 

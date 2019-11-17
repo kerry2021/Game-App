@@ -1,7 +1,5 @@
 package com.example.gameproject.puzzle_game;
 
-import android.content.Context;
-
 interface PuzzleGameView {
     void showCountDownText(String text);
     void setBackgroundClickable(boolean backgroundClickable);

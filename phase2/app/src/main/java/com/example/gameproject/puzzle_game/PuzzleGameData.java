@@ -1,6 +1,5 @@
 package com.example.gameproject.puzzle_game;
 
-import java.util.ArrayList;
 
 public class PuzzleGameData implements PuzzleGameDataGateway{
 
@@ -65,7 +64,5 @@ public class PuzzleGameData implements PuzzleGameDataGateway{
     public void saveUserData() {
         //TODO: send all data to user gameStats
     }
-
-
 
 }

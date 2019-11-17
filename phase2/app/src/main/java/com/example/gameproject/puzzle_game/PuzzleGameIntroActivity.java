@@ -183,7 +183,6 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
                         break;
                 }
                 popupWindow.dismiss();
-                //TODO: save picture (if uploaded), execute.
             });
 
             cancelButton.setOnClickListener(view13 -> {

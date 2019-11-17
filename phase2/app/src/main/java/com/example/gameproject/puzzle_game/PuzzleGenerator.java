@@ -1,36 +1,28 @@
 package com.example.gameproject.puzzle_game;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.example.gameproject.R;
-
-import java.util.ArrayList;
 import java.util.Random;
 
 
 /**
  * This class is responsible for generating and updating puzzles when user performs a move.
  */
-public class PuzzleGenerator {
+class PuzzleGenerator {
 
     private PuzzleRequester puzzleRequester;
 
-    //a list of number each represent a tile, used for radomizing and checking win condition
+    //a list of number each represent a tile, used for randomizing and checking win condition
     private String[] tileList;
 
     private int columns = 3;
     private int dimensions = columns * columns;
 
     //for inputting swipe functions
-    public static final String up = "up";
-    public static final String down = "down";
-    public static final String left = "left";
-    public static final String right = "right";
+    static final String up = "up";
+    static final String down = "down";
+    static final String left = "left";
+    static final String right = "right";
 
     /**
      * To randomize the tiles in the puzzle
@@ -62,7 +54,7 @@ public class PuzzleGenerator {
     /**
      * Either Swap or not swap depending on the position and direction user want to swap
      */
-    public void moveTiles(Context context, String direction, int position) {
+    void moveTiles(Context context, String direction, int position) {
 
         // Upper-left-corner tile
         if (position == 0) {

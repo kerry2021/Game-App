@@ -1,6 +1,5 @@
 package com.example.gameproject.puzzle_game;
 
-import java.util.ArrayList;
 
 /**
  * Gateway that separates the interactor from database.
