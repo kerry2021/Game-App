@@ -45,6 +45,8 @@ class AdventureManager extends Observable {
      */
     private int score = 0;
 
+    private Mode mode;
+
     /**
      * Width of obstacleGamePanel in unit.
      */
@@ -151,10 +153,11 @@ class AdventureManager extends Observable {
     }
 
     /**
-     * Responds to events of player input, when the player touches, make the spaceship jump
+     * Responds to events of player input, when the player touches, make the spaceship with index i jump.
+     * @param i the index of spaceship which is supposed to jump.
      */
-    void respondTouch() {
-        spaceShipList.get(0).jump();
+    void respondTouch(int i) {
+        spaceShipList.get(i).jump();
     }
 
 

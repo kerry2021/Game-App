@@ -43,7 +43,7 @@ class SpaceShip extends SpaceItem {
     /**
      * The boolean checks whether the spaceship is Game Over or not.
      */
-    private boolean gameOver;
+    private boolean gameOver = false;
 
     /**
      * Constructs a new Spaceship with default jumpHeight, dropHeight, maxJumpDuration.
@@ -53,7 +53,12 @@ class SpaceShip extends SpaceItem {
         super(new Rect(0, 0, getGridWidth() / 30, getGridHeight() / 50));
         setHitBoxTo(getGridWidth() / 10, getGridHeight() / 2);
         setLives(3);
-        gameOver = false;
+    }
+
+    SpaceShip(int x) {
+        super(new Rect(0, 0, getGridWidth() / 30, getGridHeight() / 50));
+        setHitBoxTo(getGridWidth() / x, getGridHeight() / 2);
+        setLives(3);
     }
 
     /**
