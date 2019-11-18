@@ -28,6 +28,11 @@ class AndroidDrawer implements Drawer<Canvas>, Observer {
     private List<Obstacle> spaceObstacles;
 
     /**
+     * LIst containing all treasury box in this adventure.
+     */
+    private List<Obstacle> treasuryBoxList;
+
+    /**
      * The time need to be counted down before the game start.
      */
     private int startGameCountDown;
@@ -52,6 +57,8 @@ class AndroidDrawer implements Drawer<Canvas>, Observer {
      */
     private Paint reminderPaint;
 
+    private Paint treasuryBoxPaint;
+
     /**
      * A default drawer.
      */
@@ -59,6 +66,7 @@ class AndroidDrawer implements Drawer<Canvas>, Observer {
         setShipPaint();
         setObstaclePaint();
         setReminderPaint();
+        setTreasuryBoxPaint();
     }
 
     /**
@@ -90,6 +98,15 @@ class AndroidDrawer implements Drawer<Canvas>, Observer {
     }
 
     /**
+     * Initializes the treasuryBoxPaint.
+     */
+    private void setTreasuryBoxPaint() {
+        treasuryBoxPaint = new Paint();
+        treasuryBoxPaint.setColor(Color.rgb(255, 255, 0));
+        obstaclePaint.setStrokeWidth(10);
+    }
+
+    /**
      * Updates the lists of space items.
      *
      * @param o the observable object adventureManager.
@@ -102,6 +119,7 @@ class AndroidDrawer implements Drawer<Canvas>, Observer {
         spaceObstacles = adventureManager.getObstacles();
         startGameCountDown = adventureManager.getStartGameCountDown();
         gameOver = adventureManager.getGameOver();
+        treasuryBoxList = adventureManager.getTreasuryBoxList();
     }
 
     /**
@@ -134,7 +152,8 @@ class AndroidDrawer implements Drawer<Canvas>, Observer {
         }
 
         // draw the obstacles.
-        drawObstacles(canvas);
+        drawObstacles(canvas, spaceObstacles, obstaclePaint);
+        drawObstacles(canvas, treasuryBoxList, treasuryBoxPaint);
     }
 
 
@@ -230,10 +249,10 @@ class AndroidDrawer implements Drawer<Canvas>, Observer {
      * Draws all the obstacles.
      * @param canvas the canvas on which to draw obstacles.
      */
-    private void drawObstacles(Canvas canvas) {
-        for (Obstacle obstacle : spaceObstacles) {
+    private void drawObstacles(Canvas canvas, List<Obstacle> list, Paint paint) {
+        for (Obstacle obstacle : list) {
             if(obstacle != null) {
-                canvas.drawRect(obstacle.getHitBox(), obstaclePaint);
+                canvas.drawRect(obstacle.getHitBox(), paint);
             }
         }
     }
