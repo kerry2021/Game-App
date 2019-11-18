@@ -24,24 +24,24 @@ import java.util.Random;
 public class reactionGameActivity extends AppCompatActivity {
     private ImageButton pause_or_resume;;
     protected static ImageButton [] buttons=new ImageButton[9];
-    private int speed = reactionCustomize.speed;
-    private boolean random = reactionCustomize.random;
-    private boolean pause_before;
+    protected static int speed = reactionCustomize.speed;
+    protected static boolean random = reactionCustomize.random;
+    protected static boolean pause_before;
     protected static int next;
     protected static int score, timer;
     protected static TextView t_score, t_timer;
-    private myThread t;
+    private MoleThread t;
     private timeThread time;
     private boolean pause = false;
 
     ClickImage click;
 
-    public Handler handler1 = new Handler() {
+    protected static Handler handler1 = new Handler() {
         public void handleMessage(android.os.Message msg) {
             reInitButton();
         };
     };
-    public Handler handler2 = new Handler() {
+    protected static Handler handler2 = new Handler() {
         public void handleMessage(android.os.Message msg) {
             update();
         };
@@ -57,7 +57,7 @@ public class reactionGameActivity extends AppCompatActivity {
         timer = 60;
         t_score = findViewById(R.id.score);
         t_timer = findViewById(R.id.timer);
-        t = new myThread();
+        t = new MoleThread();
         time = new timeThread();
         t.setRunning(true);
         time.setRunning(true);
@@ -104,59 +104,16 @@ public class reactionGameActivity extends AppCompatActivity {
             buttons[i].setOnClickListener(click);
 
     }
-    private void reInitButton(){
+    private static void reInitButton(){
         for(int i =0;i < 9;i++)
             buttons[i].setBackgroundResource(R.drawable.hole);
     }
 
-    public void update(){
+    private static void update(){
         buttons[next-1].setBackgroundResource(R.drawable.mole);
     }
 
 
-    class myThread extends Thread{
-        boolean Running;
-        int step;// in order to let this thread remain in next status after clicking pause
-        public void run(){
-            try{
-                while (true) {
-                    if (Running && step==1) {
-                        if (pause_before) {
-                            Thread.sleep(speed);
-                            pause_before = false;
-                        }
-                        handler1.sendEmptyMessage(1);
-                        setStep(2);
-                        Thread.sleep(750);//time pause for 0.75s, allow the screen to stay in no mole for 0.75s
-
-                    }
-                    if (Running && step==2) {
-                        if (pause_before) {
-                            Thread.sleep(750);
-                            pause_before = false;
-                        }
-                        next = (int) (Math.random() * 9) + 1;
-                        handler2.sendEmptyMessage(1);
-                        if (random)
-                            speed = (int) (Math.random() * 751) + 250;
-                        setStep(1);
-                        Thread.sleep(speed);//time pause for 0.75s, by default, allow the screen to stay in mole for 0.75s
-                        next = 0;
-                    }
-                }
-            }
-            catch(Exception e){
-                e.printStackTrace();
-            }
-
-        }
-        public void setRunning(boolean setRunning){
-            this.Running = setRunning;
-        }
-        public void setStep(int step){
-            this.step=step;
-        }
-    }
 
     class timeThread extends Thread{
         boolean running;
