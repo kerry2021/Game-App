@@ -102,7 +102,7 @@ public class ObstacleGenerator implements ItemGenerator<Obstacle> {
         if (isFirstItem) {
             lastObstacle = new Obstacle(generationLine, randHeight, generationLine + obstacleWidth, randHeight + obstacleHeight, obstacleSpeed);
             isFirstItem = false;
-            return lastObstacle;
+            //return lastObstacle;
         } else {
             lastObstacle.move();
 
