@@ -16,32 +16,30 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.gameproject.MainActivity;
 import com.example.gameproject.R;
 
-import java.util.Random;
 
 public class reactionGameActivity extends AppCompatActivity {
     private ImageButton pause_or_resume;;
-    private ImageButton [] buttons=new ImageButton[9];
-    private int speed = reactionCustomize.speed;
-    private boolean random = reactionCustomize.random;
-    private boolean pause_before;
-    private int next;
-    private int score, timer;
-    TextView t_score, t_timer;
-    private myThread t;
-    private timeThread time;
+    protected ImageButton [] buttons=new ImageButton[9];
+    protected int speed = reactionCustomize.speed;
+    protected boolean random = reactionCustomize.random;
+    protected boolean pause_before;
+    protected int next;
+    protected int score, timer;
+    protected TextView t_score, t_timer;
+    private MoleThread t;
+    private TimeThread time;
     private boolean pause = false;
 
     ClickImage click;
 
-    public Handler handler1 = new Handler() {
+    protected Handler handler1 = new Handler() {
         public void handleMessage(android.os.Message msg) {
             reInitButton();
         };
     };
-    public Handler handler2 = new Handler() {
+    protected Handler handler2 = new Handler() {
         public void handleMessage(android.os.Message msg) {
             update();
         };
@@ -57,10 +55,12 @@ public class reactionGameActivity extends AppCompatActivity {
         timer = 60;
         t_score = findViewById(R.id.score);
         t_timer = findViewById(R.id.timer);
-        t = new myThread();
-        time = new timeThread();
+        t = new MoleThread();
+        time = new TimeThread();
         t.setRunning(true);
         time.setRunning(true);
+        t.setActivity(this);
+        time.setActivity(this);
         t.setStep(1);
         pause_before = false;
         t_score.setText("0");
@@ -85,200 +85,33 @@ public class reactionGameActivity extends AppCompatActivity {
         buttons[8] = findViewById(R.id.ninth);
         pause_or_resume = findViewById(R.id.pause_or_resume);
 
+        pause_or_resume.setOnClickListener(view -> {//to pause
+            if(!pause){
+                click.setMovable(false);
+                pause_or_resume.setBackgroundResource(R.drawable.resume);
+                pause = true;
+                t.setRunning(false);
+                time.setRunning(false);
+                pauseGame();
+            }
+        });
+
+
         click = new ClickImage();
+        click.setMovable(true);
+        click.setReaction(this);
+
         for (int i =0;i < 9;i++)
             buttons[i].setOnClickListener(click);
-        pause_or_resume.setOnClickListener(click);
+
     }
     private void reInitButton(){
         for(int i =0;i < 9;i++)
             buttons[i].setBackgroundResource(R.drawable.hole);
     }
 
-    public void update(){
+    private void update(){
         buttons[next-1].setBackgroundResource(R.drawable.mole);
-    }
-
-    class ClickImage implements OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-            int id = v.getId();
-            if (id == R.id.first) {
-                if (next == 1) {
-                    score += 1;
-                    buttons[0].setBackgroundResource(R.drawable.hit);
-                }
-                else
-                    buttons[0].setBackgroundResource(R.drawable.miss);
-                next = 0;
-            }
-            else if (id == R.id.second) {
-                if (next == 2) {
-                    buttons[1].setBackgroundResource(R.drawable.hit);
-                    score += 1;
-                }
-                else
-                    buttons[1].setBackgroundResource(R.drawable.miss);
-                next = 0;
-            }
-            else if (id == R.id.third) {
-                if (next == 3) {
-                    buttons[2].setBackgroundResource(R.drawable.hit);
-                    score += 1;
-                }
-                else
-                    buttons[2].setBackgroundResource(R.drawable.miss);
-                next = 0;
-            }
-            else if (id == R.id.fourth) {
-                if (next == 4) {
-                    buttons[3].setBackgroundResource(R.drawable.hit);
-                    score += 1;
-                }
-                else
-                    buttons[3].setBackgroundResource(R.drawable.miss);
-                next = 0;
-            }
-            else if (id == R.id.fifth) {
-                if (next == 5) {
-                    buttons[4].setBackgroundResource(R.drawable.hit);
-                    score += 1;
-                }
-                else
-                    buttons[4].setBackgroundResource(R.drawable.miss);
-                next = 0;
-            }
-            else if (id == R.id.sixth) {
-                if (next == 6) {
-                    buttons[5].setBackgroundResource(R.drawable.hit);
-                    score += 1;
-                }
-                else
-                    buttons[5].setBackgroundResource(R.drawable.miss);
-                next = 0;
-            }
-            else if (id == R.id.seventh) {
-                if (next == 7) {
-                    buttons[6].setBackgroundResource(R.drawable.hit);
-                    score += 1;
-                }
-                else
-                    buttons[6].setBackgroundResource(R.drawable.miss);
-                next = 0;
-            }
-            else if (id == R.id.eighth) {
-                if (next == 8) {
-                    buttons[7].setBackgroundResource(R.drawable.hit);
-                    score += 1;
-                }
-                else
-                    buttons[7].setBackgroundResource(R.drawable.miss);
-                next = 0;
-            }
-            else if (id == R.id.ninth) {
-                if (next == 9) {
-                    buttons[8].setBackgroundResource(R.drawable.hit);
-                    score += 1;
-                }
-                else
-                    buttons[8].setBackgroundResource(R.drawable.miss);
-                next = 0;
-            }
-            else if (id == R.id.pause_or_resume) {
-                if (pause) {//to resume
-                    pause_or_resume.setBackgroundResource(R.drawable.pause);
-                    pause_before = true;
-                    pause = false;
-                    t.setRunning(true);
-                    time.setRunning(true);
-                } else {//to pause
-                    pause_or_resume.setBackgroundResource(R.drawable.resume);
-                    pause = true;
-                    t.setRunning(false);
-                    time.setRunning(false);
-                    pauseGame();
-                }
-            }
-            String ts = "" + score;
-            t_score.setText(ts);
-            
-        }
-    }
-
-    class myThread extends Thread{
-        boolean Running;
-        int step;// in order to let this thread remain in next status after clicking pause
-        public void run(){
-            try{
-                while (true) {
-                    if (Running && step==1) {
-                        if (pause_before) {
-                            Thread.sleep(speed);
-                            pause_before = false;
-                        }
-                        handler1.sendEmptyMessage(1);
-                        setStep(2);
-                        Thread.sleep(750);//time pause for 0.75s, allow the screen to stay in no mole for 0.75s
-
-                    }
-                    if (Running && step==2) {
-                        if (pause_before) {
-                            Thread.sleep(750);
-                            pause_before = false;
-                        }
-                        next = (int) (Math.random() * 9) + 1;
-                        handler2.sendEmptyMessage(1);
-                        if (random)
-                            speed = (int) (Math.random() * 751) + 250;
-                        setStep(1);
-                        Thread.sleep(speed);//time pause for 0.75s, by default, allow the screen to stay in mole for 0.75s
-                        next = 0;
-                    }
-                }
-            }
-            catch(Exception e){
-                e.printStackTrace();
-            }
-
-        }
-        public void setRunning(boolean setRunning){
-            this.Running = setRunning;
-        }
-        public void setStep(int step){
-            this.step=step;
-        }
-    }
-
-    class timeThread extends Thread{
-        boolean running;
-        public void run() {
-            while (timer >= 1) {
-                try {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (running) {
-                                String t = "" + timer;
-                                t_timer.setText(t);
-                                timer--;
-                            }
-                            if (timer == 0) {
-                                Toast.makeText(reactionGameActivity.this, "Time Up", Toast.LENGTH_SHORT).show();
-                                endGame();
-                                onStop();
-                            }
-                        }
-                    });
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                } catch (Exception e){
-                }
-            }
-        }
-        public void setRunning(boolean setRunning){
-            this.running = setRunning;
-        }
     }
 
     private void pauseGame(){
@@ -307,6 +140,7 @@ public class reactionGameActivity extends AppCompatActivity {
         });
         resumeButton.setOnClickListener(view -> {
             popupWindow.dismiss();
+            click.setMovable(true);
             pause_or_resume.setBackgroundResource(R.drawable.pause);
             pause_before = true;
             pause = false;
@@ -314,7 +148,7 @@ public class reactionGameActivity extends AppCompatActivity {
             time.setRunning(true);
         });
     }
-    private void endGame(){
+    public void endGame(){
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         assert inflater != null;

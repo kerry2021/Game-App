@@ -38,10 +38,17 @@ class ObstacleGamePanel extends GamePanel {
      */
     private Drawer drawer;
 
-    ObstacleGamePanel(Context context, int difficulty) {
+    /**
+     * The player mode of this game.
+     */
+    private Mode playerMode;
+
+    ObstacleGamePanel(Context context, int difficulty, Mode mode) {
         super(context);
+
         adventureManger = new AdventureManager(screenWidth, screenHeight, difficulty);
-        adventureManger.addSpaceShip(createSpaceShip());
+        this.playerMode = mode;
+        mode.addSpaceShip(adventureManger);
 
         drawer = new AndroidDrawer();
         adventureManger.addObserver((Observer) drawer);
@@ -73,13 +80,7 @@ class ObstacleGamePanel extends GamePanel {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            adventureManger.respondTouch();
-        }
+        playerMode.respondTouch(event, adventureManger);
         return true;
-    }
-
-    private SpaceShip createSpaceShip() {
-        return new SpaceShip();
     }
 }

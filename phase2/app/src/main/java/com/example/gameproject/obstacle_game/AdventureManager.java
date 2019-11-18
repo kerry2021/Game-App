@@ -36,6 +36,26 @@ class AdventureManager extends Observable {
     private List<SpaceShip> spaceshipGarbageCart = new ArrayList<>();
 
     /**
+     * List containing all treasury boxes in this adventure.
+     */
+    private List<Obstacle> treasuryBoxList = new ArrayList<>();
+
+    /**
+     * List containing all treasury boxes to be deleted at the end of this update.
+     */
+    private List<Obstacle> treasuryBoxGarbageCart = new ArrayList<>();
+
+    /**
+     * The generator for obstacles.
+     */
+    private ItemGenerator<Obstacle> treasuryBoxGenerator;
+
+    /**
+     * The number of collection you collect from treasury boxes.
+     */
+    private int collection = 0;
+
+    /**
      * the generator for obstacles
      */
     private ItemGenerator<Obstacle> obstacleGenerator;
@@ -88,6 +108,7 @@ class AdventureManager extends Observable {
         gridHeight = height;
         gridWidth = width;
         obstacleGenerator = new ObstacleGenerator(width, height, difficulty);
+        treasuryBoxGenerator = new TreasuryBoxGenerator(width, height, 3);
     }
 
     /**
@@ -151,12 +172,16 @@ class AdventureManager extends Observable {
     }
 
     /**
-     * Responds to events of player input, when the player touches, make the spaceship jump
+     * Responds to events of player input, when the player touches, make the spaceship with index i jump.
+     * @param i the index of spaceship which is supposed to jump.
      */
-    void respondTouch() {
-        spaceShipList.get(0).jump();
+    void respondTouch(int i) {
+        spaceShipList.get(i).jump();
     }
 
+    List<Obstacle> getTreasuryBoxList() {
+        return treasuryBoxList;
+    }
 
     /**
      * Updates the information of all items in this adventure.
@@ -184,10 +209,16 @@ class AdventureManager extends Observable {
         updateSpaceShipList();
 
         // update conditions of every space obstacles.
-        updateSpaceObstacles();
+        updateObstacles(spaceObstacles, obstacleGarbageCart);
+        obstacleGarbageCart = new ArrayList<>();
+        updateObstacles(treasuryBoxList, treasuryBoxGarbageCart);
+        treasuryBoxGarbageCart = new ArrayList<>();
 
         // check to see whether to generate new obstacles.
-        generateNewObstacle();
+        checkGeneration(obstacleGenerator, spaceObstacles);
+
+        // check to see whether to generate new treasury box.
+        checkGeneration(treasuryBoxGenerator, treasuryBoxList);
 
         // Updates the score of the game.
         updateScore();
@@ -271,50 +302,56 @@ class AdventureManager extends Observable {
         } else {
             s.setInvincibleTime(invincibleTime - 1);
         }
+
+        for (Obstacle treasuryBox: treasuryBoxList) {
+            if (s.checkHit(treasuryBox)) {
+                treasuryBoxGarbageCart.add(treasuryBox);
+                collection++;
+            }
+        }
     }
 
     /**
      * Removes the obstacle from the game.
      * @param o the obstacle to be removed.
      */
-    private void removeObstacle(Obstacle o) {
-        spaceObstacles.remove(o);
+    private void removeObstacle(Obstacle o, List<Obstacle> list) {
+        list.remove(o);
     }
 
     /**
      * Updates the condition of all space obstacles.
      */
-    private void updateSpaceObstacles() {
-        for (Obstacle obstacle : spaceObstacles) {
+    private void updateObstacles(List<Obstacle> storeList, List<Obstacle> garbageList) {
+        for (Obstacle obstacle : storeList) {
             obstacle.move();
 
             if (obstacle.outOfScreen()) {
-                obstacleGarbageCart.add(obstacle);
+                garbageList.add(obstacle);
             }
         }
 
         // clear obstacle garbage.
-        for (Obstacle obstacle : obstacleGarbageCart) {
-            removeObstacle(obstacle);
+        for (Obstacle obstacle : garbageList) {
+            storeList.remove(obstacle);
         }
-        obstacleGarbageCart = new ArrayList<>();
     }
 
     /**
      * Adds the obstacle to obstacle list.
      * @param o the obstacle to be added.
      */
-    private void addObstacle(Obstacle o) {
-        spaceObstacles.add(o);
+    private void addObstacle(Obstacle o, List<Obstacle> list) {
+        list.add(o);
     }
 
     /**
      * Randomly generates a new obstacle.
      */
-    private void generateNewObstacle() {
-        Obstacle newObstacle = obstacleGenerator.checkGeneration();
+    private void checkGeneration(ItemGenerator generator, List<Obstacle> list) {
+        Obstacle newObstacle = (Obstacle) generator.checkGeneration();
         if (newObstacle != null) {
-            addObstacle(newObstacle);
+            list.add(newObstacle);
         }
     }
 

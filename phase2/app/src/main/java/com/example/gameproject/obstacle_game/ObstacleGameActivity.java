@@ -18,19 +18,23 @@ public class ObstacleGameActivity extends Activity {
         super.onCreate(savedInstanceState);
         User currentUser = (User) getIntent().getSerializableExtra("user");
 
-        //If this player has no past difficulty setting, give it a default of 2(normal)
+        // If this player has no past difficulty setting, then give him a default of 3(hard).
 
         String difficulty  = currentUser.get("obstacle_game_difficulty");
         if(difficulty == null){
-            currentUser.set("obstacle_game_difficulty", "2");
+            currentUser.set("obstacle_game_difficulty", "3");
             currentUser.write();
-            difficulty = "2";
+            difficulty = "3";
         }
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(new ObstacleGamePanel(this, Integer.valueOf(difficulty)));
+
+        // In future, if we want to extend the game and allow 2 or 3 player to play at the same time,
+        // we can write new mode strategy and use it.
+        Mode mode = new SinglePlayerMode();
+        setContentView(new ObstacleGamePanel(this, Integer.valueOf(difficulty), mode));
 
     }
 }
