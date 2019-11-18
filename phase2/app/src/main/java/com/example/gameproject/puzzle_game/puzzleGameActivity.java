@@ -11,11 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.graphics.Bitmap;
 
 import android.view.Gravity;
 
@@ -70,7 +70,8 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
         int columns = PuzzleGameIntroActivity.customizedColumns;
         presenter.setNumColumns(columns);
 
-        ArrayList<ImageDividable> puzzles = ImageActivity.selectedImages;
+        String customImagesKeys = currentUser.get("puzzle_game_custom_images");
+        ArrayList<ImageView> puzzles = CustomImageDatabase.getImageList(customImagesKeys);
         presenter.setPuzzles(puzzles);
 
         startCountDown();

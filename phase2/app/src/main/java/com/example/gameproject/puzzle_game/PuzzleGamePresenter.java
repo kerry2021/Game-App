@@ -21,6 +21,7 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
     private CountDownGenerator countDownGenerator = new CountDownGenerator();
     private PuzzleGenerator puzzleGenerator = new PuzzleGenerator();
     private PuzzleGameDataGateway puzzleGameDataGateway = new PuzzleGameData();
+    private ImageSplitter imageSplitter;
 
     private int mColumnWidth, mColumnHeight;
     private int numColumns = 3;
@@ -33,7 +34,7 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
     private boolean movable = true;
 
     //a list of identifiers referencing each image for the puzzle in drawable
-    private ArrayList<ImageDividable> puzzles = new ArrayList<>();
+    private ArrayList<ImageView> puzzles = new ArrayList<>();
     private BitmapDrawable[] dividedDrawableImages;
 
     /**
@@ -84,28 +85,24 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
         this.numColumns = numColumns;
         puzzleGenerator.setColumns(numColumns);
         gestureDetectGridView.setNumColumns(numColumns);
+        imageSplitter = new ImageSplitter(numColumns);
     }
 
-    void setPuzzles(ArrayList<ImageDividable> puzzles) {
+    void setPuzzles(ArrayList<ImageView> puzzles) {
         this.puzzles = puzzles;
         if (this.puzzles.size() == 0) {
             addDefaultImagesToList(this.puzzles);
         }
-        for (int i = 0; i < this.puzzles.size(); i++) {
-            this.puzzles.get(i).setNumColumns(numColumns);
-        }
         puzzleGameDataGateway.setNumPuzzles(puzzles.size());
     }
 
-    private void addDefaultImagesToList(ArrayList<ImageDividable> puzzles) {
+    private void addDefaultImagesToList(ArrayList<ImageView> puzzles) {
         ImageView imageView1 = new ImageView((Context) puzzleGameView);
         imageView1.setImageResource(R.drawable.default1);
-        ImageDividable default1Dividable = new ImageDividable(imageView1);
-        puzzles.add(default1Dividable);
+        puzzles.add(imageView1);
         ImageView imageView2 = new ImageView((Context) puzzleGameView);
         imageView2.setImageResource(R.drawable.default2);
-        ImageDividable default2Dividable = new ImageDividable(imageView2);
-        puzzles.add(default2Dividable);
+        puzzles.add(imageView2);
     }
 
     void setGestureDetectGridView(GestureDetectGridView gestureDetectGridView) {
@@ -142,13 +139,13 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
      */
     private void showNextPuzzle(Context context, int numCompleted) {
         puzzleGenerator.randomize();
-        ArrayList<Bitmap> dividedImages = puzzles.get(numCompleted).getDividedImages();
+        ImageView nextPuzzle = puzzles.get(numCompleted);
+        ArrayList<Bitmap> dividedImages = imageSplitter.splitImage(nextPuzzle);
         dividedDrawableImages = new BitmapDrawable[dividedImages.size()];
         for (int i = 0; i < dividedImages.size(); i++) {
             BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(),dividedImages.get(i));
             dividedDrawableImages[i] = bDrawable;
         }
-
         updatePuzzle(context);
     }
 

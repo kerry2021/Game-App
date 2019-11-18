@@ -2,61 +2,33 @@ package com.example.gameproject.puzzle_game;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.ImageView;
-import com.example.gameproject.R;
 
 import java.util.ArrayList;
 
-public class ImageDividable {
-    private ImageView image;
-    private ArrayList<Bitmap> dividedImages = new ArrayList<>();
-    private int numColumns = 3;
+/**
+ * Class responsible for cutting ImageView images
+ */
+class ImageSplitter {
+    private int numColumns;
 
-    /**
-     * Splits the source image and show them all into a grid in a new activity
-     *
-     * @param image        The image
-     */
-    ImageDividable(ImageView image) {
-        this.image = image;
-    }
-
-    ImageDividable(ImageView image, int numColumns) {
-        this.image = image;
-        setNumColumns(numColumns);
-    }
-
-    public ImageView getImage() {
-        return image;
-    }
-
-    void setNumColumns(int numColumns) {
+    ImageSplitter(int numColumns) {
         this.numColumns = numColumns;
-        splitImage(image, numColumns);
-    }
-
-    public ArrayList<Bitmap> getDividedImages() {
-        return dividedImages;
     }
 
     /**
      * Splits the source image and show them all into a grid in a new activity
      *
-     * @param image        The source image to split
-     * @param numColumns The target number of small image chunks to be formed from the   source image
+     * @param image        The source image to split.
+     * @return A bitmap ArrayList of divided images.
      */
-    private void splitImage(ImageView image, int numColumns) {
+    ArrayList<Bitmap> splitImage(ImageView image) {
 
         //For height and width of the small image chunks
         int chunkHeight, chunkLength;
 
         //To store all the small image chunks in bitmap format in this list
-        dividedImages = new ArrayList<Bitmap>(numColumns * numColumns);
+        ArrayList<Bitmap> dividedImages = new ArrayList<Bitmap>(numColumns * numColumns);
 
         //Getting the scaled bitmap of the source image
         BitmapDrawable drawable = (BitmapDrawable) image.getDrawable();
@@ -81,6 +53,6 @@ public class ImageDividable {
             }
             yCoordinate += chunkLength;
         }
-
+        return dividedImages;
     }
 }

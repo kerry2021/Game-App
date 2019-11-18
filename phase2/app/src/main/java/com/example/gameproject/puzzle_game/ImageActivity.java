@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,9 +33,9 @@ public class ImageActivity extends AppCompatActivity {
 
     Uri selectedImage;
     private final int RESULT_LOAD_IMAGE = 1;
-    public static ArrayList<ImageDividable> selectedImages = new ArrayList<>();
-    private static final int NUM_DEFAULT_IMAGES = 2;
+    private ArrayList<ImageView> selectedImages = new ArrayList<>();
     private static final int STORAGE_PERMISSION_CODE = 1;
+    private AlertDialog ad;
 
 
     /**
@@ -47,7 +48,10 @@ public class ImageActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_puzzle_game_select_image);
         User currentUser = (User) getIntent().getSerializableExtra("user");
-        addDefaultImagesToList();
+        selectedImages = CustomImageDatabase.getImageList(currentUser.get("puzzle_game_custom_images"));
+        for (int i = 0; i < selectedImages.size(); i++) {
+            showImageInLayout(selectedImages.get(i));
+        }
         if(ContextCompat.checkSelfPermission(ImageActivity.this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED)
@@ -68,34 +72,24 @@ public class ImageActivity extends AppCompatActivity {
         cancelButton = findViewById(R.id.cancel_button);
 
         addImageButton.setOnClickListener(view1 -> {
+            ad.dismiss();
             alertDialogForCameraImage();
         });
 
         saveSelectionButton.setOnClickListener(view12 -> {
-                Intent backIntro = new Intent(view12.getContext(), PuzzleGameIntroActivity.class);
-                backIntro.putExtra("user", currentUser);
-                startActivity(backIntro);
+            String value = CustomImageDatabase.saveImageList(selectedImages);
+            currentUser.set("puzzle_game_custom_images", value);
+            currentUser.write();
+            Intent backIntro = new Intent(view12.getContext(), PuzzleGameIntroActivity.class);
+            backIntro.putExtra("user", currentUser);
+            startActivity(backIntro);
         });
 
         cancelButton.setOnClickListener(view1 -> {
-            ArrayList<ImageDividable> defaultImagesSelected = new ArrayList<>();
-            for (int i = 0; i < NUM_DEFAULT_IMAGES; i++) {
-                defaultImagesSelected.add(selectedImages.get(i));
-            }
-            selectedImages = defaultImagesSelected;
             Intent backIntroCancel = new Intent(view1.getContext(), PuzzleGameIntroActivity.class);
             backIntroCancel.putExtra("user", currentUser);
             startActivity(backIntroCancel);
         });
-    }
-
-    private void addDefaultImagesToList() {
-        ImageView default1View = (ImageView) findViewById(R.id.default1);
-        ImageDividable default1Dividable = new ImageDividable(default1View);
-        selectedImages.add(default1Dividable);
-        ImageView default2View = (ImageView) findViewById(R.id.default2);
-        ImageDividable default2Dividable = new ImageDividable(default2View);
-        selectedImages.add(default2Dividable);
     }
 
     void pickImageFromGallery() {
@@ -125,19 +119,24 @@ public class ImageActivity extends AppCompatActivity {
                 String picturePath = cursor.getString(columnIndex);
                 cursor.close();
                 ImageView imageView = new ImageView(ImageActivity.this);
-                LinearLayout linearImages = (LinearLayout)
-                        findViewById(R.id.linear_images);
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams)
-                        findViewById(R.id.default2).getLayoutParams();
-                linearImages.addView(imageView, layoutParams);
                 imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                ImageDividable imageDividable = new ImageDividable(imageView);
-                selectedImages.add(imageDividable);
+                showImageInLayout(imageView);
+                selectedImages.add(imageView);
             }
         }
+    }
 
-        //And show the result in the image view when take picture from camera.
-
+    private void showImageInLayout(ImageView imageView) {
+        if(imageView.getParent() != null) {
+            ((ViewGroup)imageView.getParent()).removeView(imageView);
+        }
+        LinearLayout linearImages = findViewById(R.id.linear_images);
+        int pixels =  (int) (100 * imageView.getResources().getDisplayMetrics().density);
+        int topMargin = (int) (10 * imageView.getResources().getDisplayMetrics().density);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(pixels, pixels);
+        layoutParams.topMargin = topMargin;
+        imageView.setLayoutParams(layoutParams);
+        linearImages.addView(imageView, layoutParams);
     }
 
 
@@ -147,10 +146,9 @@ public class ImageActivity extends AppCompatActivity {
         adb.setNegativeButton("Gallery", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 pickImageFromGallery();
-
             }
         });
-        adb.show();
+        ad = adb.show();
     }
 
     @Override
@@ -183,7 +181,9 @@ public class ImageActivity extends AppCompatActivity {
         }
     }
 
-
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ad.dismiss();
+    }
 }
