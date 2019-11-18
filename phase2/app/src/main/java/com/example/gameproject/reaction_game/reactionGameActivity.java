@@ -31,7 +31,7 @@ public class reactionGameActivity extends AppCompatActivity {
     protected static int score, timer;
     protected static TextView t_score, t_timer;
     private MoleThread t;
-    private timeThread time;
+    private TimeThread time;
     private boolean pause = false;
 
     ClickImage click;
@@ -58,9 +58,10 @@ public class reactionGameActivity extends AppCompatActivity {
         t_score = findViewById(R.id.score);
         t_timer = findViewById(R.id.timer);
         t = new MoleThread();
-        time = new timeThread();
+        time = new TimeThread();
         t.setRunning(true);
         time.setRunning(true);
+        time.setActivity(this);
         t.setStep(1);
         pause_before = false;
         t_score.setText("0");
@@ -113,39 +114,6 @@ public class reactionGameActivity extends AppCompatActivity {
         buttons[next-1].setBackgroundResource(R.drawable.mole);
     }
 
-
-
-    class timeThread extends Thread{
-        boolean running;
-        public void run() {
-            while (timer >= 1) {
-                try {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (running) {
-                                String t = "" + timer;
-                                t_timer.setText(t);
-                                timer--;
-                            }
-                            if (timer == 0) {
-                                Toast.makeText(reactionGameActivity.this, "Time Up", Toast.LENGTH_SHORT).show();
-                                endGame();
-                                onStop();
-                            }
-                        }
-                    });
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                } catch (Exception e){
-                }
-            }
-        }
-        public void setRunning(boolean setRunning){
-            this.running = setRunning;
-        }
-    }
-
     private void pauseGame(){
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -180,7 +148,7 @@ public class reactionGameActivity extends AppCompatActivity {
             time.setRunning(true);
         });
     }
-    private void endGame(){
+    public void endGame(){
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
