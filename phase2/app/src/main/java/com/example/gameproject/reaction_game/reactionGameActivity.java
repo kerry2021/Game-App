@@ -23,13 +23,13 @@ import java.util.Random;
 
 public class reactionGameActivity extends AppCompatActivity {
     private ImageButton pause_or_resume;;
-    private ImageButton [] buttons=new ImageButton[9];
+    protected static ImageButton [] buttons=new ImageButton[9];
     private int speed = reactionCustomize.speed;
     private boolean random = reactionCustomize.random;
     private boolean pause_before;
-    private int next;
-    private int score, timer;
-    TextView t_score, t_timer;
+    protected static int next;
+    protected static int score, timer;
+    protected static TextView t_score, t_timer;
     private myThread t;
     private timeThread time;
     private boolean pause = false;
@@ -85,10 +85,24 @@ public class reactionGameActivity extends AppCompatActivity {
         buttons[8] = findViewById(R.id.ninth);
         pause_or_resume = findViewById(R.id.pause_or_resume);
 
+        pause_or_resume.setOnClickListener(view -> {//to pause
+            if(!pause){
+                click.setMovable(false);
+                pause_or_resume.setBackgroundResource(R.drawable.resume);
+                pause = true;
+                t.setRunning(false);
+                time.setRunning(false);
+                pauseGame();
+            }
+        });
+
+
         click = new ClickImage();
+        click.setMovable(true);
+
         for (int i =0;i < 9;i++)
             buttons[i].setOnClickListener(click);
-        pause_or_resume.setOnClickListener(click);
+
     }
     private void reInitButton(){
         for(int i =0;i < 9;i++)
@@ -99,112 +113,6 @@ public class reactionGameActivity extends AppCompatActivity {
         buttons[next-1].setBackgroundResource(R.drawable.mole);
     }
 
-    class ClickImage implements OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-            int id = v.getId();
-            if (id == R.id.first) {
-                if (next == 1) {
-                    score += 1;
-                    buttons[0].setBackgroundResource(R.drawable.hit);
-                }
-                else
-                    buttons[0].setBackgroundResource(R.drawable.miss);
-                next = 0;
-            }
-            else if (id == R.id.second) {
-                if (next == 2) {
-                    buttons[1].setBackgroundResource(R.drawable.hit);
-                    score += 1;
-                }
-                else
-                    buttons[1].setBackgroundResource(R.drawable.miss);
-                next = 0;
-            }
-            else if (id == R.id.third) {
-                if (next == 3) {
-                    buttons[2].setBackgroundResource(R.drawable.hit);
-                    score += 1;
-                }
-                else
-                    buttons[2].setBackgroundResource(R.drawable.miss);
-                next = 0;
-            }
-            else if (id == R.id.fourth) {
-                if (next == 4) {
-                    buttons[3].setBackgroundResource(R.drawable.hit);
-                    score += 1;
-                }
-                else
-                    buttons[3].setBackgroundResource(R.drawable.miss);
-                next = 0;
-            }
-            else if (id == R.id.fifth) {
-                if (next == 5) {
-                    buttons[4].setBackgroundResource(R.drawable.hit);
-                    score += 1;
-                }
-                else
-                    buttons[4].setBackgroundResource(R.drawable.miss);
-                next = 0;
-            }
-            else if (id == R.id.sixth) {
-                if (next == 6) {
-                    buttons[5].setBackgroundResource(R.drawable.hit);
-                    score += 1;
-                }
-                else
-                    buttons[5].setBackgroundResource(R.drawable.miss);
-                next = 0;
-            }
-            else if (id == R.id.seventh) {
-                if (next == 7) {
-                    buttons[6].setBackgroundResource(R.drawable.hit);
-                    score += 1;
-                }
-                else
-                    buttons[6].setBackgroundResource(R.drawable.miss);
-                next = 0;
-            }
-            else if (id == R.id.eighth) {
-                if (next == 8) {
-                    buttons[7].setBackgroundResource(R.drawable.hit);
-                    score += 1;
-                }
-                else
-                    buttons[7].setBackgroundResource(R.drawable.miss);
-                next = 0;
-            }
-            else if (id == R.id.ninth) {
-                if (next == 9) {
-                    buttons[8].setBackgroundResource(R.drawable.hit);
-                    score += 1;
-                }
-                else
-                    buttons[8].setBackgroundResource(R.drawable.miss);
-                next = 0;
-            }
-            else if (id == R.id.pause_or_resume) {
-                if (pause) {//to resume
-                    pause_or_resume.setBackgroundResource(R.drawable.pause);
-                    pause_before = true;
-                    pause = false;
-                    t.setRunning(true);
-                    time.setRunning(true);
-                } else {//to pause
-                    pause_or_resume.setBackgroundResource(R.drawable.resume);
-                    pause = true;
-                    t.setRunning(false);
-                    time.setRunning(false);
-                    pauseGame();
-                }
-            }
-            String ts = "" + score;
-            t_score.setText(ts);
-            
-        }
-    }
 
     class myThread extends Thread{
         boolean Running;
@@ -307,6 +215,7 @@ public class reactionGameActivity extends AppCompatActivity {
         });
         resumeButton.setOnClickListener(view -> {
             popupWindow.dismiss();
+            click.setMovable(true);
             pause_or_resume.setBackgroundResource(R.drawable.pause);
             pause_before = true;
             pause = false;
