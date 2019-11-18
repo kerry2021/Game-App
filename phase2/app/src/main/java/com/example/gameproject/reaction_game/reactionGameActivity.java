@@ -16,32 +16,30 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.gameproject.MainActivity;
 import com.example.gameproject.R;
 
-import java.util.Random;
 
 public class reactionGameActivity extends AppCompatActivity {
     private ImageButton pause_or_resume;;
-    protected static ImageButton [] buttons=new ImageButton[9];
-    protected static int speed = reactionCustomize.speed;
-    protected static boolean random = reactionCustomize.random;
-    protected static boolean pause_before;
-    protected static int next;
-    protected static int score, timer;
-    protected static TextView t_score, t_timer;
+    protected ImageButton [] buttons=new ImageButton[9];
+    protected int speed = reactionCustomize.speed;
+    protected boolean random = reactionCustomize.random;
+    protected boolean pause_before;
+    protected int next;
+    protected int score, timer;
+    protected TextView t_score, t_timer;
     private MoleThread t;
     private TimeThread time;
     private boolean pause = false;
 
     ClickImage click;
 
-    protected static Handler handler1 = new Handler() {
+    protected Handler handler1 = new Handler() {
         public void handleMessage(android.os.Message msg) {
             reInitButton();
         };
     };
-    protected static Handler handler2 = new Handler() {
+    protected Handler handler2 = new Handler() {
         public void handleMessage(android.os.Message msg) {
             update();
         };
@@ -61,6 +59,7 @@ public class reactionGameActivity extends AppCompatActivity {
         time = new TimeThread();
         t.setRunning(true);
         time.setRunning(true);
+        t.setActivity(this);
         time.setActivity(this);
         t.setStep(1);
         pause_before = false;
@@ -100,17 +99,18 @@ public class reactionGameActivity extends AppCompatActivity {
 
         click = new ClickImage();
         click.setMovable(true);
+        click.setReaction(this);
 
         for (int i =0;i < 9;i++)
             buttons[i].setOnClickListener(click);
 
     }
-    private static void reInitButton(){
+    private void reInitButton(){
         for(int i =0;i < 9;i++)
             buttons[i].setBackgroundResource(R.drawable.hole);
     }
 
-    private static void update(){
+    private void update(){
         buttons[next-1].setBackgroundResource(R.drawable.mole);
     }
 

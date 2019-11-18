@@ -4,87 +4,88 @@ import android.view.View;
 
 import com.example.gameproject.R;
 
-import static com.example.gameproject.reaction_game.reactionGameActivity.buttons;
-import static com.example.gameproject.reaction_game.reactionGameActivity.next;
-import static com.example.gameproject.reaction_game.reactionGameActivity.t_score;
-import static com.example.gameproject.reaction_game.reactionGameActivity.score;
 
 class ClickImage implements View.OnClickListener {
     private boolean movable;
+    private reactionGameActivity reaction;
     @Override
     public void onClick(View v) {
         int id = v.getId();
         if (movable) {
             if (id == R.id.first) {
-                if (next == 1) {
-                    score += 1;
-                    buttons[0].setBackgroundResource(R.drawable.hit);
+                if (reaction.next == 1) {
+                    reaction.score += 1;
+                    reaction.buttons[0].setBackgroundResource(R.drawable.hit);
                 } else
-                    buttons[0].setBackgroundResource(R.drawable.miss);
-                next = 0;
+                    reaction.buttons[0].setBackgroundResource(R.drawable.miss);
+                reaction.next = 0;
             } else if (id == R.id.second) {
-                if (next == 2) {
-                    buttons[1].setBackgroundResource(R.drawable.hit);
-                    score += 1;
+                if (reaction.next == 2) {
+                    reaction.buttons[1].setBackgroundResource(R.drawable.hit);
+                    reaction.score += 1;
                 } else
-                    buttons[1].setBackgroundResource(R.drawable.miss);
-                next = 0;
+                    reaction.buttons[1].setBackgroundResource(R.drawable.miss);
+                reaction.next = 0;
             } else if (id == R.id.third) {
-                if (next == 3) {
-                    buttons[2].setBackgroundResource(R.drawable.hit);
-                    score += 1;
+                if (reaction.next == 3) {
+                    reaction.buttons[2].setBackgroundResource(R.drawable.hit);
+                    reaction.score += 1;
                 } else
-                    buttons[2].setBackgroundResource(R.drawable.miss);
-                next = 0;
+                    reaction.buttons[2].setBackgroundResource(R.drawable.miss);
+                reaction.next = 0;
             } else if (id == R.id.fourth) {
-                if (next == 4) {
-                    buttons[3].setBackgroundResource(R.drawable.hit);
-                    score += 1;
+                if (reaction.next == 4) {
+                    reaction.buttons[3].setBackgroundResource(R.drawable.hit);
+                    reaction.score += 1;
                 } else
-                    buttons[3].setBackgroundResource(R.drawable.miss);
-                next = 0;
+                    reaction.buttons[3].setBackgroundResource(R.drawable.miss);
+                reaction.next = 0;
             } else if (id == R.id.fifth) {
-                if (next == 5) {
-                    buttons[4].setBackgroundResource(R.drawable.hit);
-                    score += 1;
+                if (reaction.next == 5) {
+                    reaction.buttons[4].setBackgroundResource(R.drawable.hit);
+                    reaction.score += 1;
                 } else
-                    buttons[4].setBackgroundResource(R.drawable.miss);
-                next = 0;
+                    reaction.buttons[4].setBackgroundResource(R.drawable.miss);
+                reaction.next = 0;
             } else if (id == R.id.sixth) {
-                if (next == 6) {
-                    buttons[5].setBackgroundResource(R.drawable.hit);
-                    score += 1;
+                if (reaction.next == 6) {
+                    reaction.buttons[5].setBackgroundResource(R.drawable.hit);
+                    reaction.score += 1;
                 } else
-                    buttons[5].setBackgroundResource(R.drawable.miss);
-                next = 0;
+                    reaction.buttons[5].setBackgroundResource(R.drawable.miss);
+                reaction.next = 0;
             } else if (id == R.id.seventh) {
-                if (next == 7) {
-                    buttons[6].setBackgroundResource(R.drawable.hit);
-                    score += 1;
+                if (reaction.next == 7) {
+                    reaction.buttons[6].setBackgroundResource(R.drawable.hit);
+                    reaction.score += 1;
                 } else
-                    buttons[6].setBackgroundResource(R.drawable.miss);
-                next = 0;
+                    reaction.buttons[6].setBackgroundResource(R.drawable.miss);
+                reaction.next = 0;
             } else if (id == R.id.eighth) {
-                if (next == 8) {
-                    buttons[7].setBackgroundResource(R.drawable.hit);
-                    score += 1;
+                if (reaction.next == 8) {
+                    reaction.buttons[7].setBackgroundResource(R.drawable.hit);
+                    reaction.score += 1;
                 } else
-                    buttons[7].setBackgroundResource(R.drawable.miss);
-                next = 0;
+                    reaction.buttons[7].setBackgroundResource(R.drawable.miss);
+                reaction.next = 0;
             } else if (id == R.id.ninth) {
-                if (next == 9) {
-                    buttons[8].setBackgroundResource(R.drawable.hit);
-                    score += 1;
+                if (reaction.next == 9) {
+                    reaction.buttons[8].setBackgroundResource(R.drawable.hit);
+                    reaction.score += 1;
                 } else
-                    buttons[8].setBackgroundResource(R.drawable.miss);
-                next = 0;
+                    reaction.buttons[8].setBackgroundResource(R.drawable.miss);
+                reaction.next = 0;
             }
 
-            String ts = "" + score;
-            t_score.setText(ts);
+            String ts = "" + reaction.score;
+            reaction.t_score.setText(ts);
         }
     }
     public void setMovable(boolean movable){
         this.movable = movable;
     }
+    public void setReaction(reactionGameActivity action){
+        this.reaction = action;
+    }
+
 }

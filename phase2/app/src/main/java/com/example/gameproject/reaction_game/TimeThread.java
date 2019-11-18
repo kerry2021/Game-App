@@ -3,24 +3,22 @@ package com.example.gameproject.reaction_game;
 import android.app.Activity;
 import android.widget.Toast;
 
-import static com.example.gameproject.reaction_game.reactionGameActivity.t_timer;
-import static com.example.gameproject.reaction_game.reactionGameActivity.timer;
 
 class TimeThread extends Thread {
-    boolean running;
-    reactionGameActivity reaction;
+    private boolean running;
+    private reactionGameActivity reaction;
     public void run() {
-        while (timer >= 0) {
+        while (reaction.timer >= 0) {
             try {
                 reaction.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if (running) {
-                            String t = "" + timer;
-                            t_timer.setText(t);
-                            timer--;
+                            String t = "" + reaction.timer;
+                            reaction.t_timer.setText(t);
+                            reaction.timer--;
                         }
-                        if (timer == -1) {
+                        if (reaction.timer == -1) {
                             Toast.makeText(reaction, "Time Up", Toast.LENGTH_SHORT).show();
                             reaction.endGame();
                             reaction.onStop();
