@@ -41,6 +41,21 @@ class SpaceShip extends SpaceItem {
     private int outTime = 0;
 
     /**
+     * The number of collections this spaceship collects in this game.
+     */
+    private int collection = 0;
+
+    /**
+     * The time to notify the spaceship gets a collection.
+     */
+    private int collectionTime = 0;
+
+    /**
+     * The score this player gets in this game.
+     */
+    private int score = 0;
+
+    /**
      * The boolean checks whether the spaceship is Game Over or not.
      */
     private boolean gameOver = false;
@@ -49,13 +64,13 @@ class SpaceShip extends SpaceItem {
      * Constructs a new Spaceship with default jumpHeight, dropHeight, maxJumpDuration.
      * (The default location should be somewhere in the middle width and low bottom of the screen.)
      */
-    SpaceShip() {
+    SpaceShip(int lives) {
         super(new Rect(0, 0, getGridWidth() / 30, getGridHeight() / 50));
         setHitBoxTo(getGridWidth() / 10, getGridHeight() / 2);
-        setLives(3);
+        setLives(lives);
     }
 
-    SpaceShip(int x) {
+    SpaceShip(int lives, int x) {
         super(new Rect(0, 0, getGridWidth() / 30, getGridHeight() / 50));
         setHitBoxTo(getGridWidth() / x, getGridHeight() / 2);
         setLives(3);
@@ -86,7 +101,7 @@ class SpaceShip extends SpaceItem {
     }
 
     /**
-     *  Sets the number of lives.
+     * Sets the number of lives.
      * @param life the number of lives.
      */
     private void setLives(int life) {
@@ -94,9 +109,18 @@ class SpaceShip extends SpaceItem {
     }
 
     /**
+     * Gets the number of collections.
+     * @return the number of collections.
+     */
+    int getCollection() {
+        return this.collection;
+    }
+
+    /**
      * Checks whether the spaceship hits an obstacle.
      * If yes, then deduct the lives, enter invincible time and return true
      * @param obstacle the obstacle to be checked.
+     * @return true if the spaceship hits the obstacle. Otherwise, return false.
      */
     boolean checkHit(Obstacle obstacle) {
         Rect r1 = this.getHitBox();
@@ -108,6 +132,54 @@ class SpaceShip extends SpaceItem {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Checks whether the spaceship gets a treasury box.
+     * @param treasuryBox the treasury box to be checked.
+     * @return true if the spaceship gets the treasury box. Otherwise, return false.
+     */
+    boolean checkGetTreasury(Obstacle treasuryBox) {
+        Rect r1 = this.getHitBox();
+        Rect r2 = treasuryBox.getHitBox();
+        if (r1.intersect(r2)) {
+            collection++;
+            setCollectionTime(30*3);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Gets the time to display this spaceship gets a collection.
+     * @return the remaining time to display this spaceship gets a collection.
+     */
+    int getCollectionTime() {
+        return collectionTime;
+    }
+
+    /**
+     * Sets the time to display this spaceship gets a collection.
+     * @param time the new time to display.
+     */
+    void setCollectionTime(int time) {
+        collectionTime = time;
+    }
+
+    /**
+     * Gets the score of the spaceship.
+     * @return the score of the spaceship.
+     */
+    int getScore() {
+        return score;
+    }
+
+    /**
+     * Updates the score of this spaceship.
+     */
+    void updateScore() {
+        score++;
     }
 
     /**

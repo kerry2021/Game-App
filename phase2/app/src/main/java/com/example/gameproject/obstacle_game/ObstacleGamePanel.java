@@ -48,7 +48,7 @@ class ObstacleGamePanel extends GamePanel {
 
         adventureManger = new AdventureManager(screenWidth, screenHeight, difficulty);
         this.playerMode = mode;
-        mode.addSpaceShip(adventureManger);
+        mode.addSpaceShip(adventureManger, difficulty);
 
         drawer = new AndroidDrawer();
         adventureManger.addObserver((Observer) drawer);
@@ -65,9 +65,7 @@ class ObstacleGamePanel extends GamePanel {
         if (adventureManger.getGameOver() && adventureManger.getEndGameCountDown() == 0) {
             Context myContext = getContext();
             Intent intent = new Intent(myContext, ObstacleGameEndActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("score", String.valueOf(adventureManger.getScore() / 30 * 100));
-            intent.putExtras(bundle);
+            playerMode.setUpBundle(intent, adventureManger);
             myContext.startActivity(intent);
         }
     }
