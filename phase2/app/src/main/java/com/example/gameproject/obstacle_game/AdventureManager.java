@@ -352,6 +352,9 @@ class AdventureManager extends Observable {
         Obstacle newObstacle = (Obstacle) generator.checkGeneration();
         if (newObstacle != null) {
             list.add(newObstacle);
+            if(list.size() == 1){
+                System.out.print(newObstacle.getSpeed());
+            }
         }
     }
 
