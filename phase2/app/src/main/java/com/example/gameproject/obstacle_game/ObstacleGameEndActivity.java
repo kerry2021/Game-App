@@ -18,14 +18,19 @@ public class ObstacleGameEndActivity extends AppCompatActivity {
         setTitle("Obstacle Game Result");
 
         Bundle bundle = getIntent().getExtras();
+
         String score = bundle.getString("score");
         score = "Your Score is " + score;
+        String collection = bundle.getString("collection");
+        collection = "The number of collections you get is " + collection;
 
         final TextView thanks = findViewById(R.id.thanks_for_playing_obstacle);
-        final TextView score_text = findViewById(R.id.obstacle_game_score);
+        final TextView scoreText = findViewById(R.id.obstacle_game_score);
+        final TextView collectionText = findViewById(R.id.obstacle_game_collection);
 
         thanks.setText(R.string.thanks_obstacle_game);
-        score_text.setText(score);
+        scoreText.setText(score);
+        collectionText.setText(collection);
     }
 
 

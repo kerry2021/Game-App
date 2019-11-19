@@ -43,20 +43,23 @@ class AndroidDrawer implements Drawer<Canvas>, Observer {
     private boolean gameOver;
 
     /**
-     * The paint for ships
+     * The paint for ships.
      */
     private Paint shipPaint;
 
     /**
-     * The paint for obstacles
+     * The paint for obstacles.
      */
     private Paint obstaclePaint;
 
     /**
-     * The paint for reminder in the center of the screen
+     * The paint for reminder in the center of the screen.
      */
     private Paint reminderPaint;
 
+    /**
+     * The paint for treasury box.
+     */
     private Paint treasuryBoxPaint;
 
     /**
@@ -149,6 +152,8 @@ class AndroidDrawer implements Drawer<Canvas>, Observer {
             drawInvincibleTime(canvas, s, i);
             // draw the out of Screen time
             drawOutOfScreenTime(canvas, s, i);
+            // draw the notification if the spaceship gets a collection.
+            drawGetCollection(canvas, s, i);
         }
 
         // draw the obstacles.
@@ -242,6 +247,19 @@ class AndroidDrawer implements Drawer<Canvas>, Observer {
         if (outTime != 0) {
             canvas.drawText("You can still be out of screen for : ", getGridWidth() / 4, (i+1) * getGridHeight() / 18, shipPaint);
             drawTime(canvas, outTime, getGridWidth() / 2 + getGridHeight() / 18, (i+1) * (getGridHeight() / 18 + 2), shipPaint);
+        }
+    }
+
+    /**
+     * Draws the number of collections got on canvas.
+     * @param canvas the canvas on which to draw the number of collections you get.
+     *
+     */
+    private void drawGetCollection(Canvas canvas, SpaceShip s, int i) {
+        int collection = s.getCollection();
+        int collectionTime = s.getCollectionTime();
+        if (collectionTime != 0) {
+            canvas.drawText("The number of collection you get is: " + collection, getGridWidth() / 4, (i+1) * getGridHeight() / 7, shipPaint);
         }
     }
 
