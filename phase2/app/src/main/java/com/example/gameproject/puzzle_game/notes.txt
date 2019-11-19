@@ -157,3 +157,13 @@ Code Affected: CustomImageGateway, ImageDatabaseGateway, ImageSplitter, puzzleGa
 PuzzleGamePresenter.
 Added CustomImageDatabase class to store custom images for different users. Changed imageDividable
 to ImageSplitter so that it has the single responsibility of splitting images into pieces.
+
+#######
+#Step 25
+Code Affected: CustomImageInteractor, CustomImageManager, ImageSplitter, puzzleGameActivity,
+PuzzleGamePresenter, ImageActivity.
+Fixed the bug of clearing all user customized images when restarting application by saving
+user-customized images in app external storage. Changed the ImageDatabaseGateway to
+CustomImageInteractor, which is responsible for interacting with device external storage to save
+and load images. Added CustomImageManager that is responsible for telling CustomImageInteractor to
+save images or retrieve images and encoding/decoding Strings containing filenames of image files. 

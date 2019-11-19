@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,7 +34,8 @@ public class ImageActivity extends AppCompatActivity {
 
     Uri selectedImage;
     private final int RESULT_LOAD_IMAGE = 1;
-    private ArrayList<ImageView> selectedImages = new ArrayList<>();
+    private ArrayList<Bitmap> oldCustomImages = new ArrayList<>();
+    private ArrayList<Bitmap> selectedImages = new ArrayList<>();
     private static final int STORAGE_PERMISSION_CODE = 1;
     private AlertDialog ad;
 
@@ -48,9 +50,15 @@ public class ImageActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_puzzle_game_select_image);
         User currentUser = (User) getIntent().getSerializableExtra("user");
-        selectedImages = CustomImageDatabase.getImageList(currentUser.get("puzzle_game_custom_images"));
-        for (int i = 0; i < selectedImages.size(); i++) {
-            showImageInLayout(selectedImages.get(i));
+        String customImagesCode = currentUser.get("puzzle_game_custom_images");
+        Bitmap[] savedImages = CustomImageManager.getImageList(customImagesCode, getApplicationContext());
+        for (Bitmap image : savedImages) {
+            if (image != null) {
+                oldCustomImages.add(image);
+            }
+        }
+        for (int i = 0; i < oldCustomImages.size(); i++) {
+            showImageInLayout(oldCustomImages.get(i));
         }
         if(ContextCompat.checkSelfPermission(ImageActivity.this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -77,7 +85,9 @@ public class ImageActivity extends AppCompatActivity {
         });
 
         saveSelectionButton.setOnClickListener(view12 -> {
-            String value = CustomImageDatabase.saveImageList(selectedImages);
+            Bitmap[] imageList = new Bitmap[selectedImages.size()];
+            imageList = selectedImages.toArray(imageList);
+            String value = CustomImageManager.saveImageList(imageList, customImagesCode, getApplicationContext());
             currentUser.set("puzzle_game_custom_images", value);
             currentUser.write();
             Intent backIntro = new Intent(view12.getContext(), PuzzleGameIntroActivity.class);
@@ -118,18 +128,19 @@ public class ImageActivity extends AppCompatActivity {
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                 String picturePath = cursor.getString(columnIndex);
                 cursor.close();
-                ImageView imageView = new ImageView(ImageActivity.this);
-                imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                showImageInLayout(imageView);
-                selectedImages.add(imageView);
+                Bitmap imageBitmap = BitmapFactory.decodeFile(picturePath);
+                showImageInLayout(imageBitmap);
+                selectedImages.add(imageBitmap);
             }
         }
     }
 
-    private void showImageInLayout(ImageView imageView) {
-        if(imageView.getParent() != null) {
+    private void showImageInLayout(Bitmap image) {
+        /*if(imageView.getParent() != null) {
             ((ViewGroup)imageView.getParent()).removeView(imageView);
-        }
+        }*/
+        ImageView imageView = new ImageView(ImageActivity.this);
+        imageView.setImageBitmap(image);
         LinearLayout linearImages = findViewById(R.id.linear_images);
         int pixels =  (int) (100 * imageView.getResources().getDisplayMetrics().density);
         int topMargin = (int) (10 * imageView.getResources().getDisplayMetrics().density);

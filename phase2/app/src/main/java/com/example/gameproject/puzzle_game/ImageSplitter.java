@@ -22,7 +22,7 @@ class ImageSplitter {
      * @param image        The source image to split.
      * @return A bitmap ArrayList of divided images.
      */
-    ArrayList<Bitmap> splitImage(ImageView image) {
+    ArrayList<Bitmap> splitImage(Bitmap image) {
 
         //For height and width of the small image chunks
         int chunkHeight, chunkLength;
@@ -31,17 +31,9 @@ class ImageSplitter {
         ArrayList<Bitmap> dividedImages = new ArrayList<Bitmap>(numColumns * numColumns);
 
         //Getting the scaled bitmap of the source image
-        BitmapDrawable drawable = (BitmapDrawable) image.getDrawable();
-        Bitmap bitmap = drawable.getBitmap();
-    /*ByteArrayOutputStream stream = new ByteArrayOutputStream();
-    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);*/
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(),
-                bitmap.getHeight(), true);
-
-        chunkLength = bitmap.getHeight() / numColumns;
-    /*chunkHeight = 300/rows;
-    chunkLength = 300/cols;*/
-
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(image, image.getWidth(),
+                image.getHeight(), true);
+        chunkLength = image.getHeight() / numColumns;
         //xCoordinate and yCoordinate are the pixel positions of the image chunks
         int yCoordinate = 0;
         for (int x = 0; x < numColumns; x++) {

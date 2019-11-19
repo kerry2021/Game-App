@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,7 @@ import com.example.gameproject.R;
 import com.example.gameproject.User;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameView {
 
@@ -71,7 +73,12 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
         presenter.setNumColumns(columns);
 
         String customImagesKeys = currentUser.get("puzzle_game_custom_images");
-        ArrayList<ImageView> puzzles = CustomImageDatabase.getImageList(customImagesKeys);
+        ArrayList<Bitmap> puzzles = new ArrayList<>();
+        for (Bitmap image : CustomImageManager.getImageList(customImagesKeys, getApplicationContext())) {
+            if (image != null) {
+                puzzles.add(image);
+            }
+        }
         presenter.setPuzzles(puzzles);
 
         startCountDown();
