@@ -3,7 +3,9 @@ package com.example.gameproject.reaction_game;
 
 class MoleThread extends Thread {
     private boolean Running;
+    private int next;
     private reactionGameActivity reaction;
+    private MoleManager moleManager;
     private int step;// in order to let this thread remain in next status after clicking pause
     public void run(){
         try{
@@ -13,23 +15,22 @@ class MoleThread extends Thread {
                         Thread.sleep(reaction.speed);
                         reaction.pause_before = false;
                     }
-                    reaction.handler1.sendEmptyMessage(1);
+                    next = 0;
+                    moleManager.updateScreen(next, step);
                     setStep(2);
                     Thread.sleep(750);//time pause for 0.75s, allow the screen to stay in no mole for 0.75s
-
+                    next = (int) (Math.random() * 9) + 1;
                 }
                 if (Running && step==2) {
                     if (reaction.pause_before) {
                         Thread.sleep(750);
                         reaction.pause_before = false;
                     }
-                    reaction.next = (int) (Math.random() * 9) + 1;
-                    reaction.handler2.sendEmptyMessage(1);
+                    moleManager.updateScreen(next, step);
                     if (reaction.random)
                         reaction.speed = (int) (Math.random() * 751) + 250;
                     setStep(1);
                     Thread.sleep(reaction.speed);//time pause for 0.75s, by default, allow the screen to stay in mole for 0.75s
-                    reaction.next = 0;
                 }
             }
         }
@@ -44,7 +45,8 @@ class MoleThread extends Thread {
     public void setStep(int step){
         this.step=step;
     }
-    public void setActivity(reactionGameActivity action){
+    public void setActivity(reactionGameActivity action, MoleManager moleManager){
         this.reaction = action;
+        this.moleManager = moleManager;
     }
 }

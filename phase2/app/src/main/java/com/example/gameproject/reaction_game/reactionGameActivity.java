@@ -6,113 +6,62 @@ import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gameproject.R;
 
+import java.util.Observer;
+
 
 public class reactionGameActivity extends AppCompatActivity {
     private ImageButton pause_or_resume;;
-    protected ImageButton [] buttons=new ImageButton[9];
     protected int speed = reactionCustomize.speed;
     protected boolean random = reactionCustomize.random;
     protected boolean pause_before;
     protected int next;
-    protected int score, timer;
-    protected TextView t_score, t_timer;
-    private MoleThread t;
-    private TimeThread time;
     private boolean pause = false;
+    private MoleManager moleManager;
+    private MoleDrawer moleDrawer;
 
-    ClickImage click;
 
-    protected Handler handler1 = new Handler() {
-        public void handleMessage(android.os.Message msg) {
-            reInitButton();
-        };
-    };
-    protected Handler handler2 = new Handler() {
-        public void handleMessage(android.os.Message msg) {
-            update();
-        };
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reaction_game);
 
+        moleManager = new MoleManager(this);
+        moleDrawer = new MoleDrawer();
+        moleManager.addObserver((Observer)moleDrawer);
         initButton();
-        score = 0;
-        timer = 60;
-        t_score = findViewById(R.id.score);
-        t_timer = findViewById(R.id.timer);
-        t = new MoleThread();
-        time = new TimeThread();
-        t.setRunning(true);
-        time.setRunning(true);
-        t.setActivity(this);
-        time.setActivity(this);
-        t.setStep(1);
         pause_before = false;
-        t_score.setText("0");
     }
 
     @Override
     protected void onResume(){
         super.onResume();
         pause_or_resume.setBackgroundResource(R.drawable.pause);
-        t.start();
-        time.start();
+        moleManager.start();
     }
     private void initButton(){
-        buttons[0] = findViewById(R.id.first);
-        buttons[1] = findViewById(R.id.second);
-        buttons[2] = findViewById(R.id.third);
-        buttons[3] = findViewById(R.id.fourth);
-        buttons[4] = findViewById(R.id.fifth);
-        buttons[5] = findViewById(R.id.sixth);
-        buttons[6] = findViewById(R.id.seventh);
-        buttons[7] = findViewById(R.id.eighth);
-        buttons[8] = findViewById(R.id.ninth);
         pause_or_resume = findViewById(R.id.pause_or_resume);
 
         pause_or_resume.setOnClickListener(view -> {//to pause
             if(!pause){
-                click.setMovable(false);
                 pause_or_resume.setBackgroundResource(R.drawable.resume);
                 pause = true;
-                t.setRunning(false);
-                time.setRunning(false);
+                moleManager.pause();
                 pauseGame();
             }
         });
-
-
-        click = new ClickImage();
-        click.setMovable(true);
-        click.setReaction(this);
-
-        for (int i =0;i < 9;i++)
-            buttons[i].setOnClickListener(click);
-
-    }
-    private void reInitButton(){
-        for(int i =0;i < 9;i++)
-            buttons[i].setBackgroundResource(R.drawable.hole);
     }
 
-    private void update(){
-        buttons[next-1].setBackgroundResource(R.drawable.mole);
-    }
 
     private void pauseGame(){
         LayoutInflater inflater = (LayoutInflater)
@@ -140,12 +89,10 @@ public class reactionGameActivity extends AppCompatActivity {
         });
         resumeButton.setOnClickListener(view -> {
             popupWindow.dismiss();
-            click.setMovable(true);
             pause_or_resume.setBackgroundResource(R.drawable.pause);
             pause_before = true;
             pause = false;
-            t.setRunning(true);
-            time.setRunning(true);
+            moleManager.resume();
         });
     }
     public void endGame(){
@@ -154,7 +101,7 @@ public class reactionGameActivity extends AppCompatActivity {
         assert inflater != null;
         View popupView = inflater.inflate(R.layout.reaction_end, null);
         TextView textViewFinalScore = popupView.findViewById(R.id.score_reaction);
-        textViewFinalScore.setText(String.valueOf(score));
+        textViewFinalScore.setText(String.valueOf(moleManager.getScore()));
 
         // create the popup window
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -177,7 +124,6 @@ public class reactionGameActivity extends AppCompatActivity {
     @Override
     public void onStop(){
         super.onStop();
-        t.interrupt();
-        time.interrupt();
+        moleManager.stop();
     }
 }

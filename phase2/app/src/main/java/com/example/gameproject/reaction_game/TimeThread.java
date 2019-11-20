@@ -7,18 +7,17 @@ import android.widget.Toast;
 class TimeThread extends Thread {
     private boolean running;
     private reactionGameActivity reaction;
+    private MoleManager moleManager;
     public void run() {
-        while (reaction.timer >= 0) {
+        while (moleManager.getTimer() >= 0) {
             try {
                 reaction.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if (running) {
-                            String t = "" + reaction.timer;
-                            reaction.t_timer.setText(t);
-                            reaction.timer--;
+                            moleManager.updateTime();
                         }
-                        if (reaction.timer == -1) {
+                        if (moleManager.getTimer() == -1) {
                             Toast.makeText(reaction, "Time Up", Toast.LENGTH_SHORT).show();
                             reaction.endGame();
                             reaction.onStop();
@@ -34,7 +33,8 @@ class TimeThread extends Thread {
     public void setRunning(boolean setRunning){
         this.running = setRunning;
     }
-    public void setActivity(reactionGameActivity action){
+    public void setActivity(reactionGameActivity action, MoleManager moleManager){
         this.reaction = action;
+        this.moleManager = moleManager;
     }
 }
