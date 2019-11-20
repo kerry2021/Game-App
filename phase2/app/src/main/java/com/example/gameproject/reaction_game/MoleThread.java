@@ -4,7 +4,7 @@ package com.example.gameproject.reaction_game;
 class MoleThread extends Thread {
     private boolean Running;
     private int next;
-    private reactionGameActivity reaction;
+    private ReactionGameActivity reaction;
     private MoleManager moleManager;
     private int step;// in order to let this thread remain in next status after clicking pause
     public void run(){
@@ -45,7 +45,7 @@ class MoleThread extends Thread {
     public void setStep(int step){
         this.step=step;
     }
-    public void setActivity(reactionGameActivity action, MoleManager moleManager){
+    public void setActivity(ReactionGameActivity action, MoleManager moleManager){
         this.reaction = action;
         this.moleManager = moleManager;
     }

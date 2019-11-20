@@ -29,13 +29,13 @@
             android:parentActivityName=".puzzle_game.PuzzleGameIntroActivity" />
 
         <activity
-            android:name=".reaction_game.reactionGameMain"
+            android:name=".reaction_game.ReactionGameMain"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".reaction_game.reactionCustomize"
+            android:name=".reaction_game.ReactionCustomize"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".reaction_game.reactionGameActivity"
+            android:name=".reaction_game.ReactionGameActivity"
             android:parentActivityName=".obstacle_game.ObstacleGameIntroActivity" />
         <activity
             android:name=".obstacle_game.ObstacleGameIntroActivity"

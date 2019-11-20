@@ -8,10 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.gameproject.obstacle_game.ObstacleGameActivity;
 import com.example.gameproject.obstacle_game.ObstacleGameIntroActivity;
 import com.example.gameproject.puzzle_game.PuzzleGameIntroActivity;
-import com.example.gameproject.reaction_game.reactionGameMain;
+import com.example.gameproject.reaction_game.ReactionGameMain;
 
 import java.io.File;
 
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         currentUser.write();
         setTitle("Welcome Back: " + currentUser.get("userName"));
 
-        reactionGameIntent = new Intent(this, reactionGameMain.class);
+        reactionGameIntent = new Intent(this, ReactionGameMain.class);
         puzzleGameIntent = new Intent(this, PuzzleGameIntroActivity.class);
         obstacleGameIntent = new Intent(this, ObstacleGameIntroActivity.class);
 

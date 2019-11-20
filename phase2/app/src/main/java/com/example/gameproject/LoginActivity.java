@@ -1,18 +1,14 @@
 package com.example.gameproject;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NavUtils;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.example.gameproject.reaction_game.reactionGameMain;
 
 public class LoginActivity extends AppCompatActivity {
 

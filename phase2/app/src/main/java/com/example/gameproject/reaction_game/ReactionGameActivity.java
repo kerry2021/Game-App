@@ -2,7 +2,6 @@ package com.example.gameproject.reaction_game;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +18,10 @@ import com.example.gameproject.R;
 import java.util.Observer;
 
 
-public class reactionGameActivity extends AppCompatActivity {
+public class ReactionGameActivity extends AppCompatActivity {
     private ImageButton pause_or_resume;;
-    protected int speed = reactionCustomize.speed;
-    protected boolean random = reactionCustomize.random;
+    protected int speed = ReactionCustomize.speed;
+    protected boolean random = ReactionCustomize.random;
     protected boolean pause_before;
     protected int next;
     private boolean pause = false;
@@ -118,7 +117,7 @@ public class reactionGameActivity extends AppCompatActivity {
 
         exitButton.setOnClickListener(view -> {
             popupWindow.dismiss();
-            startActivity(new Intent(view.getContext(), reactionGameMain.class));
+            startActivity(new Intent(view.getContext(), ReactionGameMain.class));
         });
     }
     @Override

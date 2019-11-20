@@ -11,7 +11,7 @@ import android.widget.Spinner;
 
 import com.example.gameproject.R;
 
-public class reactionCustomize extends AppCompatActivity {
+public class ReactionCustomize extends AppCompatActivity {
     protected static int speed = 750;
     protected static boolean random = false;
     @Override
@@ -44,7 +44,7 @@ public class reactionCustomize extends AppCompatActivity {
                 else
                     random = true;
 
-                startActivity(new Intent(v.getContext(), reactionGameMain.class));
+                startActivity(new Intent(v.getContext(), ReactionGameMain.class));
             }
         });
 

@@ -1,12 +1,11 @@
 package com.example.gameproject.reaction_game;
 
-import android.app.Activity;
 import android.widget.Toast;
 
 
 class TimeThread extends Thread {
     private boolean running;
-    private reactionGameActivity reaction;
+    private ReactionGameActivity reaction;
     private MoleManager moleManager;
     public void run() {
         while (moleManager.getTimer() >= 0) {
@@ -33,7 +32,7 @@ class TimeThread extends Thread {
     public void setRunning(boolean setRunning){
         this.running = setRunning;
     }
-    public void setActivity(reactionGameActivity action, MoleManager moleManager){
+    public void setActivity(ReactionGameActivity action, MoleManager moleManager){
         this.reaction = action;
         this.moleManager = moleManager;
     }

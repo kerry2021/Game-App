@@ -1,6 +1,5 @@
 package com.example.gameproject.reaction_game;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.gameproject.R;
 import com.example.gameproject.User;
 
-public class reactionGameMain extends AppCompatActivity {
-    private reactionGameManager gameManager;
+public class ReactionGameMain extends AppCompatActivity {
+    private ReactionGameManager gameManager;
     private User user;
 
     @Override
@@ -21,7 +20,7 @@ public class reactionGameMain extends AppCompatActivity {
         setContentView(R.layout.activity_reaction_game_main);
         Intent i = getIntent();
         user = (User) i.getSerializableExtra("USER");
-        gameManager = new reactionGameManager(user, this);
+        gameManager = new ReactionGameManager(user, this);
 
         Button customizeButton;
 
@@ -29,7 +28,7 @@ public class reactionGameMain extends AppCompatActivity {
 
         customizeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), reactionCustomize.class));
+                startActivity(new Intent(v.getContext(), ReactionCustomize.class));
             }
         });
         setplay();
@@ -41,7 +40,7 @@ public class reactionGameMain extends AppCompatActivity {
         findViewById(R.id.play).setOnClickListener(v -> {
             gameManager.newGame();
 
-            Intent i = new Intent(this, reactionGameActivity.class);
+            Intent i = new Intent(this, ReactionGameActivity.class);
             startActivity(i);
 
         });

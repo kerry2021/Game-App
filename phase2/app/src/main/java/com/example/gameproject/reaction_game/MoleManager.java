@@ -21,7 +21,7 @@ public class MoleManager extends Observable{
     private TextView t_score, t_timer;
     private int next, score, timer, currStep,running;
 
-    public MoleManager(reactionGameActivity reaction){
+    public MoleManager(ReactionGameActivity reaction){
         t_score = reaction.findViewById(R.id.score);
         t_timer = reaction.findViewById(R.id.timer);
         score = 0;

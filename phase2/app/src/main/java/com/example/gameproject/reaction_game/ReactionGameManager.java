@@ -11,22 +11,22 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class reactionGameManager {
-    public static reactionGameActivity gameactivity;
+public class ReactionGameManager {
+    public static ReactionGameActivity gameactivity;
     private User user;
     private Context context;
     private static final String SUFFIX = "reaction_data";
 
 
-    public reactionGameManager(User user, Context context) {
+    public ReactionGameManager(User user, Context context) {
         this.user = user;
         this.context = context;
     }
-    static reactionGameActivity getGameactivity(){
+    static ReactionGameActivity getGameactivity(){
         return gameactivity;
     }
     void newGame(){
-        gameactivity = new reactionGameActivity();
+        gameactivity = new ReactionGameActivity();
     }
     void loadGame(){
 
@@ -35,20 +35,20 @@ public class reactionGameManager {
             InputStream inputStream = context.openFileInput(filename);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                gameactivity = (reactionGameActivity) input.readObject();
+                gameactivity = (ReactionGameActivity) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
-            Log.e("reactionGameActivity", "FileNotFoundException");
-            gameactivity = new reactionGameActivity();
+            Log.e("ReactionGameActivity", "FileNotFoundException");
+            gameactivity = new ReactionGameActivity();
 
         } catch (IOException e) {
-            Log.e("reactionGameActivity", "IOException");
-            gameactivity = new reactionGameActivity();
+            Log.e("ReactionGameActivity", "IOException");
+            gameactivity = new ReactionGameActivity();
 
         } catch (ClassNotFoundException e) {
-            Log.e("reactionGameActivity", "ClassNotFoundException");
-            gameactivity = new reactionGameActivity();
+            Log.e("ReactionGameActivity", "ClassNotFoundException");
+            gameactivity = new ReactionGameActivity();
         }
     }
 
