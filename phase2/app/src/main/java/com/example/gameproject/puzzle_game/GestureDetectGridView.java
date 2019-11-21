@@ -60,18 +60,18 @@ public class GestureDetectGridView extends GridView {
                         return false;
                     }
                     if (e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE) {
-                        presenter.moveTiles(context, PuzzleGamePresenter.up, position);
+                        presenter.moveTiles(PuzzleGamePresenter.up, position);
                     } else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE) {
-                        presenter.moveTiles(context, PuzzleGamePresenter.down, position);
+                        presenter.moveTiles(PuzzleGamePresenter.down, position);
                     }
                 } else {
                     if (Math.abs(velocityX) < SWIPE_THRESHOLD_VELOCITY) {
                         return false;
                     }
                     if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE) {
-                        presenter.moveTiles(context, PuzzleGamePresenter.left, position);
+                        presenter.moveTiles(PuzzleGamePresenter.left, position);
                     } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE) {
-                        presenter.moveTiles(context, PuzzleGamePresenter.right, position);
+                        presenter.moveTiles(PuzzleGamePresenter.right, position);
                     }
                 }
 

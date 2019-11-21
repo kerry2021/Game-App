@@ -43,12 +43,12 @@ class PuzzleGenerator {
     /**
      * Swap the position of a current tile with another file
      */
-    private void swap(Context context, int currentPosition, int swap) {
+    private void swap(int currentPosition, int swap) {
         String newPosition = tileList[currentPosition + swap];
         tileList[currentPosition + swap] = tileList[currentPosition];
         tileList[currentPosition] = newPosition;
 
-        puzzleRequester.updatePuzzle(context);
+        puzzleRequester.updatePuzzle();
     }
 
     /**
@@ -60,11 +60,11 @@ class PuzzleGenerator {
         if (position == 0) {
             switch (direction) {
                 case right:
-                    swap(context, position, 1);
+                    swap(position, 1);
                     break;
 
                 case down:
-                    swap(context, position, columns);
+                    swap(position, columns);
                     break;
 
                 default:
@@ -78,10 +78,10 @@ class PuzzleGenerator {
         else if (position == columns - 1) {
             switch (direction) {
                 case left:
-                    swap(context, position, -1);
+                    swap(position, -1);
                     break;
                 case down:
-                    swap(context, position, columns);
+                    swap(position, columns);
                     break;
                 default:
                     Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
@@ -94,10 +94,10 @@ class PuzzleGenerator {
         else if (position == dimensions - columns) {
             switch (direction) {
                 case up:
-                    swap(context, position, -columns);
+                    swap(position, -columns);
                     break;
                 case right:
-                    swap(context, position, 1);
+                    swap(position, 1);
                     break;
                 default:
                     Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
@@ -109,10 +109,10 @@ class PuzzleGenerator {
         else if (position == dimensions - 1) {
             switch (direction) {
                 case up:
-                    swap(context, position, -columns);
+                    swap(position, -columns);
                     break;
                 case left:
-                    swap(context, position, -1);
+                    swap(position, -1);
                     break;
                 default:
                     Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
@@ -124,13 +124,13 @@ class PuzzleGenerator {
         else if (position > 0 && position < columns - 1) {
             switch (direction) {
                 case left:
-                    swap(context, position, -1);
+                    swap(position, -1);
                     break;
                 case down:
-                    swap(context, position, columns);
+                    swap(position, columns);
                     break;
                 case right:
-                    swap(context, position, 1);
+                    swap(position, 1);
                     break;
                 default:
                     Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
@@ -144,13 +144,13 @@ class PuzzleGenerator {
                 position % columns == 0) {
             switch (direction) {
                 case up:
-                    swap(context, position, -columns);
+                    swap(position, -columns);
                     break;
                 case right:
-                    swap(context, position, 1);
+                    swap(position, 1);
                     break;
                 case down:
-                    swap(context, position, columns);
+                    swap(position, columns);
                     break;
                 default:
                     Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
@@ -161,13 +161,13 @@ class PuzzleGenerator {
         else if ((position + 1) % columns == 0) {
             switch (direction) {
                 case up:
-                    swap(context, position, -columns);
+                    swap(position, -columns);
                     break;
                 case left:
-                    swap(context, position, -1);
+                    swap(position, -1);
                     break;
                 case down:
-                    swap(context, position, columns);
+                    swap(position, columns);
                 default:
                     Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
                     break;
@@ -178,13 +178,13 @@ class PuzzleGenerator {
         } else if (position < dimensions - 1 && position > dimensions - columns) {
             switch (direction) {
                 case up:
-                    swap(context, position, -columns);
+                    swap(position, -columns);
                     break;
                 case left:
-                    swap(context, position, -1);
+                    swap(position, -1);
                     break;
                 case right:
-                    swap(context, position, 1);
+                    swap(position, 1);
                     break;
                 default:
                     Toast.makeText(context, "Invalid move", Toast.LENGTH_SHORT).show();
@@ -195,16 +195,16 @@ class PuzzleGenerator {
         } else {
             switch (direction) {
                 case up:
-                    swap(context, position, -columns);
+                    swap(position, -columns);
                     break;
                 case left:
-                    swap(context, position, -1);
+                    swap(position, -1);
                     break;
                 case right:
-                    swap(context, position, 1);
+                    swap(position, 1);
                     break;
                 default:
-                    swap(context, position, columns);
+                    swap(position, columns);
                     break;
             }
         }

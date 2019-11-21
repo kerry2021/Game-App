@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.LinearLayout;
@@ -24,11 +23,10 @@ import com.example.gameproject.R;
 import com.example.gameproject.User;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameView {
 
-    private PuzzleGamePresenter presenter = new PuzzleGamePresenter(this);
+    private PuzzleGamePresenter presenter;
 
     private static final String TAG = "Puzzle Game Activity";
 
@@ -67,6 +65,8 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
 
         createOptionsButton(currentUser);
 
+        presenter = new PuzzleGamePresenter(this, getApplicationContext());
+
         presenter.setGestureDetectGridView(findViewById(R.id.grid));
 
         int columns = PuzzleGameIntroActivity.customizedColumns;
@@ -82,7 +82,7 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
         presenter.setPuzzles(puzzles);
 
         startCountDown();
-        presenter.setDimensions(getApplicationContext());
+        presenter.setDimensions();
         Log.i(TAG, "Game has Created.");
     }
 

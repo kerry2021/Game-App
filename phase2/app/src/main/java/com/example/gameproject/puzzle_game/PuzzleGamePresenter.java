@@ -3,15 +3,10 @@ package com.example.gameproject.puzzle_game;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.example.gameproject.R;
-
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -22,8 +17,11 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
     private CountDownGenerator countDownGenerator = new CountDownGenerator();
     private PuzzleGenerator puzzleGenerator = new PuzzleGenerator();
     private PuzzleGameDataGateway puzzleGameDataGateway = new PuzzleGameData();
-    private ImageSplitter imageSplitter;
+    private PuzzleListManager puzzleListManager;
 
+    private Context context;
+
+    private BitmapDrawable[] puzzlePieces;
     private int mColumnWidth, mColumnHeight;
     private int numColumns = 3;
 
@@ -34,17 +32,16 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
 
     private boolean movable = true;
 
-    //a list of identifiers referencing each image for the puzzle in drawable
-    private ArrayList<Bitmap> puzzles = new ArrayList<>();
-    private BitmapDrawable[] dividedDrawableImages;
-
     /**
      * PuzzleGamePresenter constructor.
      * @param puzzleGameView the view that this presenter changes.
      */
-    PuzzleGamePresenter(PuzzleGameView puzzleGameView) {
+    PuzzleGamePresenter(PuzzleGameView puzzleGameView, Context context) {
         this.puzzleGameView = puzzleGameView;
         this.puzzleGenerator.setPuzzleRequester(this);
+        this.context = context;
+        puzzleListManager =
+                new PuzzleListManager(context.getResources());
     }
 
     /**
@@ -86,24 +83,18 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
         this.numColumns = numColumns;
         puzzleGenerator.setColumns(numColumns);
         gestureDetectGridView.setNumColumns(numColumns);
-        imageSplitter = new ImageSplitter(numColumns);
+        puzzleListManager.setImageSplitter(numColumns);
+    }
+
+    public void setPuzzlePieces(BitmapDrawable[] puzzlePieces) {
+        this.puzzlePieces = puzzlePieces;
     }
 
     void setPuzzles(ArrayList<Bitmap> puzzles) {
-        this.puzzles = puzzles;
-        if (this.puzzles.size() == 0) {
-            addDefaultImagesToList(this.puzzles);
-        }
+        puzzleListManager.setPuzzles(puzzles);
+        puzzleListManager.setPuzzleGenerator(puzzleGenerator);
+        puzzleListManager.setPuzzleRequester(this);
         puzzleGameDataGateway.setNumPuzzles(puzzles.size());
-    }
-
-    private void addDefaultImagesToList(ArrayList<Bitmap> puzzles) {
-        Bitmap default1 = BitmapFactory.decodeResource(((Context) puzzleGameView).getResources(),
-                R.drawable.default1);
-        puzzles.add(default1);
-        Bitmap default2 = BitmapFactory.decodeResource(((Context) puzzleGameView).getResources(),
-                R.drawable.default2);
-        puzzles.add(default2);
     }
 
     void setGestureDetectGridView(GestureDetectGridView gestureDetectGridView) {
@@ -114,7 +105,7 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
     /**
      * Set dimensions for the  puzzles depending on the screen
      */
-    void setDimensions(Context context) {
+    void setDimensions() {
         ViewTreeObserver vto = gestureDetectGridView.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -128,29 +119,12 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
 
                 mColumnWidth = displayWidth / numColumns;
                 mColumnHeight = requiredHeight / numColumns;
-                showNextPuzzle(context, puzzleGameDataGateway.getNumCompleted());
+                puzzleListManager.showNextPuzzle(puzzleGameDataGateway.getNumCompleted());
             }
         });
     }
 
-
-
-    /**
-     * show the next puzzle.
-     */
-    private void showNextPuzzle(Context context, int numCompleted) {
-        puzzleGenerator.randomize();
-        Bitmap nextPuzzle = puzzles.get(numCompleted);
-        ArrayList<Bitmap> dividedImages = imageSplitter.splitImage(nextPuzzle);
-        dividedDrawableImages = new BitmapDrawable[dividedImages.size()];
-        for (int i = 0; i < dividedImages.size(); i++) {
-            BitmapDrawable bDrawable = new BitmapDrawable(context.getResources(),dividedImages.get(i));
-            dividedDrawableImages[i] = bDrawable;
-        }
-        updatePuzzle(context);
-    }
-
-    void moveTiles(Context context, String direction, int position) {
+    void moveTiles(String direction, int position) {
         if (!movable) {
             return;
         }
@@ -158,7 +132,7 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
     }
 
     @Override
-    public void updatePuzzle(Context context) {
+    public void updatePuzzle() {
         String[] tileList = puzzleGenerator.getCurrentPosition();
         ArrayList<Button> buttons = new ArrayList<>();
         Button button;
@@ -166,7 +140,7 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
         for (String s : tileList) {
             button = new Button(context);
             int tile = Integer.parseInt(s);
-            button.setBackground(dividedDrawableImages[tile]);
+            button.setBackground(puzzlePieces[tile]);
             buttons.add(button);
         }
         gestureDetectGridView.setAdapter(new PuzzleAdapter(buttons, mColumnWidth, mColumnHeight));
@@ -185,7 +159,7 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
             int numCompleted = puzzleGameDataGateway.getNumCompleted();
             int numPuzzles = puzzleGameDataGateway.getNumPuzzles();
             if (numCompleted < numPuzzles) {
-                showNextPuzzle(context, numCompleted);
+                puzzleListManager.showNextPuzzle(numCompleted);
             } else {
                 Toast.makeText(context, "END OF GAME!", Toast.LENGTH_SHORT).show();
                 pauseGame();

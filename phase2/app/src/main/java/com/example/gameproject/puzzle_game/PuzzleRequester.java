@@ -1,7 +1,8 @@
 package com.example.gameproject.puzzle_game;
 
-import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 
 public interface PuzzleRequester {
-    void updatePuzzle(Context context);
+    void setPuzzlePieces(BitmapDrawable[] dividedDrawableImages);
+    void updatePuzzle();
 }

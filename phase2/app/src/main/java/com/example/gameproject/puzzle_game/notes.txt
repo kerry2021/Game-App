@@ -166,4 +166,11 @@ Fixed the bug of clearing all user customized images when restarting application
 user-customized images in app external storage. Changed the ImageDatabaseGateway to
 CustomImageInteractor, which is responsible for interacting with device external storage to save
 and load images. Added CustomImageManager that is responsible for telling CustomImageInteractor to
-save images or retrieve images and encoding/decoding Strings containing filenames of image files. 
+save images or retrieve images and encoding/decoding Strings containing filenames of image files.
+
+#######
+#Step 26
+Code Affected: GestureDetectGridView, puzzleGameActivity, PuzzleGamePresenter, PuzzleGenerator,
+PuzzleRequester, PuzzleListManager.
+Added PuzzleListManager class that is responsible for managing the list of images for puzzles.
+Added a Context variable in PuzzleGamePresenter that it can use to invoke methods. 
