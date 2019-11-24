@@ -173,4 +173,4 @@ save images or retrieve images and encoding/decoding Strings containing filename
 Code Affected: GestureDetectGridView, puzzleGameActivity, PuzzleGamePresenter, PuzzleGenerator,
 PuzzleRequester, PuzzleListManager.
 Added PuzzleListManager class that is responsible for managing the list of images for puzzles.
-Added a Context variable in PuzzleGamePresenter that it can use to invoke methods. 
+Added a Context variable in PuzzleGamePresenter that it can use to invoke methods.

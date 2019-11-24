@@ -9,10 +9,10 @@ import java.util.ArrayList;
 /**
  * Class responsible for cutting ImageView images
  */
-class ImageSplitter {
+public class ImageSplitter {
     private int numColumns;
 
-    ImageSplitter(int numColumns) {
+    public ImageSplitter(int numColumns) {
         this.numColumns = numColumns;
     }
 
@@ -22,13 +22,13 @@ class ImageSplitter {
      * @param image        The source image to split.
      * @return A bitmap ArrayList of divided images.
      */
-    ArrayList<Bitmap> splitImage(Bitmap image) {
+    public ArrayList<Bitmap> splitImage(Bitmap image) {
 
         //For height and width of the small image chunks
         int chunkHeight, chunkLength;
 
         //To store all the small image chunks in bitmap format in this list
-        ArrayList<Bitmap> dividedImages = new ArrayList<Bitmap>(numColumns * numColumns);
+        ArrayList<Bitmap> dividedImages = new ArrayList<>(numColumns * numColumns);
 
         //Getting the scaled bitmap of the source image
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(image, image.getWidth(),

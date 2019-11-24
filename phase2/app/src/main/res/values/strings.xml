@@ -51,5 +51,6 @@
     <string name="continue_game">Continue</string>
     <string name="change_background_colour">Change Background Colour</string>
     <string name="colour_choose">Choose a colour you like!</string>
-
+    <string name="achievements">Achievements</string>
+    <string name="back">Back</string>
 </resources>
