@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ObstacleGameIntroActivity extends AppCompatActivity {
 
-    private User currentUser;
+    static User currentUser;
     private Intent startGameIntent;
 
     @Override
@@ -30,9 +30,7 @@ public class ObstacleGameIntroActivity extends AppCompatActivity {
         currentUser.set("progress", "3");
 
         startGameIntent = new Intent(this, ObstacleGameActivity.class);
-        startGameIntent.putExtra("user", currentUser);
         Intent customizationIntent = new Intent(this, CustomizationActivity.class);
-        //customizationIntent.putExtra("user", currentUser);
 
         startObstacleGameButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -55,11 +53,9 @@ public class ObstacleGameIntroActivity extends AppCompatActivity {
 
         final TextView introTextView = (TextView) findViewById(R.id.welcome);
         final TextView reminderTextView = (TextView) findViewById(R.id.before_start);
-        final TextView customizationTextView = (TextView) findViewById(R.id.about_customization);
 
         introTextView.setText(R.string.welcome_obstacle_game);
         reminderTextView.setText(R.string.before_start);
-        customizationTextView.setText(R.string.about_customization);
 
 
     }
@@ -70,7 +66,6 @@ public class ObstacleGameIntroActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 currentUser.set("obstacle_game_difficulty", data.getStringExtra("difficulty"));
-                startGameIntent.putExtra("user", currentUser);
             }
         }
     }

@@ -16,7 +16,7 @@ public class ObstacleGameActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        User currentUser = (User) getIntent().getSerializableExtra("user");
+        User currentUser = ObstacleGameIntroActivity.currentUser;
 
         // If this player has no past difficulty setting, then give him a default of 3(hard).
 

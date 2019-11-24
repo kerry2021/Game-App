@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
@@ -17,7 +18,7 @@ import java.util.Observer;
  * a sightly tweaked version of code found on https://www.youtube.com/watch?v=OojQitoAEXs&t=1234s
  */
 
-class ObstacleGamePanel extends GamePanel {
+class ObstacleGamePanel extends GamePanel{
     /**
      * The width of the screen. we are doing it reversely because we are using landscape mode
      */
@@ -62,7 +63,15 @@ class ObstacleGamePanel extends GamePanel {
     @Override
     public void update() {
         adventureManger.update();
+        //when game ends
         if (adventureManger.getGameOver() && adventureManger.getEndGameCountDown() == 0) {
+            //record collectible progress
+            int currentProgress = Integer.parseInt(ObstacleGameIntroActivity.currentUser.get("collectible progress"));
+            currentProgress += adventureManger.getCollections().get(0);
+            Log.i("info", "progress:" + String.valueOf(adventureManger.getCollections().get(0)));
+            ObstacleGameIntroActivity.currentUser.set("collectible progress", String.valueOf(currentProgress));
+            ObstacleGameIntroActivity.currentUser.write();
+
             Context myContext = getContext();
             Intent intent = new Intent(myContext, ObstacleGameEndActivity.class);
             playerMode.setUpBundle(intent, adventureManger);

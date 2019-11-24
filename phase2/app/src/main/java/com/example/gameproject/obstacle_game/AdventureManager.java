@@ -175,11 +175,12 @@ class AdventureManager extends Observable {
 
     /**
      * Gets a list containing the number of collections each spaceship gets.
+     * precondition: Only call when game ends
      * @return a list containing the number of collections each spaceship gets.
      */
     List<Integer> getCollections() {
         List<Integer> list = new ArrayList<>();
-        for (SpaceShip s: spaceShipList) {
+        for (SpaceShip s: spaceshipGarbageCart) {
             list.add(s.getCollection());
         }
         return list;

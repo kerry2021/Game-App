@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
         User.setFile(new File(this.getFilesDir(), "User_info.txt"));
         //create a default user
-        Log.i("info", "restart");
         currentUser = new User("player", "default");
         currentUser.write();
         setTitle("Welcome Back: " + currentUser.get("userName"));
@@ -105,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         currentUser = User.getUser(currentUser.get("userName"), currentUser.get("passWord"));
+        Log.i("info", currentUser.get("collectible progress"));
     }
 
     @Override

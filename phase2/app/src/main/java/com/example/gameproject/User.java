@@ -37,6 +37,7 @@ public class User implements Serializable {
         gameStats.put("userName", userName);
         gameStats.put("passWord", passWord);
         gameStats.put("progress", "1");
+        gameStats.put("collectible progress", "0");
     }
 
     User(HashMap<String, String> gameStats) {
