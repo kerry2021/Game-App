@@ -11,7 +11,7 @@ public class ObstacleGenerator implements ItemGenerator<Obstacle> {
     /**
      * The x coordinate that all obstacles would generate (their left side) from.(presumably out of the screen)
      */
-    private int generationLine;
+    protected int generationLine;
     /**
      * the width of the screen
      */
