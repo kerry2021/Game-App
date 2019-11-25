@@ -66,7 +66,13 @@ public class AchievementsActivity extends AppCompatActivity {
                 R.drawable.achievement_puzzle);
         ImageSplitter imageSplitter = new ImageSplitter(3);
         ArrayList<Bitmap> imageList = imageSplitter.splitImage(puzzle);
-        for (int i = 0; i < progress; i++) {
+        int unlockedPieces;
+        if (progress > 9) {
+            unlockedPieces = 9;
+        } else {
+            unlockedPieces = progress;
+        }
+        for (int i = 0; i < unlockedPieces; i++) {
             puzzlePieces[i] = imageList.get(i);
         }
 
