@@ -25,7 +25,6 @@ import android.graphics.Bitmap;
 import android.view.Gravity;
 
 import com.example.gameproject.R;
-import com.example.gameproject.MainActivity;
 import com.example.gameproject.User;
 
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class puzzleGameActivity extends AppCompatActivity {
     private static final String TAG = "Puzzle Game Activity";
 
     private TextView textViewTime;
-    private TextView textViewpuzzleComp;
+    private TextView textViewPuzzleComp;
     private TextView textViewScore;
     private TextView textViewMoves;
     //Slightly tweaked version of gridview for displaying changes after swiping
@@ -107,7 +106,7 @@ public class puzzleGameActivity extends AppCompatActivity {
         currentLayout.setBackgroundColor(Color.parseColor(backgroundColour));
 
         textViewTime = findViewById(R.id.time);
-        textViewpuzzleComp = findViewById(R.id.puzzle);
+        textViewPuzzleComp = findViewById(R.id.puzzle);
         textViewScore = findViewById(R.id.score);
         textViewMoves = findViewById(R.id.move);
         createOptionsButton(currentUser);
@@ -199,7 +198,7 @@ public class puzzleGameActivity extends AppCompatActivity {
         puzzleComplete++;
         String puzzleFormatted = String.format(Locale.getDefault(),
                 "Puzzles Completed: %d", puzzleComplete);
-        textViewpuzzleComp.setText(puzzleFormatted);
+        textViewPuzzleComp.setText(puzzleFormatted);
     }
 
     private void upDateScore() {

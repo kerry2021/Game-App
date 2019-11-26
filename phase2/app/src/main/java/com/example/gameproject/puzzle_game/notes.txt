@@ -174,3 +174,8 @@ Code Affected: GestureDetectGridView, puzzleGameActivity, PuzzleGamePresenter, P
 PuzzleRequester, PuzzleListManager.
 Added PuzzleListManager class that is responsible for managing the list of images for puzzles.
 Added a Context variable in PuzzleGamePresenter that it can use to invoke methods.
+
+#######
+#Step 27
+Code Affected: PuzzleGameActivty, PuzzleGamePresenter, puzzle_game_shop, puzzle_game_options_windows.
+Added a mystery shop with three items: small hint, big hint, change puzzle.

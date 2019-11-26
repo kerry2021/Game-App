@@ -11,7 +11,9 @@ public interface PuzzleGameDataGateway {
     void setScore(int score);
     int getScore();
     void updateNumCompleted();
+    void updateNumSkipped();
     int getNumCompleted();
+    int getNumSkipped();
     void setNumPuzzles(int numPuzzles);
     int getNumPuzzles();
     void saveUserData();//sends data to user's gameStats.

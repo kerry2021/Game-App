@@ -15,7 +15,6 @@ public class GestureDetectGridView extends GridView {
     private float mTouchY;
     private puzzleGameActivity pgActivity;
 
-    //TODO: Need to change the min and max distance since the phone is bigger now
     private static final int SWIPE_MIN_DISTANCE = 100;
     private static final int SWIPE_MAX_OFF_PATH = 100;
     private static final int SWIPE_THRESHOLD_VELOCITY = 100;
