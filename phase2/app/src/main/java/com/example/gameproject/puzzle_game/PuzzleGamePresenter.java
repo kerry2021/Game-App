@@ -170,54 +170,79 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
     }
 
     void buySmallHint(){
+        int score = puzzleGameDataGateway.getScore();
         String[] tileList = puzzleGenerator.getCurrentPosition();
-        for (int i = 0; i < tileList.length; i++) {
-            if (!tileList[i].equals(String.valueOf(i))) {
-                for (int j = 0; j < tileList.length; j++){
-                    if (tileList[j].equals((String.valueOf(i)))){
-                        String temp = tileList[i];
-                        tileList[i] = tileList[j];
-                        tileList[j] = temp;
+        if (score >= 30){
+            for (int i = 0; i < tileList.length; i++) {
+                if (!tileList[i].equals(String.valueOf(i))) {
+                    for (int j = 0; j < tileList.length; j++){
+                        if (tileList[j].equals((String.valueOf(i)))){
+                            String temp = tileList[i];
+                            tileList[i] = tileList[j];
+                            tileList[j] = temp;
+                        }
                     }
+                    break;
                 }
-                break;
             }
+            score -= 30;
+            changeScore(score);
+            updatePuzzle();
+            }
+        else{
+            Toast.makeText(context, "Not Enough Score!", Toast.LENGTH_SHORT).show();
         }
-        updatePuzzle();
+
     }
 
-    void buyBigHint(){
-        int hintNum = 3;
-        int currHintNum = 0;
-        String[] tileList = puzzleGenerator.getCurrentPosition();
-        for (int i = 0; i < tileList.length; i++) {
-            if (!tileList[i].equals(String.valueOf(i))) {
-                for (int j = 0; j < tileList.length; j++){
-                    if (tileList[j].equals((String.valueOf(i)))){
-                        String temp = tileList[i];
-                        tileList[i] = tileList[j];
-                        tileList[j] = temp;
-                        currHintNum++;
-                    }
-                }
+  void buyBigHint() {
+    int hintNum = 3;
+    int currHintNum = 0;
+    int score = puzzleGameDataGateway.getScore();
+    if (score >= 70) {
+      String[] tileList = puzzleGenerator.getCurrentPosition();
+      for (int i = 0; i < tileList.length; i++) {
+        if (!tileList[i].equals(String.valueOf(i))) {
+          for (int j = 0; j < tileList.length; j++) {
+            if (tileList[j].equals((String.valueOf(i)))) {
+              String temp = tileList[i];
+              tileList[i] = tileList[j];
+              tileList[j] = temp;
+              currHintNum++;
             }
-            if (currHintNum == hintNum){
-                break;
-            }
+          }
         }
-        updatePuzzle();
+        if (currHintNum == hintNum) {
+          break;
+        }
+      }
+      score -= 70;
+      changeScore(score);
+      updatePuzzle();
+    } else {
+      Toast.makeText(context, "Not Enough Score!", Toast.LENGTH_SHORT).show();
+    }
     }
 
     void buyChangePuzzle(){
         int numCompleted = puzzleGameDataGateway.getNumCompleted();
         int numSkipped = puzzleGameDataGateway.getNumSkipped();
         int numPuzzles = puzzleGameDataGateway.getNumPuzzles();
-        if (numCompleted + numSkipped < numPuzzles) {
-            puzzleListManager.showNextPuzzle(numCompleted + numSkipped);
-            puzzleGameDataGateway.updateNumSkipped();
-    } else {
-      Toast.makeText(context, "NO NEW PUZZLES, SORRY!", Toast.LENGTH_SHORT).show();
+        int score = puzzleGameDataGateway.getScore();
+        if (score >= 40){
+            if (numCompleted + numSkipped < numPuzzles) {
+                puzzleListManager.showNextPuzzle(numCompleted + numSkipped);
+                puzzleGameDataGateway.updateNumSkipped();
+                score -= 40;
+                changeScore(score);
+            } else {
+                Toast.makeText(context, "NO NEW PUZZLES, SORRY!", Toast.LENGTH_SHORT).show();
             }
+        }
+        else{
+            Toast.makeText(context, "Not Enough Score!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     /**
@@ -264,6 +289,13 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
         Integer scoreInteger = (int) ((100 * ((1 - (double) puzzleGameDataGateway.getNumMoves() /
                 100))));
         score += scoreInteger;
+        String scoreFormatted = String.format(Locale.getDefault(),
+                "Score: %d", score);
+        puzzleGameDataGateway.setScore(score);
+        puzzleGameView.showScore(scoreFormatted);
+    }
+
+    private void changeScore(int score) {
         String scoreFormatted = String.format(Locale.getDefault(),
                 "Score: %d", score);
         puzzleGameDataGateway.setScore(score);
