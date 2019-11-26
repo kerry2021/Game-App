@@ -1,4 +1,4 @@
-package com.example.gameproject.obstacle_game;
+package com.example.gameproject.obstacle_game.GameElements;
 
 public class TreasuryBoxGenerator extends ObstacleGenerator {
     private int maxBoxes = 3;
@@ -6,7 +6,7 @@ public class TreasuryBoxGenerator extends ObstacleGenerator {
     private int generationDelay = 0;
     private int currentTime = 0;
 
-    TreasuryBoxGenerator(int width, int height, int maxBoxes) {
+    public TreasuryBoxGenerator(int width, int height, int maxBoxes) {
         super(width, height, width / 15, height / 15, width / 100, 30 * 8 * width / 100, 30 * 10 * width / 100);
         this.generationLine = 30 * 10 * width / 100 + 10;
         this.maxBoxes = maxBoxes;

@@ -1,4 +1,4 @@
-package com.example.gameproject.obstacle_game;
+package com.example.gameproject.obstacle_game.GameElements;
 
 import android.util.Log;
 
@@ -61,7 +61,7 @@ public class ObstacleGenerator implements ItemGenerator<Obstacle> {
      * @param screenWidth  The screen width
      * @param screenHeight The screen height
      */
-    ObstacleGenerator(int screenWidth, int screenHeight, int difficulty) {
+    public ObstacleGenerator(int screenWidth, int screenHeight, int difficulty) {
         minDistance = screenWidth / (2 * difficulty);
         maxDistance = screenWidth / difficulty;
         obstacleWidth = screenWidth / 15;
