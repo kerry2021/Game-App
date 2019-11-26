@@ -4,6 +4,7 @@ package com.example.gameproject.puzzle_game;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Toast;
@@ -166,6 +167,57 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
                 puzzleGameView.showFinalScore(puzzleGameDataGateway.getScore());
             }
         }
+    }
+
+    void buySmallHint(){
+        String[] tileList = puzzleGenerator.getCurrentPosition();
+        for (int i = 0; i < tileList.length; i++) {
+            if (!tileList[i].equals(String.valueOf(i))) {
+                for (int j = 0; j < tileList.length; j++){
+                    if (tileList[j].equals((String.valueOf(i)))){
+                        String temp = tileList[i];
+                        tileList[i] = tileList[j];
+                        tileList[j] = temp;
+                    }
+                }
+                break;
+            }
+        }
+        updatePuzzle();
+    }
+
+    void buyBigHint(){
+        int hintNum = 3;
+        int currHintNum = 0;
+        String[] tileList = puzzleGenerator.getCurrentPosition();
+        for (int i = 0; i < tileList.length; i++) {
+            if (!tileList[i].equals(String.valueOf(i))) {
+                for (int j = 0; j < tileList.length; j++){
+                    if (tileList[j].equals((String.valueOf(i)))){
+                        String temp = tileList[i];
+                        tileList[i] = tileList[j];
+                        tileList[j] = temp;
+                        currHintNum++;
+                    }
+                }
+            }
+            if (currHintNum == hintNum){
+                break;
+            }
+        }
+        updatePuzzle();
+    }
+
+    void buyChangePuzzle(){
+        int numCompleted = puzzleGameDataGateway.getNumCompleted();
+        int numSkipped = puzzleGameDataGateway.getNumSkipped();
+        int numPuzzles = puzzleGameDataGateway.getNumPuzzles();
+        if (numCompleted + numSkipped < numPuzzles) {
+            puzzleListManager.showNextPuzzle(numCompleted + numSkipped);
+            puzzleGameDataGateway.updateNumSkipped();
+    } else {
+      Toast.makeText(context, "NO NEW PUZZLES, SORRY!", Toast.LENGTH_SHORT).show();
+            }
     }
 
     /**

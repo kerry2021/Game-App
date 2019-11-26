@@ -12,12 +12,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import android.view.Gravity;
+import android.widget.Toast;
 
 import com.example.gameproject.R;
 import com.example.gameproject.User;
@@ -123,6 +125,12 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
         presenter.resumeGame();
     }
 
+    private void buySmallHint(){presenter.buySmallHint();}
+
+    private void buyBigHint(){presenter.buyBigHint();}
+
+    private void buyChangePuzzle(){presenter.buyChangePuzzle();}
+
     /**
      * To create the options button.
      */
@@ -150,9 +158,10 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
             // which view you pass in doesn't matter, it is only used for the window tolken
             popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
-            Button returnToGameButton, exitGameButton;
+            Button returnToGameButton, toShopGameButton, exitGameButton;
 
             returnToGameButton = popupView.findViewById(R.id.return_to_game_button);
+            toShopGameButton = popupView.findViewById(R.id.to_game_shop);
             exitGameButton = popupView.findViewById(R.id.exit_game_button);
 
             returnToGameButton.setOnClickListener(view1 -> {
@@ -160,10 +169,65 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
                 resume();
             });
 
-            exitGameButton.setOnClickListener(v -> {
+            toShopGameButton.setOnClickListener(view2 -> {
+                // inflate the layout of the popup window
+//                LayoutInflater inflater2 = (LayoutInflater)
+//                        getSystemService(LAYOUT_INFLATER_SERVICE);
+//                assert inflater2 != null;
+                View popupView2 = inflater.inflate(R.layout.puzzle_game_shop, null);
+                TextView header, itemd1, itemd2, itemd3;
+
+                header = popupView2.findViewById(R.id.game_shop_header);
+                itemd1 = popupView2.findViewById(R.id.item1_description);
+                itemd2 = popupView2.findViewById(R.id.item2_description);
+                itemd3 = popupView2.findViewById(R.id.item3_description);
+
+                // create the popup window
+                int width2 = LinearLayout.LayoutParams.WRAP_CONTENT;
+                int height2 = LinearLayout.LayoutParams.WRAP_CONTENT;
+                boolean focusable2 = false; // Taps outside the popup does not dismiss it
+                final PopupWindow popupWindow2 = new PopupWindow(popupView2, width2, height2, focusable2);
+
+                // show the popup window
+                // which view you pass in doesn't matter, it is only used for the window token
+                popupWindow2.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+                RadioGroup items;
+                Button buyButton, backButton;
+
+                items = popupView2.findViewById(R.id.items_game_shop);
+
+                buyButton = popupView2.findViewById(R.id.buy_game_shop);
+                backButton = popupView2.findViewById(R.id.back_game_shop);
+
+                buyButton.setOnClickListener(v -> {
+                    int itemId = items.getCheckedRadioButtonId();
+
+                    if (itemId == R.id.item1_game_shop){
+                        buySmallHint();
+                    }
+                    else if (itemId == R.id.item2_game_shop){
+                        buyBigHint();
+                    }
+                    else if (itemId == R.id.item3_game_shop){
+                        buyChangePuzzle();
+                    }
+                    else{
+                        Toast toast = Toast.makeText(this,
+                                "Invalid selection, please select again.", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                });
+
+                backButton.setOnClickListener(v2 -> {
+                    popupWindow2.dismiss();
+                });
+            });
+
+            exitGameButton.setOnClickListener(view3 -> {
                 popupWindow.dismiss();
 
-                Intent intent = new Intent(v.getContext(), PuzzleGameIntroActivity.class);
+                Intent intent = new Intent(view3.getContext(), PuzzleGameIntroActivity.class);
                 intent.putExtra("background", backgroundColour);
                 intent.putExtra("user", currentUser);
                 startActivity(intent);

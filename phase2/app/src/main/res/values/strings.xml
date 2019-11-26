@@ -53,4 +53,13 @@
     <string name="colour_choose">Choose a colour you like!</string>
     <string name="achievements">Achievements</string>
     <string name="back">Back</string>
+    <string name="item1">Small Hint</string>
+    <string name="item1_description">Small Hint: Move one piece of the puzzle to its correct location</string>
+    <string name="item2">Big Hint</string>
+    <string name="item2_description">Big Hint: Move three pieces of the puzzle to their correct location</string>
+    <string name="item3">Change Puzzle</string>
+    <string name="item3_description">Change Puzzle: Switch to a new puzzle</string>
+    <string name="shop_statement">Welcome to the Mystery Shop!</string>
+    <string name="buy">Buy</string>
+    <string name="mystery_shop">Mystery Shop</string>
 </resources>
