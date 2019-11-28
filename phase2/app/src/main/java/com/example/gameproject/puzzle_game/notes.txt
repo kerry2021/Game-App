@@ -179,3 +179,14 @@ Added a Context variable in PuzzleGamePresenter that it can use to invoke method
 #Step 27
 Code Affected: PuzzleGameActivty, PuzzleGamePresenter, puzzle_game_shop, puzzle_game_options_windows.
 Added a mystery shop with three items: small hint, big hint, change puzzle.
+
+#######
+#Step 28
+Code Affected: PuzzleGameActivity.
+Modified puzzleGameActivity so that popup windows are dismissed when the activity is destroyed. This
+prevents memory leaks.
+
+#######
+#Step 28
+Code Affected: default1.jng, default2.jpeg.
+Changed the default images.
