@@ -46,6 +46,10 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
     //Time given to complete the puzzles
     private long countDownInMillis = 12000;
 
+    static final String smallHint = PuzzleGamePresenter.smallHint;
+    static final String bigHint = PuzzleGamePresenter.bigHint;
+    static final String skipPuzzle = PuzzleGamePresenter.skipPuzzle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,11 +132,7 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
         presenter.resumeGame();
     }
 
-    private void buySmallHint(){presenter.buySmallHint();}
-
-    private void buyBigHint(){presenter.buyBigHint();}
-
-    private void buyChangePuzzle(){presenter.buyChangePuzzle();}
+    private void buyItem(String item){presenter.buyItem(item);}
 
     /**
      * To create the options button.
@@ -207,13 +207,13 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
                     int itemId = items.getCheckedRadioButtonId();
 
                     if (itemId == R.id.item1_game_shop){
-                        buySmallHint();
+                        buyItem(smallHint);
                     }
                     else if (itemId == R.id.item2_game_shop){
-                        buyBigHint();
+                        buyItem(bigHint);
                     }
                     else if (itemId == R.id.item3_game_shop){
-                        buyChangePuzzle();
+                        buyItem(skipPuzzle);
                     }
                     else{
                         Toast toast = Toast.makeText(this,

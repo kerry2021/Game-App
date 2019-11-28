@@ -4,7 +4,6 @@ package com.example.gameproject.puzzle_game;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Toast;
@@ -19,6 +18,7 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
     private PuzzleGenerator puzzleGenerator = new PuzzleGenerator();
     private PuzzleGameDataGateway puzzleGameDataGateway = new PuzzleGameData();
     private PuzzleListManager puzzleListManager;
+    private MysteryShopManager mysteryShopManager;
 
     private Context context;
 
@@ -30,6 +30,10 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
     static final String down = PuzzleGenerator.down;
     static final String left = PuzzleGenerator.left;
     static final String right = PuzzleGenerator.right;
+
+    static final String smallHint = MysteryShopManager.smallHint;
+    static final String bigHint = MysteryShopManager.bigHint;
+    static final String skipPuzzle = MysteryShopManager.skipPuzzle;
 
     private boolean movable = true;
 
@@ -43,6 +47,8 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
         this.context = context;
         puzzleListManager =
                 new PuzzleListManager(context.getResources());
+        this.mysteryShopManager = new MysteryShopManager(this, puzzleGameDataGateway,
+                puzzleGenerator, context, puzzleListManager);
     }
 
     /**
@@ -152,6 +158,11 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
 
             // Update puzzleComplete
             updateNumCompleted();
+            int score = puzzleGameDataGateway.getScore();
+            Integer scoreInteger = (int) ((100 * ((1 - (double) puzzleGameDataGateway.getNumMoves() /
+                    100))));
+            score += scoreInteger;
+            puzzleGameDataGateway.setScore(score);
             // Update score
             updateScore();
             // Reset number of moves
@@ -169,80 +180,9 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
         }
     }
 
-    void buySmallHint(){
-        int score = puzzleGameDataGateway.getScore();
-        String[] tileList = puzzleGenerator.getCurrentPosition();
-        if (score >= 30){
-            for (int i = 0; i < tileList.length; i++) {
-                if (!tileList[i].equals(String.valueOf(i))) {
-                    for (int j = 0; j < tileList.length; j++){
-                        if (tileList[j].equals((String.valueOf(i)))){
-                            String temp = tileList[i];
-                            tileList[i] = tileList[j];
-                            tileList[j] = temp;
-                        }
-                    }
-                    break;
-                }
-            }
-            score -= 30;
-            changeScore(score);
-            updatePuzzle();
-            }
-        else{
-            Toast.makeText(context, "Not Enough Score!", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-  void buyBigHint() {
-    int hintNum = 3;
-    int currHintNum = 0;
-    int score = puzzleGameDataGateway.getScore();
-    if (score >= 70) {
-      String[] tileList = puzzleGenerator.getCurrentPosition();
-      for (int i = 0; i < tileList.length; i++) {
-        if (!tileList[i].equals(String.valueOf(i))) {
-          for (int j = 0; j < tileList.length; j++) {
-            if (tileList[j].equals((String.valueOf(i)))) {
-              String temp = tileList[i];
-              tileList[i] = tileList[j];
-              tileList[j] = temp;
-              currHintNum++;
-            }
-          }
-        }
-        if (currHintNum == hintNum) {
-          break;
-        }
-      }
-      score -= 70;
-      changeScore(score);
-      updatePuzzle();
-    } else {
-      Toast.makeText(context, "Not Enough Score!", Toast.LENGTH_SHORT).show();
-    }
-    }
-
-    void buyChangePuzzle(){
-        int numCompleted = puzzleGameDataGateway.getNumCompleted();
-        int numSkipped = puzzleGameDataGateway.getNumSkipped();
-        int numPuzzles = puzzleGameDataGateway.getNumPuzzles();
-        int score = puzzleGameDataGateway.getScore();
-        if (score >= 40){
-            if (numCompleted + numSkipped < numPuzzles) {
-                puzzleListManager.showNextPuzzle(numCompleted + numSkipped);
-                puzzleGameDataGateway.updateNumSkipped();
-                score -= 40;
-                changeScore(score);
-            } else {
-                Toast.makeText(context, "NO NEW PUZZLES, SORRY!", Toast.LENGTH_SHORT).show();
-            }
-        }
-        else{
-            Toast.makeText(context, "Not Enough Score!", Toast.LENGTH_SHORT).show();
-        }
-
+    void buyItem(String item) {
+        mysteryShopManager.buyItem(item);
+        updateScore();
     }
 
     /**
@@ -286,19 +226,9 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
 
     private void updateScore() {
         int score = puzzleGameDataGateway.getScore();
-        Integer scoreInteger = (int) ((100 * ((1 - (double) puzzleGameDataGateway.getNumMoves() /
-                100))));
-        score += scoreInteger;
         String scoreFormatted = String.format(Locale.getDefault(),
                 "Score: %d", score);
-        puzzleGameDataGateway.setScore(score);
         puzzleGameView.showScore(scoreFormatted);
     }
 
-    private void changeScore(int score) {
-        String scoreFormatted = String.format(Locale.getDefault(),
-                "Score: %d", score);
-        puzzleGameDataGateway.setScore(score);
-        puzzleGameView.showScore(scoreFormatted);
-    }
 }

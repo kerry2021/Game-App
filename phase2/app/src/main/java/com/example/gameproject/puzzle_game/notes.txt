@@ -190,3 +190,8 @@ prevents memory leaks.
 #Step 28
 Code Affected: default1.jng, default2.jpeg.
 Changed the default images.
+
+#######
+#Step 28
+Code Affected: PuzzleGamePresenter, MysteryShopManager, puzzleGameActivity.
+Added the class MysteryShopManager that is responsible for buying items from the mystery shop.
