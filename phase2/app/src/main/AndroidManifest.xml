@@ -36,12 +36,12 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".reaction_game.ReactionGameActivity"
-            android:parentActivityName=".obstacle_game.ObstacleGameIntroActivity" />
+            android:parentActivityName=".obstacle_game.Activity.ObstacleGameActivity" />
         <activity
-            android:name=".obstacle_game.ObstacleGameIntroActivity"
+            android:name=".obstacle_game.Activity.ObstacleGameIntroActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".obstacle_game.ObstacleGameActivity"
+            android:name=".obstacle_game.Activity.ObstacleGameActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".LoginActivity"
@@ -50,7 +50,7 @@
             android:name=".AchievementsActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".obstacle_game.ObstacleGameEndActivity"
+            android:name=".obstacle_game.Activity.ObstacleGameEndActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".SignUpActivity"
@@ -59,11 +59,11 @@
             android:name=".puzzle_game.ImageActivity"
             android:parentActivityName=".puzzle_game.PuzzleGameIntroActivity" />
         <activity
-            android:name=".obstacle_game.CustomizationActivity"
-            android:parentActivityName=".obstacle_game.ObstacleGameIntroActivity" />
+            android:name=".obstacle_game.Activity.CustomizationActivity"
+            android:parentActivityName=".obstacle_game.Activity.ObstacleGameIntroActivity" />
         <activity
-            android:name=".obstacle_game.obstacleGameRulesActivity"
-            android:parentActivityName=".obstacle_game.ObstacleGameIntroActivity"
+            android:name=".obstacle_game.Activity.obstacleGameRulesActivity"
+            android:parentActivityName=".obstacle_game.Activity.ObstacleGameIntroActivity"
         />
     </application>
 

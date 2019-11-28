@@ -5,10 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
-import com.example.gameproject.obstacle_game.ObstacleGameIntroActivity;
+import com.example.gameproject.obstacle_game.Activity.ObstacleGameIntroActivity;
 import com.example.gameproject.puzzle_game.PuzzleGameIntroActivity;
 import com.example.gameproject.reaction_game.ReactionGameMain;
 
