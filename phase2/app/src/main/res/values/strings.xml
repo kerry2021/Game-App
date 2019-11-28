@@ -6,7 +6,7 @@
     <string name="title_activity_obstacle_game">obstacleGameActivity</string>
     <string name="start_puzzle_game">Start Puzzle Game</string>
     <string name="customize">Customize</string>
-    <string name="puzzle_game_intro">Solve as many puzzles as you can in 2 minutes! :)</string>
+    <string name="puzzle_game_intro">Solve as many puzzles as you can in limited time! :)</string>
     <string name="options">Options</string>
     <string name="return_to_game">Return to game</string>
     <string name="exit_game">Exit game</string>
