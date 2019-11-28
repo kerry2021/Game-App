@@ -37,6 +37,9 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
     private TextView textViewScore;
     private TextView textViewMoves;
 
+    private PopupWindow popupWindow1;
+    private PopupWindow popupWindow2;
+
     //background colour for the game screen, default is white
     private String backgroundColour = "#FFFFFF";
 
@@ -152,11 +155,11 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
             int width = LinearLayout.LayoutParams.WRAP_CONTENT;
             int height = LinearLayout.LayoutParams.WRAP_CONTENT;
             boolean focusable = false; // Taps outside the popup does not dismiss it
-            final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+            popupWindow1 = new PopupWindow(popupView, width, height, focusable);
 
             // show the popup window
             // which view you pass in doesn't matter, it is only used for the window tolken
-            popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+            popupWindow1.showAtLocation(view, Gravity.CENTER, 0, 0);
 
             Button returnToGameButton, toShopGameButton, exitGameButton;
 
@@ -165,7 +168,7 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
             exitGameButton = popupView.findViewById(R.id.exit_game_button);
 
             returnToGameButton.setOnClickListener(view1 -> {
-                popupWindow.dismiss();
+                popupWindow1.dismiss();
                 resume();
             });
 
@@ -186,7 +189,7 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
                 int width2 = LinearLayout.LayoutParams.WRAP_CONTENT;
                 int height2 = LinearLayout.LayoutParams.WRAP_CONTENT;
                 boolean focusable2 = false; // Taps outside the popup does not dismiss it
-                final PopupWindow popupWindow2 = new PopupWindow(popupView2, width2, height2, focusable2);
+                popupWindow2 = new PopupWindow(popupView2, width2, height2, focusable2);
 
                 // show the popup window
                 // which view you pass in doesn't matter, it is only used for the window token
@@ -225,7 +228,7 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
             });
 
             exitGameButton.setOnClickListener(view3 -> {
-                popupWindow.dismiss();
+                popupWindow1.dismiss();
 
                 Intent intent = new Intent(view3.getContext(), PuzzleGameIntroActivity.class);
                 intent.putExtra("background", backgroundColour);
@@ -282,5 +285,17 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
     protected void onDestroy() {
         super.onDestroy();
         pause();
+        //Need to make sure that the popup windows are dismissed before leaving this activity to \
+        //prevent memory leak.
+        try {
+            popupWindow1.dismiss();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            popupWindow2.dismiss();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
