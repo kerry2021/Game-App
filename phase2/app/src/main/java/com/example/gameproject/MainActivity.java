@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 
 import com.example.gameproject.obstacle_game.Activity.ObstacleGameIntroActivity;
@@ -16,7 +17,8 @@ import java.io.File;
 public class MainActivity extends AppCompatActivity {
 
     private User currentUser;
-    private Intent reactionGameIntent, puzzleGameIntent, obstacleGameIntent, achievementsIntent;
+    private Intent reactionGameIntent, puzzleGameIntent, obstacleGameIntent, achievementsIntent,
+    loginIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         reactionGameIntent = new Intent(this, ReactionGameMain.class);
         puzzleGameIntent = new Intent(this, PuzzleGameIntroActivity.class);
         obstacleGameIntent = new Intent(this, ObstacleGameIntroActivity.class);
+        loginIntent = new Intent(this, LoginActivity.class);
         achievementsIntent = new Intent(this, AchievementsActivity.class);
 
 
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             currentUser.write();
             startActivity(reactionGameIntent);
         });
-        puzzleGameButton.setOnClickListener(v -> {
+        puzzleGameButton.setOnClickListener((View v) -> {
             currentUser.set("progress", "2");
             puzzleGameIntent.putExtra("user", currentUser);
             currentUser.write();
@@ -63,9 +66,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(obstacleGameIntent);
         });
         logInButton.setOnClickListener(v -> {
-            reactionGameIntent.putExtra("user", currentUser);
+            loginIntent.putExtra("user", currentUser);
             currentUser.write();
-            startActivity(achievementsIntent);
+            startActivity(loginIntent);
         });
         achievementsButton.setOnClickListener(v -> {
             achievementsIntent.putExtra("user", currentUser);
