@@ -1,6 +1,6 @@
-package com.example.gameproject.puzzle_game;
+package com.example.gameproject.puzzle_game.Activity;
 
-interface PuzzleGameView {
+public interface PuzzleGameView {
     void showCountDownText(String text);
     void setBackgroundClickable(boolean backgroundClickable);
     int getStatusBarHeight();

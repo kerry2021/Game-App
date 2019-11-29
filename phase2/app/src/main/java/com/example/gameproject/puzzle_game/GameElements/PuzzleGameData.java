@@ -1,7 +1,9 @@
-package com.example.gameproject.puzzle_game;
+package com.example.gameproject.puzzle_game.GameElements;
 
 
-public class PuzzleGameData implements PuzzleGameDataGateway{
+import com.example.gameproject.puzzle_game.GameElements.PuzzleGameDataGateway;
+
+public class PuzzleGameData implements PuzzleGameDataGateway {
 
     //total number of puzzles in the game
     private int numPuzzles = 2;

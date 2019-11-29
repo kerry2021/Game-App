@@ -1,6 +1,8 @@
-package com.example.gameproject.puzzle_game;
+package com.example.gameproject.puzzle_game.GameController;
 
 import android.os.CountDownTimer;
+
+import com.example.gameproject.puzzle_game.GameController.CountDownRequester;
 
 public class CountDownGenerator {
 

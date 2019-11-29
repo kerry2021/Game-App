@@ -1,7 +1,9 @@
-package com.example.gameproject.puzzle_game;
+package com.example.gameproject.puzzle_game.GameController;
 
 import android.content.Context;
 import android.widget.Toast;
+
+import com.example.gameproject.puzzle_game.GameElements.PuzzleGameDataGateway;
 
 class MysteryShopManager {
     static final String smallHint = "SMALL_HINT";

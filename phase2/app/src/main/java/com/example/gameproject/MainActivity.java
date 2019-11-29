@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.gameproject.obstacle_game.Activity.ObstacleGameIntroActivity;
-import com.example.gameproject.puzzle_game.PuzzleGameIntroActivity;
+import com.example.gameproject.puzzle_game.Activity.PuzzleGameIntroActivity;
 import com.example.gameproject.reaction_game.ReactionGameMain;
 
 import java.io.File;

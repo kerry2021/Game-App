@@ -1,4 +1,6 @@
-package com.example.gameproject.puzzle_game;
+package com.example.gameproject.puzzle_game.GameController;
+
+import com.example.gameproject.puzzle_game.GameElements.PuzzleGameDataGateway;
 
 class AchievementsManager {
 

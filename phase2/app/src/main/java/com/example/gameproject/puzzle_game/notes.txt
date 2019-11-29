@@ -210,3 +210,8 @@ Code Affected: AchievementsManager, BackgroundChangeActivity, CountDownGenerator
 puzzleGameActivity, PuzzleGameIntroActivity, PuzzleGamePresenter, PuzzleGameView
 Added AchievementsManager which enables the player to obtain three different achievements. Also
 turned the back button on the top left-hand side of the activity to off.
+
+#######
+#Step 33
+Code Affected: all files
+Separated and packaged all files.

@@ -1,27 +1,25 @@
-package com.example.gameproject.puzzle_game;
+package com.example.gameproject.puzzle_game.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.example.gameproject.R;
 import com.example.gameproject.User;
-
-import java.util.concurrent.atomic.AtomicReference;
+import com.example.gameproject.puzzle_game.Activity.BackgroundChangeActivity;
+import com.example.gameproject.puzzle_game.Activity.ImageActivity;
+import com.example.gameproject.puzzle_game.Activity.puzzleGameActivity;
 
 public class PuzzleGameIntroActivity extends AppCompatActivity {
 

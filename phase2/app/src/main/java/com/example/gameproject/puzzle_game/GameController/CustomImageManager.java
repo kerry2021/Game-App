@@ -1,7 +1,9 @@
-package com.example.gameproject.puzzle_game;
+package com.example.gameproject.puzzle_game.GameController;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+
+import com.example.gameproject.puzzle_game.GameController.CustomImageInteractor;
 
 import java.util.HashMap;
 
@@ -14,7 +16,7 @@ public class CustomImageManager {
      * @param context application context for getting directory.
      * @return a String of code for retrieving saved images.
      */
-    static String saveImageList(Bitmap[] imageList, String originalFileNames, Context context) {
+    public static String saveImageList(Bitmap[] imageList, String originalFileNames, Context context) {
         String[] originalFiles = decode(originalFileNames);
         int numOriginalFiles = originalFiles.length;
         int numNewFiles = imageList.length;
@@ -46,7 +48,7 @@ public class CustomImageManager {
      * @param context application context.
      * @return list of retrieved bitmap images.
      */
-    static Bitmap[] getImageList(String code, Context context) {
+    public static Bitmap[] getImageList(String code, Context context) {
         return CustomImageInteractor.getImageList(decode(code), context);
     }
 

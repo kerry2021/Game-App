@@ -1,4 +1,4 @@
-package com.example.gameproject.puzzle_game;
+package com.example.gameproject.puzzle_game.GameController;
 
 
 import android.content.Context;
@@ -7,6 +7,12 @@ import android.graphics.drawable.BitmapDrawable;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.gameproject.puzzle_game.Activity.GestureDetectGridView;
+import com.example.gameproject.puzzle_game.Activity.PuzzleGameView;
+import com.example.gameproject.puzzle_game.GameElements.PuzzleGameData;
+import com.example.gameproject.puzzle_game.GameElements.PuzzleGameDataGateway;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -27,14 +33,14 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
     private int mColumnWidth, mColumnHeight;
     private int numColumns = 3;
 
-    static final String up = PuzzleGenerator.up;
-    static final String down = PuzzleGenerator.down;
-    static final String left = PuzzleGenerator.left;
-    static final String right = PuzzleGenerator.right;
+    public static final String up = PuzzleGenerator.up;
+    public static final String down = PuzzleGenerator.down;
+    public static final String left = PuzzleGenerator.left;
+    public static final String right = PuzzleGenerator.right;
 
-    static final String smallHint = MysteryShopManager.smallHint;
-    static final String bigHint = MysteryShopManager.bigHint;
-    static final String skipPuzzle = MysteryShopManager.skipPuzzle;
+    public static final String smallHint = MysteryShopManager.smallHint;
+    public static final String bigHint = MysteryShopManager.bigHint;
+    public static final String skipPuzzle = MysteryShopManager.skipPuzzle;
 
     private boolean movable = true;
 
@@ -42,7 +48,7 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
      * PuzzleGamePresenter constructor.
      * @param puzzleGameView the view that this presenter changes.
      */
-    PuzzleGamePresenter(PuzzleGameView puzzleGameView, Context context) {
+    public PuzzleGamePresenter(PuzzleGameView puzzleGameView, Context context) {
         this.puzzleGameView = puzzleGameView;
         this.puzzleGenerator.setPuzzleRequester(this);
         this.context = context;
@@ -73,23 +79,23 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
      * Presenter asks countDownGenerator to start a countdown.
      * @param countDownInMillis time limit for count down.
      */
-    void startCountDown(long countDownInMillis) {
+    public void startCountDown(long countDownInMillis) {
         countDownGenerator.startCountDown(this, countDownInMillis);
     }
 
-    void pauseGame() {
+    public void pauseGame() {
         countDownGenerator.pause();
         puzzleGameView.setBackgroundClickable(false);
         movable = false;
     }
 
-    void resumeGame() {
+    public void resumeGame() {
         countDownGenerator.resume();
         puzzleGameView.setBackgroundClickable(true);
         movable = true;
     }
 
-    void setNumColumns(int numColumns) {
+    public void setNumColumns(int numColumns) {
         this.numColumns = numColumns;
         puzzleGenerator.setColumns(numColumns);
         gestureDetectGridView.setNumColumns(numColumns);
@@ -100,14 +106,14 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
         this.puzzlePieces = puzzlePieces;
     }
 
-    void setPuzzles(ArrayList<Bitmap> puzzles) {
+    public void setPuzzles(ArrayList<Bitmap> puzzles) {
         puzzleListManager.setPuzzles(puzzles);
         puzzleListManager.setPuzzleGenerator(puzzleGenerator);
         puzzleListManager.setPuzzleRequester(this);
         puzzleGameDataGateway.setNumPuzzles(puzzles.size());
     }
 
-    void setGestureDetectGridView(GestureDetectGridView gestureDetectGridView) {
+    public void setGestureDetectGridView(GestureDetectGridView gestureDetectGridView) {
         this.gestureDetectGridView = gestureDetectGridView;
         gestureDetectGridView.setPresenter(this);
     }
@@ -115,7 +121,7 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
     /**
      * Set dimensions for the  puzzles depending on the screen
      */
-    void setDimensions() {
+    public void setDimensions() {
         ViewTreeObserver vto = gestureDetectGridView.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -134,7 +140,7 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
         });
     }
 
-    void moveTiles(String direction, int position) {
+    public void moveTiles(String direction, int position) {
         if (!movable) {
             return;
         }
@@ -205,7 +211,7 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
         }
     }
 
-    void buyItem(String item) {
+    public void buyItem(String item) {
         mysteryShopManager.buyItem(item);
         updateScore();
     }

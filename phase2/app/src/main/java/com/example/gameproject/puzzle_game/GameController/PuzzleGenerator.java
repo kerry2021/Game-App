@@ -1,7 +1,8 @@
-package com.example.gameproject.puzzle_game;
+package com.example.gameproject.puzzle_game.GameController;
 
 import android.content.Context;
 import android.widget.Toast;
+
 import java.util.Random;
 
 

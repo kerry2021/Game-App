@@ -1,4 +1,4 @@
-package com.example.gameproject.puzzle_game;
+package com.example.gameproject.puzzle_game.Activity;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -7,6 +7,8 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.GridView;
+
+import com.example.gameproject.puzzle_game.GameController.PuzzleGamePresenter;
 
 public class GestureDetectGridView extends GridView {
     private GestureDetector gDetector;

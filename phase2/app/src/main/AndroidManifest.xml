@@ -19,14 +19,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".puzzle_game.puzzleGameActivity"
+            android:name=".puzzle_game.Activity.puzzleGameActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".puzzle_game.PuzzleGameIntroActivity"
+            android:name=".puzzle_game.Activity.PuzzleGameIntroActivity"
             android:parentActivityName=".MainActivity" />
 
-        <activity android:name=".puzzle_game.BackgroundChangeActivity"
-            android:parentActivityName=".puzzle_game.PuzzleGameIntroActivity" />
+        <activity android:name=".puzzle_game.Activity.BackgroundChangeActivity"
+            android:parentActivityName=".puzzle_game.Activity.PuzzleGameIntroActivity" />
 
         <activity
             android:name=".reaction_game.ReactionGameMain"
@@ -56,8 +56,8 @@
             android:name=".SignUpActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".puzzle_game.ImageActivity"
-            android:parentActivityName=".puzzle_game.PuzzleGameIntroActivity" />
+            android:name=".puzzle_game.Activity.ImageActivity"
+            android:parentActivityName=".puzzle_game.Activity.PuzzleGameIntroActivity" />
         <activity
             android:name=".obstacle_game.Activity.CustomizationActivity"
             android:parentActivityName=".obstacle_game.Activity.ObstacleGameIntroActivity" />

@@ -1,4 +1,4 @@
-package com.example.gameproject.puzzle_game;
+package com.example.gameproject.puzzle_game.Activity;
 
 import java.util.ArrayList;
 
@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import com.example.gameproject.R;
 import com.example.gameproject.User;
+import com.example.gameproject.puzzle_game.GameController.CustomImageManager;
 
 import android.Manifest;
 

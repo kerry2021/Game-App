@@ -1,4 +1,4 @@
-package com.example.gameproject.puzzle_game;
+package com.example.gameproject.puzzle_game.GameElements;
 
 
 /**

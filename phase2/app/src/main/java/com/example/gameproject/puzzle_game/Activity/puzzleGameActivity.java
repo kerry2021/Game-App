@@ -1,4 +1,4 @@
-package com.example.gameproject.puzzle_game;
+package com.example.gameproject.puzzle_game.Activity;
 
 import android.content.Context;
 
@@ -24,6 +24,8 @@ import android.widget.Toast;
 
 import com.example.gameproject.R;
 import com.example.gameproject.User;
+import com.example.gameproject.puzzle_game.GameController.CustomImageManager;
+import com.example.gameproject.puzzle_game.GameController.PuzzleGamePresenter;
 
 import java.util.ArrayList;
 

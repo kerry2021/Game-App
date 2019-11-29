@@ -6,9 +6,9 @@
     android:id="@+id/puzzle_game"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.gameproject.puzzle_game.puzzleGameActivity" >
+    tools:context="com.example.gameproject.puzzle_game.Activity.puzzleGameActivity" >
 
-    <com.example.gameproject.puzzle_game.GestureDetectGridView
+    <com.example.gameproject.puzzle_game.Activity.GestureDetectGridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/grid"

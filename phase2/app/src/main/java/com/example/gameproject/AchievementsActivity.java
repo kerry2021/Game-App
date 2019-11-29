@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.gameproject.puzzle_game.ImageSplitter;
-import com.example.gameproject.puzzle_game.puzzleGameActivity;
+import com.example.gameproject.puzzle_game.GameController.ImageSplitter;
+import com.example.gameproject.puzzle_game.Activity.puzzleGameActivity;
 
 import java.util.ArrayList;
 
