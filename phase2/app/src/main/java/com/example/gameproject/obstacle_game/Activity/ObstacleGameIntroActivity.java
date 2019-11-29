@@ -21,6 +21,7 @@ public class ObstacleGameIntroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_obstacle_game_intro);
         setTitle("Obstacle Game");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         Button startObstacleGameButton = (Button) findViewById(R.id.start_obstacle_game_button);
         Button obstacleGameRuleButton = (Button) findViewById(R.id.obstacle_game_rule_button);

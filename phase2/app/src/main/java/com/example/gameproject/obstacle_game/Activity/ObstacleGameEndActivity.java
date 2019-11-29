@@ -16,6 +16,7 @@ public class ObstacleGameEndActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_obstacle_game_end);
         setTitle("Obstacle Game Result");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         Bundle bundle = getIntent().getExtras();
 

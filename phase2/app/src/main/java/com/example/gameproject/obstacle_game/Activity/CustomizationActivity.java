@@ -18,6 +18,7 @@ public class CustomizationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_obstacle_game_customization);
         setTitle("Obstacle Game Customization");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         Spinner spinner = findViewById(R.id.difficulty_level);
         String[] levels = new String[]{"Difficulty", "Easy", "Medium", "Hard"};

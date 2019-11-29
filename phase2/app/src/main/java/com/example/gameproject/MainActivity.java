@@ -121,5 +121,10 @@ public class MainActivity extends AppCompatActivity {
         currentUser.write();
     }
 
+    @Override
+    public void onBackPressed() {
+        onResume();
+    }
+
 }
 
