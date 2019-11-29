@@ -61,7 +61,7 @@ public class SpaceShip extends SpaceItem {
      * (The default location should be somewhere in the middle width and low bottom of the screen.)
      */
     public SpaceShip(int lives, int screenWidth, int screenHeight) {
-        super(new Rect(0, 0, screenWidth / 30, screenHeight / 50));
+        super(new Rect(0, 0, screenWidth / 10, screenHeight / 50));
         setHitBoxTo(screenWidth / 10, screenHeight / 2);
         setHeight(screenHeight);
         setLives(lives);
