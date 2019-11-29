@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,8 +41,7 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
     private PopupWindow popupWindow1;
     private PopupWindow popupWindow2;
 
-    //background colour for the game screen, default is white
-    private String backgroundColour = "#FFFFFF";
+    private User currentUser;
 
     //Time given to complete the puzzles
     private long countDownInMillis = 12000;
@@ -55,8 +55,44 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle_game);
 
-        User currentUser = (User) getIntent().getSerializableExtra("user");
+        presenter = new PuzzleGamePresenter(this, getApplicationContext());
+        presenter.setGestureDetectGridView(findViewById(R.id.grid));
 
+        currentUser = (User) getIntent().getSerializableExtra("user");
+        boolean isBonusPuzzle = getIntent().getBooleanExtra("bonus_mode", false);
+        if (isBonusPuzzle) {
+            countDownInMillis = 60000;
+            setBackgroundColour();
+            presenter.setNumColumns(3);
+            ArrayList<Bitmap> puzzles = new ArrayList<>();
+            Bitmap achievementPuzzle = BitmapFactory.decodeResource(getResources(),
+                    R.drawable.achievement_puzzle);
+            puzzles.add(achievementPuzzle);
+            presenter.setPuzzles(puzzles);
+        } else {
+            setCustomizedFeatures();
+        }
+
+        textViewTime = findViewById(R.id.time);
+        textViewpuzzleComp = findViewById(R.id.puzzle);
+        textViewScore = findViewById(R.id.score);
+        textViewMoves = findViewById(R.id.move);
+
+        createOptionsButton(currentUser);
+
+        startCountDown();
+        presenter.setDimensions();
+        Log.i(TAG, "Game has Created.");
+    }
+
+    private void setCustomizedFeatures() {
+        setCountDownTime();
+        setBackgroundColour();
+        setNumColumns();
+        setPuzzles();
+    }
+
+    private void setCountDownTime() {
         String countDownStr = currentUser.get("puzzle_game_countDownTime");
         if (countDownStr == null) {
             countDownStr = "Normal";
@@ -72,29 +108,23 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
                 countDownInMillis = 120000;
                 break;
         }
+    }
 
+    private void setBackgroundColour() {
         String userBackground = currentUser.get("puzzle_game_background");
         if(userBackground == null){
             currentUser.set("puzzle_game_background", "#FFFFFF");
             currentUser.write();
             userBackground = "#FFFFFF";
         }
-        backgroundColour = userBackground;
+        //background colour for the game screen, default is white
+        String backgroundColour = userBackground;
 
         RelativeLayout currentLayout = findViewById(R.id.puzzle_game);
         currentLayout.setBackgroundColor(Color.parseColor(backgroundColour));
+    }
 
-        textViewTime = findViewById(R.id.time);
-        textViewpuzzleComp = findViewById(R.id.puzzle);
-        textViewScore = findViewById(R.id.score);
-        textViewMoves = findViewById(R.id.move);
-
-        createOptionsButton(currentUser);
-
-        presenter = new PuzzleGamePresenter(this, getApplicationContext());
-
-        presenter.setGestureDetectGridView(findViewById(R.id.grid));
-
+    private void setNumColumns() {
         int columns;
         try {
             columns = Integer.parseInt(currentUser.get("puzzle_game_numColumns"));
@@ -102,7 +132,9 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
             columns = 3;
         }
         presenter.setNumColumns(columns);
+    }
 
+    private void setPuzzles() {
         String customImagesKeys = currentUser.get("puzzle_game_custom_images");
         ArrayList<Bitmap> puzzles = new ArrayList<>();
         for (Bitmap image : CustomImageManager.getImageList(customImagesKeys, getApplicationContext())) {
@@ -111,10 +143,6 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
             }
         }
         presenter.setPuzzles(puzzles);
-
-        startCountDown();
-        presenter.setDimensions();
-        Log.i(TAG, "Game has Created.");
     }
 
     public void startCountDown() {

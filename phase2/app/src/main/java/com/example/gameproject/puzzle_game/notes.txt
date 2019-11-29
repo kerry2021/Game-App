@@ -187,11 +187,19 @@ Modified puzzleGameActivity so that popup windows are dismissed when the activit
 prevents memory leaks.
 
 #######
-#Step 28
+#Step 29
 Code Affected: default1.jng, default2.jpeg.
 Changed the default images.
 
 #######
-#Step 28
+#Step 30
 Code Affected: PuzzleGamePresenter, MysteryShopManager, puzzleGameActivity.
 Added the class MysteryShopManager that is responsible for buying items from the mystery shop.
+
+#######
+#Step 31
+Code Affected: puzzleGameActivity, AchievementsActivity, AchievementsAdapter,
+activity_achievements.xml.
+Put codes into new methods so that they are more organized in puzzleGameActivity. Added the unlock
+bonus puzzle button in AchievementsActivity so that users can do the bonus puzzle after they complete
+at least 9 achievements. Changed display format of the Achievements page. 

@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/puzzle_game"
+    android:id="@+id/achievements"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.gameproject.puzzle_game.puzzleGameActivity" >
@@ -21,14 +21,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/achievements_text"
-        android:layout_marginStart="20dp">
+        android:layout_marginStart="60dp">
 
         <GridView
             android:id="@+id/achievements_grid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:numColumns="3"
-            android:verticalSpacing="10dp"
+            android:verticalSpacing="50dp"
             android:horizontalSpacing="10dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"

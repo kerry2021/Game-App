@@ -3,18 +3,17 @@ package com.example.gameproject;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.view.View;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gameproject.puzzle_game.ImageSplitter;
+import com.example.gameproject.puzzle_game.puzzleGameActivity;
 
 import java.util.ArrayList;
 
@@ -53,6 +52,7 @@ public class AchievementsActivity extends AppCompatActivity {
         if (progress >= 9) {
             Toast.makeText(getApplicationContext(), "YOU UNLOCKED A BONUS PUZZLE!",
                     Toast.LENGTH_SHORT).show();
+            unlockBonus();
         }
 
         achievementGrid = findViewById(R.id.achievements_grid);
@@ -76,5 +76,34 @@ public class AchievementsActivity extends AppCompatActivity {
             puzzlePieces[i] = imageList.get(i);
         }
 
+    }
+
+    private void unlockBonus() {
+        RelativeLayout layout = findViewById(R.id.achievements);
+        Button bonusButton = new Button(this);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.BELOW, R.id.back_button);
+        params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        params.topMargin = (int) (10 * getResources().getDisplayMetrics().density);
+        bonusButton.setLayoutParams(params);
+        bonusButton.setText("Bonus Puzzle Unlocked");
+        layout.addView(bonusButton);
+        bonusButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, puzzleGameActivity.class);
+            intent.putExtra("bonus_mode", true);
+            intent.putExtra("user", currentUser);
+            startActivity(intent);
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            Intent backIntent = new Intent(this, MainActivity.class);
+            backIntent.putExtra("user", currentUser);
+            startActivity(backIntent);
+        }
+        return true;
     }
 }
