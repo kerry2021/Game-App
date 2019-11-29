@@ -6,6 +6,8 @@ public class CountDownGenerator {
 
     private CountDownRequester requester;
 
+    //Total time for one game
+    private long countDownInMillis;
     //Timer
     private CountDownTimer countDownTimer;
     //Time left during game
@@ -15,6 +17,7 @@ public class CountDownGenerator {
 
     void startCountDown(CountDownRequester requester, long countDownInMillis) {
         this.requester = requester;
+        this.countDownInMillis = countDownInMillis;
         timeLeftInMillis = countDownInMillis;
         countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
             @Override
@@ -43,6 +46,14 @@ public class CountDownGenerator {
     void resume() {
         timeLeftInMillis = pauseTimeLeft;
         startCountDown(requester, timeLeftInMillis);
+    }
+
+    long getCurrentTime(){
+        return timeLeftInMillis;
+    }
+
+    long getTotalTime(){
+        return countDownInMillis;
     }
 
 }

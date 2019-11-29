@@ -8,4 +8,5 @@ interface PuzzleGameView {
     void showNumCompleted(String text);
     void showScore(String text);
     void showFinalScore(int score);
+    void updateAchievement();
 }

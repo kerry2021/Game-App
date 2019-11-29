@@ -202,4 +202,11 @@ Code Affected: puzzleGameActivity, AchievementsActivity, AchievementsAdapter,
 activity_achievements.xml.
 Put codes into new methods so that they are more organized in puzzleGameActivity. Added the unlock
 bonus puzzle button in AchievementsActivity so that users can do the bonus puzzle after they complete
-at least 9 achievements. Changed display format of the Achievements page. 
+at least 9 achievements. Changed display format of the Achievements page.
+
+#######
+#Step 32
+Code Affected: AchievementsManager, BackgroundChangeActivity, CountDownGenerator, ImageActivity,
+puzzleGameActivity, PuzzleGameIntroActivity, PuzzleGamePresenter, PuzzleGameView
+Added AchievementsManager which enables the player to obtain three different achievements. Also
+turned the back button on the top left-hand side of the activity to off.

@@ -44,7 +44,7 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
     private User currentUser;
 
     //Time given to complete the puzzles
-    private long countDownInMillis = 12000;
+    private long countDownInMillis = 120000;
 
     static final String smallHint = PuzzleGamePresenter.smallHint;
     static final String bigHint = PuzzleGamePresenter.bigHint;
@@ -54,6 +54,7 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle_game);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         presenter = new PuzzleGamePresenter(this, getApplicationContext());
         presenter.setGestureDetectGridView(findViewById(R.id.grid));
@@ -61,7 +62,7 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
         currentUser = (User) getIntent().getSerializableExtra("user");
         boolean isBonusPuzzle = getIntent().getBooleanExtra("bonus_mode", false);
         if (isBonusPuzzle) {
-            countDownInMillis = 60000;
+            countDownInMillis = 600000;
             setBackgroundColour();
             presenter.setNumColumns(3);
             ArrayList<Bitmap> puzzles = new ArrayList<>();
@@ -172,6 +173,13 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
     @Override
     public void setBackgroundClickable(boolean backgroundClickable) {
         findViewById(R.id.puzzle_game_options_button).setClickable(backgroundClickable);
+    }
+
+    @Override
+    public void updateAchievement(){
+        int achievementNum = Integer.parseInt(currentUser.get("collectible progress"));
+        achievementNum += 1;
+        currentUser.set("collectible progress", Integer.toString(achievementNum));
     }
 
     private void pause() {

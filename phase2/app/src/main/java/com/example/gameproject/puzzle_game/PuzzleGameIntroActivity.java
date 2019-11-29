@@ -50,6 +50,7 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle_game_intro);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         Intent intent = getIntent();
         currentUser = (User) intent.getSerializableExtra("user");

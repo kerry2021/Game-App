@@ -19,6 +19,7 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
     private PuzzleGameDataGateway puzzleGameDataGateway = new PuzzleGameData();
     private PuzzleListManager puzzleListManager;
     private MysteryShopManager mysteryShopManager;
+    private AchievementsManager achievementsManager;
 
     private Context context;
 
@@ -49,6 +50,8 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
                 new PuzzleListManager(context.getResources());
         this.mysteryShopManager = new MysteryShopManager(this, puzzleGameDataGateway,
                 puzzleGenerator, context, puzzleListManager);
+        this.achievementsManager = new AchievementsManager(puzzleGameDataGateway,
+                countDownGenerator);
     }
 
     /**
@@ -170,10 +173,32 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
 
             int numCompleted = puzzleGameDataGateway.getNumCompleted();
             int numPuzzles = puzzleGameDataGateway.getNumPuzzles();
+
+            //check if time achievement is achieved
+            if (achievementsManager.checkTimeAchievement()){
+                Toast.makeText(context, "Achievement Unlocked: Faster Solver",
+                        Toast.LENGTH_SHORT).show();
+                puzzleGameView.updateAchievement();
+            }
+
+            //check if level score achievement is achieved
+            if (achievementsManager.checkLevelScoreAchievement(scoreInteger)){
+                Toast.makeText(context, "Achievement Unlocked: Easy-peasy",
+                        Toast.LENGTH_SHORT).show();
+                puzzleGameView.updateAchievement();
+            }
+
             if (numCompleted < numPuzzles) {
                 puzzleListManager.showNextPuzzle(numCompleted);
             } else {
                 Toast.makeText(context, "END OF GAME!", Toast.LENGTH_SHORT).show();
+
+                //check if total score achievement is achieved
+                if (achievementsManager.checkTotalScoreAchievement()){
+                    Toast.makeText(context, "Achievement Unlocked: Needs More Challenge",
+                            Toast.LENGTH_SHORT).show();
+                    puzzleGameView.updateAchievement();
+                }
                 pauseGame();
                 puzzleGameView.showFinalScore(puzzleGameDataGateway.getScore());
             }
@@ -230,5 +255,4 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
                 "Score: %d", score);
         puzzleGameView.showScore(scoreFormatted);
     }
-
 }

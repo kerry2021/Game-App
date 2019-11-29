@@ -24,6 +24,7 @@ public class BackgroundChangeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle_game_background_change);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         User currentUser = (User) getIntent().getSerializableExtra("user");
         colours = this.getResources().getStringArray(R.array.colourOptions);
 

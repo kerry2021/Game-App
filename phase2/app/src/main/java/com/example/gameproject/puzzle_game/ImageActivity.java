@@ -48,6 +48,7 @@ public class ImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_puzzle_game_select_image);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         User currentUser = (User) getIntent().getSerializableExtra("user");
         String customImagesCode = currentUser.get("puzzle_game_custom_images");
         Bitmap[] savedImages = CustomImageManager.getImageList(customImagesCode, getApplicationContext());
