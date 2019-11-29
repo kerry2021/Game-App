@@ -17,9 +17,6 @@ import android.widget.Spinner;
 
 import com.example.gameproject.R;
 import com.example.gameproject.User;
-import com.example.gameproject.puzzle_game.Activity.BackgroundChangeActivity;
-import com.example.gameproject.puzzle_game.Activity.ImageActivity;
-import com.example.gameproject.puzzle_game.Activity.puzzleGameActivity;
 
 public class PuzzleGameIntroActivity extends AppCompatActivity {
 
@@ -75,7 +72,7 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
         startPuzzleGameButton = findViewById(R.id.start_puzzle_game_button);
 
         startPuzzleGameButton.setOnClickListener(v -> {
-            Intent toGame = new Intent(v.getContext(), puzzleGameActivity.class);
+            Intent toGame = new Intent(v.getContext(), PuzzleGameActivity.class);
             toGame.putExtra("user", currentUser);
             startActivity(toGame);
         });

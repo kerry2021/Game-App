@@ -215,3 +215,9 @@ turned the back button on the top left-hand side of the activity to off.
 #Step 33
 Code Affected: all files
 Separated and packaged all files.
+
+#######
+#Step 34
+Code Affected: README, PuzzleGameActivity, MysteryShopManager, PuzzleGamePresenter
+Updated README. Avoided 2 achievement toasts overriding each other. Changed score calculation and
+mystery shop item costs to unify the score with obstacle game.

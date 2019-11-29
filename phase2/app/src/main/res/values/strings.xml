@@ -53,11 +53,11 @@
     <string name="colour_choose">Choose a colour you like!</string>
     <string name="achievements">Achievements</string>
     <string name="back">Back</string>
-    <string name="item1">Small Hint— 30 score</string>
+    <string name="item1">Small Hint— 600 score</string>
     <string name="item1_description">Small Hint: Move one piece of the puzzle to its correct location</string>
-    <string name="item2">Big Hint— 70 score</string>
+    <string name="item2">Big Hint— 1400 score</string>
     <string name="item2_description">Big Hint: Move three pieces of the puzzle to their correct location</string>
-    <string name="item3">Change Puzzle— 40 score</string>
+    <string name="item3">Change Puzzle— 800 score</string>
     <string name="item3_description">Change Puzzle: Switch to a new puzzle</string>
     <string name="shop_statement">Welcome to the Mystery Shop!</string>
     <string name="buy">Buy</string>

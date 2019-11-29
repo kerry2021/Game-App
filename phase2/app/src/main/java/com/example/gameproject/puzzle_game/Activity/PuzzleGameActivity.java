@@ -29,7 +29,7 @@ import com.example.gameproject.puzzle_game.GameController.PuzzleGamePresenter;
 
 import java.util.ArrayList;
 
-public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameView {
+public class PuzzleGameActivity extends AppCompatActivity implements PuzzleGameView {
 
     private PuzzleGamePresenter presenter;
 
@@ -182,6 +182,7 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
         int achievementNum = Integer.parseInt(currentUser.get("collectible progress"));
         achievementNum += 1;
         currentUser.set("collectible progress", Integer.toString(achievementNum));
+        currentUser.write();
     }
 
     private void pause() {

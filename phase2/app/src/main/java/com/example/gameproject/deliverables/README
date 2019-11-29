@@ -5,8 +5,21 @@ with the above lcd densities
 without an account but your progress may not be saved for the next time
 4. There are three mini games in total in this game, you can read about how to play each one in each their starting page
 5. (Phase 2)All games have a difficulty setting, if you are starting out you may want to play on lower difficulty first.
-6. (Phase 2)As a bonus feature, in Obstacle game you can collect yellow treasure boxes by colliding with them, which will unlock
-collection pieces as a fraction of a picture. You can view your collections in MainMenu - Achievements, and once you collect
-all 9 of them, you can play a bonus level with that picture in puzzle game.
+6. (Phase 2)As a bonus feature, You have 9 pieces of picture to unlock in the game. You can unlock
+    them by playing any of the three mini-games and reach a certain goal.
+
+    In Obstacle game you can collect yellow treasure boxes by colliding with them, which will unlock
+    a piece of the picture.
+
+    In Puzzle game, you can complete any of the following achievements:
+        (1) solving one puzzle under 30 seconds.
+        (2) solving one puzzle and receive a score increase of more than 70.
+        (3) receiving a total score of more than 150.
+    Each of these unlocks 1 piece of the picture.
+
+    You can do all of these task for each game, or repeat the same task for any game unlock all 9
+    pieces of the picture. You can view your collections in MainMenu - Achievements, and once you collect
+    all 9 of them, you can play a bonus level with that picture in puzzle game.
+
 
 Have Fun!

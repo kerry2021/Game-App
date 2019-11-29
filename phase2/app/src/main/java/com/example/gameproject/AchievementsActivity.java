@@ -13,7 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gameproject.puzzle_game.GameController.ImageSplitter;
-import com.example.gameproject.puzzle_game.Activity.puzzleGameActivity;
+import com.example.gameproject.puzzle_game.Activity.PuzzleGameActivity;
 
 import java.util.ArrayList;
 
@@ -90,7 +90,7 @@ public class AchievementsActivity extends AppCompatActivity {
         bonusButton.setText("Bonus Puzzle Unlocked");
         layout.addView(bonusButton);
         bonusButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, puzzleGameActivity.class);
+            Intent intent = new Intent(this, PuzzleGameActivity.class);
             intent.putExtra("bonus_mode", true);
             intent.putExtra("user", currentUser);
             startActivity(intent);

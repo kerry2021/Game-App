@@ -4,6 +4,7 @@ package com.example.gameproject.puzzle_game.GameController;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Handler;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Toast;
@@ -43,6 +44,12 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
     public static final String skipPuzzle = MysteryShopManager.skipPuzzle;
 
     private boolean movable = true;
+
+    //These are true if the player did not get these achievement in this game yet
+    //They are false if the player has already got them in this game
+    //Reset every game
+    private boolean timeAchievement = true;
+    private boolean levelScoreAchievement = true;
 
     /**
      * PuzzleGamePresenter constructor.
@@ -168,7 +175,7 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
             // Update puzzleComplete
             updateNumCompleted();
             int score = puzzleGameDataGateway.getScore();
-            Integer scoreInteger = (int) ((100 * ((1 - (double) puzzleGameDataGateway.getNumMoves() /
+            Integer scoreInteger = (int) ((2000 * ((1 - (double) puzzleGameDataGateway.getNumMoves() /
                     100))));
             score += scoreInteger;
             puzzleGameDataGateway.setScore(score);
@@ -181,17 +188,23 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
             int numPuzzles = puzzleGameDataGateway.getNumPuzzles();
 
             //check if time achievement is achieved
-            if (achievementsManager.checkTimeAchievement()){
+            if (achievementsManager.checkTimeAchievement() && timeAchievement){
                 Toast.makeText(context, "Achievement Unlocked: Faster Solver",
                         Toast.LENGTH_SHORT).show();
                 puzzleGameView.updateAchievement();
+                timeAchievement = false;
             }
 
             //check if level score achievement is achieved
-            if (achievementsManager.checkLevelScoreAchievement(scoreInteger)){
-                Toast.makeText(context, "Achievement Unlocked: Easy-peasy",
-                        Toast.LENGTH_SHORT).show();
+            //uses handler to avoid overriding the first toast
+            if (achievementsManager.checkLevelScoreAchievement(scoreInteger) &&
+                    levelScoreAchievement){
+                Handler handler =new Handler();
+                handler.postDelayed(() ->
+                        Toast.makeText(context, "Achievement Unlocked: Easy-peasy",
+                                Toast.LENGTH_SHORT).show(),3000);
                 puzzleGameView.updateAchievement();
+                levelScoreAchievement = false;
             }
 
             if (numCompleted < numPuzzles) {

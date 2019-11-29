@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".puzzle_game.Activity.puzzleGameActivity"
+            android:name=".puzzle_game.Activity.PuzzleGameActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".puzzle_game.Activity.PuzzleGameIntroActivity"

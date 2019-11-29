@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.gameproject.puzzle_game.Activity.puzzleGameActivity">
+    tools:context="com.example.gameproject.puzzle_game.Activity.PuzzleGameActivity">
 
     <TextView
         android:id="@+id/puzzle_game_intro"
