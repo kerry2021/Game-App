@@ -56,10 +56,9 @@ public class BackgroundChangeActivity extends AppCompatActivity {
     private void saveBackground(User currentUser){
         currentUser.set("puzzle_game_background", backgroundColour);
         currentUser.write();
-
         Intent intent = new Intent(this, PuzzleGameIntroActivity.class);
-        intent.putExtra("background", backgroundColour);
         intent.putExtra("user", currentUser);
+        intent.putExtra("continue_customization", true);
         startActivity(intent);
     }
 

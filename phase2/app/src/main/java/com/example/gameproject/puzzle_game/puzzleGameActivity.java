@@ -55,14 +55,31 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle_game);
 
-        Intent intent = getIntent();
-        if(intent.getStringExtra("background") != null){
-            backgroundColour = intent.getStringExtra("background");
+        User currentUser = (User) getIntent().getSerializableExtra("user");
+
+        String countDownStr = currentUser.get("puzzle_game_countDownTime");
+        if (countDownStr == null) {
+            countDownStr = "Normal";
+        }
+        switch (countDownStr){
+            case "Easy":
+                countDownInMillis = 240000;
+                break;
+            case "Hard":
+                countDownInMillis = 60000;
+                break;
+            case "Normal":
+                countDownInMillis = 120000;
+                break;
         }
 
-        countDownInMillis = intent.getIntExtra("countDownTime", 120000 );
-
-        User currentUser = (User) getIntent().getSerializableExtra("user");
+        String userBackground = currentUser.get("puzzle_game_background");
+        if(userBackground == null){
+            currentUser.set("puzzle_game_background", "#FFFFFF");
+            currentUser.write();
+            userBackground = "#FFFFFF";
+        }
+        backgroundColour = userBackground;
 
         RelativeLayout currentLayout = findViewById(R.id.puzzle_game);
         currentLayout.setBackgroundColor(Color.parseColor(backgroundColour));
@@ -78,7 +95,12 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
 
         presenter.setGestureDetectGridView(findViewById(R.id.grid));
 
-        int columns = PuzzleGameIntroActivity.customizedColumns;
+        int columns;
+        try {
+            columns = Integer.parseInt(currentUser.get("puzzle_game_numColumns"));
+        } catch (Exception e){
+            columns = 3;
+        }
         presenter.setNumColumns(columns);
 
         String customImagesKeys = currentUser.get("puzzle_game_custom_images");
@@ -154,8 +176,7 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
             // create the popup window
             int width = LinearLayout.LayoutParams.WRAP_CONTENT;
             int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-            boolean focusable = false; // Taps outside the popup does not dismiss it
-            popupWindow1 = new PopupWindow(popupView, width, height, focusable);
+            popupWindow1 = new PopupWindow(popupView, width, height, false);
 
             // show the popup window
             // which view you pass in doesn't matter, it is only used for the window tolken
@@ -178,18 +199,11 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
 //                        getSystemService(LAYOUT_INFLATER_SERVICE);
 //                assert inflater2 != null;
                 View popupView2 = inflater.inflate(R.layout.puzzle_game_shop, null);
-                TextView header, itemd1, itemd2, itemd3;
-
-                header = popupView2.findViewById(R.id.game_shop_header);
-                itemd1 = popupView2.findViewById(R.id.item1_description);
-                itemd2 = popupView2.findViewById(R.id.item2_description);
-                itemd3 = popupView2.findViewById(R.id.item3_description);
 
                 // create the popup window
                 int width2 = LinearLayout.LayoutParams.WRAP_CONTENT;
                 int height2 = LinearLayout.LayoutParams.WRAP_CONTENT;
-                boolean focusable2 = false; // Taps outside the popup does not dismiss it
-                popupWindow2 = new PopupWindow(popupView2, width2, height2, focusable2);
+                popupWindow2 = new PopupWindow(popupView2, width2, height2, false);
 
                 // show the popup window
                 // which view you pass in doesn't matter, it is only used for the window token
@@ -222,16 +236,13 @@ public class puzzleGameActivity extends AppCompatActivity implements PuzzleGameV
                     }
                 });
 
-                backButton.setOnClickListener(v2 -> {
-                    popupWindow2.dismiss();
-                });
+                backButton.setOnClickListener(v2 -> popupWindow2.dismiss());
             });
 
             exitGameButton.setOnClickListener(view3 -> {
                 popupWindow1.dismiss();
 
                 Intent intent = new Intent(view3.getContext(), PuzzleGameIntroActivity.class);
-                intent.putExtra("background", backgroundColour);
                 intent.putExtra("user", currentUser);
                 startActivity(intent);
             });

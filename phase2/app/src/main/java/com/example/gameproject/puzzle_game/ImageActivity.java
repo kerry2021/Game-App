@@ -12,7 +12,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -91,6 +90,7 @@ public class ImageActivity extends AppCompatActivity {
             currentUser.set("puzzle_game_custom_images", value);
             currentUser.write();
             Intent backIntro = new Intent(view12.getContext(), PuzzleGameIntroActivity.class);
+            backIntro.putExtra("continue_customization", true);
             backIntro.putExtra("user", currentUser);
             startActivity(backIntro);
         });
@@ -98,6 +98,7 @@ public class ImageActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(view1 -> {
             Intent backIntroCancel = new Intent(view1.getContext(), PuzzleGameIntroActivity.class);
             backIntroCancel.putExtra("user", currentUser);
+            backIntroCancel.putExtra("continue_customization", true);
             startActivity(backIntroCancel);
         });
     }
@@ -116,7 +117,6 @@ public class ImageActivity extends AppCompatActivity {
 
         if (requestCode == RESULT_LOAD_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
-                //  takenPictureData = handleResultFromChooser(data);
 
                 selectedImage = data.getData();
                 String[] filePathColumn = {MediaStore.Images.Media.DATA};
@@ -136,9 +136,6 @@ public class ImageActivity extends AppCompatActivity {
     }
 
     private void showImageInLayout(Bitmap image) {
-        /*if(imageView.getParent() != null) {
-            ((ViewGroup)imageView.getParent()).removeView(imageView);
-        }*/
         ImageView imageView = new ImageView(ImageActivity.this);
         imageView.setImageBitmap(image);
         LinearLayout linearImages = findViewById(R.id.linear_images);
@@ -165,11 +162,7 @@ public class ImageActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                             @NonNull int[] grantResults) {
-        {
-            super
-                    .onRequestPermissionsResult(requestCode,
-                            permissions,
-                            grantResults);
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
             if (requestCode == STORAGE_PERMISSION_CODE) {
                 if (grantResults.length > 0
@@ -189,7 +182,6 @@ public class ImageActivity extends AppCompatActivity {
                             PuzzleGameIntroActivity.class));
                 }
             }
-        }
     }
 
     @Override
