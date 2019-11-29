@@ -221,3 +221,8 @@ Separated and packaged all files.
 Code Affected: README, PuzzleGameActivity, MysteryShopManager, PuzzleGamePresenter
 Updated README. Avoided 2 achievement toasts overriding each other. Changed score calculation and
 mystery shop item costs to unify the score with obstacle game.
+
+#######
+#Step 34
+Code Affected: PuzzleGameActivity, PuzzleGameIntroActivity
+Simplified code, changed exit button onclickListener so that the current activity will finish.

@@ -15,6 +15,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
+import com.example.gameproject.MainActivity;
 import com.example.gameproject.R;
 import com.example.gameproject.User;
 
@@ -67,7 +68,7 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
         RelativeLayout currentLayout = findViewById(R.id.intro_layout);
         currentLayout.setBackgroundColor(Color.parseColor(userBackground));
 
-        Button startPuzzleGameButton;
+        Button startPuzzleGameButton, customizePuzzleGameButton;
 
         startPuzzleGameButton = findViewById(R.id.start_puzzle_game_button);
 
@@ -77,7 +78,6 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
             startActivity(toGame);
         });
 
-        Button customizePuzzleGameButton;
         customizePuzzleGameButton = findViewById(R.id.customize_puzzle_game_button);
         customizePuzzleGameButton.setOnClickListener(this::createCustomizationPopup);
 

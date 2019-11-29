@@ -280,10 +280,7 @@ public class PuzzleGameActivity extends AppCompatActivity implements PuzzleGameV
 
             exitGameButton.setOnClickListener(view3 -> {
                 popupWindow1.dismiss();
-
-                Intent intent = new Intent(view3.getContext(), PuzzleGameIntroActivity.class);
-                intent.putExtra("user", currentUser);
-                startActivity(intent);
+                finish();
             });
         });
     }
