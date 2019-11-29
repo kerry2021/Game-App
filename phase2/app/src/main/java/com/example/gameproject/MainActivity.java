@@ -35,9 +35,16 @@ public class MainActivity extends AppCompatActivity {
         continueButton = findViewById(R.id.continue_game);
 
         User.setFile(new File(this.getFilesDir(), "User_info.txt"));
-        //create a default user
-        currentUser = new User("player", "default");
-        currentUser.write();
+
+        Intent intent = getIntent();
+        if (intent.getSerializableExtra("user") != null) {
+            currentUser = (User) intent.getSerializableExtra("user");
+        } else {
+            //create a default user
+            currentUser = new User("player", "default");
+            currentUser.write();
+        }
+
         setTitle("Welcome Back: " + currentUser.get("userName"));
 
         reactionGameIntent = new Intent(this, ReactionGameMain.class);
@@ -45,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         obstacleGameIntent = new Intent(this, ObstacleGameIntroActivity.class);
         loginIntent = new Intent(this, LoginActivity.class);
         achievementsIntent = new Intent(this, AchievementsActivity.class);
-
 
         reactionGameButton.setOnClickListener(v -> {
             currentUser.set("progress", "1");
@@ -68,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         logInButton.setOnClickListener(v -> {
             loginIntent.putExtra("user", currentUser);
             currentUser.write();
-            startActivity(loginIntent);
+            startActivityForResult(loginIntent, 1);
         });
         achievementsButton.setOnClickListener(v -> {
             achievementsIntent.putExtra("user", currentUser);
@@ -114,5 +120,6 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         currentUser.write();
     }
+
 }
 
