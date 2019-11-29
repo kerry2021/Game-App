@@ -1,6 +1,7 @@
 package com.example.gameproject.obstacle_game.GameController;
 
 import com.example.gameproject.obstacle_game.GameElements.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -104,6 +105,7 @@ class AdventureManager extends Observable {
 
     /**
      * Adds a spaceship to the game.
+     *
      * @param s the spaceship to be added.
      */
     void addSpaceShip(SpaceShip s) {
@@ -134,6 +136,7 @@ class AdventureManager extends Observable {
 
     /**
      * Returns the game over boolean.
+     *
      * @return game over boolean.
      */
     boolean getGameOver() {
@@ -151,6 +154,7 @@ class AdventureManager extends Observable {
 
     /**
      * Gets the endGameCountDown time.
+     *
      * @return the endGameCountDown time.
      */
     int getEndGameCountDown() {
@@ -159,6 +163,7 @@ class AdventureManager extends Observable {
 
     /**
      * Responds to events of player input, when the player touches, make the spaceship with index i jump.
+     *
      * @param i the index of spaceship which is supposed to jump.
      */
     void respondTouch(int i) {
@@ -167,6 +172,7 @@ class AdventureManager extends Observable {
 
     /**
      * Gets the list of treasury boxes.
+     *
      * @return the list of treasury boxes.
      */
     List<Obstacle> getTreasuryBoxList() {
@@ -176,11 +182,12 @@ class AdventureManager extends Observable {
     /**
      * Gets a list containing the number of collections each spaceship gets.
      * precondition: Only call when game ends
+     *
      * @return a list containing the number of collections each spaceship gets.
      */
     List<Integer> getCollections() {
         List<Integer> list = new ArrayList<>();
-        for (SpaceShip s: spaceshipGarbageCart) {
+        for (SpaceShip s : spaceshipGarbageCart) {
             list.add(s.getCollection());
         }
         return list;
@@ -188,11 +195,12 @@ class AdventureManager extends Observable {
 
     /**
      * Gets a list containing the score of each spaceship.
+     *
      * @return a list containing the score of each spaceship.
      */
     List<Integer> getScores() {
         List<Integer> list = new ArrayList<>();
-        for (SpaceShip s: spaceShipList) {
+        for (SpaceShip s : spaceShipList) {
             list.add(s.getScore());
         }
         return list;
@@ -294,6 +302,7 @@ class AdventureManager extends Observable {
 
     /**
      * Checks whether the spaceship hits an obstacle.
+     *
      * @param s the spaceship to be checked.
      */
     private void checkHit(SpaceShip s) {
@@ -309,7 +318,7 @@ class AdventureManager extends Observable {
             s.setInvincibleTime(invincibleTime - 1);
         }
 
-        for (Obstacle treasuryBox: treasuryBoxList) {
+        for (Obstacle treasuryBox : treasuryBoxList) {
             if (s.checkGetTreasury(treasuryBox)) {
                 treasuryBoxGarbageCart.add(treasuryBox);
             }
@@ -361,7 +370,7 @@ class AdventureManager extends Observable {
         Obstacle newObstacle = (Obstacle) generator.checkGeneration();
         if (newObstacle != null) {
             list.add(newObstacle);
-            if(list.size() == 1){
+            if (list.size() == 1) {
                 System.out.print(newObstacle.getSpeed());
             }
         }

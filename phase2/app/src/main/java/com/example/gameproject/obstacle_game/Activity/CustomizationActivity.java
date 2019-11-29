@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class CustomizationActivity extends AppCompatActivity {
     private int gameDifficulty = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

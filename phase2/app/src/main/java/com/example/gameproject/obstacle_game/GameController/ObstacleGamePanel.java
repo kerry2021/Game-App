@@ -2,6 +2,7 @@ package com.example.gameproject.obstacle_game.GameController;
 
 import com.example.gameproject.*;
 import com.example.gameproject.obstacle_game.Activity.ObstacleGameEndActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -9,6 +10,7 @@ import android.graphics.Canvas;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+
 import java.util.Observer;
 
 /*
@@ -16,7 +18,7 @@ import java.util.Observer;
  * a sightly tweaked version of code found on https://www.youtube.com/watch?v=OojQitoAEXs&t=1234s
  */
 
-public class ObstacleGamePanel extends GamePanel{
+public class ObstacleGamePanel extends GamePanel {
     /**
      * The game player.
      */

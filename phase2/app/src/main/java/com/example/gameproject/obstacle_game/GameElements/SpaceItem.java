@@ -12,7 +12,6 @@ class SpaceItem {
      * Constructs a new space item.
      *
      * @param hitBox the hitBox of this item
-     *
      */
     SpaceItem(Rect hitBox) {
         this.hitBox = hitBox;
@@ -25,7 +24,7 @@ class SpaceItem {
      * @param y the second coordinate of this space item.
      */
     void setHitBoxTo(int x, int y) {
-        hitBox.offsetTo(x - hitBox.width()/2, y - hitBox.height()/2);
+        hitBox.offsetTo(x - hitBox.width() / 2, y - hitBox.height() / 2);
     }
 
     /**
@@ -48,9 +47,10 @@ class SpaceItem {
 
     /**
      * get the hitBox of this item
+     *
      * @return the hitBox
      */
-    public Rect getHitBox(){
+    public Rect getHitBox() {
         return hitBox;
     }
 

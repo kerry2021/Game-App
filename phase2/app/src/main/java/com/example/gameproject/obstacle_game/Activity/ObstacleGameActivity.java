@@ -1,6 +1,7 @@
 package com.example.gameproject.obstacle_game.Activity;
 
 import com.example.gameproject.obstacle_game.GameController.Mode;
+
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -23,8 +24,8 @@ public class ObstacleGameActivity extends Activity {
 
         // If this player has no past difficulty setting, then give him a default of 3(hard).
 
-        String difficulty  = currentUser.get("obstacle_game_difficulty");
-        if(difficulty == null){
+        String difficulty = currentUser.get("obstacle_game_difficulty");
+        if (difficulty == null) {
             currentUser.set("obstacle_game_difficulty", "3");
             currentUser.write();
             difficulty = "3";

@@ -35,7 +35,6 @@ public class ObstacleGameEndActivity extends AppCompatActivity {
     }
 
 
-
     public void onBackPressed() {
         Intent intent = new Intent(this,
                 ObstacleGameIntroActivity.class);

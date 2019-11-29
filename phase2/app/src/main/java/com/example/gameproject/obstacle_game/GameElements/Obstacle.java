@@ -8,6 +8,7 @@ public class Obstacle extends SpaceItem {
      * the speed which obstacles would move(with respect to the screen)
      */
     private int speed;
+
     /**
      * Constructs a space obstacle at a x position as left corner and a y position as the top corner.
      *
@@ -28,7 +29,7 @@ public class Obstacle extends SpaceItem {
         setHitBoxTo(getX() - speed, getY());
     }
 
-    public int getSpeed(){
+    public int getSpeed() {
         return speed;
     }
 

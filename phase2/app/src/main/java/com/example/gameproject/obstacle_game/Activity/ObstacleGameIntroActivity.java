@@ -33,20 +33,20 @@ public class ObstacleGameIntroActivity extends AppCompatActivity {
         startGameIntent = new Intent(this, ObstacleGameActivity.class);
         Intent customizationIntent = new Intent(this, CustomizationActivity.class);
 
-        startObstacleGameButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        startObstacleGameButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 startActivity(startGameIntent);
             }
         });
 
-        customizationButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        customizationButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 startActivityForResult(customizationIntent, 1);
             }
         });
 
-        obstacleGameRuleButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        obstacleGameRuleButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 startActivity(new Intent(v.getContext(), obstacleGameRulesActivity.class));
             }
         });

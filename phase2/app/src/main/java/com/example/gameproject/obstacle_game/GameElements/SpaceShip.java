@@ -76,6 +76,7 @@ public class SpaceShip extends SpaceItem {
 
     /**
      * Sets the height needed for spaceship based on the devices.
+     *
      * @param screenHeight the height of device.
      */
     private void setHeight(int screenHeight) {
@@ -85,6 +86,7 @@ public class SpaceShip extends SpaceItem {
 
     /**
      * Gets the remaining invincible time.
+     *
      * @return the remaining invincible time.
      */
     public int getInvincibleTime() {
@@ -93,6 +95,7 @@ public class SpaceShip extends SpaceItem {
 
     /**
      * Sets the length of invincible time.
+     *
      * @param i the length of time we want to set.
      */
     public void setInvincibleTime(int i) {
@@ -101,6 +104,7 @@ public class SpaceShip extends SpaceItem {
 
     /**
      * Gets the number of lives.
+     *
      * @return the number of lives.
      */
     public int getLives() {
@@ -109,6 +113,7 @@ public class SpaceShip extends SpaceItem {
 
     /**
      * Sets the number of lives.
+     *
      * @param life the number of lives.
      */
     private void setLives(int life) {
@@ -117,6 +122,7 @@ public class SpaceShip extends SpaceItem {
 
     /**
      * Gets the number of collections.
+     *
      * @return the number of collections.
      */
     public int getCollection() {
@@ -126,6 +132,7 @@ public class SpaceShip extends SpaceItem {
     /**
      * Checks whether the spaceship hits an obstacle.
      * If yes, then deduct the lives, enter invincible time and return true
+     *
      * @param obstacle the obstacle to be checked.
      * @return true if the spaceship hits the obstacle. Otherwise, return false.
      */
@@ -143,6 +150,7 @@ public class SpaceShip extends SpaceItem {
 
     /**
      * Checks whether the spaceship gets a treasury box.
+     *
      * @param treasuryBox the treasury box to be checked.
      * @return true if the spaceship gets the treasury box. Otherwise, return false.
      */
@@ -151,7 +159,7 @@ public class SpaceShip extends SpaceItem {
         Rect r2 = treasuryBox.getHitBox();
         if (r1.intersect(r2)) {
             collection++;
-            setCollectionTime(30*3);
+            setCollectionTime(30 * 3);
             return true;
         } else {
             return false;
@@ -160,6 +168,7 @@ public class SpaceShip extends SpaceItem {
 
     /**
      * Gets the time to display this spaceship gets a collection.
+     *
      * @return the remaining time to display this spaceship gets a collection.
      */
     public int getCollectionTime() {
@@ -168,6 +177,7 @@ public class SpaceShip extends SpaceItem {
 
     /**
      * Sets the time to display this spaceship gets a collection.
+     *
      * @param time the new time to display.
      */
     public void setCollectionTime(int time) {
@@ -176,6 +186,7 @@ public class SpaceShip extends SpaceItem {
 
     /**
      * Gets the score of the spaceship.
+     *
      * @return the score of the spaceship.
      */
     public int getScore() {
@@ -192,7 +203,7 @@ public class SpaceShip extends SpaceItem {
     /**
      * Checks whether the game is over.
      */
-     public void checkGameOver() {
+    public void checkGameOver() {
         if (lives == 0 | outTime == 1) {
             gameOver = true;
         }
@@ -228,7 +239,7 @@ public class SpaceShip extends SpaceItem {
      *
      * @param time the new out time.
      */
-   private void setOutTime(int time) {
+    private void setOutTime(int time) {
         this.outTime = time;
     }
 
