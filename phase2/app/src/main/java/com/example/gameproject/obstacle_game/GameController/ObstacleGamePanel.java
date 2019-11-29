@@ -37,6 +37,11 @@ public class ObstacleGamePanel extends GamePanel{
      */
     private Mode playerMode;
 
+    /**
+     * a compromise solution to solve a problem when ending the game, see comments in update() for details
+     */
+    private boolean gameOverCalled = false;
+
 
     public ObstacleGamePanel(Context context, int difficulty, Mode mode, User currentUser) {
         super(context);
@@ -64,7 +69,10 @@ public class ObstacleGamePanel extends GamePanel{
     public void update() {
         adventureManger.update();
         //when game ends
-        if (adventureManger.getGameOver() && adventureManger.getEndGameCountDown() == 0) {
+        //This if statement is suppose to run only once, but in reality it is called many times,
+        //for unknown reasons the update loop continues even after startActivity(intent) is called
+        //so the boolean gameOverCalled is used make sure it only runs once
+        if (adventureManger.getGameOver() && adventureManger.getEndGameCountDown() == 0 && !gameOverCalled) {
             // record collectible progress
             int currentProgress = Integer.parseInt(player.get("collectible progress"));
             currentProgress += adventureManger.getCollections().get(0);
@@ -72,6 +80,7 @@ public class ObstacleGamePanel extends GamePanel{
             player.set("collectible progress", String.valueOf(currentProgress));
             player.write();
 
+            gameOverCalled = true;
             Context myContext = getContext();
             Intent intent = new Intent(myContext, ObstacleGameEndActivity.class);
             playerMode.setUpBundle(intent, adventureManger);
