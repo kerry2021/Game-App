@@ -26,8 +26,13 @@ public class SignUpActivity extends AppCompatActivity {
                 String userName = userNameEditText.getText().toString();
                 String passWord = passWordEditText.getText().toString();
                 if (userName.equals("") || passWord.equals("")) {
-                    errorMsg.setText("User name or password Cannot be empty");
-                } else {
+                    errorMsg.setText("User name or Password Cannot be empty");
+                }
+                //using these characters will mess up encoding process in User, so they are not allowed
+                else if(passWord.contains("-") || passWord.contains(":") || passWord.contains(";")){
+                    errorMsg.setText("Password can not contain special characters : ; or -");
+                }
+                else {
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("user", new User(userName, passWord));
                     setResult(RESULT_OK, resultIntent);
