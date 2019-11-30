@@ -47,7 +47,7 @@ public class ObstacleGameIntroActivity extends AppCompatActivity {
 
         obstacleGameRuleButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), obstacleGameRulesActivity.class));
+                startActivity(new Intent(v.getContext(), ObstacleGameRulesActivity.class));
             }
         });
 

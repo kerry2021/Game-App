@@ -6,5 +6,5 @@ package com.example.gameproject.obstacle_game.GameController;
  * @param <T> the surface to draw
  */
 public interface Drawer<T> {
-    public void draw(T surface);
+    void draw(T surface);
 }

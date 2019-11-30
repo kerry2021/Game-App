@@ -29,6 +29,10 @@ public class Obstacle extends SpaceItem {
         setHitBoxTo(getX() - speed, getY());
     }
 
+    /**
+     * Gets the speed of this space item.
+     * @return the speed of this space item.
+     */
     public int getSpeed() {
         return speed;
     }

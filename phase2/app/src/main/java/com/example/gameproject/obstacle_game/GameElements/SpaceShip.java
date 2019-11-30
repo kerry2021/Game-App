@@ -130,6 +130,68 @@ public class SpaceShip extends SpaceItem {
     }
 
     /**
+     * Gets the time to display this spaceship gets a collection.
+     *
+     * @return the remaining time to display this spaceship gets a collection.
+     */
+    public int getCollectionTime() {
+        return collectionTime;
+    }
+
+    /**
+     * Sets the time to display this spaceship gets a collection.
+     *
+     * @param time the new time to display.
+     */
+    public void setCollectionTime(int time) {
+        collectionTime = time;
+    }
+
+    /**
+     * Gets the score of the spaceship.
+     *
+     * @return the score of the spaceship.
+     */
+    public int getScore() {
+        return score;
+    }
+
+    /**
+     * Updates the score of this spaceship.
+     */
+    public void updateScore() {
+        score++;
+    }
+
+    /**
+     * Checks whether the game is over
+     *
+     * @return the checker of game over.
+     */
+    public boolean getGameOver() {
+        return gameOver;
+    }
+
+    /**
+     * Updates the out time.
+     *
+     * @param time the new out time.
+     */
+    private void setOutTime(int time) {
+        this.outTime = time;
+    }
+
+    /**
+     * Gets the out time.
+     *
+     * @return the out time of this screen.
+     */
+    public int getOutTime() {
+        return this.outTime;
+    }
+
+
+    /**
      * Checks whether the spaceship hits an obstacle.
      * If yes, then deduct the lives, enter invincible time and return true
      *
@@ -167,55 +229,12 @@ public class SpaceShip extends SpaceItem {
     }
 
     /**
-     * Gets the time to display this spaceship gets a collection.
-     *
-     * @return the remaining time to display this spaceship gets a collection.
-     */
-    public int getCollectionTime() {
-        return collectionTime;
-    }
-
-    /**
-     * Sets the time to display this spaceship gets a collection.
-     *
-     * @param time the new time to display.
-     */
-    public void setCollectionTime(int time) {
-        collectionTime = time;
-    }
-
-    /**
-     * Gets the score of the spaceship.
-     *
-     * @return the score of the spaceship.
-     */
-    public int getScore() {
-        return score;
-    }
-
-    /**
-     * Updates the score of this spaceship.
-     */
-    public void updateScore() {
-        score++;
-    }
-
-    /**
      * Checks whether the game is over.
      */
     public void checkGameOver() {
         if (lives == 0 | outTime == 1) {
             gameOver = true;
         }
-    }
-
-    /**
-     * Checks whether the game is over
-     *
-     * @return the checker of game over.
-     */
-    public boolean getGameOver() {
-        return gameOver;
     }
 
     /**
@@ -232,24 +251,6 @@ public class SpaceShip extends SpaceItem {
         } else {
             setOutTime(0);
         }
-    }
-
-    /**
-     * Updates the out time.
-     *
-     * @param time the new out time.
-     */
-    private void setOutTime(int time) {
-        this.outTime = time;
-    }
-
-    /**
-     * Gets the out time.
-     *
-     * @return the out time of this screen.
-     */
-    public int getOutTime() {
-        return this.outTime;
     }
 
     /**

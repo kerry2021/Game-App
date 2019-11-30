@@ -57,7 +57,5 @@ class SpaceItem {
     /**
      * Moves this space item.
      */
-    public void move() {
-    }
-
+    public void move() {}
 }

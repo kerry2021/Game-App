@@ -54,9 +54,9 @@ public class ObstacleGamePanel extends GamePanel {
         adventureManger = new AdventureManager(screenWidth, screenHeight, difficulty);
 
         this.playerMode = mode;
-        mode.addSpaceShip(adventureManger, difficulty);
+        mode.addSpaceShip(adventureManger, difficulty, screenWidth, screenHeight);
 
-        drawer = new AndroidDrawer();
+        drawer = new AndroidDrawer(screenWidth, screenHeight);
         adventureManger.addObserver((Observer) drawer);
 
         player = currentUser;
@@ -78,7 +78,6 @@ public class ObstacleGamePanel extends GamePanel {
             // record collectible progress
             int currentProgress = Integer.parseInt(player.get("collectible progress"));
             currentProgress += adventureManger.getCollections().get(0);
-            Log.i("info", "progress:" + String.valueOf(adventureManger.getCollections().get(0)));
             player.set("collectible progress", String.valueOf(currentProgress));
             player.write();
 
