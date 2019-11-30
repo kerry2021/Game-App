@@ -14,20 +14,21 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gameproject.R;
+import com.example.gameproject.User;
 
 import java.util.Observer;
 
 
 public class ReactionGameActivity extends AppCompatActivity {
+    private User user;
     private ImageButton pause_or_resume;;
-    protected int speed = ReactionCustomize.speed;
+    protected int speed;
     protected boolean random = ReactionCustomize.random;
     protected boolean pause_before;
     protected int next;
     private boolean pause = false;
     private MoleManager moleManager;
     private MoleDrawer moleDrawer;
-
 
 
     @Override
@@ -40,7 +41,20 @@ public class ReactionGameActivity extends AppCompatActivity {
         moleManager.addObserver((Observer)moleDrawer);
         initButton();
         pause_before = false;
+        user = (User) getIntent().getSerializableExtra("user");
+        setSpeed();
+
     }
+
+    protected void setSpeed() {
+        try {
+            speed = Integer.parseInt(user.get("reaction_game_speed"));
+        } catch (Exception e) {
+            speed = 750;
+        }
+    }
+
+
 
     @Override
     protected void onResume(){

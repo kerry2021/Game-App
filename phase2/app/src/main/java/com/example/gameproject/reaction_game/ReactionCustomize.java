@@ -10,13 +10,17 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.gameproject.R;
+import com.example.gameproject.User;
 
 public class ReactionCustomize extends AppCompatActivity {
     protected static int speed = 750;
     protected static boolean random = false;
+    private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        user = (User) getIntent().getSerializableExtra("user");
+
         setContentView(R.layout.activity_reaction_customize);
         Button confirmButton;
         Spinner spinner = (Spinner) findViewById(R.id.speed);
@@ -32,14 +36,19 @@ public class ReactionCustomize extends AppCompatActivity {
                 if (getSpeed.equals("0.25 s/mole")) {
                     random = false;
                     speed = 250;
+                    user.set("reaction_game_speed", "250");
                 }
                 else if (getSpeed.equals("0.5 s/mole")) {
                     random = false;
                     speed = 500;
+                    user.set("reaction_game_speed", "500");
+
                 }
                 else if (getSpeed.equals("1 s/mole")) {
                     random = false;
                     speed = 1000;
+                    user.set("reaction_game_speed", "250");
+
                 }
                 else
                     random = true;
