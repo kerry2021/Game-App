@@ -56,8 +56,8 @@ public class ObstacleGenerator implements ItemGenerator<Obstacle> {
      * @param screenHeight The screen height
      */
     public ObstacleGenerator(int screenWidth, int screenHeight, int difficulty) {
-        minDistance = screenWidth / (2 * difficulty);
-        maxDistance = screenWidth / difficulty;
+        minDistance = screenWidth / (4 * difficulty);
+        maxDistance = screenWidth / (2 * difficulty);
         obstacleWidth = screenWidth / 15;
         obstacleHeight = screenHeight / 15;
         generationLine = screenWidth * 2;

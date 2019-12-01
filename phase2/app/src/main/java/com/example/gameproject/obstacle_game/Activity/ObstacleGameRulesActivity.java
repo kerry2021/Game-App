@@ -36,9 +36,9 @@ public class ObstacleGameRulesActivity extends AppCompatActivity {
                 }
                 else{
                     textView.setText("In each game you have 3 lives, and your lives will decrease by 1 whenever you" +
-                            " hit an obstacle, after you hit the obstacle each time your will not lose further lives in the next 3 seconds. You lose" +
+                            " hit a red obstacle, after you hit the obstacle each time your will not lose further lives in the next 3 seconds. You lose" +
                             " the game by having your lives reduce to 0 or staying out of the screen for too long. The obstacles are infinite so survive" +
-                            " for as long as you can.");
+                            " for as long as you can. Also, pick up your achievments by hitting yellow obstacles. Have fun!");
                     image.setImageResource(R.drawable.obstacle_game_rule3);
                 }
 
