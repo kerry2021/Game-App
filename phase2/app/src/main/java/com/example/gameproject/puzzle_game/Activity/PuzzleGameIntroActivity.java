@@ -68,7 +68,7 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
         RelativeLayout currentLayout = findViewById(R.id.intro_layout);
         currentLayout.setBackgroundColor(Color.parseColor(userBackground));
 
-        Button startPuzzleGameButton, customizePuzzleGameButton;
+        Button startPuzzleGameButton, customizePuzzleGameButton, backButton;
 
         startPuzzleGameButton = findViewById(R.id.start_puzzle_game_button);
 
@@ -80,6 +80,13 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
 
         customizePuzzleGameButton = findViewById(R.id.customize_puzzle_game_button);
         customizePuzzleGameButton.setOnClickListener(this::createCustomizationPopup);
+
+        backButton = findViewById(R.id.back_button);
+        backButton.setOnClickListener(v -> {
+            Intent backIntent = new Intent(v.getContext(), MainActivity.class);
+            backIntent.putExtra("user", currentUser);
+            startActivity(backIntent);
+        });
 
         if (intent.getBooleanExtra("continue_customization", false)) {
             createCustomizationPopup(findViewById(R.id.customize_puzzle_game_button));

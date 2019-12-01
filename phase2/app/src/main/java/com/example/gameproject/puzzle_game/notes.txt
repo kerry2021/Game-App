@@ -230,4 +230,4 @@ Simplified code, changed exit button onclickListener so that the current activit
 #######
 #Step 36
 Code Affected: ImageActivity, CustomImageInteractor, CustomImageManager.
-Added delete button for selected images. 
+Added delete button for selected images.
