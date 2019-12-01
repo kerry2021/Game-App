@@ -139,6 +139,8 @@ public class MoleManager extends Observable{
     public void stop(){
         mole.interrupt();
         time.interrupt();
+        mole.setRunning(false);
+        time.setRunning(false);
     }
 
 }

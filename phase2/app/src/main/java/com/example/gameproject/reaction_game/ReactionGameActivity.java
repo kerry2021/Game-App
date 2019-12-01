@@ -24,7 +24,7 @@ public class ReactionGameActivity extends AppCompatActivity {
     private User user;
     private ImageButton pause_or_resume;;
     protected int speed;
-    protected boolean random = ReactionCustomize.random;
+    protected boolean random;
     protected boolean pause_before;
     protected int next;
     private boolean pause = false;
