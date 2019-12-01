@@ -29,6 +29,8 @@ public class AchievementsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_achievements);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
         Intent intent = getIntent();
         currentUser = (User) intent.getSerializableExtra("user");
 
