@@ -34,15 +34,12 @@ public class AchievementsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         currentUser = (User) intent.getSerializableExtra("user");
 
-        Intent backIntent = new Intent(this, MainActivity.class);
-
         Button backButton;
 
         backButton = findViewById(R.id.back_button);
 
         backButton.setOnClickListener(v -> {
-            backIntent.putExtra("user", currentUser);
-            startActivity(backIntent);
+            finish();
         });
 
         if (currentUser.get("collectible progress") == null) {
@@ -107,5 +104,10 @@ public class AchievementsActivity extends AppCompatActivity {
             startActivity(backIntent);
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }
