@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * Database for storing customized images.
@@ -35,11 +36,13 @@ class CustomImageInteractor implements Serializable {
             try {
                 fos = new FileOutputStream(myPath);
                 // Use the compress method on the BitMap object to write image to the OutputStream
-                imageHashMap.get(pathname).compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                Objects.requireNonNull(imageHashMap.get(pathname)).compress(
+                        Bitmap.CompressFormat.JPEG, 100, fos);
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
                 try {
+                    assert fos != null;
                     fos.close();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -48,17 +51,12 @@ class CustomImageInteractor implements Serializable {
         }
     }
 
-    static boolean deleteImageList(String[] fileNameList, Context context) {
+    static void deleteImageList(String[] fileNameList, Context context) {
 
         File[] fileList = getFilesFromExternalStorage(fileNameList, context);
-        boolean allDeleted = true;
         for (File file : fileList) {
-            boolean deleted = file.delete();
-            if (!deleted) {
-                allDeleted = false;
-            }
+            file.delete();
         }
-        return allDeleted;
     }
 
     /**

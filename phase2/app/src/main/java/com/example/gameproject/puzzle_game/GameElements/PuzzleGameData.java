@@ -1,8 +1,5 @@
 package com.example.gameproject.puzzle_game.GameElements;
 
-
-import com.example.gameproject.puzzle_game.GameElements.PuzzleGameDataGateway;
-
 public class PuzzleGameData implements PuzzleGameDataGateway {
 
     //total number of puzzles in the game
@@ -70,11 +67,6 @@ public class PuzzleGameData implements PuzzleGameDataGateway {
     @Override
     public int getNumPuzzles() {
         return numPuzzles;
-    }
-
-    @Override
-    public void saveUserData() {
-        //TODO: send all data to user gameStats
     }
 
 }

@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 
 import com.example.gameproject.R;
-import com.example.gameproject.puzzle_game.GameController.PuzzleGenerator;
 
 import java.util.ArrayList;
 

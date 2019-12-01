@@ -133,7 +133,8 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                gestureDetectGridView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                gestureDetectGridView.getViewTreeObserver().
+                        removeOnGlobalLayoutListener(this);
                 int displayWidth = gestureDetectGridView.getMeasuredWidth();
                 int displayHeight = gestureDetectGridView.getMeasuredHeight();
 

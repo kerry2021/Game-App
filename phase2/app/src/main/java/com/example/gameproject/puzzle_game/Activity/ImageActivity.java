@@ -1,10 +1,10 @@
 package com.example.gameproject.puzzle_game.Activity;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -55,9 +54,10 @@ public class ImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_puzzle_game_select_image);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
 
         currentUser = (User) getIntent().getSerializableExtra("user");
+        assert currentUser != null;
         String customImagesCode = currentUser.get("puzzle_game_custom_images");
 
         showOldCustomizedImages(customImagesCode);
@@ -89,7 +89,8 @@ public class ImageActivity extends AppCompatActivity {
         saveSelectionButton.setOnClickListener(view12 -> {
             Bitmap[] imageList = new Bitmap[selectedImages.size()];
             imageList = selectedImages.toArray(imageList);
-            String value = CustomImageManager.saveImageList(imageList, customImagesCode, getApplicationContext());
+            String value = CustomImageManager.saveImageList(imageList, customImagesCode,
+                    getApplicationContext());
             currentUser.set("puzzle_game_custom_images", value);
             currentUser.write();
             Intent backIntro = new Intent(view12.getContext(), PuzzleGameIntroActivity.class);
@@ -138,6 +139,7 @@ public class ImageActivity extends AppCompatActivity {
 
                 Cursor cursor = getContentResolver().query(selectedImage,
                         filePathColumn, null, null, null);
+                assert cursor != null;
                 cursor.moveToFirst();
 
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
@@ -186,23 +188,16 @@ public class ImageActivity extends AppCompatActivity {
 
         linearImages.addView(relativeLayout);
 
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                linearImages.removeView(relativeLayout);
-                selectedImages.remove(image);
-            }
+        deleteButton.setOnClickListener(view -> {
+            linearImages.removeView(relativeLayout);
+            selectedImages.remove(image);
         });
     }
 
     public void alertDialogForCameraImage() {
         AlertDialog.Builder adb = new AlertDialog.Builder(ImageActivity.this);
         adb.setTitle("Pick Image From Gallery: ");
-        adb.setNegativeButton("Gallery", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                pickImageFromGallery();
-            }
-        });
+        adb.setNegativeButton("Gallery", (dialog, which) -> pickImageFromGallery());
         ad = adb.show();
     }
 
@@ -215,7 +210,7 @@ public class ImageActivity extends AppCompatActivity {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(ImageActivity.this,
-                            "Gallery Acces Permission Granted",
+                            "Gallery Access Permission Granted",
                             Toast.LENGTH_SHORT)
                             .show();
                     alertDialogForCameraImage();

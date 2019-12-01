@@ -12,6 +12,7 @@ import com.example.gameproject.R;
 import com.example.gameproject.User;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class BackgroundChangeActivity extends AppCompatActivity {
     String backgroundColour;
@@ -21,7 +22,7 @@ public class BackgroundChangeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle_game_background_change);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
         User currentUser = (User) getIntent().getSerializableExtra("user");
         colours = this.getResources().getStringArray(R.array.colourOptions);
 

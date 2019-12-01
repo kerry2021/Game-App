@@ -2,6 +2,7 @@ package com.example.gameproject.puzzle_game.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import android.widget.Spinner;
 import com.example.gameproject.MainActivity;
 import com.example.gameproject.R;
 import com.example.gameproject.User;
+
+import java.util.Objects;
 
 public class PuzzleGameIntroActivity extends AppCompatActivity {
 
@@ -46,11 +49,12 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle_game_intro);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
 
         Intent intent = getIntent();
         currentUser = (User) intent.getSerializableExtra("user");
 
+        assert currentUser != null;
         String userCountDownTime = currentUser.get("puzzle_game_countDownTime");
         String userBackground = currentUser.get("puzzle_game_background");
 
@@ -98,7 +102,8 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
-        View popupView = inflater.inflate(R.layout.customize_puzzle_game_window, null);
+        @SuppressLint("InflateParams") View popupView = inflater.inflate(
+                R.layout.customize_puzzle_game_window, null);
 
         // create the popup window
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -172,14 +177,14 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
     private void setUpSpinner(View view) {
         // Set up the puzzleDimensions spinner.
         dimSpinner = view.findViewById(R.id.spinner1);
-        ArrayAdapter adapter1 = new ArrayAdapter(
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, puzzleDimensions);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dimSpinner.setAdapter(adapter1);
 
         // Set up the countDownTime spinner
         timeSpinner = view.findViewById(R.id.spinner2);
-        ArrayAdapter adapter2 = new ArrayAdapter(
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, countDownTimeChoice);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         timeSpinner.setAdapter(adapter2);

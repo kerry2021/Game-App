@@ -3,8 +3,6 @@ package com.example.gameproject.puzzle_game.GameController;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.example.gameproject.puzzle_game.GameController.CustomImageInteractor;
-
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -17,10 +15,11 @@ public class CustomImageManager {
      * @param context application context for getting directory.
      * @return a String of code for retrieving saved images.
      */
-    public static String saveImageList(Bitmap[] imageList, String originalFileNames, Context context) {
+    public static String saveImageList(Bitmap[] imageList, String originalFileNames,
+                                       Context context) {
         deleteImageList(originalFileNames, context);
         StringBuilder newFileNames;
-        newFileNames = new StringBuilder("");
+        newFileNames = new StringBuilder();
         HashMap<String, Bitmap> imageHashMap = new HashMap<>();
         for (int i = 0; i < imageList.length; i++) {
             //String pathname = Integer.toString(i + numOriginalFiles);
@@ -40,11 +39,10 @@ public class CustomImageManager {
      * delete files from external storage of the device.
      * @param fileNames code for accessing files.
      * @param context application context
-     * @return true if all files successfully deleted, false if some not deleted.
      */
-    private static boolean deleteImageList(String fileNames, Context context) {
+    private static void deleteImageList(String fileNames, Context context) {
         String[] fileNameList = decode(fileNames);
-        return CustomImageInteractor.deleteImageList(fileNameList, context);
+        CustomImageInteractor.deleteImageList(fileNameList, context);
     }
 
     /**
