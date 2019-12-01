@@ -32,6 +32,10 @@ public class SignUpActivity extends AppCompatActivity {
                 else if(passWord.contains("-") || passWord.contains(":") || passWord.contains(";")){
                     errorMsg.setText("Password can not contain special characters : ; or -");
                 }
+                else if(User.getUser(userName, passWord) != null)
+                {
+                    errorMsg.setText("This user already exist");
+                }
                 else {
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("user", new User(userName, passWord));
