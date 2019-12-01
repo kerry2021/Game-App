@@ -36,8 +36,8 @@ public class ReactionCustomize extends AppCompatActivity {
                     user.set("reaction_game_speed", String.valueOf(250));
                 else if (getSpeed.equals("0.5 s/mole"))
                     user.set("reaction_game_speed", String.valueOf(500));
-                else if (getSpeed.equals("1 s/mole"))
-                    user.set("reaction_game_speed", String.valueOf(1000));
+                else if (getSpeed.equals("0.75 s/mole"))
+                    user.set("reaction_game_speed", String.valueOf(750));
                 else
                     user.set("reaction_game_random", "true");
 
