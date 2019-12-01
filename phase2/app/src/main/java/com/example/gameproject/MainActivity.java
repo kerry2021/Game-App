@@ -36,14 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         User.setFile(new File(this.getFilesDir(), "User_info.txt"));
 
-        Intent intent = getIntent();
-        if (intent.getSerializableExtra("user") != null) {
-            currentUser = (User) intent.getSerializableExtra("user");
-        } else {
-            //create a default user
-            currentUser = new User("player", "default");
-            currentUser.write();
-        }
+        //create a default user
+        currentUser = new User("player", "default");
+        currentUser.write();
 
         setTitle("Welcome Back: " + currentUser.get("userName"));
 

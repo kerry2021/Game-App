@@ -1,9 +1,8 @@
 1. This game only supports phones with lcd densities: 120, 160, 213, 240, 280, 320, 360, 400, 420, 480, 560, 640
 2. To run this game in Android Studio, clone it first then select Pixel 3 API 28 as the device, or use any device
 with the above lcd densities
-3. There maybe occasional issues when compiling where the error message states that the symbol <insert activity name>.class
- can not be recognized, the code that have cause this problem would be starting an activity, and removing and rewriting
- the <insert activity name>.class part of the code would fix it, however the reason for this error remains unknown.
+3. There maybe occasional issues with android studio where java files are turned blank for unknown reasons(this
+only happened once), if that happened the file affected needs to be recovered from previous commits.
 4. Once the game starts, make sure to create an account by navigating to Log In - Sign Up page. You can still play
 without an account but your progress may not be saved for the next time
 5. There are three mini games in total in this game, you can read about how to play each one in each their starting page

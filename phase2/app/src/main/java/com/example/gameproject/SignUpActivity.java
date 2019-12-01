@@ -29,14 +29,11 @@ public class SignUpActivity extends AppCompatActivity {
                     errorMsg.setText("User name or Password Cannot be empty");
                 }
                 //using these characters will mess up encoding process in User, so they are not allowed
-                else if(passWord.contains("-") || passWord.contains(":") || passWord.contains(";")){
+                else if (passWord.contains("-") || passWord.contains(":") || passWord.contains(";")) {
                     errorMsg.setText("Password can not contain special characters : ; or -");
-                }
-                else if(User.getUser(userName, passWord) != null)
-                {
+                } else if (User.getUser(userName, passWord) != null) {
                     errorMsg.setText("This user already exist");
-                }
-                else {
+                } else {
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("user", new User(userName, passWord));
                     setResult(RESULT_OK, resultIntent);

@@ -41,7 +41,7 @@ public class AchievementsAdapter extends BaseAdapter {
         } else {
             imageView.setBackgroundResource(R.drawable.question_mark);
         }
-        int pixels =  (int) (50 * imageView.getResources().getDisplayMetrics().density);
+        int pixels = (int) (50 * imageView.getResources().getDisplayMetrics().density);
         android.widget.AbsListView.LayoutParams params =
                 new android.widget.AbsListView.LayoutParams(pixels, pixels);
         imageView.setLayoutParams(params);

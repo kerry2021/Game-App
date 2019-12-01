@@ -101,9 +101,9 @@ public class User implements Serializable {
             boolean overRode = false;
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String content = reader.readLine();
-            if(content != null) {
+            if (content != null) {
                 String[] lines = content.split("-");
-               for(String line: lines) {
+                for (String line : lines) {
                     HashMap<String, String> newMap = decode(line);
                     if (newMap.get("userName").equals(gameStats.get("userName"))) {
                         overRode = true;
@@ -117,7 +117,7 @@ public class User implements Serializable {
 
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer.write(linesOut);
-            if(! overRode){
+            if (!overRode) {
                 writer.write(encode());
             }
             writer.close();
@@ -138,9 +138,9 @@ public class User implements Serializable {
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String content = br.readLine();
-            if(content != null) {
+            if (content != null) {
                 String[] lines = content.split("-");
-                for (String line: lines) {
+                for (String line : lines) {
                     HashMap<String, String> newMap = decode(line);
                     if (newMap.get("userName").equals(userName) && newMap.get("passWord").equals(passWord)) {
                         return new User(newMap);
