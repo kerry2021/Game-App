@@ -1,5 +1,6 @@
-package com.example.gameproject.puzzle_game.Activity;
+package com.example.gameproject.puzzle_game.GameController;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
@@ -7,8 +8,6 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.GridView;
-
-import com.example.gameproject.puzzle_game.GameController.PuzzleGamePresenter;
 
 public class GestureDetectGridView extends GridView {
     private GestureDetector gDetector;
@@ -109,6 +108,7 @@ public class GestureDetectGridView extends GridView {
         return super.onInterceptTouchEvent(ev);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return gDetector.onTouchEvent(ev);
