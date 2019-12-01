@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.gameproject.MainActivity;
 import com.example.gameproject.R;
 import com.example.gameproject.User;
 
@@ -44,5 +45,14 @@ public class ReactionGameMain extends AppCompatActivity {
 
         });
 
-    }}
+    }
+
+    public void onBackPressed() {
+        currentUser.write();
+        Intent mainActivityIntent = new Intent(this, MainActivity.class);
+        mainActivityIntent.putExtra("user", currentUser);
+        startActivity(mainActivityIntent);
+
+    }
+}
 

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.gameproject.MainActivity;
 import com.example.gameproject.R;
 import com.example.gameproject.User;
 
@@ -49,18 +50,16 @@ public class ReactionGameActivity extends AppCompatActivity {
     private void setSpeed() {
         try {
             speed = Integer.parseInt(user.get("reaction_game_speed"));
-        } catch (NullPointerException e) {
-            speed = 750;
         } catch (Exception e){
+            speed = 750;
         }
     }
 
     private void setRandom(){
         try {
             random = Boolean.parseBoolean(user.get("reaction_game_random"));
-        } catch (NullPointerException e) {
-            random = false;
         } catch (Exception e){
+            random = false;
         }
     }
 
@@ -149,5 +148,12 @@ public class ReactionGameActivity extends AppCompatActivity {
     public void onStop(){
         super.onStop();
         moleManager.stop();
+    }
+
+    public void onBackPressed() {
+        moleManager.stop();
+        Intent reactionGameButton = new Intent(this, ReactionGameMain.class);
+        reactionGameButton.putExtra("user", user);
+        startActivity(reactionGameButton);
     }
 }
