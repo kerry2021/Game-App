@@ -3,7 +3,7 @@
     <string-array name="moleSpeed">
         <item>0.25 s/mole</item>
         <item>0.5 s/mole</item>
-        <item>1 s/mole</item>
+        <item>0.75 s/mole</item>
         <item>random</item></string-array>
 
     <string-array name="colourOptions">

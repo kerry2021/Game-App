@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         currentUser = new User("player", "default");
         currentUser.write();
 
+        assert currentUser != null;
         setTitle("Welcome Back: " + currentUser.get("userName"));
 
         reactionGameIntent = new Intent(this, ReactionGameMain.class);

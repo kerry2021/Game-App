@@ -54,19 +54,9 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
         Intent intent = getIntent();
         currentUser = (User) intent.getSerializableExtra("user");
 
-        assert currentUser != null;
-        String userCountDownTime = currentUser.get("puzzle_game_countDownTime");
-        String userBackground = currentUser.get("puzzle_game_background");
-
-        if(userCountDownTime == null){
-            currentUser.set("puzzle_game_countDownTime", "Normal");
-            currentUser.write();
-        }
-
-        if(userBackground == null){
-            currentUser.set("puzzle_game_background", "#FFFFFF");
-            currentUser.write();
-            userBackground = "#FFFFFF";
+        String userBackground = "#FFFFFF";
+        if (currentUser != null) {
+            userBackground = checkCustomization(currentUser);
         }
 
         RelativeLayout currentLayout = findViewById(R.id.intro_layout);
@@ -86,9 +76,7 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
         customizePuzzleGameButton.setOnClickListener(this::createCustomizationPopup);
 
         backButton = findViewById(R.id.back_button);
-        backButton.setOnClickListener(v -> {
-            finish();
-        });
+        backButton.setOnClickListener(v -> finish());
 
         if (intent.getBooleanExtra("continue_customization", false)) {
             createCustomizationPopup(findViewById(R.id.customize_puzzle_game_button));
@@ -126,6 +114,7 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
         });
 
         changeBackgroundButton.setOnClickListener(v -> {
+            finish();
             Intent toBackground = new Intent(v.getContext(), BackgroundChangeActivity.class);
             toBackground.putExtra("user", currentUser);
             startActivity(toBackground);
@@ -186,6 +175,27 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
                 this, android.R.layout.simple_spinner_item, countDownTimeChoice);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         timeSpinner.setAdapter(adapter2);
+    }
+
+    public String checkCustomization(User currentUser){
+
+        assert currentUser != null;
+        String userCountDownTime = currentUser.get("puzzle_game_countDownTime");
+        String userBackground = currentUser.get("puzzle_game_background");
+
+        if(userCountDownTime == null){
+            currentUser.set("puzzle_game_countDownTime", "Normal");
+            currentUser.write();
+        }
+
+        if(userBackground == null){
+            currentUser.set("puzzle_game_background", "#FFFFFF");
+            currentUser.write();
+            userBackground = "#FFFFFF";
+        }
+
+        return userBackground;
+
     }
 
 

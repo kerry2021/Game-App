@@ -1,4 +1,4 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
     <string name="app_name">GameProject</string>
     <string name="reaction_game">Reaction Game</string>
     <string name="puzzle_game">Puzzle Game</string>
@@ -63,4 +63,8 @@
     <string name="shop_statement">Welcome to the Mystery Shop!</string>
     <string name="buy">Buy</string>
     <string name="mystery_shop">Mystery Shop</string>
+    <string name="unlock">Bonus Puzzle Unlocked</string>
+    <string name="signup_error">User name or Password Cannot be empty</string>
+    <string name="special_characters_found">Password can not contain special characters : ; or -</string>
+    <string name="redundant_user">This user already exist</string>
 </resources>
