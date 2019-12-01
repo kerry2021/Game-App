@@ -34,6 +34,8 @@ public class ReactionGameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reaction_game);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
 
         user = ReactionGameMain.currentUser;
         moleManager = new MoleManager(this, getSpeed());

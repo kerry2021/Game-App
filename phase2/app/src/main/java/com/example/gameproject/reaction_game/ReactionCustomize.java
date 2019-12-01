@@ -20,6 +20,8 @@ public class ReactionCustomize extends AppCompatActivity {
         user = ReactionGameMain.currentUser;
 
         setContentView(R.layout.activity_reaction_customize);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
         Button confirmButton;
         Spinner spinner = (Spinner) findViewById(R.id.speed);
 

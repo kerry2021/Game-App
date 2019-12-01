@@ -20,6 +20,8 @@ public class ReactionGameMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reaction_game_main);
         currentUser = (User) getIntent().getSerializableExtra("user");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
         gameManager = new ReactionGameManager(currentUser, this);
 
         Button customizeButton;
