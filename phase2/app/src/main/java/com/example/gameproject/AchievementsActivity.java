@@ -16,10 +16,10 @@ import com.example.gameproject.puzzle_game.GameController.ImageSplitter;
 import com.example.gameproject.puzzle_game.Activity.PuzzleGameActivity;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AchievementsActivity extends AppCompatActivity {
 
-    private GridView achievementGrid;
     private User currentUser;
     private int progress;
     private Bitmap[] puzzlePieces = new Bitmap[9];
@@ -29,7 +29,7 @@ public class AchievementsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_achievements);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
 
         Intent intent = getIntent();
         currentUser = (User) intent.getSerializableExtra("user");
@@ -57,7 +57,7 @@ public class AchievementsActivity extends AppCompatActivity {
             unlockBonus();
         }
 
-        achievementGrid = findViewById(R.id.achievements_grid);
+        GridView achievementGrid = findViewById(R.id.achievements_grid);
         AchievementsAdapter achievementsAdapter = new AchievementsAdapter(getApplicationContext(),
                 puzzlePieces);
         achievementGrid.setAdapter(achievementsAdapter);
@@ -89,7 +89,7 @@ public class AchievementsActivity extends AppCompatActivity {
         params.addRule(RelativeLayout.CENTER_HORIZONTAL);
         params.topMargin = (int) (10 * getResources().getDisplayMetrics().density);
         bonusButton.setLayoutParams(params);
-        bonusButton.setText("Bonus Puzzle Unlocked");
+        bonusButton.setText(R.string.unlock);
         layout.addView(bonusButton);
         bonusButton.setOnClickListener(v -> {
             Intent intent = new Intent(this, PuzzleGameActivity.class);

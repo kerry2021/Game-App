@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,38 +16,33 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        EditText userNameEditText = (EditText) findViewById(R.id.username);
-        EditText passWordEditText = (EditText) findViewById(R.id.password);
-        Button signUp = (Button) findViewById(R.id.sign_up_button);
-        Button login = (Button) findViewById(R.id.login_button);
-        TextView errorMsg = (TextView) findViewById(R.id.textView);
+        EditText userNameEditText = findViewById(R.id.username);
+        EditText passWordEditText = findViewById(R.id.password);
+        Button signUp = findViewById(R.id.sign_up_button);
+        Button login = findViewById(R.id.login_button);
+        TextView errorMsg = findViewById(R.id.textView);
 
-        login.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                String userName = userNameEditText.getText().toString();
-                String passWord = passWordEditText.getText().toString();
-                if (userName.equals("") || passWord.equals("")) {
-                    errorMsg.setText("Incorrect password or Account does not exist");
+        login.setOnClickListener(v -> {
+            String userName = userNameEditText.getText().toString();
+            String passWord = passWordEditText.getText().toString();
+            if (userName.equals("") || passWord.equals("")) {
+                errorMsg.setText(R.string.log_in_warning);
+            } else {
+                User potentialUser = User.getUser(userName, passWord);
+                if (potentialUser == null) {
+                    Log.i("info", "error detected");
+                    errorMsg.setText(R.string.log_in_warning);
                 } else {
-                    User potentialUser = User.getUser(userName, passWord);
-                    if (potentialUser == null) {
-                        Log.i("info", "error detected");
-                        errorMsg.setText("Incorrect password or Account does not exist");
-                    } else {
-                        Intent resultIntent = new Intent();
-                        resultIntent.putExtra("user", potentialUser);
-                        setResult(RESULT_OK, resultIntent);
-                        finish();
-                    }
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("user", potentialUser);
+                    setResult(RESULT_OK, resultIntent);
+                    finish();
                 }
             }
         });
 
-        signUp.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivityForResult(new Intent(v.getContext(), SignUpActivity.class), 1);
-            }
-        });
+        signUp.setOnClickListener(v -> startActivityForResult(new Intent(v.getContext(),
+                SignUpActivity.class), 1));
     }
 
     @Override

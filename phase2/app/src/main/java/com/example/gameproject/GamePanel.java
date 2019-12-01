@@ -1,7 +1,7 @@
 package com.example.gameproject;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -14,13 +14,6 @@ import android.view.SurfaceView;
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
-    public static float charWidth;
-
-    public static float charHeight;
-
-    private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-
-    private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 
     private MainThread thread;
 
@@ -56,6 +49,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         return super.onTouchEvent(event);

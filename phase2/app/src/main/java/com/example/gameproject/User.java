@@ -1,6 +1,5 @@
 package com.example.gameproject;
 
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Objects;
 
 
 /**
@@ -33,14 +33,14 @@ public class User implements Serializable {
      * @param passWord the password
      */
     User(String userName, String passWord) {
-        gameStats = new HashMap<String, String>();
+        gameStats = new HashMap<>();
         gameStats.put("userName", userName);
         gameStats.put("passWord", passWord);
         gameStats.put("progress", "1");
         gameStats.put("collectible progress", "0");
     }
 
-    User(HashMap<String, String> gameStats) {
+    private User(HashMap<String, String> gameStats) {
         this.gameStats = gameStats;
     }
 
@@ -65,18 +65,18 @@ public class User implements Serializable {
      * @return the encoded text
      */
     private String encode() {
-        String outStr = "";
+        StringBuilder outStr = new StringBuilder();
         for (String key : gameStats.keySet()) {
-            outStr += key + ":" + gameStats.get(key) + ";";
+            outStr.append(key).append(":").append(gameStats.get(key)).append(";");
         }
         return (outStr + "-");
     }
 
     static private HashMap<String, String> decode(String line) {
         String[] pairs = line.split(";");
-        HashMap<String, String> newMap = new HashMap<String, String>();
-        for (int i = 0; i < pairs.length; i++) {
-            newMap.put(pairs[i].split(":")[0], pairs[i].split(":")[1]);
+        HashMap<String, String> newMap = new HashMap<>();
+        for (String pair : pairs) {
+            newMap.put(pair.split(":")[0], pair.split(":")[1]);
         }
         return newMap;
     }
@@ -85,7 +85,7 @@ public class User implements Serializable {
      * get the value responding to the key stored in this class
      *
      * @param key the key
-     * @return
+     * @return value corresponding to the key.
      */
     public String get(String key) {
         return gameStats.get(key);
@@ -97,7 +97,7 @@ public class User implements Serializable {
     public void write() {
 
         try {
-            String linesOut = "";
+            StringBuilder linesOut = new StringBuilder();
             boolean overRode = false;
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String content = reader.readLine();
@@ -105,18 +105,19 @@ public class User implements Serializable {
                 String[] lines = content.split("-");
                for(String line: lines) {
                     HashMap<String, String> newMap = decode(line);
-                    if (newMap.get("userName").equals(gameStats.get("userName"))) {
+                    if (Objects.requireNonNull(newMap.get("userName")).equals
+                            (gameStats.get("userName"))) {
                         overRode = true;
-                        linesOut += encode(); //replace the line if it is already about this user
+                        linesOut.append(encode()); //replace the line if it is already about this user
                     } else {
-                        linesOut += line + "-";
+                        linesOut.append(line).append("-");
                     }
                 }
 
             }
 
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            writer.write(linesOut);
+            writer.write(linesOut.toString());
             if(! overRode){
                 writer.write(encode());
             }
@@ -142,7 +143,8 @@ public class User implements Serializable {
                 String[] lines = content.split("-");
                 for (String line: lines) {
                     HashMap<String, String> newMap = decode(line);
-                    if (newMap.get("userName").equals(userName) && newMap.get("passWord").equals(passWord)) {
+                    if (Objects.requireNonNull(newMap.get("userName")).equals(userName)
+                            && Objects.requireNonNull(newMap.get("passWord")).equals(passWord)) {
                         return new User(newMap);
                     }
                 }
