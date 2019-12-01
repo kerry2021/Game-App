@@ -12,6 +12,9 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -28,6 +31,7 @@ import android.content.pm.PackageManager;
 import androidx.core.app.ActivityCompat;
 
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class ImageActivity extends AppCompatActivity {
@@ -38,6 +42,8 @@ public class ImageActivity extends AppCompatActivity {
     private ArrayList<Bitmap> selectedImages = new ArrayList<>();
     private static final int STORAGE_PERMISSION_CODE = 1;
     private AlertDialog ad;
+
+    private User currentUser;
 
 
     /**
@@ -50,17 +56,12 @@ public class ImageActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_puzzle_game_select_image);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        User currentUser = (User) getIntent().getSerializableExtra("user");
+
+        currentUser = (User) getIntent().getSerializableExtra("user");
         String customImagesCode = currentUser.get("puzzle_game_custom_images");
-        Bitmap[] savedImages = CustomImageManager.getImageList(customImagesCode, getApplicationContext());
-        for (Bitmap image : savedImages) {
-            if (image != null) {
-                oldCustomImages.add(image);
-            }
-        }
-        for (int i = 0; i < oldCustomImages.size(); i++) {
-            showImageInLayout(oldCustomImages.get(i));
-        }
+
+        showOldCustomizedImages(customImagesCode);
+
         if(ContextCompat.checkSelfPermission(ImageActivity.this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED)
@@ -105,6 +106,18 @@ public class ImageActivity extends AppCompatActivity {
         });
     }
 
+    private void showOldCustomizedImages(String customImagesCode) {
+        Bitmap[] savedImages = CustomImageManager.getImageList(customImagesCode, getApplicationContext());
+        for (Bitmap image : savedImages) {
+            if (image != null) {
+                oldCustomImages.add(image);
+            }
+        }
+        for (int i = 0; i < oldCustomImages.size(); i++) {
+            showImageInLayout(oldCustomImages.get(i));
+        }
+    }
+
     void pickImageFromGallery() {
 
         Intent pickPhoto = new Intent(Intent.ACTION_PICK,
@@ -140,15 +153,47 @@ public class ImageActivity extends AppCompatActivity {
     private void showImageInLayout(Bitmap image) {
         ImageView imageView = new ImageView(ImageActivity.this);
         imageView.setImageBitmap(image);
-        LinearLayout linearImages = findViewById(R.id.linear_images);
-        int pixels =  (int) (100 * imageView.getResources().getDisplayMetrics().density);
-        int topMargin = (int) (10 * imageView.getResources().getDisplayMetrics().density);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(pixels, pixels);
-        layoutParams.topMargin = topMargin;
-        imageView.setLayoutParams(layoutParams);
-        linearImages.addView(imageView, layoutParams);
-    }
+        int imageId = View.generateViewId();
+        imageView.setId(imageId);
 
+        Button deleteButton = new Button(ImageActivity.this);
+        deleteButton.setBackgroundResource(R.drawable.close_button);
+
+        LinearLayout linearImages = findViewById(R.id.linear_images);
+        RelativeLayout relativeLayout = new RelativeLayout(getApplicationContext());
+
+        int dp100 =  (int) (100 * imageView.getResources().getDisplayMetrics().density);
+        int dp10 = (int) (10 * imageView.getResources().getDisplayMetrics().density);
+
+        RelativeLayout.LayoutParams imageLayoutParams =
+                new RelativeLayout.LayoutParams(dp100, dp100);
+        imageLayoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        imageView.setLayoutParams(imageLayoutParams);
+        relativeLayout.addView(imageView, imageLayoutParams);
+
+        RelativeLayout.LayoutParams deleteButtonLayoutParams =
+                new RelativeLayout.LayoutParams(dp10, dp10);
+        deleteButtonLayoutParams.addRule(RelativeLayout.ALIGN_RIGHT, imageId);
+        deleteButtonLayoutParams.addRule(RelativeLayout.ALIGN_TOP, imageId);
+        deleteButton.setLayoutParams(deleteButtonLayoutParams);
+        relativeLayout.addView(deleteButton);
+
+        LinearLayout.LayoutParams linearLayoutParams =
+                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+        linearLayoutParams.topMargin = dp10;
+        relativeLayout.setLayoutParams(linearLayoutParams);
+
+        linearImages.addView(relativeLayout);
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                linearImages.removeView(relativeLayout);
+                selectedImages.remove(image);
+            }
+        });
+    }
 
     public void alertDialogForCameraImage() {
         AlertDialog.Builder adb = new AlertDialog.Builder(ImageActivity.this);

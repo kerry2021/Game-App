@@ -48,21 +48,31 @@ class CustomImageInteractor implements Serializable {
         }
     }
 
+    static boolean deleteImageList(String[] fileNameList, Context context) {
+
+        File[] fileList = getFilesFromExternalStorage(fileNameList, context);
+        boolean allDeleted = true;
+        for (File file : fileList) {
+            boolean deleted = file.delete();
+            if (!deleted) {
+                allDeleted = false;
+            }
+        }
+        return allDeleted;
+    }
+
     /**
      * Get a list of bitmap images using a list of file names.
-     * @param pathnames an array of file names.
+     * @param pathNames an array of file names.
      * @param context context used to create/retrieve custom images file directory.
      * @return list of Bitmap images retrieved from the directory.
      */
-    static Bitmap[] getImageList(String[] pathnames, Context context) {
-        ContextWrapper cw = new ContextWrapper(context);
-        File directory = cw.getDir(IMAGE_DIR_FILE_NAME, Context.MODE_PRIVATE);
-        Bitmap[] imageList = new Bitmap[pathnames.length];
-        for (int i = 0; i < pathnames.length; i++) {
+    static Bitmap[] getImageList(String[] pathNames, Context context) {
+        Bitmap[] imageList = new Bitmap[pathNames.length];
+        File[] fileList = getFilesFromExternalStorage(pathNames, context);
+        for (int i = 0; i < imageList.length; i++) {
             try {
-                String childPathname = pathnames[i] + ".jpg";
-                File f = new File(directory, childPathname);
-                Bitmap image = BitmapFactory.decodeStream(new FileInputStream(f));
+                Bitmap image = BitmapFactory.decodeStream(new FileInputStream(fileList[i]));
                 imageList[i] = image;
             }
             catch (FileNotFoundException e)
@@ -72,5 +82,19 @@ class CustomImageInteractor implements Serializable {
             }
         }
         return imageList;
+    }
+
+    private static File[] getFilesFromExternalStorage(String[] pathNames, Context context) {
+        for (int i = 0; i < pathNames.length; i++) {
+            String childPathname = pathNames[i] + ".jpg";
+            pathNames[i] = childPathname;
+        }
+        File[] fileList = new File[pathNames.length];
+        ContextWrapper cw = new ContextWrapper(context);
+        File directory = cw.getDir(IMAGE_DIR_FILE_NAME, Context.MODE_PRIVATE);
+        for (int i = 0; i < pathNames.length; i++) {
+            fileList[i] = new File(directory, pathNames[i]);
+        }
+        return fileList;
     }
 }

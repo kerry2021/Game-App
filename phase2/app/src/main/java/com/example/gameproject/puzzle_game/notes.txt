@@ -223,6 +223,11 @@ Updated README. Avoided 2 achievement toasts overriding each other. Changed scor
 mystery shop item costs to unify the score with obstacle game.
 
 #######
-#Step 34
+#Step 35
 Code Affected: PuzzleGameActivity, PuzzleGameIntroActivity
 Simplified code, changed exit button onclickListener so that the current activity will finish.
+
+#######
+#Step 36
+Code Affected: ImageActivity, CustomImageInteractor, CustomImageManager.
+Added delete button for selected images. 

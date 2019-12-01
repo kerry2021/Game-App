@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import com.example.gameproject.puzzle_game.GameController.CustomImageInteractor;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public class CustomImageManager {
 
@@ -17,29 +18,33 @@ public class CustomImageManager {
      * @return a String of code for retrieving saved images.
      */
     public static String saveImageList(Bitmap[] imageList, String originalFileNames, Context context) {
-        String[] originalFiles = decode(originalFileNames);
-        int numOriginalFiles = originalFiles.length;
-        int numNewFiles = imageList.length;
+        deleteImageList(originalFileNames, context);
         StringBuilder newFileNames;
-        if (originalFileNames == null) {
-            newFileNames = new StringBuilder("");
-        } else {
-            newFileNames = new StringBuilder(originalFileNames);
-        }
+        newFileNames = new StringBuilder("");
         HashMap<String, Bitmap> imageHashMap = new HashMap<>();
-        if (numOriginalFiles > 0) {
-            newFileNames.append("_");
-        }
-        for (int i = 0; i < numNewFiles; i++) {
-            String pathname = Integer.toString(i + numOriginalFiles);
+        for (int i = 0; i < imageList.length; i++) {
+            //String pathname = Integer.toString(i + numOriginalFiles);
+            String uniqueId = UUID.randomUUID().toString();
+            String pathname = uniqueId.replace("-", "");
             imageHashMap.put(pathname, imageList[i]);
             newFileNames.append(pathname);
-            if (i < (numNewFiles - 1)) {
+            if (i < (imageList.length - 1)) {
                 newFileNames.append("_");
             }
         }
         CustomImageInteractor.saveImageList(imageHashMap, context);
         return newFileNames.toString();
+    }
+
+    /**
+     * delete files from external storage of the device.
+     * @param fileNames code for accessing files.
+     * @param context application context
+     * @return true if all files successfully deleted, false if some not deleted.
+     */
+    private static boolean deleteImageList(String fileNames, Context context) {
+        String[] fileNameList = decode(fileNames);
+        return CustomImageInteractor.deleteImageList(fileNameList, context);
     }
 
     /**
