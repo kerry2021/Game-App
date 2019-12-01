@@ -13,7 +13,6 @@ import com.example.gameproject.R;
 import com.example.gameproject.User;
 
 public class ReactionCustomize extends AppCompatActivity {
-    protected static boolean random = false;
     private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -24,7 +24,7 @@ public class ReactionGameActivity extends AppCompatActivity {
     private User user;
     private ImageButton pause_or_resume;;
     protected int speed;
-    protected boolean random = ReactionCustomize.random;
+    protected boolean random;
     protected boolean pause_before;
     protected int next;
     private boolean pause = false;
@@ -139,9 +139,7 @@ public class ReactionGameActivity extends AppCompatActivity {
 
         exitButton.setOnClickListener(view -> {
             popupWindow.dismiss();
-            Intent reactionGameIntent = new Intent(this, ReactionGameMain.class);
-            reactionGameIntent.putExtra("user", user);
-            startActivity(reactionGameIntent);
+            finish();
         });
     }
     @Override
@@ -152,8 +150,6 @@ public class ReactionGameActivity extends AppCompatActivity {
 
     public void onBackPressed() {
         moleManager.stop();
-        Intent reactionGameButton = new Intent(this, ReactionGameMain.class);
-        reactionGameButton.putExtra("user", user);
-        startActivity(reactionGameButton);
+        finish();
     }
 }
