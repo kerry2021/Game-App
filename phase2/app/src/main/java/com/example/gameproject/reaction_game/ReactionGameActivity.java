@@ -23,10 +23,8 @@ import java.util.Observer;
 public class ReactionGameActivity extends AppCompatActivity {
     private User user;
     private ImageButton pause_or_resume;;
-    protected int speed;
     protected boolean random;
     protected boolean pause_before;
-    protected int next;
     private boolean pause = false;
     private MoleManager moleManager;
     private MoleDrawer moleDrawer;
@@ -37,22 +35,24 @@ public class ReactionGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reaction_game);
 
-        moleManager = new MoleManager(this);
+        user = ReactionGameMain.currentUser;
+        moleManager = new MoleManager(this, getSpeed());
         moleDrawer = new MoleDrawer();
         moleManager.addObserver((Observer)moleDrawer);
         initButton();
         pause_before = false;
-        user = ReactionGameMain.currentUser;
-        setSpeed();
+
         setRandom();
     }
 
-    private void setSpeed() {
+    private int getSpeed() {
+        int speed;
         try {
             speed = Integer.parseInt(user.get("reaction_game_speed"));
         } catch (Exception e){
             speed = 750;
         }
+        return speed;
     }
 
     private void setRandom(){

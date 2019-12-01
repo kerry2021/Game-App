@@ -10,40 +10,35 @@ import java.util.HashMap;
 import java.util.Observable;
 
 public class MoleManager extends Observable{
-    private ImageButton[] buttons= new ImageButton[9];
-    private HashMap <Integer, ImageButton> nextToMole = new HashMap<>();
-    private HashMap<ImageButton, Integer> moleToNext = new HashMap<>();
+
+    private Moles moles;
     private ImageButton nextMole,hitPosition;
     private TimeThread time;
-    private MoleThread mole;
+    private MoleThread generateMole;
     private ClickImage clicker;
     private boolean hit;
     private TextView t_score, t_timer;
     private int next, score, timer, currStep,running;
+    protected int refreashTime;
 
-    public MoleManager(ReactionGameActivity reaction){
+    public MoleManager(ReactionGameActivity reaction,int speed){
         t_score = reaction.findViewById(R.id.score);
         t_timer = reaction.findViewById(R.id.timer);
         score = 0;
         timer = 10;//TODO: only for testing, should be changed when all the bug fixed
-        mole = new MoleThread();
+        refreashTime = speed;
+        generateMole = new MoleThread();
         time = new TimeThread();
         clicker = new ClickImage();
-        mole.setRunning(true);
+        generateMole.setRunning(true);
         time.setRunning(true);
         clicker.setMovable(true);
-        mole.setStep(1);
-        mole.setActivity(reaction,this);
+        generateMole.setStep(1);
+        generateMole.setActivity(reaction,this);
         time.setActivity(reaction, this);
         clicker.setReaction(this);
 
-        for (int i =0; i<9; i++){
-            int id = reaction.getResources().getIdentifier("btn_" + (i+1),"id", reaction.getPackageName());
-            buttons[i]= reaction.findViewById(id);
-            buttons[i].setOnClickListener(clicker);
-            nextToMole.put(i + 1,buttons[i]);
-            moleToNext.put(buttons[i], i + 1);
-        }
+        moles = new Moles(reaction,clicker);
 
         t_score.setText("0");
 
@@ -52,7 +47,7 @@ public class MoleManager extends Observable{
     public void updateScreen(int next, int step){
         running = 1;
         this.next = next;
-        nextMole = nextToMole.get(next);
+        nextMole = moles.getMole(next);
         currStep = step;
         setChanged();
         notifyObservers();
@@ -60,8 +55,8 @@ public class MoleManager extends Observable{
 
     public void ifHit (View v){
         running = 3;
-        if (next == moleToNext.get(v)) {
-            score += 1;
+        if (next == moles.getNext(v)) {
+            score += ((double)750/refreashTime) * 100;
             hit = true;
         }
         else{
@@ -117,29 +112,30 @@ public class MoleManager extends Observable{
     }
 
     public ImageButton[] getAllMoles(){
-        return buttons;
+        return moles.getAllMoles();
     }
 
     public void pause(){
         clicker.setMovable(false);
-        mole.setRunning(false);
+        generateMole.setRunning(false);
         time.setRunning(false);
     }
 
     public void resume(){
         clicker.setMovable(true);
-        mole.setRunning(true);
+        generateMole.setRunning(true);
         time.setRunning(true);
     }
     public void start(){
-        mole.start();
+        generateMole.start();
         time.start();
     }
 
     public void stop(){
-        mole.interrupt();
+        generateMole.interrupt();
         time.interrupt();
-        mole.setRunning(false);
+        clicker.setMovable(false);
+        generateMole.setRunning(false);
         time.setRunning(false);
     }
 
