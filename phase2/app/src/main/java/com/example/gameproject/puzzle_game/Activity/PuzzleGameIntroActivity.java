@@ -87,9 +87,7 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
 
         backButton = findViewById(R.id.back_button);
         backButton.setOnClickListener(v -> {
-            Intent backIntent = new Intent(v.getContext(), MainActivity.class);
-            backIntent.putExtra("user", currentUser);
-            startActivity(backIntent);
+            finish();
         });
 
         if (intent.getBooleanExtra("continue_customization", false)) {
