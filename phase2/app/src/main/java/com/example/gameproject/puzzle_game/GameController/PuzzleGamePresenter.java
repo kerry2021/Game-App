@@ -9,7 +9,6 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.gameproject.puzzle_game.Activity.GestureDetectGridView;
 import com.example.gameproject.puzzle_game.Activity.PuzzleGameView;
 import com.example.gameproject.puzzle_game.GameElements.PuzzleGameData;
 import com.example.gameproject.puzzle_game.GameElements.PuzzleGameDataGateway;
@@ -34,10 +33,10 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
     private int mColumnWidth, mColumnHeight;
     private int numColumns = 3;
 
-    public static final String up = PuzzleGenerator.up;
-    public static final String down = PuzzleGenerator.down;
-    public static final String left = PuzzleGenerator.left;
-    public static final String right = PuzzleGenerator.right;
+    static final String up = PuzzleGenerator.up;
+    static final String down = PuzzleGenerator.down;
+    static final String left = PuzzleGenerator.left;
+    static final String right = PuzzleGenerator.right;
 
     public static final String smallHint = MysteryShopManager.smallHint;
     public static final String bigHint = MysteryShopManager.bigHint;
@@ -148,7 +147,7 @@ public class PuzzleGamePresenter implements CountDownRequester, PuzzleRequester 
         });
     }
 
-    public void moveTiles(String direction, int position) {
+    void moveTiles(String direction, int position) {
         if (!movable) {
             return;
         }
