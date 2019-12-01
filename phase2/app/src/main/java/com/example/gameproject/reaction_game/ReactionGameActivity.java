@@ -41,7 +41,7 @@ public class ReactionGameActivity extends AppCompatActivity {
         moleManager.addObserver((Observer)moleDrawer);
         initButton();
         pause_before = false;
-        user = (User) getIntent().getSerializableExtra("user");
+        user = ReactionGameMain.currentUser;
         setSpeed();
 
     }

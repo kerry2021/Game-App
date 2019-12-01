@@ -19,7 +19,7 @@ public class ReactionCustomize extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        user = (User) getIntent().getSerializableExtra("user");
+        user = ReactionGameMain.currentUser;
 
         setContentView(R.layout.activity_reaction_customize);
         Button confirmButton;
@@ -36,24 +36,24 @@ public class ReactionCustomize extends AppCompatActivity {
                 if (getSpeed.equals("0.25 s/mole")) {
                     random = false;
                     speed = 250;
-                    user.set("reaction_game_speed", "250");
+                    user.set("reaction_game_speed", String.valueOf(250));
                 }
                 else if (getSpeed.equals("0.5 s/mole")) {
                     random = false;
                     speed = 500;
-                    user.set("reaction_game_speed", "500");
+                    user.set("reaction_game_speed", String.valueOf(500));
 
                 }
                 else if (getSpeed.equals("1 s/mole")) {
                     random = false;
                     speed = 1000;
-                    user.set("reaction_game_speed", "250");
+                    user.set("reaction_game_speed", String.valueOf(1000));
 
                 }
                 else
                     random = true;
 
-                startActivity(new Intent(v.getContext(), ReactionGameMain.class));
+                finish();
             }
         });
 

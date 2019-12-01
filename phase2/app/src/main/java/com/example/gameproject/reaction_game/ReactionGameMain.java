@@ -12,15 +12,14 @@ import com.example.gameproject.User;
 
 public class ReactionGameMain extends AppCompatActivity {
     private ReactionGameManager gameManager;
-    private User user;
+    static User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reaction_game_main);
-        Intent i = getIntent();
-        user = (User) i.getSerializableExtra("USER");
-        gameManager = new ReactionGameManager(user, this);
+        currentUser = (User) getIntent().getSerializableExtra("user");
+        gameManager = new ReactionGameManager(currentUser, this);
 
         Button customizeButton;
 
