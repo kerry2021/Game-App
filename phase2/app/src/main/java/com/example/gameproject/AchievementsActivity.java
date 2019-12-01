@@ -38,9 +38,7 @@ public class AchievementsActivity extends AppCompatActivity {
 
         backButton = findViewById(R.id.back_button);
 
-        backButton.setOnClickListener(v -> {
-            finish();
-        });
+        backButton.setOnClickListener(v -> finish());
 
         if (currentUser.get("collectible progress") == null) {
             progress = 0;
