@@ -141,6 +141,11 @@ public class ReactionGameActivity extends AppCompatActivity {
 
         exitButton.setOnClickListener(view -> {
             popupWindow.dismiss();
+            int currentProgress = Integer.parseInt(user.get("collectible progress"));
+            if (moleManager.getScore() >= 500)//TODO: only for testing the achievement system, should be changed later.
+                currentProgress += 1;
+            user.set("collectible progress", String.valueOf(currentProgress));
+            user.write();
             finish();
         });
     }
