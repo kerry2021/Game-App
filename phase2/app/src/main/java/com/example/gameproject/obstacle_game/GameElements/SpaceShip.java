@@ -81,7 +81,7 @@ public class SpaceShip extends SpaceItem {
      */
     private void setHeight(int screenHeight) {
         jumpHeight = screenHeight / 30;
-        dropHeight = screenHeight / 100;
+        dropHeight = screenHeight / 50;
     }
 
     /**

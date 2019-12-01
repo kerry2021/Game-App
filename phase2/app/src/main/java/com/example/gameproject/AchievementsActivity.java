@@ -25,7 +25,7 @@ public class AchievementsActivity extends AppCompatActivity {
     private Bitmap[] puzzlePieces = new Bitmap[9];
 
     @Override
-    protected void onCreate (Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_achievements);
 
