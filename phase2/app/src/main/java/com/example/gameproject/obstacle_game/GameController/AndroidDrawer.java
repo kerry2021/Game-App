@@ -11,9 +11,6 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import static com.example.gameproject.obstacle_game.GameController.AdventureManager.getGridHeight;
-import static com.example.gameproject.obstacle_game.GameController.AdventureManager.getGridWidth;
-
 /**
  * draws the items in the game to the given canvas
  */
@@ -30,9 +27,19 @@ class AndroidDrawer implements Drawer<Canvas>, Observer {
     private List<Obstacle> spaceObstacles;
 
     /**
-     * LIst containing all treasury box in this adventure.
+     * List containing all treasury box in this adventure.
      */
     private List<Obstacle> treasuryBoxList;
+
+    /**
+     * The width of the screen.
+     */
+    private int screenWidth;
+
+    /**
+     * The height of the screen.
+     */
+    private int screenHeight;
 
     /**
      * The time need to be counted down before the game start.
@@ -67,7 +74,9 @@ class AndroidDrawer implements Drawer<Canvas>, Observer {
     /**
      * A default drawer.
      */
-    AndroidDrawer() {
+    AndroidDrawer(int width, int height) {
+        screenWidth = width;
+        screenHeight = height;
         setShipPaint();
         setObstaclePaint();
         setReminderPaint();
@@ -171,7 +180,7 @@ class AndroidDrawer implements Drawer<Canvas>, Observer {
      */
     private void drawStartGameCountDown(Canvas canvas) {
         String text = String.valueOf(startGameCountDown / 30 + 1);
-        canvas.drawText(text, getGridWidth() / 2, getGridHeight() / 2, reminderPaint);
+        canvas.drawText(text, screenWidth / 2, screenHeight / 2, reminderPaint);
     }
 
     /**
@@ -180,7 +189,7 @@ class AndroidDrawer implements Drawer<Canvas>, Observer {
      * @param canvas the canvas on which to draw "Game Over".
      */
     private void drawGameOver(Canvas canvas) {
-        canvas.drawText("Game Over", getGridWidth() / 2, getGridHeight() / 2, reminderPaint);
+        canvas.drawText("Game Over", screenWidth / 2, screenHeight / 2, reminderPaint);
     }
 
     /**
@@ -213,9 +222,9 @@ class AndroidDrawer implements Drawer<Canvas>, Observer {
     private void drawLives(Canvas canvas, SpaceShip s, int i) {
         int remainingLives = s.getLives();
         int distance = 125;
-        canvas.drawText("Lives:", getGridWidth() / 30, (i + 1) * getGridHeight() / 18, shipPaint);
+        canvas.drawText("Lives:", screenWidth / 30, (i + 1) * screenHeight / 18, shipPaint);
         while (remainingLives > 0) {
-            drawLife(canvas, getGridWidth() / 30 + distance, getGridWidth() / 40 + i * getGridWidth() / 40);
+            drawLife(canvas, screenWidth / 30 + distance, (i + 1) * (screenHeight / 20));
             remainingLives--;
             distance += 75;
         }
@@ -241,8 +250,8 @@ class AndroidDrawer implements Drawer<Canvas>, Observer {
     private void drawInvincibleTime(Canvas canvas, SpaceShip s, int i) {
         int invincibleTime = s.getInvincibleTime();
         if (invincibleTime != 0) {
-            canvas.drawText("Remaining Invincible Time : ", getGridWidth() / 4, (i + 1) * getGridHeight() / 10, shipPaint);
-            drawTime(canvas, invincibleTime, getGridWidth() / 2 - getGridWidth() / 50, (i + 1) * (getGridHeight() / 10 + 2), shipPaint);
+            canvas.drawText("Remaining Invincible Time : ", screenWidth / 4, (i + 1) * screenHeight / 10, shipPaint);
+            drawTime(canvas, invincibleTime, screenWidth / 2 - screenWidth / 50, (i + 1) * (screenHeight / 10 + 2), shipPaint);
         }
     }
 
@@ -254,8 +263,8 @@ class AndroidDrawer implements Drawer<Canvas>, Observer {
     private void drawOutOfScreenTime(Canvas canvas, SpaceShip s, int i) {
         int outTime = s.getOutTime();
         if (outTime != 0) {
-            canvas.drawText("You can still be out of screen for : ", getGridWidth() / 4, (i + 1) * getGridHeight() / 18, shipPaint);
-            drawTime(canvas, outTime, getGridWidth() / 2 + getGridHeight() / 18, (i + 1) * (getGridHeight() / 18 + 2), shipPaint);
+            canvas.drawText("You can still be out of screen for : ", screenWidth / 4, (i + 1) * screenHeight / 18, shipPaint);
+            drawTime(canvas, outTime, screenWidth / 2 + screenWidth / 50, (i + 1) * (screenHeight / 18 + 2), shipPaint);
         }
     }
 
@@ -268,7 +277,7 @@ class AndroidDrawer implements Drawer<Canvas>, Observer {
         int collection = s.getCollection();
         int collectionTime = s.getCollectionTime();
         if (collectionTime != 0) {
-            canvas.drawText("The number of collection you get is: " + collection, getGridWidth() / 4, (i + 1) * getGridHeight() / 7, shipPaint);
+            canvas.drawText("The number of collection you get is: " + collection, screenWidth / 4, (i + 1) * screenHeight / 7, shipPaint);
         }
     }
 

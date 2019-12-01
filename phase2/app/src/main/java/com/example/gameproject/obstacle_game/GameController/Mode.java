@@ -6,7 +6,7 @@ import android.view.MotionEvent;
 
 
 public interface Mode {
-    void addSpaceShip(AdventureManager manager, int difficulty);
+    void addSpaceShip(AdventureManager manager, int difficulty, int width, int height);
 
     void respondTouch(MotionEvent event, AdventureManager manager);
 

@@ -62,7 +62,7 @@
             android:name=".obstacle_game.Activity.CustomizationActivity"
             android:parentActivityName=".obstacle_game.Activity.ObstacleGameIntroActivity" />
         <activity
-            android:name=".obstacle_game.Activity.obstacleGameRulesActivity"
+            android:name=".obstacle_game.Activity.ObstacleGameRulesActivity"
             android:parentActivityName=".obstacle_game.Activity.ObstacleGameIntroActivity"
         />
     </application>

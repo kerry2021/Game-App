@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-class AdventureManager extends Observable {
+class AdventureManager extends Observable implements Manager{
     /**
      * The time need to be counted down before the game start.
      */
@@ -60,12 +60,12 @@ class AdventureManager extends Observable {
     /**
      * Width of obstacleGamePanel in unit.
      */
-    private static int gridHeight;
+    private int gridHeight;
 
     /**
      * Height of obstacleGamePanel in unit.
      */
-    private static int gridWidth;
+    private int gridWidth;
 
     /**
      * Check whether the game is over
@@ -77,7 +77,7 @@ class AdventureManager extends Observable {
      *
      * @return the height of obstacleGamePanel in unit.
      */
-    static int getGridHeight() {
+    int getGridHeight() {
         return gridHeight;
     }
 
@@ -86,7 +86,7 @@ class AdventureManager extends Observable {
      *
      * @return the width of obstacleGamePanel in unit.
      */
-    static int getGridWidth() {
+    int getGridWidth() {
         return gridWidth;
     }
 
@@ -209,7 +209,7 @@ class AdventureManager extends Observable {
     /**
      * Updates the information of all items in this adventure.
      */
-    void update() {
+    public void update() {
         // Check whether the game is start.
         if (!checkStartGameCountDown()) {
             setChanged();

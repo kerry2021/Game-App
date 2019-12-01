@@ -10,13 +10,16 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.gameproject.R;
+import com.example.gameproject.User;
 
 public class ReactionCustomize extends AppCompatActivity {
-    protected static int speed = 750;
     protected static boolean random = false;
+    private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        user = ReactionGameMain.currentUser;
+
         setContentView(R.layout.activity_reaction_customize);
         Button confirmButton;
         Spinner spinner = (Spinner) findViewById(R.id.speed);
@@ -29,22 +32,17 @@ public class ReactionCustomize extends AppCompatActivity {
         confirmButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 String getSpeed = spinner.getSelectedItem().toString();
-                if (getSpeed.equals("0.25 s/mole")) {
-                    random = false;
-                    speed = 250;
-                }
-                else if (getSpeed.equals("0.5 s/mole")) {
-                    random = false;
-                    speed = 500;
-                }
-                else if (getSpeed.equals("1 s/mole")) {
-                    random = false;
-                    speed = 1000;
-                }
+                user.set("reaction_game_random", "false");
+                if (getSpeed.equals("0.25 s/mole"))
+                    user.set("reaction_game_speed", String.valueOf(250));
+                else if (getSpeed.equals("0.5 s/mole"))
+                    user.set("reaction_game_speed", String.valueOf(500));
+                else if (getSpeed.equals("1 s/mole"))
+                    user.set("reaction_game_speed", String.valueOf(1000));
                 else
-                    random = true;
+                    user.set("reaction_game_random", "true");
 
-                startActivity(new Intent(v.getContext(), ReactionGameMain.class));
+                finish();
             }
         });
 

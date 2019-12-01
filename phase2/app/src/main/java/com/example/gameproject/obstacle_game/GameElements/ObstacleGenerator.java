@@ -1,7 +1,5 @@
 package com.example.gameproject.obstacle_game.GameElements;
 
-import android.util.Log;
-
 import java.util.Random;
 
 /**
@@ -11,11 +9,7 @@ public class ObstacleGenerator implements ItemGenerator<Obstacle> {
     /**
      * The x coordinate that all obstacles would generate (their left side) from.(presumably out of the screen)
      */
-    protected int generationLine;
-    /**
-     * the width of the screen
-     */
-    private int screenWidth;
+    int generationLine;
     /**
      * the height of the screen
      */
@@ -67,7 +61,6 @@ public class ObstacleGenerator implements ItemGenerator<Obstacle> {
         obstacleWidth = screenWidth / 15;
         obstacleHeight = screenHeight / 15;
         generationLine = screenWidth * 2;
-        this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         this.obstacleSpeed = screenWidth / 100;
         randGenerator = new Random();
@@ -90,7 +83,6 @@ public class ObstacleGenerator implements ItemGenerator<Obstacle> {
         this.obstacleHeight = obstacleHeight;
         generationLine = screenWidth * 2;
         this.obstacleSpeed = obstacleSpeed;
-        this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         randGenerator = new Random();
     }

@@ -14,20 +14,21 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gameproject.R;
+import com.example.gameproject.User;
 
 import java.util.Observer;
 
 
 public class ReactionGameActivity extends AppCompatActivity {
+    private User user;
     private ImageButton pause_or_resume;;
-    protected int speed = ReactionCustomize.speed;
+    protected int speed;
     protected boolean random = ReactionCustomize.random;
     protected boolean pause_before;
     protected int next;
     private boolean pause = false;
     private MoleManager moleManager;
     private MoleDrawer moleDrawer;
-
 
 
     @Override
@@ -40,7 +41,29 @@ public class ReactionGameActivity extends AppCompatActivity {
         moleManager.addObserver((Observer)moleDrawer);
         initButton();
         pause_before = false;
+        user = ReactionGameMain.currentUser;
+        setSpeed();
+        setRandom();
     }
+
+    private void setSpeed() {
+        try {
+            speed = Integer.parseInt(user.get("reaction_game_speed"));
+        } catch (NullPointerException e) {
+            speed = 750;
+        } catch (Exception e){
+        }
+    }
+
+    private void setRandom(){
+        try {
+            random = Boolean.parseBoolean(user.get("reaction_game_random"));
+        } catch (NullPointerException e) {
+            random = false;
+        } catch (Exception e){
+        }
+    }
+
 
     @Override
     protected void onResume(){
@@ -117,7 +140,9 @@ public class ReactionGameActivity extends AppCompatActivity {
 
         exitButton.setOnClickListener(view -> {
             popupWindow.dismiss();
-            startActivity(new Intent(view.getContext(), ReactionGameMain.class));
+            Intent reactionGameIntent = new Intent(this, ReactionGameMain.class);
+            reactionGameIntent.putExtra("user", user);
+            startActivity(reactionGameIntent);
         });
     }
     @Override

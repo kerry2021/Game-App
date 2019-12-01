@@ -7,18 +7,17 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 
 public class SinglePlayerMode implements Mode {
-
     /**
      * Adds one spaceship to adventure manager based on the difficulty.
      *
      * @param manager    the manager for which to add spaceship.
      * @param difficulty the difficulty of the game.
      */
-    public void addSpaceShip(AdventureManager manager, int difficulty) {
+    public void addSpaceShip(AdventureManager manager, int difficulty, int width, int height) {
         if (difficulty == 3) {
-            manager.addSpaceShip(new SpaceShip(3, AdventureManager.getGridWidth(), AdventureManager.getGridHeight()));
+            manager.addSpaceShip(new SpaceShip(3, width, height));
         } else {
-            manager.addSpaceShip(new SpaceShip(4, AdventureManager.getGridWidth(), AdventureManager.getGridHeight()));
+            manager.addSpaceShip(new SpaceShip(4, width, height));
         }
     }
 

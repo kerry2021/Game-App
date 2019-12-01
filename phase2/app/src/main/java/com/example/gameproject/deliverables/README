@@ -1,11 +1,14 @@
 1. This game only supports phones with lcd densities: 120, 160, 213, 240, 280, 320, 360, 400, 420, 480, 560, 640
 2. To run this game in Android Studio, clone it first then select Pixel 3 API 28 as the device, or use any device
 with the above lcd densities
-3. Once the game starts, make sure to create an account by navigating to Log In - Sign Up page. You can still play
+3. There maybe occasional issues when compiling where the error message states that the symbol <insert activity name>.class
+ can not be recognized, the code that have cause this problem would be starting an activity, and removing and rewriting
+ the <insert activity name>.class part of the code would fix it, however the reason for this error remains unknown.
+4. Once the game starts, make sure to create an account by navigating to Log In - Sign Up page. You can still play
 without an account but your progress may not be saved for the next time
-4. There are three mini games in total in this game, you can read about how to play each one in each their starting page
-5. (Phase 2)All games have a difficulty setting, if you are starting out you may want to play on lower difficulty first.
-6. (Phase 2)As a bonus feature, You have 9 pieces of picture to unlock in the game. You can unlock
+5. There are three mini games in total in this game, you can read about how to play each one in each their starting page
+6. (Phase 2)All games have a difficulty setting, if you are starting out you may want to play on lower difficulty first.
+7. (Phase 2)As a bonus feature, You have 9 pieces of picture to unlock in the game. You can unlock
     them by playing any of the three mini-games and reach a certain goal.
 
     In Obstacle game you can collect yellow treasure boxes by colliding with them, which will unlock
