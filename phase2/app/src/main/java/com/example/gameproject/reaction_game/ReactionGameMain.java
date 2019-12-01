@@ -49,9 +49,7 @@ public class ReactionGameMain extends AppCompatActivity {
 
     public void onBackPressed() {
         currentUser.write();
-        Intent mainActivityIntent = new Intent(this, MainActivity.class);
-        mainActivityIntent.putExtra("user", currentUser);
-        startActivity(mainActivityIntent);
+        finish();
 
     }
 }
