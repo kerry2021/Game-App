@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
+import java.util.Observable;
 import java.util.Observer;
 
 /*
@@ -27,7 +28,7 @@ public class ObstacleGamePanel extends GamePanel {
     /**
      * The manager that deals with all backend data.
      */
-    private AdventureManager adventureManger;
+    private Manager adventureManger;
 
     /**
      * the drawer that would transfer all backend data to visual representations.
@@ -40,7 +41,7 @@ public class ObstacleGamePanel extends GamePanel {
     private Mode playerMode;
 
     /**
-     * a compromise solution to solve a problem when ending the game, see comments in update() for details
+     * A compromise solution to solve a problem when ending the game, see comments in update() for details
      */
     private boolean gameOverCalled = false;
 
@@ -57,7 +58,7 @@ public class ObstacleGamePanel extends GamePanel {
         mode.addSpaceShip(adventureManger, difficulty, screenWidth, screenHeight);
 
         drawer = new AndroidDrawer(screenWidth, screenHeight);
-        adventureManger.addObserver((Observer) drawer);
+        ((Observable) adventureManger).addObserver((Observer) drawer);
 
         player = currentUser;
     }
@@ -70,14 +71,17 @@ public class ObstacleGamePanel extends GamePanel {
     @Override
     public void update() {
         adventureManger.update();
-        //when game ends
-        //This if statement is suppose to run only once, but in reality it is called many times,
+
+        //when game ends,
+        //The if statement is suppose to run only once, but in reality it is called many times,
         //for unknown reasons the update loop continues even after startActivity(intent) is called
         //so the boolean gameOverCalled is used make sure it only runs once
-        if (adventureManger.getGameOver() && adventureManger.getEndGameCountDown() == 0 && !gameOverCalled) {
+        boolean gameOver = ((AdventureManager) adventureManger).getGameOver();
+        int endGameCount = ((AdventureManager) adventureManger).getEndGameCountDown();
+        if (gameOver && endGameCount == 0 && !gameOverCalled) {
             // record collectible progress
             int currentProgress = Integer.parseInt(player.get("collectible progress"));
-            currentProgress += adventureManger.getCollections().get(0);
+            currentProgress += ((AdventureManager) adventureManger).getCollections().get(0);
             player.set("collectible progress", String.valueOf(currentProgress));
             player.write();
 

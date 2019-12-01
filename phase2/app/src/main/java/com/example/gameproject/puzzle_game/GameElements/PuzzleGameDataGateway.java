@@ -16,5 +16,4 @@ public interface PuzzleGameDataGateway {
     int getNumSkipped();
     void setNumPuzzles(int numPuzzles);
     int getNumPuzzles();
-    void saveUserData();//sends data to user's gameStats.
 }

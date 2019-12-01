@@ -1,17 +1,14 @@
 package com.example.gameproject.puzzle_game.GameController;
 
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class PuzzleAdapter extends BaseAdapter {
-    private ArrayList<Button> mButtons = null;
+    private ArrayList<Button> mButtons;
     private int mColumnWidth, mColumnHeight;
 
     public PuzzleAdapter(ArrayList<Button> buttons, int columnWidth, int columnHeight) {
@@ -27,7 +24,7 @@ public class PuzzleAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return (Object) mButtons.get(position);
+        return mButtons.get(position);
     }
 
     @Override

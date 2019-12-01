@@ -13,11 +13,12 @@ public class SinglePlayerMode implements Mode {
      * @param manager    the manager for which to add spaceship.
      * @param difficulty the difficulty of the game.
      */
-    public void addSpaceShip(AdventureManager manager, int difficulty, int width, int height) {
+    public void addSpaceShip(Manager manager, int difficulty, int width, int height) {
+        AdventureManager adventureManager = (AdventureManager) manager;
         if (difficulty == 3) {
-            manager.addSpaceShip(new SpaceShip(3, width, height));
+            adventureManager.addSpaceShip(new SpaceShip(3, width, height));
         } else {
-            manager.addSpaceShip(new SpaceShip(4, width, height));
+            adventureManager.addSpaceShip(new SpaceShip(4, width, height));
         }
     }
 
@@ -27,9 +28,9 @@ public class SinglePlayerMode implements Mode {
      * @param event   the motion event.
      * @param manager the manager for which to respond.
      */
-    public void respondTouch(MotionEvent event, AdventureManager manager) {
+    public void respondTouch(MotionEvent event, Manager manager) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            manager.respondTouch(0);
+            ((AdventureManager) manager).respondTouch(0);
         }
     }
 
@@ -39,10 +40,10 @@ public class SinglePlayerMode implements Mode {
      * @param intent  the intent for which to put the bundle
      * @param manager the manager of this game.
      */
-    public void setUpBundle(Intent intent, AdventureManager manager) {
+    public void setUpBundle(Intent intent, Manager manager) {
         Bundle bundle = new Bundle();
         bundle.putString("mode", "SinglePlayerMode");
-        for (SpaceShip s : manager.getSpaceshipGarbageCart()) {
+        for (SpaceShip s : ((AdventureManager) manager).getSpaceshipGarbageCart()) {
             bundle.putString("score", String.valueOf(s.getScore() / 30 * 100));
             bundle.putString("collection", String.valueOf(s.getCollection()));
         }

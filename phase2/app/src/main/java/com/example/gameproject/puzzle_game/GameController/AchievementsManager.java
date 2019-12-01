@@ -7,15 +7,6 @@ class AchievementsManager {
     private PuzzleGameDataGateway puzzleGameDataGateway;
     private CountDownGenerator countDownGenerator;
 
-    //Threshold time of solving one puzzle for getting time achievement
-    private long achievementTime = 30000;
-
-    //Threshold score of finishing one puzzle for getting level score achievement
-    private Integer levelScore = 70;
-
-    //Threshold score of finishing the game for getting total score achievement
-    private int totalScore = 150;
-
     AchievementsManager(PuzzleGameDataGateway puzzleGameDataGateway,
                         CountDownGenerator countDownGenerator) {
         this.puzzleGameDataGateway = puzzleGameDataGateway;
@@ -23,15 +14,21 @@ class AchievementsManager {
     }
 
     boolean checkTimeAchievement(){
+        //Threshold time of solving one puzzle for getting time achievement
+        long achievementTime = 30000;
         return countDownGenerator.getTotalTime() - countDownGenerator.getCurrentTime() <=
                 achievementTime;
     }
 
     boolean checkLevelScoreAchievement(Integer currentPuzzleScore){
+        //Threshold score of finishing one puzzle for getting level score achievement
+        Integer levelScore = 70;
         return currentPuzzleScore >= levelScore;
     }
 
     boolean checkTotalScoreAchievement(){
+        //Threshold score of finishing the game for getting total score achievement
+        int totalScore = 150;
         return puzzleGameDataGateway.getScore() >= totalScore;
     }
 

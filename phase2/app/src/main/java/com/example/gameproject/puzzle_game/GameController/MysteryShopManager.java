@@ -16,10 +16,6 @@ class MysteryShopManager {
     private PuzzleListManager puzzleListManager;
     private Context context;
 
-    private final int smallHintCost = 600;
-    private final int bigHintCost = 1400;
-    private final int skipPuzzleCost = 800;
-
     MysteryShopManager(PuzzleRequester puzzleRequester, PuzzleGameDataGateway
             puzzleGameDataGateway, PuzzleGenerator puzzleGenerator, Context context,
                        PuzzleListManager puzzleListManager) {
@@ -32,6 +28,8 @@ class MysteryShopManager {
 
 
     void buyItem(String item) {
+        int smallHintCost = 600;
+        int bigHintCost = 1400;
         switch (item) {
             case smallHint:
                 buyHint(1, smallHintCost);
@@ -80,6 +78,7 @@ class MysteryShopManager {
         int numSkipped = puzzleGameDataGateway.getNumSkipped();
         int numPuzzles = puzzleGameDataGateway.getNumPuzzles();
         int score = puzzleGameDataGateway.getScore();
+        int skipPuzzleCost = 800;
         if (score >= skipPuzzleCost){
             if (numCompleted + numSkipped < numPuzzles) {
                 puzzleListManager.showNextPuzzle(numCompleted + numSkipped);

@@ -1,8 +1,6 @@
 package com.example.gameproject.puzzle_game.GameController;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -25,7 +23,7 @@ public class ImageSplitter {
     public ArrayList<Bitmap> splitImage(Bitmap image) {
 
         //For height and width of the small image chunks
-        int chunkHeight, chunkLength;
+        int chunkLength;
 
         //To store all the small image chunks in bitmap format in this list
         ArrayList<Bitmap> dividedImages = new ArrayList<>(numColumns * numColumns);

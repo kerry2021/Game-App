@@ -1,10 +1,10 @@
 package com.example.gameproject.puzzle_game.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -28,6 +28,7 @@ import com.example.gameproject.puzzle_game.GameController.CustomImageManager;
 import com.example.gameproject.puzzle_game.GameController.PuzzleGamePresenter;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class PuzzleGameActivity extends AppCompatActivity implements PuzzleGameView {
 
@@ -56,7 +57,7 @@ public class PuzzleGameActivity extends AppCompatActivity implements PuzzleGameV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle_game);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
 
         presenter = new PuzzleGamePresenter(this, getApplicationContext());
         presenter.setGestureDetectGridView(findViewById(R.id.grid));
@@ -81,7 +82,7 @@ public class PuzzleGameActivity extends AppCompatActivity implements PuzzleGameV
         textViewScore = findViewById(R.id.score);
         textViewMoves = findViewById(R.id.move);
 
-        createOptionsButton(currentUser);
+        createOptionsButton();
 
         startCountDown();
         presenter.setDimensions();
@@ -198,7 +199,7 @@ public class PuzzleGameActivity extends AppCompatActivity implements PuzzleGameV
     /**
      * To create the options button.
      */
-    private void createOptionsButton(User currentUser) {
+    private void createOptionsButton() {
         Button optionsButton;
 
         optionsButton = findViewById(R.id.puzzle_game_options_button);
@@ -210,7 +211,8 @@ public class PuzzleGameActivity extends AppCompatActivity implements PuzzleGameV
             LayoutInflater inflater = (LayoutInflater)
                     getSystemService(LAYOUT_INFLATER_SERVICE);
             assert inflater != null;
-            View popupView = inflater.inflate(R.layout.puzzle_game_options_window, null);
+            @SuppressLint("InflateParams") View popupView = inflater.inflate(
+                    R.layout.puzzle_game_options_window, null);
 
             // create the popup window
             int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -237,7 +239,8 @@ public class PuzzleGameActivity extends AppCompatActivity implements PuzzleGameV
 //                LayoutInflater inflater2 = (LayoutInflater)
 //                        getSystemService(LAYOUT_INFLATER_SERVICE);
 //                assert inflater2 != null;
-                View popupView2 = inflater.inflate(R.layout.puzzle_game_shop, null);
+                @SuppressLint("InflateParams") View popupView2 = inflater.inflate(
+                        R.layout.puzzle_game_shop, null);
 
                 // create the popup window
                 int width2 = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -305,7 +308,8 @@ public class PuzzleGameActivity extends AppCompatActivity implements PuzzleGameV
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
-        View popupView = inflater.inflate(R.layout.puzzle_game_final_score_window, null);
+        @SuppressLint("InflateParams") View popupView = inflater.inflate(
+                R.layout.puzzle_game_final_score_window, null);
         TextView textViewFinalScore = popupView.findViewById(R.id.score);
         textViewFinalScore.setText(String.valueOf(score));
 

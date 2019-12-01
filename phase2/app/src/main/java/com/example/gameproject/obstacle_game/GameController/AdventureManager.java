@@ -73,24 +73,6 @@ class AdventureManager extends Observable implements Manager{
     private boolean gameOver = false;
 
     /**
-     * Gets the height of obstacleGamePanel in unit.
-     *
-     * @return the height of obstacleGamePanel in unit.
-     */
-    int getGridHeight() {
-        return gridHeight;
-    }
-
-    /**
-     * Gets the width of obstacleGamePanel in units.
-     *
-     * @return the width of obstacleGamePanel in unit.
-     */
-    int getGridWidth() {
-        return gridWidth;
-    }
-
-    /**
      * Constructs this AdventureManger by default.
      *
      * @param height height of obstacleGamePanel in unit.
@@ -108,7 +90,7 @@ class AdventureManager extends Observable implements Manager{
      *
      * @param s the spaceship to be added.
      */
-    void addSpaceShip(SpaceShip s) {
+    public void addSpaceShip(SpaceShip s) {
         spaceShipList.add(s);
     }
 
