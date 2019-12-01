@@ -225,8 +225,9 @@ public class ImageActivity extends AppCompatActivity {
                             "Gallery Access Permission Denied",
                             Toast.LENGTH_SHORT)
                             .show();
-                    startActivity(new Intent(ImageActivity.this,
-                            PuzzleGameIntroActivity.class));
+                    Intent backIntent = new Intent(this, PuzzleGameIntroActivity.class);
+                    backIntent.putExtra("user", currentUser);
+                    startActivity(backIntent);
                 }
             }
     }
