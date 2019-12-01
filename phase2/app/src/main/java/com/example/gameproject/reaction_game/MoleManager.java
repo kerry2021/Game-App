@@ -25,7 +25,7 @@ public class MoleManager extends Observable{
         t_score = reaction.findViewById(R.id.score);
         t_timer = reaction.findViewById(R.id.timer);
         score = 0;
-        timer = 60;
+        timer = 10;//TODO: only for testing, should be changed when all the bug fixed
         mole = new MoleThread();
         time = new TimeThread();
         clicker = new ClickImage();

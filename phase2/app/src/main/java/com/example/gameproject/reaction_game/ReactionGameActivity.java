@@ -43,17 +43,26 @@ public class ReactionGameActivity extends AppCompatActivity {
         pause_before = false;
         user = ReactionGameMain.currentUser;
         setSpeed();
-
+        setRandom();
     }
 
-    protected void setSpeed() {
+    private void setSpeed() {
         try {
             speed = Integer.parseInt(user.get("reaction_game_speed"));
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             speed = 750;
+        } catch (Exception e){
         }
     }
 
+    private void setRandom(){
+        try {
+            random = Boolean.parseBoolean(user.get("reaction_game_random"));
+        } catch (NullPointerException e) {
+            random = false;
+        } catch (Exception e){
+        }
+    }
 
 
     @Override
@@ -131,7 +140,9 @@ public class ReactionGameActivity extends AppCompatActivity {
 
         exitButton.setOnClickListener(view -> {
             popupWindow.dismiss();
-            startActivity(new Intent(view.getContext(), ReactionGameMain.class));
+            Intent reactionGameIntent = new Intent(this, ReactionGameMain.class);
+            reactionGameIntent.putExtra("user", user);
+            startActivity(reactionGameIntent);
         });
     }
     @Override
