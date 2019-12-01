@@ -17,13 +17,14 @@ import java.util.Objects;
 public class BackgroundChangeActivity extends AppCompatActivity {
     String backgroundColour;
     String[] colours;
+    User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle_game_background_change);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
-        User currentUser = (User) getIntent().getSerializableExtra("user");
+        currentUser = (User) getIntent().getSerializableExtra("user");
         colours = this.getResources().getStringArray(R.array.colourOptions);
 
         createOptionButtons();
@@ -33,7 +34,7 @@ public class BackgroundChangeActivity extends AppCompatActivity {
         buttonCancel = findViewById(R.id.cancel_background);
         buttonConfirm.setOnClickListener(v -> {
             assert currentUser != null;
-            saveBackground(currentUser);
+            saveBackground();
         });
         buttonCancel.setOnClickListener(v -> cancelBackground());
 
@@ -52,17 +53,27 @@ public class BackgroundChangeActivity extends AppCompatActivity {
         }
     }
 
-    private void saveBackground(User currentUser){
+    private void saveBackground(){
         currentUser.set("puzzle_game_background", backgroundColour);
         currentUser.write();
         finish();
+    }
+
+    private void cancelBackground(){
+        finish();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         Intent intent = new Intent(this, PuzzleGameIntroActivity.class);
         intent.putExtra("user", currentUser);
         intent.putExtra("continue_customization", true);
         startActivity(intent);
     }
 
-    private void cancelBackground(){
+    @Override
+    public void onBackPressed() {
         finish();
     }
 }

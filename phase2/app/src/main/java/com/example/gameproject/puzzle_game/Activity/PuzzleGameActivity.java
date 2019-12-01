@@ -46,6 +46,8 @@ public class PuzzleGameActivity extends AppCompatActivity implements PuzzleGameV
 
     private User currentUser;
 
+    private PopupWindow popupWindow;
+
     //Time given to complete the puzzles
     private long countDownInMillis = 120000;
 
@@ -317,7 +319,7 @@ public class PuzzleGameActivity extends AppCompatActivity implements PuzzleGameV
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
         // Taps outside the popup does not dismiss it
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, false);
+        popupWindow = new PopupWindow(popupView, width, height, false);
 
         // show the popup window
         // which view you pass in doesn't matter, it is only used for the window token
@@ -326,10 +328,7 @@ public class PuzzleGameActivity extends AppCompatActivity implements PuzzleGameV
 
         exitButton = popupView.findViewById(R.id.exit_button);
 
-        exitButton.setOnClickListener(view -> {
-            popupWindow.dismiss();
-            finish();
-        });
+        exitButton.setOnClickListener(view -> finish());
     }
 
     @Override
@@ -348,5 +347,15 @@ public class PuzzleGameActivity extends AppCompatActivity implements PuzzleGameV
         } catch (Exception e) {
             e.printStackTrace();
         }
+        try {
+            popupWindow.dismiss();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

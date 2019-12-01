@@ -35,6 +35,8 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
     public final static String ONE_MIN = "Hard 1 minutes";
     private Spinner dimSpinner, timeSpinner;
 
+    private PopupWindow popupWindow;
+
     /**
      * The list of choices for the spinner that allows the user to choose which
      * Java feature to demonstrate.
@@ -67,6 +69,7 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
         startPuzzleGameButton = findViewById(R.id.start_puzzle_game_button);
 
         startPuzzleGameButton.setOnClickListener(v -> {
+            finish();
             Intent toGame = new Intent(v.getContext(), PuzzleGameActivity.class);
             toGame.putExtra("user", currentUser);
             startActivity(toGame);
@@ -76,7 +79,12 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
         customizePuzzleGameButton.setOnClickListener(this::createCustomizationPopup);
 
         backButton = findViewById(R.id.back_button);
-        backButton.setOnClickListener(v -> finish());
+        backButton.setOnClickListener(v -> {
+            finish();
+            /*Intent backIntent = new Intent(this, MainActivity.class);
+            backIntent.putExtra("user", currentUser);
+            startActivity(backIntent);*/
+        });
 
         if (intent.getBooleanExtra("continue_customization", false)) {
             createCustomizationPopup(findViewById(R.id.customize_puzzle_game_button));
@@ -95,7 +103,7 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
         // Taps outside the popup does not dismiss it
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, false);
+        popupWindow = new PopupWindow(popupView, width, height, false);
 
         // show the popup window
         // which view you pass in doesn't matter, it is only used for the window tolken
@@ -108,6 +116,7 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
         cancelButton = popupView.findViewById(R.id.cancel_button);
 
         addImageButton.setOnClickListener(view1 -> {
+            finish();
             Intent toImage = new Intent(this, ImageActivity.class);
             toImage.putExtra("user", currentUser);
             startActivity(toImage);
@@ -198,5 +207,19 @@ public class PuzzleGameIntroActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try {
+            popupWindow.dismiss();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 
 }

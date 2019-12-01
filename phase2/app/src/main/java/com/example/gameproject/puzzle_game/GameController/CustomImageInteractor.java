@@ -10,14 +10,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Objects;
 
 /**
  * Database for storing customized images.
  */
-class CustomImageInteractor implements Serializable {
+class CustomImageInteractor{
 
     private static final String IMAGE_DIR_FILE_NAME = "customImages";
 

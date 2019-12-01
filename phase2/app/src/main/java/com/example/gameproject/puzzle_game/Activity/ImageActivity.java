@@ -93,17 +93,11 @@ public class ImageActivity extends AppCompatActivity {
                     getApplicationContext());
             currentUser.set("puzzle_game_custom_images", value);
             currentUser.write();
-            Intent backIntro = new Intent(view12.getContext(), PuzzleGameIntroActivity.class);
-            backIntro.putExtra("continue_customization", true);
-            backIntro.putExtra("user", currentUser);
-            startActivity(backIntro);
+            finish();
         });
 
         cancelButton.setOnClickListener(view1 -> {
-            Intent backIntroCancel = new Intent(view1.getContext(), PuzzleGameIntroActivity.class);
-            backIntroCancel.putExtra("user", currentUser);
-            backIntroCancel.putExtra("continue_customization", true);
-            startActivity(backIntroCancel);
+            finish();
         });
     }
 
@@ -231,5 +225,14 @@ public class ImageActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ad.dismiss();
+        Intent intent = new Intent(this, PuzzleGameIntroActivity.class);
+        intent.putExtra("user", currentUser);
+        intent.putExtra("continue_customization", true);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }
