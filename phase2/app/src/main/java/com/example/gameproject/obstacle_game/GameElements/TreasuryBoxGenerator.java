@@ -1,7 +1,7 @@
 package com.example.gameproject.obstacle_game.GameElements;
 
 public class TreasuryBoxGenerator extends ObstacleGenerator {
-    private int maxBoxes = 3;
+    private int maxBoxes;
     private int currentBoxNum = 0;
     private int generationDelay = 0;
     private int currentTime = 0;

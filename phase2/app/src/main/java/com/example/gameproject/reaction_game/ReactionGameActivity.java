@@ -139,9 +139,7 @@ public class ReactionGameActivity extends AppCompatActivity {
 
         exitButton.setOnClickListener(view -> {
             popupWindow.dismiss();
-            Intent reactionGameIntent = new Intent(this, ReactionGameMain.class);
-            reactionGameIntent.putExtra("user", user);
-            startActivity(reactionGameIntent);
+            finish();
         });
     }
     @Override
@@ -152,8 +150,6 @@ public class ReactionGameActivity extends AppCompatActivity {
 
     public void onBackPressed() {
         moleManager.stop();
-        Intent reactionGameButton = new Intent(this, ReactionGameMain.class);
-        reactionGameButton.putExtra("user", user);
-        startActivity(reactionGameButton);
+        finish();
     }
 }

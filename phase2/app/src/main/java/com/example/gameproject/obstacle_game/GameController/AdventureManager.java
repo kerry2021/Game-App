@@ -25,12 +25,12 @@ class AdventureManager extends Observable implements Manager{
     /**
      * List containing all obstacles in this adventure.
      */
-    private List<Obstacle> spaceObstacles = new ArrayList<Obstacle>();
+    private List<Obstacle> spaceObstacles = new ArrayList<>();
 
     /**
      * List containing all obstacles to be deleted at the end of this update
      */
-    private List<Obstacle> obstacleGarbageCart = new ArrayList<Obstacle>();
+    private List<Obstacle> obstacleGarbageCart = new ArrayList<>();
 
     /**
      * List containing all spaceships to be deleted at the end of this update.
@@ -58,16 +58,6 @@ class AdventureManager extends Observable implements Manager{
     private ItemGenerator<Obstacle> obstacleGenerator;
 
     /**
-     * Width of obstacleGamePanel in unit.
-     */
-    private int gridHeight;
-
-    /**
-     * Height of obstacleGamePanel in unit.
-     */
-    private int gridWidth;
-
-    /**
      * Check whether the game is over
      */
     private boolean gameOver = false;
@@ -79,8 +69,6 @@ class AdventureManager extends Observable implements Manager{
      * @param width  width of obstacleGamePanel in unit.
      */
     AdventureManager(int width, int height, int difficulty) {
-        gridHeight = height;
-        gridWidth = width;
         obstacleGenerator = new ObstacleGenerator(width, height, difficulty);
         treasuryBoxGenerator = new TreasuryBoxGenerator(width, height, 3);
     }
@@ -104,16 +92,20 @@ class AdventureManager extends Observable implements Manager{
     }
 
     /**
+     * Gets the list of dead spaceships.
+     * @return the list of dead spaceships.
+     */
+    List<SpaceShip> getSpaceshipGarbageCart() {
+        return spaceshipGarbageCart;
+    }
+
+    /**
      * Gets the obstacles in this game.
      *
      * @return the list of SpaceObstacles.
      */
     List<Obstacle> getObstacles() {
         return spaceObstacles;
-    }
-
-    List<SpaceShip> getSpaceshipGarbageCart() {
-        return spaceshipGarbageCart;
     }
 
     /**
@@ -171,19 +163,6 @@ class AdventureManager extends Observable implements Manager{
         List<Integer> list = new ArrayList<>();
         for (SpaceShip s : spaceshipGarbageCart) {
             list.add(s.getCollection());
-        }
-        return list;
-    }
-
-    /**
-     * Gets a list containing the score of each spaceship.
-     *
-     * @return a list containing the score of each spaceship.
-     */
-    List<Integer> getScores() {
-        List<Integer> list = new ArrayList<>();
-        for (SpaceShip s : spaceShipList) {
-            list.add(s.getScore());
         }
         return list;
     }
@@ -283,11 +262,20 @@ class AdventureManager extends Observable implements Manager{
     }
 
     /**
-     * Checks whether the spaceship hits an obstacle.
+     * Checks whether the spaceship hits a space item.
      *
      * @param s the spaceship to be checked.
      */
     private void checkHit(SpaceShip s) {
+        checkHitObstacle(s);
+        checkHitTreasuryBox(s);
+    }
+
+    /**
+     * Checks whether the spaceship hits an obstacle.
+     * @param s the spaceship to be checked.
+     */
+    private void checkHitObstacle(SpaceShip s) {
         int invincibleTime = s.getInvincibleTime();
         // If it's in 3 seconds invincible time(after it hits an obstacle), then the spaceship doesn't hit any obstacle.
         if (invincibleTime == 0) {
@@ -299,7 +287,13 @@ class AdventureManager extends Observable implements Manager{
         } else {
             s.setInvincibleTime(invincibleTime - 1);
         }
+    }
 
+    /**
+     * Checks whether the spaceship hits a treasury box.
+     * @param s the treasury box to be checked.
+     */
+    private void checkHitTreasuryBox(SpaceShip s) {
         for (Obstacle treasuryBox : treasuryBoxList) {
             if (s.checkGetTreasury(treasuryBox)) {
                 treasuryBoxGarbageCart.add(treasuryBox);
@@ -349,11 +343,13 @@ class AdventureManager extends Observable implements Manager{
      * Randomly generates a new obstacle.
      */
     private void checkGeneration(ItemGenerator generator, List<Obstacle> list) {
-        Obstacle newObstacle = (Obstacle) generator.checkGeneration();
-        if (newObstacle != null) {
-            list.add(newObstacle);
-            if (list.size() == 1) {
-                System.out.print(newObstacle.getSpeed());
+        if (generator != null) {
+            Obstacle newObstacle = (Obstacle) generator.checkGeneration();
+            if (newObstacle != null) {
+                list.add(newObstacle);
+                if (list.size() == 1) {
+                    System.out.print(newObstacle.getSpeed());
+                }
             }
         }
     }
