@@ -34,17 +34,18 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginEnd="146dp"
-        android:layout_marginBottom="151dp"
+        android:layout_marginEnd="144dp"
+        android:layout_marginBottom="261dp"
         android:text="@string/customize" />
 
     <Button
-        android:id="@+id/resume"
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="151dp"
-        android:layout_marginBottom="250dp"
-        android:text="@string/continue_game" />
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="174dp"
+        android:text="@string/about" />
+
 </RelativeLayout>
