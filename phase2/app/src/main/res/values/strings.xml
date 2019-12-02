@@ -70,4 +70,5 @@
     <string name="puzzle_instruction">To solve, slide the tile across the screen</string>
     <string name="about">About</string>
     <string name="quit">QUIT</string>
+    <string name="WAM">Whack-a-Mole</string>
 </resources>
