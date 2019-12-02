@@ -25,7 +25,7 @@ public class MoleManager extends Observable{
         t_score = reaction.findViewById(R.id.score);
         t_timer = reaction.findViewById(R.id.timer);
         score = 0;
-        timer = 10;//TODO: only for testing, should be changed when all the bug fixed
+        timer = 10;//TODO: only for testing, should be changed to 60 when all the bug fixed;
         refreshTime = speed;
         generateMole = new MoleThread();
         time = new TimeThread();
