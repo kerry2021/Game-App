@@ -4,8 +4,17 @@ import android.widget.Toast;
 
 
 class TimeThread extends Thread {
+    /**
+     * whether or not the game is running
+     */
     private boolean running;
+    /**
+     * using class reaction game activity to pause/resume/end the game and pause the time thread
+     */
     private ReactionGameActivity reaction;
+    /**
+     * if running tell the molemanager to keep producing moles
+     */
     private MoleManager moleManager;
     public void run() {
         while (moleManager.getTimer() >= 0) {
@@ -29,6 +38,9 @@ class TimeThread extends Thread {
             }
         }
     }
+    /**
+     * set whether or not the game is running
+     */
     public void setRunning(boolean setRunning){
         this.running = setRunning;
     }
