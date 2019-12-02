@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -13,6 +12,7 @@ import com.example.gameproject.puzzle_game.Activity.PuzzleGameIntroActivity;
 import com.example.gameproject.reaction_game.ReactionGameMain;
 
 import java.io.File;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,9 +36,14 @@ public class MainActivity extends AppCompatActivity {
 
         User.setFile(new File(this.getFilesDir(), "User_info.txt"));
 
-        //create a default user
-        currentUser = new User("player", "default");
-        currentUser.write();
+        Intent intent = getIntent();
+        if (intent.getSerializableExtra("user") != null) {
+            currentUser = (User) intent.getSerializableExtra("user");
+        } else {
+            //create a default user
+            currentUser = new User("player", "default");
+            currentUser.write();
+        }
 
         assert currentUser != null;
         setTitle("Welcome Back: " + currentUser.get("userName"));
@@ -98,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 currentUser = (User) data.getSerializableExtra("user");
-                setTitle("Welcome Back:" + currentUser.get("userName"));
+                setTitle("Welcome Back:" + Objects.requireNonNull(currentUser).get("userName"));
                 currentUser.write();
             }
         }
@@ -107,7 +112,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        currentUser = User.getUser(currentUser.get("userName"), currentUser.get("passWord"));
+        try {
+            currentUser = User.getUser(currentUser.get("userName"), currentUser.get("passWord"));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            currentUser = new User("player", "default");
+            currentUser.write();
+        }
     }
 
     @Override
