@@ -13,10 +13,6 @@ import com.example.gameproject.User;
 
 public class ReactionGameMain extends AppCompatActivity {
     /**
-     * game manager that in charge of starting a new game
-     */
-    private ReactionGameManager gameManager;
-    /**
      * user that stores all the preferences or a new user object
      */
     static User currentUser;
@@ -46,8 +42,6 @@ public class ReactionGameMain extends AppCompatActivity {
      */
     private void setplay() {
         findViewById(R.id.play).setOnClickListener(v -> {
-            gameManager.newGame();
-
             Intent i = new Intent(this, ReactionGameActivity.class);
             startActivity(i);
 
