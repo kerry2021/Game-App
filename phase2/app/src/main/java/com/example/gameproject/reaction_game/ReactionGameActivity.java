@@ -102,6 +102,9 @@ public class ReactionGameActivity extends AppCompatActivity {
         pause_or_resume.setBackgroundResource(R.drawable.pause);
         moleManager.start();
     }
+    /**
+     * set the pause and resume button
+     */
     private void initButton(){
         pause_or_resume = findViewById(R.id.pause_or_resume);
 
@@ -151,7 +154,9 @@ public class ReactionGameActivity extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * the end game method
+     */
     public void endGame(){
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
