@@ -17,12 +17,9 @@ public class MoleManager extends Observable{
     private MoleThread generateMole;
     private ClickImage clicker;
     private boolean hit;
-    private TextView t_score, t_timer;
     private int timer, currStep,running;
 
     public MoleManager(ReactionGameActivity reaction,int speed){
-        t_score = reaction.findViewById(R.id.score);
-        t_timer = reaction.findViewById(R.id.timer);
         timer = 10;//TODO: only for testing, should be changed to 60 when all the bug fixed;
         generateMole = new MoleThread();
         time = new TimeThread();
@@ -35,10 +32,6 @@ public class MoleManager extends Observable{
         generateMole.setActivity(reaction,this, moles);
         time.setActivity(reaction, this);
         clicker.setReaction(this);
-
-
-
-        t_score.setText("0");
 
     }
 
@@ -73,16 +66,8 @@ public class MoleManager extends Observable{
         timer--;
     }
 
-    public TextView getT_score(){
-        return t_score;
-    }
-
     public int getTimer(){
         return this.timer;
-    }
-
-    public TextView getT_time(){
-        return this.t_timer;
     }
 
     public int getScore(){

@@ -39,7 +39,7 @@ public class ReactionGameActivity extends AppCompatActivity {
 
         user = ReactionGameMain.currentUser;
         moleManager = new MoleManager(this, getSpeed());
-        moleDrawer = new MoleDrawer();
+        moleDrawer = new MoleDrawer(this);
         moleManager.addObserver((Observer)moleDrawer);
         initButton();
         pause_before = false;
