@@ -68,4 +68,6 @@
     <string name="special_characters_found">Password can not contain special characters : ; or -</string>
     <string name="redundant_user">This user already exist</string>
     <string name="puzzle_instruction">To solve, slide the tile across the screen</string>
+    <string name="about">About</string>
+    <string name="quit">QUIT</string>
 </resources>

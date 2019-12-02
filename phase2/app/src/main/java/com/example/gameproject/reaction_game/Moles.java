@@ -70,8 +70,8 @@ public class Moles {
         return this.next == moleToID.get(v);
     }
 
-    public void setNext(int i){
-        next = i;
+    public void setNext(int next){
+        this.next = next;
     }
 
     public void generateNextMole(int next){
