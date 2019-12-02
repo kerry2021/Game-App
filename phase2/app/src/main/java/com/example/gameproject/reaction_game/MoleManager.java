@@ -19,14 +19,14 @@ public class MoleManager extends Observable{
     private boolean hit;
     private TextView t_score, t_timer;
     private int next, score, timer, currStep,running;
-    protected int refreashTime;
+    protected int refreshTime;
 
     public MoleManager(ReactionGameActivity reaction,int speed){
         t_score = reaction.findViewById(R.id.score);
         t_timer = reaction.findViewById(R.id.timer);
         score = 0;
         timer = 10;//TODO: only for testing, should be changed when all the bug fixed
-        refreashTime = speed;
+        refreshTime = speed;
         generateMole = new MoleThread();
         time = new TimeThread();
         clicker = new ClickImage();
@@ -56,7 +56,7 @@ public class MoleManager extends Observable{
     public void ifHit (View v){
         running = 3;
         if (next == moles.getNext(v)) {
-            score += ((double)750/refreashTime) * 100;
+            score += ((double)750/refreshTime) * 100;
             hit = true;
         }
         else{

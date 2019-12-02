@@ -12,7 +12,7 @@ class MoleThread extends Thread {
             while (true) {
                 if (Running && step==1) {
                     if (reaction.pause_before) {
-                        Thread.sleep(moleManager.refreashTime);
+                        Thread.sleep(moleManager.refreshTime);
                         reaction.pause_before = false;
                     }
                     next = 0;
@@ -28,9 +28,9 @@ class MoleThread extends Thread {
                     }
                     moleManager.updateScreen(next, step);
                     if (reaction.random)
-                        moleManager.refreashTime = (int) (Math.random() * 751) + 250;
+                        moleManager.refreshTime = (int) (Math.random() * 751) + 250;
                     setStep(1);
-                    Thread.sleep(moleManager.refreashTime);//time pause for 0.75s, by default, allow the screen to stay in mole for 0.75s
+                    Thread.sleep(moleManager.refreshTime);//time pause for 0.75s, by default, allow the screen to stay in mole for 0.75s
                 }
             }
         }

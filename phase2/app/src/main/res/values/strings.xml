@@ -67,4 +67,5 @@
     <string name="signup_error">User name or Password Cannot be empty</string>
     <string name="special_characters_found">Password can not contain special characters : ; or -</string>
     <string name="redundant_user">This user already exist</string>
+    <string name="puzzle_instruction">To solve, slide the tile across the screen</string>
 </resources>
