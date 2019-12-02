@@ -7,7 +7,6 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.gameproject.MainActivity;
 import com.example.gameproject.R;
 import com.example.gameproject.User;
 
@@ -48,6 +47,7 @@ public class ReactionGameMain extends AppCompatActivity {
         });
 
     }
+
     /**
      * when the back button is pressed, go back to the previous page
      */

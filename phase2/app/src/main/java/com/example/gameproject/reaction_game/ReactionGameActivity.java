@@ -1,6 +1,5 @@
 package com.example.gameproject.reaction_game;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.gameproject.MainActivity;
 import com.example.gameproject.R;
 import com.example.gameproject.User;
 
@@ -28,7 +26,7 @@ public class ReactionGameActivity extends AppCompatActivity {
     /**
      * the button to pause or resume the game
      */
-    private ImageButton pause_or_resume;;
+    private ImageButton pause_or_resume;
     /**
      * true if the player have set the game to random speed.
      */
@@ -62,7 +60,7 @@ public class ReactionGameActivity extends AppCompatActivity {
         user = ReactionGameMain.currentUser;
         moleManager = new MoleManager(this, getSpeed());
         moleDrawer = new MoleDrawer(this);
-        moleManager.addObserver((Observer)moleDrawer);
+        moleManager.addObserver((Observer) moleDrawer);
         initButton();
         pause_before = false;
 
@@ -76,7 +74,7 @@ public class ReactionGameActivity extends AppCompatActivity {
         int speed;
         try {
             speed = Integer.parseInt(user.get("reaction_game_speed"));
-        } catch (Exception e){
+        } catch (Exception e) {
             speed = 750;
         }
         return speed;
@@ -85,10 +83,10 @@ public class ReactionGameActivity extends AppCompatActivity {
     /**
      * if the player customized the speed to be random
      */
-    private void setRandom(){
+    private void setRandom() {
         try {
             random = Boolean.parseBoolean(user.get("reaction_game_random"));
-        } catch (Exception e){
+        } catch (Exception e) {
             random = false;
         }
     }
@@ -97,19 +95,20 @@ public class ReactionGameActivity extends AppCompatActivity {
      * while the game is paused, resume the game by pressing the pause button one more time
      */
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         pause_or_resume.setBackgroundResource(R.drawable.pause);
         moleManager.start();
     }
+
     /**
      * set the pause and resume button
      */
-    private void initButton(){
+    private void initButton() {
         pause_or_resume = findViewById(R.id.pause_or_resume);
 
         pause_or_resume.setOnClickListener(view -> {//to pause
-            if(!pause){
+            if (!pause) {
                 pause_or_resume.setBackgroundResource(R.drawable.resume);
                 pause = true;
                 moleManager.pause();
@@ -121,7 +120,7 @@ public class ReactionGameActivity extends AppCompatActivity {
     /**
      * function to pause the game, freeze all the thread and pause mole from generating
      */
-    private void pauseGame(){
+    private void pauseGame() {
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
@@ -136,7 +135,7 @@ public class ReactionGameActivity extends AppCompatActivity {
         // show the popup window
         // which view you pass in doesn't matter, it is only used for the window token
         popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
-        Button exitButton,resumeButton;
+        Button exitButton, resumeButton;
 
         exitButton = popupView.findViewById(R.id.save);
         resumeButton = popupView.findViewById(R.id.resume_reaction);
@@ -157,7 +156,7 @@ public class ReactionGameActivity extends AppCompatActivity {
     /**
      * the end game method
      */
-    public void endGame(){
+    public void endGame() {
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
@@ -188,8 +187,9 @@ public class ReactionGameActivity extends AppCompatActivity {
             finish();
         });
     }
+
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         moleManager.stop();
     }

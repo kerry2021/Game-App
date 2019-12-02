@@ -13,15 +13,17 @@ public class MoleDrawer implements Observer {
      * the score and time that's going to be displayed while playing
      */
     private TextView t_score, t_timer;
+
     /**
      * initialize object in layout
      */
-    public MoleDrawer(ReactionGameActivity reaction){
+    public MoleDrawer(ReactionGameActivity reaction) {
         super();
         t_score = reaction.findViewById(R.id.score);
         t_timer = reaction.findViewById(R.id.timer);
         t_score.setText("0");
     }
+
     /**
      * update the mole information if a mole got hit
      */
@@ -34,11 +36,9 @@ public class MoleDrawer implements Observer {
                 setMole(moleManager);
             else
                 resetScreen(moleManager);
-        }
-        else if (moleManager.watRunning() == 2){
+        } else if (moleManager.watRunning() == 2) {
             setTime(moleManager);
-        }
-        else{
+        } else {
             if (moleManager.hitMole())
                 setHit(moleManager);
             else
@@ -46,40 +46,45 @@ public class MoleDrawer implements Observer {
         }
 
     }
+
     /**
      * change the time to specific value
      */
-    private void setTime(MoleManager moleManager){
+    private void setTime(MoleManager moleManager) {
         String ts = "" + moleManager.getTimer();
         t_timer.setText(ts);
     }
+
     /**
      * reset all buttons to hole
      */
-    private void resetScreen(MoleManager moleManager){
-        ImageButton [] buttons = moleManager.getAllMoles();
-        for(int i =0;i < 9;i++)
+    private void resetScreen(MoleManager moleManager) {
+        ImageButton[] buttons = moleManager.getAllMoles();
+        for (int i = 0; i < 9; i++)
             buttons[i].setBackgroundResource(R.drawable.hole);
     }
+
     /**
      * a mole appears in one of nine position
      */
-    private void setMole(MoleManager moleManager){
+    private void setMole(MoleManager moleManager) {
         resetScreen(moleManager);
         moleManager.getNextMole().setBackgroundResource(R.drawable.mole);
     }
+
     /**
      * when we hit a mole, we update information from the existing moles and update the score
      */
-    private void setHit(MoleManager moleManager){
+    private void setHit(MoleManager moleManager) {
         moleManager.getNextMole().setBackgroundResource(R.drawable.hit);
         String ts = "" + moleManager.getScore();
         t_score.setText(ts);
     }
+
     /**
      * if we didn't hit the mole, score doesn't change
      */
-    private void setNotHit(MoleManager moleManager){
+    private void setNotHit(MoleManager moleManager) {
         resetScreen(moleManager);
         moleManager.getHitPosition().setBackgroundResource(R.drawable.miss);
     }

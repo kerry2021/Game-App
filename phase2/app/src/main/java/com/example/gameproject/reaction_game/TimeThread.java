@@ -16,6 +16,7 @@ class TimeThread extends Thread {
      * if running tell the molemanager to keep producing moles
      */
     private MoleManager moleManager;
+
     public void run() {
         while (moleManager.getTimer() >= 0) {
             try {
@@ -34,17 +35,19 @@ class TimeThread extends Thread {
                 });
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-            } catch (Exception e){
+            } catch (Exception e) {
             }
         }
     }
+
     /**
      * set whether or not the game is running
      */
-    public void setRunning(boolean setRunning){
+    public void setRunning(boolean setRunning) {
         this.running = setRunning;
     }
-    public void setActivity(ReactionGameActivity action, MoleManager moleManager){
+
+    public void setActivity(ReactionGameActivity action, MoleManager moleManager) {
         this.reaction = action;
         this.moleManager = moleManager;
     }

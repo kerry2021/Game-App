@@ -2,7 +2,6 @@ package com.example.gameproject.reaction_game;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -14,6 +13,7 @@ import com.example.gameproject.User;
 
 public class ReactionCustomize extends AppCompatActivity {
     private User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +30,8 @@ public class ReactionCustomize extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
         confirmButton = (Button) findViewById(R.id.confirm);
-        confirmButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 String getSpeed = spinner.getSelectedItem().toString();
                 user.set("reaction_game_random", "false");
                 if (getSpeed.equals("0.25 s/mole"))

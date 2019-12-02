@@ -13,7 +13,7 @@ public class Moles {
     /**
      * list of image buttons which represent 9 moles
      */
-    private ImageButton[] buttons= new ImageButton[9];
+    private ImageButton[] buttons = new ImageButton[9];
     /**
      * a hashmap that represent the game field
      */
@@ -33,65 +33,70 @@ public class Moles {
     /**
      * the score that keep track of the number of mole the player has hit in total
      */
-    private int score,next;
+    private int score, next;
 
 
-    public Moles(ReactionGameActivity reaction, ClickImage clicker, int refreshTime, int score){
+    public Moles(ReactionGameActivity reaction, ClickImage clicker, int refreshTime, int score) {
         this.refreshTime = refreshTime;
         this.score = score;
-        for (int i =0; i<9; i++){
-            int id = reaction.getResources().getIdentifier("btn_" + (i+1),"id", reaction.getPackageName());
-            buttons[i]= reaction.findViewById(id);
+        for (int i = 0; i < 9; i++) {
+            int id = reaction.getResources().getIdentifier("btn_" + (i + 1), "id", reaction.getPackageName());
+            buttons[i] = reaction.findViewById(id);
             buttons[i].setOnClickListener(clicker);
-            nextToMole.put(i + 1,buttons[i]);
+            nextToMole.put(i + 1, buttons[i]);
             moleToID.put(buttons[i], i + 1);
         }
     }
+
     /**
      * return buttons of all moles
      */
-    public ImageButton [] getAllMoles(){
+    public ImageButton[] getAllMoles() {
         return buttons;
     }
+
     /**
      * display the score onto game board
      */
-    public void generateScore(){
-        score += ((double)daultSpeed/getRefreshTime()) * 100;
+    public void generateScore() {
+        score += ((double) daultSpeed / getRefreshTime()) * 100;
     }
+
     /**
      * set the refresh time for the mole to be displayed
      */
-    public void generateRefreshTime(){
+    public void generateRefreshTime() {
         refreshTime = (int) (Math.random() * 751) + 250;
     }
 
-    public boolean checkSame(View v){
+    public boolean checkSame(View v) {
         return this.next == moleToID.get(v);
     }
 
-    public void setNext(int next){
+    public void setNext(int next) {
         this.next = next;
     }
 
-    public void generateNextMole(int next){
+    public void generateNextMole(int next) {
         this.next = next;
         nextMole = nextToMole.get(next);
     }
+
     /**
      * find the refresh time for the game
      */
-    public int getRefreshTime(){
+    public int getRefreshTime() {
         return refreshTime;
     }
+
     /**
      * find the total moles that has been hit
      */
-    public int getScore(){
+    public int getScore() {
         return score;
     }
 
-    public ImageButton getNextMole(){
+    public ImageButton getNextMole() {
         return nextMole;
     }
 
