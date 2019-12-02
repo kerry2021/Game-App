@@ -44,7 +44,7 @@ public class SinglePlayerMode implements Mode {
         Bundle bundle = new Bundle();
         bundle.putString("mode", "SinglePlayerMode");
         for (SpaceShip s : ((AdventureManager) manager).getSpaceshipGarbageCart()) {
-            bundle.putString("score", String.valueOf(s.getScore() / 30 * 100));
+            bundle.putString("score", String.valueOf(s.getScore() / 60 * 100));
             bundle.putString("collection", String.valueOf(s.getCollection()));
         }
         intent.putExtras(bundle);
