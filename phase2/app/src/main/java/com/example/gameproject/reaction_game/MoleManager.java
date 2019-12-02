@@ -12,33 +12,31 @@ import java.util.Observable;
 public class MoleManager extends Observable{
 
     private Moles moles;
-    private ImageButton nextMole,hitPosition;
+    private ImageButton hitPosition;
     private TimeThread time;
     private MoleThread generateMole;
     private ClickImage clicker;
     private boolean hit;
     private TextView t_score, t_timer;
-    private int next, score, timer, currStep,running;
-    protected int refreshTime;
+    private int timer, currStep,running;
 
     public MoleManager(ReactionGameActivity reaction,int speed){
         t_score = reaction.findViewById(R.id.score);
         t_timer = reaction.findViewById(R.id.timer);
-        score = 0;
         timer = 10;//TODO: only for testing, should be changed to 60 when all the bug fixed;
-        refreshTime = speed;
         generateMole = new MoleThread();
         time = new TimeThread();
         clicker = new ClickImage();
+        moles = new Moles(reaction,clicker,speed,0);
         generateMole.setRunning(true);
         time.setRunning(true);
         clicker.setMovable(true);
         generateMole.setStep(1);
-        generateMole.setActivity(reaction,this);
+        generateMole.setActivity(reaction,this, moles);
         time.setActivity(reaction, this);
         clicker.setReaction(this);
 
-        moles = new Moles(reaction,clicker);
+
 
         t_score.setText("0");
 
@@ -46,8 +44,7 @@ public class MoleManager extends Observable{
 
     public void updateScreen(int next, int step){
         running = 1;
-        this.next = next;
-        nextMole = moles.getMole(next);
+        moles.generateNextMole(next);
         currStep = step;
         setChanged();
         notifyObservers();
@@ -55,8 +52,8 @@ public class MoleManager extends Observable{
 
     public void ifHit (View v){
         running = 3;
-        if (next == moles.getNext(v)) {
-            score += ((double)750/refreshTime) * 100;
+        if (moles.checkSame(v)) {
+            moles.generateScore();
             hit = true;
         }
         else{
@@ -64,7 +61,7 @@ public class MoleManager extends Observable{
             hitPosition = (ImageButton)v;
         }
 
-        next = 0;
+        moles.setNext(0);
         setChanged();
         notifyObservers();
     }
@@ -89,12 +86,13 @@ public class MoleManager extends Observable{
     }
 
     public int getScore(){
-        return this.score;
+        return moles.getScore();
     }
 
     public int watRunning(){
         return running;
     }
+
     public ImageButton getHitPosition(){
         return this.hitPosition;
     }
@@ -108,7 +106,7 @@ public class MoleManager extends Observable{
     }
 
     public ImageButton getNextMole(){
-        return nextMole;
+        return moles.getNextMole();
     }
 
     public ImageButton[] getAllMoles(){
