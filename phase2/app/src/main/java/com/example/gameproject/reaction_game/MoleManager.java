@@ -20,7 +20,7 @@ public class MoleManager extends Observable{
     private int timer, currStep,running;
 
     public MoleManager(ReactionGameActivity reaction,int speed){
-        timer = 60;//TODO: only for testing, should be changed to 60 when all the bug fixed;
+        timer = 60;
         generateMole = new MoleThread();
         time = new TimeThread();
         clicker = new ClickImage();
