@@ -48,6 +48,9 @@ public class ReactionGameMain extends AppCompatActivity {
         findViewById(R.id.play).setOnClickListener(v -> {
             gameManager.newGame();
 
+            /**
+             * start a new reactiongame activity
+             */
             Intent i = new Intent(this, ReactionGameActivity.class);
             startActivity(i);
 
