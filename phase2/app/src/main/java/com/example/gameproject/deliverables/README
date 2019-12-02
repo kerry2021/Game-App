@@ -4,11 +4,13 @@ with the above lcd densities
 3. There maybe occasional issues with android studio where java files are turned blank for unknown reasons(this
 only happened once), if that happened the file affected needs to be recovered from previous commits.
 4. Once the game starts, make sure to create an account by navigating to Log In - Sign Up page. You can still play
-without an account but your progress may not be saved for the next time
-5. There are three mini games in total in this game, you can read about how to play each one in each their starting page
-6. (Phase 2)All games have a difficulty setting, if you are starting out you may want to play on lower difficulty first.
-7. (Phase 2)As a bonus feature, You have 9 pieces of picture to unlock in the game. You can unlock
-    them by playing any of the three mini-games and reach a certain goal.
+without an account but your progress may not be saved for the next time.
+5. There may be occasional issues with Android emulator. This could result in problems in the file storing user info.
+In that case, please wipe data and cold boot your device in AVD manager, and all should be fine.
+6. There are three mini games in total in this game, you can read about how to play each one in each their starting page
+7. (Phase 2)All games have a difficulty setting, if you are starting out you may want to play on lower difficulty first.
+8. (Phase 2)As a bonus feature, You have 9 pieces of picture to unlock in the game. You can unlock
+    them by playing any of the three mini-games and reaching a certain goal.
 
     In Obstacle game you can collect yellow treasure boxes by colliding with them, which will unlock
     a piece of the picture.
