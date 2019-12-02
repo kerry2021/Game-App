@@ -21,12 +21,34 @@ import java.util.Observer;
 
 
 public class ReactionGameActivity extends AppCompatActivity {
+    /**
+     * user object that stores all the preferences of the user.
+     */
     private User user;
+    /**
+     * the button to pause or resume the game
+     */
     private ImageButton pause_or_resume;;
+    /**
+     * true if the player have set the game to random speed.
+     */
     protected boolean random;
+    /**
+     * boolean that represents whether or not the game has been paused before finished,
+     * if paused then data will not be stored
+     */
     protected boolean pause_before;
+    /**
+     * boolean that represents whether or not the game has been paused
+     */
     private boolean pause = false;
+    /**
+     * class that in charge of checking whether or not a mole has been hit, if hit increase the point
+     */
     private MoleManager moleManager;
+    /**
+     * class that responsible for drawing the mole from a moleManager
+     */
     private MoleDrawer moleDrawer;
 
 
@@ -47,6 +69,9 @@ public class ReactionGameActivity extends AppCompatActivity {
         setRandom();
     }
 
+    /**
+     * get the speed that the user set from the customize or by default value 750
+     */
     private int getSpeed() {
         int speed;
         try {
@@ -57,6 +82,9 @@ public class ReactionGameActivity extends AppCompatActivity {
         return speed;
     }
 
+    /**
+     * if the player customized the speed to be random
+     */
     private void setRandom(){
         try {
             random = Boolean.parseBoolean(user.get("reaction_game_random"));
@@ -65,7 +93,9 @@ public class ReactionGameActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * while the game is paused, resume the game by pressing the pause button one more time
+     */
     @Override
     protected void onResume(){
         super.onResume();
@@ -85,7 +115,9 @@ public class ReactionGameActivity extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * function to pause the game, freeze all the thread and pause mole from generating
+     */
     private void pauseGame(){
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -118,6 +150,8 @@ public class ReactionGameActivity extends AppCompatActivity {
             moleManager.resume();
         });
     }
+
+
     public void endGame(){
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);

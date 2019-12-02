@@ -12,7 +12,13 @@ import com.example.gameproject.R;
 import com.example.gameproject.User;
 
 public class ReactionGameMain extends AppCompatActivity {
+    /**
+     * game manager that in charge of starting a new game
+     */
     private ReactionGameManager gameManager;
+    /**
+     * user that stores all the preferences or a new user object
+     */
     static User currentUser;
 
     @Override
@@ -21,8 +27,6 @@ public class ReactionGameMain extends AppCompatActivity {
         setContentView(R.layout.activity_reaction_game_main);
         currentUser = (User) getIntent().getSerializableExtra("user");
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
-        gameManager = new ReactionGameManager(currentUser, this);
 
         Button customizeButton;
 
@@ -37,7 +41,9 @@ public class ReactionGameMain extends AppCompatActivity {
 
     }
 
-
+    /**
+     * To start a new game
+     */
     private void setplay() {
         findViewById(R.id.play).setOnClickListener(v -> {
             gameManager.newGame();
@@ -48,7 +54,9 @@ public class ReactionGameMain extends AppCompatActivity {
         });
 
     }
-
+    /**
+     * when the back button is pressed, go back to the previous page
+     */
     public void onBackPressed() {
         currentUser.write();
         finish();
