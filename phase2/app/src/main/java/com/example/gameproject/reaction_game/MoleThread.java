@@ -6,13 +6,14 @@ class MoleThread extends Thread {
     private int next;
     private ReactionGameActivity reaction;
     private MoleManager moleManager;
+    private Moles mole;
     private int step;// in order to let this thread remain in next status after clicking pause
     public void run(){
         try{
             while (true) {
                 if (Running && step==1) {
                     if (reaction.pause_before) {
-                        Thread.sleep(moleManager.refreshTime);
+                        Thread.sleep(mole.getRefreshTime());
                         reaction.pause_before = false;
                     }
                     next = 0;
@@ -28,9 +29,9 @@ class MoleThread extends Thread {
                     }
                     moleManager.updateScreen(next, step);
                     if (reaction.random)
-                        moleManager.refreshTime = (int) (Math.random() * 751) + 250;
+                        mole.generateRefreshTime();
                     setStep(1);
-                    Thread.sleep(moleManager.refreshTime);//time pause for 0.75s, by default, allow the screen to stay in mole for 0.75s
+                    Thread.sleep(mole.getRefreshTime());//time pause for 0.75s, by default, allow the screen to stay in mole for 0.75s
                 }
             }
         }
@@ -45,8 +46,9 @@ class MoleThread extends Thread {
     public void setStep(int step){
         this.step=step;
     }
-    public void setActivity(ReactionGameActivity action, MoleManager moleManager){
+    public void setActivity(ReactionGameActivity action, MoleManager moleManager, Moles mole){
         this.reaction = action;
         this.moleManager = moleManager;
+        this.mole = mole;
     }
 }
