@@ -107,8 +107,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        //currentUser = User.getUser(currentUser.get("userName"), currentUser.get("passWord"));
-        //Log.i("info", currentUser.get("collectible progress"));
+        currentUser = User.getUser(currentUser.get("userName"), currentUser.get("passWord"));
     }
 
     @Override
